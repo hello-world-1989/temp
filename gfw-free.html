@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./tailwindcss.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <title>拆墙运动 普及翻墙 完全免费翻墙软件</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+    />
+    <meta
+      name="keywords"
+      content="完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+    />
+
+    <script>
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('header').innerHTML = text;
+
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
+
+          mobileHeader.classList.add('hidden');
+
+          closeMenu.onclick = () => {
+            mobileHeader.classList.add('hidden');
+          };
+
+          openMenu.onclick = () => {
+            mobileHeader.classList.remove('hidden');
+          };
+        });
+
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((text) => (document.getElementById('footer').innerHTML = text));
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main>
+      <div
+        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pb-24 sm:pt-12 lg:max-w-7xl lg:px-8 lg:pb-20"
+      >
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="obfs4-instance">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            <p>Tor Browser浏览器, Orbot VPN 网桥地址</p>
+            <p><span id="obfs4-update"></span>更新</p>
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <br />
+            <p
+              class="text-base leading-7 text-gray-600 overflow-x-auto"
+              id="obfs4"
+            ></p>
+          </dd>
+        </div>
+
+        <div
+          class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+          id="youtube-instance"
+        >
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免翻墙Youtube油管，李老师不是你老师频道
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/youtube.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙Youtube油管, <span id="youtube-update"></span>更新</a
+              >
+            </p>
+
+            <br />
+            <p class="text-base leading-7 text-gray-600" id="youtube"></p>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="nitter-instance">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免注册免翻墙查看推特X，李老师不是你老师推文
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/nitter.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙推特地址, <span id="nitter-update"></span>更新</a
+              >
+            </p>
+            <p>只需要在链接后加入推特账号即可, 例如</p>
+            <p>https://nitter.net/whyyoutouzhele</p>
+
+            <br />
+            <p class="text-base leading-7 text-gray-600" id="nitter"></p>
+          </dd>
+        </div>
+
+        <div
+          class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+          id="searchx-instance"
+        >
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免翻墙SearXNG搜索代理
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/searchx.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙搜索代理, <span id="searchx-update"></span>更新</a
+              >
+            </p>
+            <br />
+            <pre id="searchx" class="overflow-x-auto"></pre>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="wiki-instance">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免翻墙维基百科
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/wiki.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙维基百科, <span id="wiki-update"></span>更新</a
+              >
+            </p>
+
+            <br />
+            <p class="text-base leading-7 text-gray-600" id="wiki"></p>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            VPN Gate
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/cn-news/blob/main/server.txt"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >获取服务器地址, 每天更新</a
+              >
+            </p>
+            <p>
+              前往Mirror List中地址 下载微软电脑系统版本翻墙软件 下载 -> VPN
+              Gate Client 下载
+            </p>
+            <p>用户名vpn 密码vpn 预分享密钥或密钥vpn</p>
+            <p>苹果手机 设置 -> 通用 -> 最下边VPN -> 添加VPN配置 -> 添加L2TP</p>
+            <p>
+              安卓版本11以下 设置 -> 连接 -> VPN -> 添加VPN配置
+              或者在设置中搜索VPN
+            </p>
+
+            <br />
+            <pre id="vpn-gate" class="overflow-x-auto"></pre>
+          </dd>
+        </div>
+      </div>
+    </main>
+    <div id="footer"></div>
+
+    <script>
+      async function getData() {
+        const res = await fetch('/github');
+
+        const data = await res.text();
+
+        const vpnGateElement = document.getElementById('vpn-gate');
+
+        vpnGateElement.innerText = data;
+      }
+
+      getData();
+    </script>
+
+    <script>
+      async function getYoutube() {
+        const res = await fetch('/youtube');
+
+        const data = await res.json();
+
+        const youtubeElement = document.getElementById('youtube');
+        const updateElement = document.getElementById('youtube-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙Youtube油管镜像地址${i + 1}`;
+
+          youtubeElement.appendChild(linkElement);
+          youtubeElement.appendChild(breakLineElement);
+        });
+      }
+
+      getYoutube();
+    </script>
+
+    <script>
+      async function getWiki() {
+        const res = await fetch('/wiki');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('wiki');
+        const updateElement = document.getElementById('wiki-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙维基百科镜像地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getWiki();
+    </script>
+
+    <script>
+      async function getNitter() {
+        const res = await fetch('/nitter');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('nitter');
+        const updateElement = document.getElementById('nitter-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙免注册推特镜像地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getNitter();
+    </script>
+
+    <script>
+      async function getSearchX() {
+        const res = await fetch('/searchx');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('searchx');
+        const updateElement = document.getElementById('searchx-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙搜索代理地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getSearchX();
+    </script>
+
+    <script>
+      async function getObfs4() {
+        const res = await fetch('/obfs4');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('obfs4');
+        const updateElement = document.getElementById('obfs4-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('code');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.innerText = item;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getObfs4();
+    </script>
+
+    <script>
+      async function getHost() {
+        const res = await fetch('/host');
+
+        const data = await res.json();
+
+        const linkElement1 = document.getElementById('host1');
+        const linkElement2 = document.getElementById('host2');
+
+        linkElement1.href = 'http://' + data.hostname;
+        linkElement1.innerText =
+          data.status === 'success' ? '镜像站可访问' : '镜像站被屏蔽';
+
+        linkElement2.href = 'http://' + data.hostname;
+        linkElement2.innerText =
+          data.status === 'success' ? '镜像站可访问' : '镜像站被屏蔽';
+      }
+
+      getHost();
+    </script>
+  </body>
+</html>

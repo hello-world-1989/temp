@@ -1,0 +1,12 @@
+[submodule "mac"]
+	path = mac
+	url = https://github.com/hello-world-1989/mac.git
+	branch = init
+[submodule "windows"]
+	path = windows
+	url = https://github.com/hello-world-1989/windows.git
+	branch = init
+[submodule "android"]
+	path = android
+	url = https://github.com/hello-world-1989/android.git
+	branch = init
