@@ -5,7 +5,7 @@
 
 ## 如果是fork的repo，请查看 最新翻墙说明.md 或 [备用链接](https://github.com/hello-world-1989/temp) 
 
-> 华为手机等国产手机可能无法使用以下翻墙应用，建议购买三星等非国产手机
+> 华为手机等国产手机内置反诈插件且无法卸载，无法使用以下翻墙应用，建议购买三星等非国产手机
 
 >手机应用建议安装国外版本（APKPure下载），比如国外版微信 小红书 支付宝等，不要安装反诈应用，杀毒应用等
 
@@ -464,7 +464,13 @@ X Icon Changer 将应用伪装为其它应用，防止被查手机
 
 如果你是开发者，fork这个仓库，使政府无法封杀
 
-[动态网, 免翻墙访问，包含美国之音 自由亚洲电台等境外媒体](https://free6.freeku6.xyz/21)
+[免翻墙新闻1，包含美国之音 自由亚洲电台等境外媒体](https://github.com/duty-machine/news)
+
+[免翻墙新闻2，包含美国之音 自由亚洲电台等境外媒体](https://github.com/hello-world-1989/cn-news/tree/main/%E6%96%B0%E9%97%BB)
+
+[动态网](https://fanx10.xyz/20 )
+
+[免翻墙Youtube](https://fanx10.xyz/45)
 
 </details>
 

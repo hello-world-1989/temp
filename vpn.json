@@ -592,7 +592,7 @@
     "name": "Jami通讯软件",
     "link1": "android/android-jami.zip",
     "link2": "https://github.com/hello-world-1989/android/raw/main/android-jami.zip",
-    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私",
+    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私, 添加联系人见常见问题",
     "image": "images/jami.webp",
     "web": "https://jami.net/",
     "star": 5.1
@@ -603,7 +603,7 @@
     "name": "Jami通讯软件",
     "link1": "windows/windows-jami.zip",
     "link2": "https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/windows/windows-jami.zip",
-    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私",
+    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私, 添加联系人见常见问题",
     "image": "images/jami.webp",
     "web": "https://jami.net/",
     "star": 5.1
@@ -614,7 +614,7 @@
     "name": "Jami通讯软件",
     "link1": "#",
     "link2": "#",
-    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私",
+    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私, 添加联系人见常见问题",
     "image": "images/jami.webp",
     "web": "https://jami.net/",
     "star": 5.1
@@ -625,7 +625,7 @@
     "name": "Jami通讯软件",
     "link1": "mac/mac-jami.zip",
     "link2": "https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/mac/mac-jami.zip",
-    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私",
+    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私, 添加联系人见常见问题",
     "image": "images/jami.webp",
     "web": "https://jami.net/",
     "star": 5.1
@@ -636,7 +636,7 @@
     "name": "Jami通讯软件",
     "link1": "images/linux-jami.png",
     "link2": "https://gitlab.com/hello-world-1989/temp/-/raw/main/images/linux-jami.png",
-    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私",
+    "comment": "无需邮箱手机号通讯软件, 不要添加陌生人，会泄露隐私, 添加联系人见常见问题",
     "image": "images/jami.webp",
     "web": "https://jami.net/",
     "star": 5.1
@@ -691,7 +691,7 @@
     "name": "TeleGuard",
     "link1": "android/android-teleguard.zip",
     "link2": "https://github.com/hello-world-1989/android/raw/main/android-teleguard.zip",
-    "comment": "无需邮箱手机号通讯软件",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
     "image": "images/teleguard.webp",
     "web": "https://teleguard.com/en",
     "star": 2
@@ -702,7 +702,7 @@
     "name": "TeleGuard",
     "link1": "#",
     "link2": "#",
-    "comment": "无需邮箱手机号通讯软件",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
     "image": "images/teleguard.webp",
     "web": "https://teleguard.com/en",
     "star": 2
@@ -714,7 +714,7 @@
     "name": "TeleGuard",
     "link1": "windows/windows-teleguard.zip",
     "link2": "https://github.com/hello-world-1989/windows/raw/main/windows-teleguard.zip",
-    "comment": "无需邮箱手机号通讯软件",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
     "image": "images/teleguard.webp",
     "web": "https://teleguard.com/en",
     "star": 2
@@ -725,7 +725,7 @@
     "name": "TeleGuard",
     "link1": "mac/mac-teleguard.zip",
     "link2": "https://github.com/hello-world-1989/mac/raw/main/mac-teleguard.zip",
-    "comment": "无需邮箱手机号通讯软件",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
     "image": "images/teleguard.webp",
     "web": "https://teleguard.com/en",
     "star": 2
@@ -736,7 +736,7 @@
     "name": "TeleGuard",
     "link1": "#",
     "link2": "#",
-    "comment": "无需邮箱手机号通讯软件",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
     "image": "images/teleguard.webp",
     "web": "https://teleguard.com/en",
     "star": 2

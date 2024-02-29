@@ -10,3 +10,10 @@
 	path = android
 	url = https://github.com/hello-world-1989/android.git
 	branch = init
+[submodule "whyyoutouzhele"]
+	path = whyyoutouzhele
+	url = https://github.com/hello-world-1989/whyyoutouzhele.git
+	branch = init
+[submodule "ios"]
+	path = ios
+	url = https://github.com/hello-world-1989/ios.git
