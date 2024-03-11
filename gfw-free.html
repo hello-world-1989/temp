@@ -41,6 +41,20 @@
         .then((response) => response.text())
         .then((text) => (document.getElementById('footer').innerHTML = text));
     </script>
+    <script>
+      const currentDomain = window.location.hostname;
+
+      if (currentDomain.includes('end-gfw.com')) {
+        const adElement = document.createElement('script');
+
+        adElement.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
+        adElement.async = true;
+        adElement.crossorigin = 'anonymous';
+
+        document.body.appendChild(adElement);
+      }
+    </script>
   </head>
   <body>
     <div id="header"></div>
@@ -52,7 +66,7 @@
           <dt
             class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
           >
-            <p>镜像站</p>
+            <p>动态免墙IP镜像站</p>
             <p></p>
           </dt>
           <dd class="mt-4 lg:col-span-7 lg:mt-0">
@@ -60,7 +74,13 @@
               class="text-base leading-7 font-semibold text-indigo-600 overflow-x-auto"
               id="host1"
             ></a>
+            <br />
+            <a
+              class="text-base leading-7 font-semibold text-indigo-600 overflow-x-auto"
+              id="host2"
+            ></a>
           </dd>
+          <br />
         </div>
 
         <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="obfs4-instance">
@@ -112,35 +132,33 @@
           <dd class="mt-4 lg:col-span-7 lg:mt-0">
             <p class="text-base leading-7 text-gray-600">
               <a
-                href="https://github.com/hello-world-1989/accessible/blob/main/nitter.json"
-                target="_blank"
+                href="./whyyoutouzhele.html"
                 class="font-semibold text-indigo-600"
-                >免翻墙推特地址, <span id="nitter-update"></span>更新,
-                可能限流无法使用</a
+                >免翻墙免注册李老师推文, 点击访问</a
               >
             </p>
-            <p>只需要在链接后加入推特账号即可, 例如</p>
-            <p>https://nitter.net/whyyoutouzhele</p>
 
-            <br />
             <p class="text-base leading-7 text-gray-600" id="nitter"></p>
+            <br />
             <p class="text-base leading-7 text-gray-600">
               <a
                 href="https://github.com/hello-world-1989/whyyoutouzhele"
                 target="_blank"
                 class="font-semibold text-indigo-600"
-                >离线版本，方便传播</a
+                >离线版本下载，方便传播</a
               >
             </p>
 
-            <p class="text-base leading-7 text-gray-600">
-              <a
-                href="https://github.com/hello-world-1989/cn-news/blob/main/%E6%8E%A8%E7%89%B9/2023/p-Month-10/d-Day-22/A%E6%9D%8E%E8%80%81%E5%B8%88%E4%B8%8D%E6%98%AF%E4%BD%A0%E8%80%81%E5%B8%88.md"
-                target="_blank"
-                class="font-semibold text-indigo-600"
-                >Github实时版本</a
-              >
-            </p>
+            <nav
+              class="h-48 w-64 overflow-y-auto"
+              aria-label="Directory"
+              id="pdf"
+            ></nav>
+
+            <br />
+            <br />
+
+            <br />
           </dd>
         </div>
 
@@ -367,7 +385,7 @@
         });
       }
 
-      getNitter();
+      //getNitter();
     </script>
 
     <script>
@@ -446,13 +464,51 @@
         const data = await res.json();
 
         const linkElement1 = document.getElementById('host1');
+        const linkElement2 = document.getElementById('host2');
         const status = data.status === 'success' ? '可访问' : '被屏蔽';
 
         linkElement1.href = 'http://' + data.hostname;
-        linkElement1.innerText = `状态: ${status}, 更新时间: ${data.updateTime}, 点击访问`;
+
+        linkElement1.innerText = `点击访问, 状态: ${status}, 更新时间: ${data.updateTime}, http://${data.hostname}`;
+
+        linkElement2.href = 'https://' + data.hostname;
+        linkElement2.innerText = `点击访问, 状态: ${status}, 更新时间: ${data.updateTime}, 安全链接， 需要点击 高级 -> 继续, https://${data.hostname}`;
       }
 
       getHost();
+    </script>
+
+    <script>
+      async function getPDF() {
+        const res = await fetch('/pdf');
+
+        const data = await res.json();
+
+        const pdfElement = document.getElementById('pdf');
+
+        const elements = data.map(
+          (item) =>
+            `<div class='relative'>
+            <div class='sticky top-0 z-10 border-y border-b-gray-200 border-t-gray-100 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900'>
+              <h3>${item.year}</h3>
+            </div>
+            <ul role='list' class='divide-y divide-gray-100'>
+              <li class='flex gap-x-4 px-3 py-5'>
+
+                <div class='min-w-0'>
+                  <p class='text-sm font-semibold leading-6 text-gray-900'>
+                    <a href='${item.link}' target='_blank' class='font-semibold text-indigo-600'>${item.description}</a>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>`
+        );
+
+        pdfElement.innerHTML = elements.join('');
+      }
+
+      getPDF();
     </script>
   </body>
 </html>

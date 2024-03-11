@@ -41,6 +41,22 @@
         .then((response) => response.text())
         .then((text) => (document.getElementById('footer').innerHTML = text));
     </script>
+
+    <script>
+      const currentDomain = window.location.hostname;
+
+      if (currentDomain.includes('end-gfw.com')) {
+        const adElement = document.createElement('script');
+
+        adElement.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
+        adElement.async = true;
+        adElement.crossorigin = 'anonymous';
+
+        document.body.appendChild(adElement);
+      }
+    </script>
+    
   </head>
   <body>
     <div id="header"></div>

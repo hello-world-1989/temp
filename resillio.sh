@@ -17,6 +17,11 @@ sudo service resilio-sync restart
 
 127.0.0.1:8888
 
+firewall public listen port 
+
+sudo usermod -a -G ubuntu rslsync
+
+sudo service resilio-sync restart
 
 mkdir android/ windows/ mac/ linux/ ios/
 folders="android/ windows/ mac/ linux/ ios/"
