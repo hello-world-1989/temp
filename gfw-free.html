@@ -41,20 +41,7 @@
         .then((response) => response.text())
         .then((text) => (document.getElementById('footer').innerHTML = text));
     </script>
-    <script>
-      const currentDomain = window.location.hostname;
-
-      if (currentDomain.includes('end-gfw.com')) {
-        const adElement = document.createElement('script');
-
-        adElement.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
-        adElement.async = true;
-        adElement.crossorigin = 'anonymous';
-
-        document.body.appendChild(adElement);
-      }
-    </script>
+    
   </head>
   <body>
     <div id="header"></div>
@@ -66,7 +53,7 @@
           <dt
             class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
           >
-            <p>动态免墙IP镜像站</p>
+            <p>动态免墙IP镜像站, 可以安全分享到朋友圈而不被炸号</p>
             <p></p>
           </dt>
           <dd class="mt-4 lg:col-span-7 lg:mt-0">
@@ -461,18 +448,30 @@
       async function getHost() {
         const res = await fetch('/host');
 
-        const data = await res.json();
+        const dataArr = await res.json();
+
+        const data = dataArr?.[0];
 
         const linkElement1 = document.getElementById('host1');
-        const linkElement2 = document.getElementById('host2');
-        const status = data.status === 'success' ? '可访问' : '被屏蔽';
 
-        linkElement1.href = 'http://' + data.hostname;
+        linkElement1.href = `http://${data.ip}:${data.port}`;
 
-        linkElement1.innerText = `点击访问, 状态: ${status}, 更新时间: ${data.updateTime}, http://${data.hostname}`;
+        linkElement1.innerText = `点击访问, http://${data.ip}:${data.port}`;
 
-        linkElement2.href = 'https://' + data.hostname;
-        linkElement2.innerText = `点击访问, 状态: ${status}, 更新时间: ${data.updateTime}, 安全链接， 需要点击 高级 -> 继续, https://${data.hostname}`;
+        if (dataArr.length > 1) {
+          const data1 = dataArr?.[1];
+
+          const linkElement2 = document.getElementById('host2');
+
+          linkElement2.href = `http://${data1.ip}:${data1.port}`;
+
+          linkElement2.innerText = `点击访问, http://${data1.ip}:${data1.port}`;
+        }
+
+        //const status = data.status === 'success' ? '可访问' : '被屏蔽';
+
+        //linkElement2.href = 'https://' + data.hostname;
+        //linkElement2.innerText = `点击访问, 状态: ${status}, 更新时间: ${data.updateTime}, 安全链接， 需要点击 高级 -> 继续, https://${data.hostname}`;
       }
 
       getHost();

@@ -41,33 +41,25 @@
         .then((response) => response.text())
         .then((text) => (document.getElementById('footer').innerHTML = text));
     </script>
-    <script>
-      const currentDomain = window.location.hostname;
-
-      if (currentDomain.includes('end-gfw.com')) {
-        const adElement = document.createElement('script');
-
-        adElement.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
-        adElement.async = true;
-        adElement.crossorigin = 'anonymous';
-
-        document.body.appendChild(adElement);
-      }
-    </script>
   </head>
   <body>
     <div id="header"></div>
     <main class="relative mt-20">
-       <div class="flex justify-center">
+      <div class="flex justify-center">
         <div>
-          <p class="font-bold">动态免墙IP站点</p>
+          <p class="font-bold">
+            动态免墙IP站点, 可以安全分享到朋友圈而不被炸号
+          </p>
           <p>
-            <a target="_blank" id="whyyoutouzhele"></a>
+            <a target="_blank" id="why"></a>
+          </p>
+
+          <p>
+            <a target="_blank" id="why1"></a>
           </p>
 
           <nav
-            class="isolate inline-flex grid grid-cols-3 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
+            class="isolate inline-flex grid grid-cols-4 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
             aria-label="Pagination"
             id="page-group"
           ></nav>
@@ -107,7 +99,7 @@
               </div>
             </div>
             <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-              <p>更新中，请稍后查看...</p>
+              <p>更新中，请稍后查看...或查看昨日新闻</p>
             </div>
           </div>
         </div>
@@ -116,10 +108,11 @@
     <div id="footer"></div>
 
     <script>
+      let isEmpty = false;
       function getLast7Days() {
         var today = new Date();
         var last7Days = [];
-        for (var i = 0; i < 7; i++) {
+        for (var i = 0; i < 28; i++) {
           var day = new Date(today);
           day.setDate(today.getDate() - i);
           last7Days.push(formatDate(day));
@@ -165,7 +158,8 @@
 
         const dates = getLast7DaysInShanghai();
 
-        dates.forEach((item, i) => {
+        let i = 0;
+        for (const item of dates) {
           const pageGroupElement = document.createElement('a');
           const pageGroup = document.getElementById('page-group');
 
@@ -173,6 +167,16 @@
 
           pageGroupElement.className =
             'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
+
+          if (i == 0) {
+            await getTweet(parts[0], parts[1], parts[2]);
+
+            if (isEmpty) {
+              const yesterday = dates[i + 1];
+              const parts = yesterday.split('-');
+              await getTweet(parts[0], parts[1], parts[2]);
+            }
+          }
 
           pageGroupElement.className +=
             i == 0
@@ -182,10 +186,6 @@
           pageGroupElement.id = item;
 
           pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
-
-          if (i == 0) {
-            getTweet(parts[0], parts[1], parts[2]);
-          }
 
           pageGroupElement.onclick = () => {
             const selectedOption = pageGroup.querySelector('.selected');
@@ -228,7 +228,10 @@
           };
 
           pageGroup.appendChild(pageGroupElement);
-        });
+          i++;
+        }
+
+        //dates.forEach(async (item, i) => {});
       }
 
       async function getTweet(year, month, day) {
@@ -243,11 +246,18 @@
         //   `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
         // );
 
-        const res = await fetch(
-          `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
-        );
+        let temp = [];
 
-        const temp = await res.json();
+        try {
+          const res = await fetch(
+            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );
+
+          temp = await res.json();
+        } catch (err) {
+          console.error('error loading data');
+          isEmpty = true;
+        }
 
         const data = temp?.sort((a, b) =>
           a.createdDate > b.createdDate ? -1 : 1
@@ -335,24 +345,28 @@
     </script>
 
     <script>
-      // Access the variable through the window object
-      const link = window.link;
-
-      // Output the value to the HTML
-      document.getElementById('whyyoutouzhele').textContent = link;
-    </script>
-
-    <script>
       async function getHost() {
         const res = await fetch('/host');
 
-        const data = await res.json();
+        const dataArr = await res.json();
 
-        const linkElement1 = document.getElementById('whyyoutouzhele');
+        const data = dataArr?.[0];
 
-        linkElement1.href = 'http://' + data.hostname + '/whyyoutouzhele.html';
+        const linkElement = document.getElementById('why');
 
-        linkElement1.innerText = `http://${data.hostname}/whyyoutouzhele.html`;
+        linkElement.href = `http://${data.ip}:${data.port}/why.html`;
+
+        linkElement.innerText = `http://${data.ip}:${data.port}/why.html`;
+
+        if (dataArr.length > 1) {
+          const data1 = dataArr?.[1];
+
+          const linkElement1 = document.getElementById('why1');
+
+          linkElement1.href = `http://${data1.ip}:${data1.port}/why.html`;
+
+          linkElement1.innerText = `http://${data1.ip}:${data1.port}/why.html`;
+        }
       }
 
       getHost();

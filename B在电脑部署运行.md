@@ -10,9 +10,9 @@
 4. [下载拆墙运动工具]
 
    ```
-   cd temp
-   
    git clone https://github.com/hello-world-1989/temp.git
+
+   cd temp
 
    git submodule update --init --recursive
 
@@ -29,24 +29,48 @@
    ```
  
 
-5. 在命令行中运行 http-server temp -p 8080 -P https://end-gfw.com/
+5. 在命令行中运行 http-server temp -p 8081 -P https://end-gfw.com/
 
-   ```http-server temp -P https://end-gfw.com/```
+   ```http-server temp -p 8081 -P https://end-gfw.com/```
 
-   默认运行在8080端口, -p 3000 更改端口为3000
+   运行在8081端口, -p 3031 更改端口为3031,
+   
+   目前 仅支持 8081或 3031的展示在end-gfw.com网站上，
 
-   在浏览器中访问 http://localhost:8080即可， 或者公共ip 地址 http://ip:8080
+   需要先自己访问一下后才会添加到网站上， 1小时内无人访问，将不再显示在网站上(可能会增加到5小时或8小时)
+   
+   如果不想被展示在网站上，请使用其它端口，例如8000, 6060等
 
-6. 端口映射, 替换 end-gfw-together 为你的子域名
+   ```
+
+   #Linux后台运行
+
+   http-server temp -p 8081 -P https://end-gfw.com/ &
+
+   #Linux开机自启动
+
+   echo "http-server temp -p 8081 -P https://end-gfw.com/ &" > server.sh
+
+   chmod 777 server.sh
+ 
+   #添加到 /etc/crontab 中
+
+   sudo sh -c 'echo "@reboot ubuntu sudo /bin/sh /home/ubuntu/server.sh" >> /etc/crontab'
+
+   ```
+
+   在浏览器中访问 http://localhost:8081即可， 或者公共ip 地址 http://ip:8081
+
+7. 替换 end-gfw-together 为你的子域名， 这样其他人就能够访问， [也可以通过家庭路由器端口映射实现IP地址访问](https://zhuanlan.zhihu.com/p/43233032)
 
    ```
 
    npm install -g localtunnel
 
-   lt --port 8080 -s end-gfw-together
+   lt --port 8081 -s end-gfw-together
 
    ```
-7. 访问 https://end-gfw-together.loca.lt, 注意替换end-gfw-together为你的子域名, 密码为你的公共IP地址, [查看密码](https://loca.lt/mytunnelpassword)
+8. 访问 https://end-gfw-together.loca.lt, 注意替换end-gfw-together为你的子域名, 密码为你的公共IP地址, [查看密码](https://loca.lt/mytunnelpassword)
 
 注意: 人在海外才可以，人在墙内部署运行有风险
 如果有更新 需要在  temp 文件夹中运行
@@ -64,3 +88,15 @@ cd ../mac && git pull
 cd ../whyyoutouzhele && git pull
 
 ```
+
+家庭路由器端口映射，只需要在家庭路由器中添加一条记录即可
+
+大概步骤
+
+1. 登录家庭路由器， 地址一般为192.168.1.1或 192.168.0.1等
+
+2. 添加 NAT记录或路由规则或防火墙规则或端口映射等
+
+3. 内网端口 填写以上8081， 内网地址 填写 本电脑IP地址， 外网端口填写 8081或 8888等
+
+4. 百度搜索 我的IP地址， http://我的IP地址:8081， 这样其它人就可以通过这个地址来访问

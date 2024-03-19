@@ -41,256 +41,335 @@
         .then((response) => response.text())
         .then((text) => (document.getElementById('footer').innerHTML = text));
     </script>
-
-    <script>
-      const currentDomain = window.location.hostname;
-
-      if (currentDomain.includes('end-gfw.com')) {
-        const adElement = document.createElement('script');
-
-        adElement.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
-        adElement.async = true;
-        adElement.crossorigin = 'anonymous';
-
-        document.body.appendChild(adElement);
-      }
-    </script>
-    
   </head>
   <body>
     <div id="header"></div>
-    <main>
-      <div class="mx-auto w-full flex items-center justify-center">
-        <fieldset class="mt-20">
-          <legend class="sr-only"></legend>
-          <div class="grid grid-cols-3 gap-3 sm:grid-cols-5" id="os-group">
-            <!-- Memory Options will be added here using JavaScript -->
-          </div>
-        </fieldset>
+    <main class="relative mt-20">
+      <div class="flex justify-center">
+        <div>
+          <p class="font-bold">
+            动态免墙IP站点, 可以安全分享到朋友圈而不被炸号
+          </p>
+          <p>
+            <a target="_blank" id="why"></a>
+          </p>
+
+          <p>
+            <a target="_blank" id="why1"></a>
+          </p>
+
+          <nav
+            class="isolate inline-flex grid grid-cols-4 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
+            aria-label="Pagination"
+            id="page-group"
+          ></nav>
+        </div>
       </div>
-
-      <h1
-        class="mx-auto w-full flex items-center justify-center my-10 text-2xl font-bold leading-10 tracking-tight text-gray-900"
-      >
-        翻墙软件
-      </h1>
-
-      <ul
-        role="list"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        id="vpn-list"
-      ></ul>
-
-      <h1
-        class="mx-auto w-full flex items-center justify-center my-10 text-2xl font-bold leading-10 tracking-tight text-gray-900"
-      >
-        无审查软件
-      </h1>
-
-      <ul
-        role="list"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        id="e2e-list"
-      ></ul>
-
-      <!-- FAQs -->
+      <div class="flex justify-center mt-10">
+        <div id="tweet">
+          <div class="max-w-3xl">
+            <div class="bg-white px-4 py-5 sm:px-6">
+              <div class="flex space-x-3">
+                <div class="flex-shrink-0">
+                  <img
+                    class="h-10 w-10 rounded-full"
+                    src="https://pbs.twimg.com/profile_images/1558667234855292929/RqgodvGb_400x400.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-lg font-bold text-gray-900">
+                    <a href="" class="">李老师不是你老师 @whyyoutouzhele</a>
+                  </p>
+                  <p class="text-sm text-gray-500">
+                    <a href="#" class="">北京时间0000-00-00 00:00:00发布</a>
+                  </p>
+                </div>
+                <div class="flex flex-shrink-0 self-center">
+                  <div class="relative inline-block text-left">
+                    <div
+                      class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="menu-0-button"
+                      tabindex="-1"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="px-4 pb-5 sm:p-6 sm:pt-0">
+              <p>更新中，请稍后查看...或查看昨日新闻</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
-
-    <!-- <div id="footer"></div> -->
-
-    <!-- Footer -->
     <div id="footer"></div>
 
     <script>
-      async function getVPN() {
-        const response = await fetch('vpn.json');
-        const vpn = await response.json();
-        return vpn;
+      let isEmpty = false;
+      function getLast7Days() {
+        var today = new Date();
+        var last7Days = [];
+        for (var i = 0; i < 28; i++) {
+          var day = new Date(today);
+          day.setDate(today.getDate() - i);
+          last7Days.push(formatDate(day));
+        }
+        return last7Days;
       }
+
+      function convertToShanghaiTime(utcDate) {
+        var shanghaiOffset = 8; // Shanghai is UTC+8
+        var shanghaiDate = new Date(
+          utcDate.getTime() + shanghaiOffset * 60 * 60 * 1000
+        );
+        return shanghaiDate;
+      }
+
+      // Get last 7 days in Shanghai time zone
+      function getLast7DaysInShanghai() {
+        var last7Days = getLast7Days();
+        var last7DaysInShanghai = [];
+
+        last7Days.forEach(function (date) {
+          var utcDate = new Date(date + 'T00:00:00Z');
+          var shanghaiDate = convertToShanghaiTime(utcDate);
+
+          last7DaysInShanghai.push(formatDate(shanghaiDate));
+        });
+        return last7DaysInShanghai;
+      }
+
+      function formatDate(date) {
+        var year = '' + date.getFullYear();
+        var month = '' + (date.getMonth() + 1);
+        var day = '' + date.getDate();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+      }
+
+      async function fetchTweet() {
+        const pagesElement = document.getElementById('pages');
+
+        const dates = getLast7DaysInShanghai();
+
+        let i = 0;
+        for (const item of dates) {
+          const pageGroupElement = document.createElement('a');
+          const pageGroup = document.getElementById('page-group');
+
+          const parts = item.split('-');
+
+          pageGroupElement.className =
+            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
+
+          if (i == 0) {
+            await getTweet(parts[0], parts[1], parts[2]);
+
+            if (isEmpty) {
+              const yesterday = dates[i + 1];
+              const parts = yesterday.split('-');
+              await getTweet(parts[0], parts[1], parts[2]);
+            }
+          }
+
+          pageGroupElement.className +=
+            i == 0
+              ? ' bg-indigo-600 text-white selected hover:bg-indigo-500'
+              : ' text-gray-900';
+
+          pageGroupElement.id = item;
+
+          pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
+
+          pageGroupElement.onclick = () => {
+            const selectedOption = pageGroup.querySelector('.selected');
+            if (selectedOption) {
+              selectedOption.classList.remove('selected');
+              selectedOption.classList.remove('bg-indigo-600');
+              selectedOption.classList.remove('text-white');
+              selectedOption.classList.remove('hover:bg-indigo-500');
+
+              selectedOption.classList.add('bg-white');
+              selectedOption.classList.add('text-gray-900');
+              selectedOption.classList.add('hover:bg-gray-50');
+              selectedOption.classList.add('ring-1');
+              selectedOption.classList.add('ring-inset');
+              selectedOption.classList.add('ring-gray-300');
+            }
+
+            //const folder = parts[0] + '/' + parts[1] + '/' + parts[2];
+
+            getTweet(parts[0], parts[1], parts[2]);
+
+            // const activeVPN = vpn.filter(
+            //  (item) => item.os == pageGroupElement.id
+            // );
+
+            //while (vpnGroup.firstChild) {
+            //  vpnGroup.removeChild(vpnGroup.firstChild);
+            // }
+
+            // addLiElement(activeVPN, vpnGroup);
+
+            pageGroupElement.classList.add('selected');
+            pageGroupElement.classList.add('bg-indigo-600');
+            pageGroupElement.classList.add('text-white');
+            pageGroupElement.classList.add('hover:bg-indigo-500');
+
+            pageGroupElement.classList.remove('bg-white');
+            pageGroupElement.classList.remove('text-gray-900');
+            pageGroupElement.classList.remove('hover:bg-gray-50');
+          };
+
+          pageGroup.appendChild(pageGroupElement);
+          i++;
+        }
+
+        //dates.forEach(async (item, i) => {});
+      }
+
+      async function getTweet(year, month, day) {
+        // const res = await fetch(
+        //   `/tweet?year=${year}&month=${month}&day=${day}`
+        // );
+        //year = '2024';
+        //month = '03';
+        //day = '02';
+
+        //const res = await fetch(
+        //   `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
+        // );
+
+        let temp = [];
+
+        try {
+          const res = await fetch(
+            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );
+
+          temp = await res.json();
+        } catch (err) {
+          console.error('error loading data');
+          isEmpty = true;
+        }
+
+        const data = temp?.sort((a, b) =>
+          a.createdDate > b.createdDate ? -1 : 1
+        );
+
+        const pdfElement = document.getElementById('tweet');
+
+        const elements = data.map((item) => {
+          const images = item?.images?.split(',');
+
+          if (item.videos) {
+            images.push(item.videos?.split(',')?.[0]);
+          }
+
+          let imageElement = '';
+
+          if (images?.length > 0) {
+            const imagesArr = images
+              .filter((item) => item !== '')
+              .map(
+                (item) =>
+                  `<li class='relative'>
+              <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
+                <img
+                  src='${item}'
+                  alt=''
+                  class='pointer-events-none object-cover group-hover:opacity-75'
+                />
+              </div>
+            </li>`
+              );
+
+            imageElement = imagesArr.join('');
+          }
+
+          return `<div class="max-w-3xl">
+              <div class="bg-white px-4 py-5 sm:px-6">
+                <div class="flex space-x-3">
+                  <div class="flex-shrink-0">
+                    <img
+                      class="h-10 w-10 rounded-full"
+                      src="images/whyyoutouzhele.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-lg font-bold text-gray-900">
+                      <a href="" class="">李老师不是你老师 @whyyoutouzhele </a>
+                    </p>
+                    <p class="text-sm text-gray-500">
+                      <a href="#" class="">北京时间${item.createdDate}发布</a>
+                    </p>
+                  </div>
+                  <div class="flex flex-shrink-0 self-center">
+                    <div class="relative inline-block text-left">
+                      <div
+                        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-0-button"
+                        tabindex="-1"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 pb-5 sm:p-6 sm:pt-0">
+                <p>
+                  ${item.content}
+                </p>
+              </div>
+              <ul
+                role="list"
+                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 lg:grid-cols-2 xl:gap-x-4"
+              >
+                ${imageElement}
+              </ul>
+            </div>`;
+        });
+
+        pdfElement.innerHTML = elements.join('');
+      }
+
+      fetchTweet();
     </script>
 
     <script>
-      async function getE2E() {
-        const response = await fetch('e2e.json');
-        const vpn = await response.json();
-        return vpn;
-      }
-    </script>
+      async function getHost() {
+        const res = await fetch('/host');
 
-    <script type="module">
-      const osTypes = [
-        {
-          id: 'android',
-          name: '安卓手机',
-          icon: 'images/android.svg',
-        },
-        {
-          id: 'windows',
-          name: '微软电脑',
-          icon: 'images/windows.svg',
-        },
-        {
-          id: 'ios',
-          name: '苹果手机',
-          icon: 'images/ios.svg',
-        },
-        {
-          id: 'mac',
-          name: '苹果电脑',
-          icon: 'images/mac.svg',
-        },
-        {
-          id: 'linux',
-          name: 'Linux电脑',
-          icon: 'images/linux.svg',
-        },
-      ];
+        const dataArr = await res.json();
 
-      function classNames(...classes) {
-        return classes.filter(Boolean).join(' ');
+        const data = dataArr?.[0];
+
+        const linkElement = document.getElementById('why');
+
+        linkElement.href = `http://${data.ip}:${data.port}/why.html`;
+
+        linkElement.innerText = `http://${data.ip}:${data.port}/why.html`;
+
+        if (dataArr.length > 1) {
+          const data1 = dataArr?.[1];
+
+          const linkElement1 = document.getElementById('why1');
+
+          linkElement1.href = `http://${data1.ip}:${data1.port}/why.html`;
+
+          linkElement1.innerText = `http://${data1.ip}:${data1.port}/why.html`;
+        }
       }
 
-      function addLiElement(activeVPN, vpnGroup) {
-        activeVPN.map((item) => {
-          const vpnLiElement = document.createElement('li');
-          vpnLiElement.className =
-            'col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow';
-
-          vpnLiElement.innerHTML = `<div class="flex flex-1 flex-col p-8">
-          <img
-            class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
-            src="${item.image}"
-            alt=""
-          />
-          <h3 class="mt-6 text-sm font-medium text-gray-900">${item.name}</h3>
-          <dl class="mt-1 flex flex-grow flex-col justify-between">
-            <dd class="text-sm text-gray-500">${item.comment}</dd>
-                <dd class='mt-3'>
-                  <a
-                    href='${item.web}'
-                    class='inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'
-                  >
-                    ${item.web ? '官网' : ''}
-                  </a>
-                </dd>
-          </dl>
-        </div>
-        <div>
-          <div class="-mt-px flex divide-x divide-gray-200">
-            <div class="flex w-0 flex-1">
-              <a
-                href="${item.link1}"
-                class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-              >
-
-                下载链接1
-              </a>
-            </div>
-            <div class="-ml-px flex w-0 flex-1">
-              <a
-                href="${item.link2}"
-                class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-              >
-
-                下载链接2
-              </a>
-            </div>
-          </div>
-        </div>`;
-
-          vpnGroup.appendChild(vpnLiElement);
-        });
-      }
-
-      const radioGroup = document.getElementById('os-group');
-      const vpnGroup = document.getElementById('vpn-list');
-      const e2eGroup = document.getElementById('e2e-list');
-
-      const vpn = await getVPN();
-      const e2e = await getE2E();
-
-      const activeVPN = vpn
-        .filter((item) => item.os == 'android')
-        .sort((a, b) => b.star - a.star);
-
-      const activeE2E = e2e
-        .filter((item) => item.os == 'android')
-        .sort((a, b) => b.star - a.star);
-
-      addLiElement(activeVPN, vpnGroup);
-      addLiElement(activeE2E, e2eGroup);
-
-      osTypes.forEach((option, i) => {
-        const osGroupElement = document.createElement('div');
-
-        osGroupElement.className = classNames(
-          'cursor-pointer focus:outline-none',
-          'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1'
-        );
-
-        osGroupElement.className +=
-          i == 0
-            ? ' selected bg-indigo-600 text-white hover:bg-indigo-500'
-            : ' ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50';
-
-        osGroupElement.innerHTML = `
-          <p>
-            <img src='${option.icon}' /> 
-            <span>${option.name}</span>
-          </p>
-        `;
-
-        osGroupElement.id = option.id;
-
-        osGroupElement.onclick = () => {
-          const selectedOption = radioGroup.querySelector('.selected');
-          if (selectedOption) {
-            selectedOption.classList.remove('selected');
-            selectedOption.classList.remove('bg-indigo-600');
-            selectedOption.classList.remove('text-white');
-            selectedOption.classList.remove('hover:bg-indigo-500');
-
-            selectedOption.classList.add('bg-white');
-            selectedOption.classList.add('text-gray-900');
-            selectedOption.classList.add('hover:bg-gray-50');
-            selectedOption.classList.add('ring-1');
-            selectedOption.classList.add('ring-inset');
-            selectedOption.classList.add('ring-gray-300');
-          }
-
-          const activeVPN = vpn
-            .filter((item) => item.os == osGroupElement.id)
-            .sort((a, b) => b.star - a.star);
-
-          const activeE2E = e2e
-            .filter((item) => item.os == osGroupElement.id)
-            .sort((a, b) => b.star - a.star);
-
-          while (vpnGroup.firstChild) {
-            vpnGroup.removeChild(vpnGroup.firstChild);
-          }
-
-          while (e2eGroup.firstChild) {
-            e2eGroup.removeChild(e2eGroup.firstChild);
-          }
-
-          addLiElement(activeVPN, vpnGroup);
-
-          addLiElement(activeE2E, e2eGroup);
-
-          osGroupElement.classList.add('selected');
-          osGroupElement.classList.add('bg-indigo-600');
-          osGroupElement.classList.add('text-white');
-          osGroupElement.classList.add('hover:bg-indigo-500');
-
-          osGroupElement.classList.remove('bg-white');
-          osGroupElement.classList.remove('text-gray-900');
-          osGroupElement.classList.remove('hover:bg-gray-50');
-        };
-
-        radioGroup.appendChild(osGroupElement);
-      });
+      getHost();
     </script>
   </body>
 </html>
