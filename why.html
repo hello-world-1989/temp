@@ -54,9 +54,7 @@
             <a target="_blank" id="why"></a>
           </p>
 
-          <p>
-            <a target="_blank" id="why1"></a>
-          </p>
+          <p id="why-group"></p>
 
           <nav
             class="isolate inline-flex grid grid-cols-4 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
@@ -350,23 +348,27 @@
 
         const dataArr = await res.json();
 
-        const data = dataArr?.[0];
+        const dataGroup = dataArr.slice(0, 5);
 
-        const linkElement = document.getElementById('why');
+        const whyElement = document.getElementById('why-group');
 
-        linkElement.href = `http://${data.ip}:${data.port}/why.html`;
+        dataGroup.forEach((item) => {
+          const linkElement = document.createElement('a');
 
-        linkElement.innerText = `http://${data.ip}:${data.port}/why.html`;
+          if (item.port == 80) {
+            linkElement.href = `http://${item.ip}`;
 
-        if (dataArr.length > 1) {
-          const data1 = dataArr?.[1];
+            linkElement.innerText = `http://${item.ip}`;
+          } else {
+            linkElement.href = `http://${item.ip}:${item.port}/`;
 
-          const linkElement1 = document.getElementById('why1');
+            linkElement.innerText = `http://${item.ip}:${item.port}/`;
+          }
 
-          linkElement1.href = `http://${data1.ip}:${data1.port}/why.html`;
+          linkElement.target = '_blank';
 
-          linkElement1.innerText = `http://${data1.ip}:${data1.port}/why.html`;
-        }
+          whyElement.appendChild(linkElement);
+        });
       }
 
       getHost();
