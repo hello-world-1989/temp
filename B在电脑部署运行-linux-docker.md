@@ -1,5 +1,3 @@
-### 待完善
-
 以AWS Lightsail Ubuntu 为例 安装步骤如下
 
  1. 安装 Docker
@@ -39,3 +37,5 @@ sudo chmod +x /usr/local/bin/dc
 5. `sudo dc ps` 应该能看到 Up 状态, 如果不能， `sudo dc logs` 查看日志发送到[电报群](https://t.me/end_gfw1)
 
 6. 防火墙放开 80, 8081 端口, 禁用 IPV6
+
+7. http://公共IPV4地址:8081, 需要访问下确认能打开，才会显示在网站上
