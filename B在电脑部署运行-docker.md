@@ -32,9 +32,10 @@ sudo systemctl enable docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.26.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/dc
 sudo chmod +x /usr/local/bin/dc
 ```
-3. wget https://github.com/hello-world-1989/temp/raw/main/docker/docker-compose.yml
+3. `wget https://github.com/hello-world-1989/temp/raw/main/docker/docker-compose.yml`
 
 4. `sudo dc up -d`
    
 5. `sudo dc ps` 应该能看到 Up 状态, 如果不能， `sudo dc logs` 查看日志发送到[电报群](https://t.me/end_gfw1)
 
+6. 防火墙放开 80, 8081 端口, 禁用 IPV6
