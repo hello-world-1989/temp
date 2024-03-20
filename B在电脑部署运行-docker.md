@@ -32,7 +32,7 @@ sudo systemctl enable docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.26.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/dc
 sudo chmod +x /usr/local/bin/dc
 ```
-3. wget wget https://github.com/hello-world-1989/xrayr-share/raw/main/docker-compose.yml
+3. wget wget https://github.com/hello-world-1989/xrayr-share/raw/main/docker/docker-compose.yml
 
 4. `sudo dc up -d`
    
