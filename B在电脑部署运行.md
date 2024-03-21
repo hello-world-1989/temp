@@ -1,6 +1,6 @@
 ## 请查看最新 部署方式
 
-### 1. [微软 苹果电脑部署, 仅英文， 附带 家庭路由器 映射方法](https://github.com/hello-world-1989/temp/blob/main/B%E5%9C%A8%E7%94%B5%E8%84%91%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8C-%E5%BE%AE%E8%BD%AF%E8%8B%B9%E6%9E%9C%E7%94%B5%E8%84%91docker.md) 
+### 1. [微软 苹果电脑部署, 附带 家庭路由器 映射方法](https://github.com/hello-world-1989/temp/blob/main/B%E5%9C%A8%E7%94%B5%E8%84%91%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8C-%E5%BE%AE%E8%BD%AF%E8%8B%B9%E6%9E%9C%E7%94%B5%E8%84%91docker.md) 
 
 ### 2. [Linux电脑部署, 以AWS lightsail Ubuntu为例](https://github.com/hello-world-1989/temp/blob/main/B%E5%9C%A8%E7%94%B5%E8%84%91%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8C-linux-docker.md)
 
