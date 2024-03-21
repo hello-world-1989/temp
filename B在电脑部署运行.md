@@ -4,6 +4,9 @@
 
 ### 2. [Linux电脑部署, 以AWS lightsail Ubuntu为例](https://github.com/hello-world-1989/temp/blob/main/B%E5%9C%A8%E7%94%B5%E8%84%91%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8C-linux-docker.md)
 
+
+## 以下是旧的部署方法
+
 1. [下载并安装 NodeJS](https://nodejs.org/en/download/current)
    
 2. [下载并安装 Git](https://git-scm.com/downloads)
