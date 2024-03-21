@@ -41,7 +41,6 @@
         .then((response) => response.text())
         .then((text) => (document.getElementById('footer').innerHTML = text));
     </script>
-    
   </head>
   <body>
     <div id="header"></div>
@@ -117,13 +116,13 @@
       ];
 
       async function getVPN() {
-        const response = await fetch('/vpn');
+        const response = await fetch('/vpn-data');
         const vpn = await response.json();
         return vpn;
       }
 
       async function getE2E() {
-        const response = await fetch('/ee');
+        const response = await fetch('/ee-data');
 
         const e2e = await response.json();
 
