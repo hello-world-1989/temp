@@ -355,6 +355,8 @@
         dataGroup.forEach((item) => {
           const linkElement = document.createElement('a');
 
+          const newLineElement = document.createElement('br');
+
           if (item.port == 80) {
             linkElement.href = `http://${item.ip}`;
 
@@ -368,7 +370,7 @@
           linkElement.target = '_blank';
 
           whyElement.appendChild(linkElement);
-          whyElement.appendChild('<br />');
+          whyElement.appendChild(newLineElement);
         });
       }
 
