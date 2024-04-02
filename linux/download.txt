@@ -1,0 +1,19 @@
+未经测试，不确定翻墙效果
+
+2023年5月23日 更新
+
+Lantern
+
+主页
+https://lantern.io/zh/download?os=linux
+
+官网下载链接
+https://s3.amazonaws.com/lantern/lantern-installer-64-bit.deb?v=1684789826
+
+Tor 
+
+主页
+https://www.torproject.org/download/
+
+官网下载链接
+https://www.torproject.org/dist/torbrowser/12.0.6/tor-browser-linux64-12.0.6_ALL.tar.xz

@@ -1,0 +1,68 @@
+BQDQF2CBGPH6MR2JHOFJRJZJPVYBLAJEH
+-------------------------------------------------------------------------------
+同步安卓翻墙软件 BJR3WHSGJC2NSITG6QHH3R3TKRF4KH6SQ
+同步苹果手机翻墙教程 BNMTM2ZXI2OHFKXWKHUNIBUWTPNCCLNQ6
+同步微软系统电脑翻墙软件 BETGWIBSMG43OAUE3N5KAPDT6KHQDQ2FX
+同步苹果电脑翻墙软件 B2JBYP7CES2J6ZCP2LDFQ3X3AMXV4X3J2
+李老师不是你老师推文 BSHVHG3DGGSAYY2TF4ZPQO7V7ST6Y2OO3
+义工分享的软件 BNPVDH7Y6RWGIDWCXTR6R6N2SGQDPY23W
+
+2024年4月1
+
+华为手机等国产手机可能无法使用以下翻墙应用，建议购买三星等非国产手机
+
+手机应用建议安装国外版本（APKPure下载），比如国外版微信 小红书 支付宝等，不要安装反诈应用，杀毒应用等
+
+欢迎反馈 翻墙效果(能不能用， 速度如何等)到邮箱end.gfw@hotmail.com, 以便提供更好用的翻墙软件
+欢迎分享给身边的朋友帮助他们翻墙，如果无法翻墙，请告知，将提供其它方法
+
+安卓手机推荐使用Nthlink, V2ray, New Node结合测试和网友反馈，速度很快
+2023年8月测试  NthLink VPN, Warp Plus, Orbot VPN, 迷雾通, New Node VPN
+
+广东网友 可能无法使用New Node VPN, 请广东网友使用 Nthlink VPN
+
+苹果手机使用海外苹果账户
+
+海外苹果账户自助获取, 目前暗号9534726， 当前更新2024年4月1日
+https://ios.aneeo.com/book/92.html
+登陆海外苹果应用商店下载, 不要登录icloud，出现安全提示选择 其他选项，不升级
+用户名
+i-mfwedw@aneeo.cc
+密码
+Aneeo-3Ev95h7STv
+
+nthlink 2023年8月中旬测试 可以使用，欢迎下载使用并反馈
+
+善用微软必应Bing搜索引擎和Github，比如必应搜索 李老师不是你老师 github, VPN github等
+必应 和 Github是为数不多国内可以访问的境外网站， Github上有很多翻墙资源
+
+-------------------------------------------------------------------------------
+
+通讯软件 DHT 无审查 去中心化 无网络 离线聊天，蓝牙聊天 Session, Skred, Jami, Briar, Brigefy
+BFDNAGD2J445XEJIDZ4BIREVC5QWOXL4O
+
+查看详情[链接](https://github.com/end-gfw/google-groups)
+下载 Session 加入 群，用户名禁止带有名字 年龄等信息
+注册后使用无需翻墙
+Session二维码 见 Session.jpg
+0574c0e3db87e0ddce32b112c16b626543f20991694b66718160e54d3daa71762f
+-------------------------------------------------------------------------------
+
+如需帮助或有问题，请关注推特https://twitter.com/end_gfw 或发送邮件end.gfw@hotmail.com
+
+如果担心软件有问题（包含病毒、被政府修改等），若能翻墙直接官网下载最新版本
+
+如果暂时不能翻墙，安装此处下载的翻墙软件，自行到官网下载安装，卸载从此处安装的翻墙软件
+
+-------------------------------------------------------------------------------
+共享安卓手机 vpn给电脑 苹果手机 见general文件夹, 视频教程见 sharevpn.mp4
+
+安卓手机下载 every proxy可以 共享VPN给 电脑 苹果手机
+
+>电脑也可以共享VPN给手机
+
+手机1Every proxy设置见图片every-proxy.jpg， 192.168.1.64是 手机1网络的IP地址, 192.168.226.86是自建的热点AndroidAP 的IP地址
+
+当手机2和手机1用同一个无线网络时, 手机2 的无线设置，见图片same-wifi.jpg
+
+当手机2使用手机1创建的Wifi热点AndroidAP无线网络时, 手机2 的无线设置，见图片android-wifi.jpg

@@ -1,0 +1,7 @@
+version: '3'
+services: 
+  web: 
+    image: endgfw/web:web-only
+    ports:
+      - "8081:8081"
+    restart: always

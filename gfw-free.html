@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./tailwindcss.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <title>
+      免墙资源 推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
+    </title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+    />
+    <meta
+      name="keywords"
+      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+    />
+
+    <script>
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('header').innerHTML = text;
+
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
+
+          mobileHeader.classList.add('hidden');
+
+          closeMenu.onclick = () => {
+            mobileHeader.classList.add('hidden');
+          };
+
+          openMenu.onclick = () => {
+            mobileHeader.classList.remove('hidden');
+          };
+        });
+
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((text) => (document.getElementById('footer').innerHTML = text));
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main>
+      <div
+        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pb-12 sm:pt-12 lg:max-w-7xl lg:px-8 lg:pb-10"
+      >
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 mt-10" id="host">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            <p>动态免墙IP镜像站, 可以安全分享到朋友圈而不被炸号</p>
+            <p></p>
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <a
+              class="text-base leading-7 font-semibold text-indigo-600 overflow-x-auto"
+              id="host1"
+            ></a>
+            <br />
+            <a
+              class="text-base leading-7 font-semibold text-indigo-600 overflow-x-auto"
+              id="host2"
+            ></a>
+          </dd>
+          <br />
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="obfs4-instance">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            <p>Tor Browser浏览器, Orbot VPN 网桥地址</p>
+            <p><span id="obfs4-update"></span>更新</p>
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <br />
+            <p
+              class="text-base leading-7 text-gray-600 overflow-x-auto"
+              id="obfs4"
+            ></p>
+          </dd>
+        </div>
+
+        <div
+          class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+          id="youtube-instance"
+        >
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免翻墙Youtube油管，李老师不是你老师频道
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/youtube.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙Youtube油管, <span id="youtube-update"></span>更新</a
+              >
+            </p>
+
+            <br />
+            <p class="text-base leading-7 text-gray-600" id="youtube"></p>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="nitter-instance">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免注册免翻墙查看推特X，李老师不是你老师推文
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600" id="why-pdf"></p>
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/whyyoutouzhele"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >离线版本下载，方便传播</a
+              >
+            </p>
+
+            <nav
+              class="h-48 w-64 overflow-y-auto"
+              aria-label="Directory"
+              id="pdf"
+            ></nav>
+
+            <br />
+            <br />
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="wiki-instance">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免翻墙维基百科
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/wiki.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙维基百科, <span id="wiki-update"></span>更新</a
+              >
+            </p>
+
+            <br />
+            <p class="text-base leading-7 text-gray-600" id="wiki"></p>
+          </dd>
+        </div>
+
+        <div
+          class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+          id="searchx-instance"
+        >
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            免翻墙SearXNG搜索代理
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/accessible/blob/main/searchx.json"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >免翻墙搜索代理, <span id="searchx-update"></span>更新</a
+              >
+            </p>
+            <br />
+            <pre id="searchx" class="overflow-x-auto"></pre>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            VPN Gate
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://github.com/hello-world-1989/cn-news/blob/main/server.txt"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >获取服务器地址, 每天更新</a
+              >
+            </p>
+            <p>
+              前往Mirror List中地址 下载微软电脑系统版本翻墙软件 下载 -> VPN
+              Gate Client 下载
+            </p>
+
+            <br />
+            <pre id="vpn-gate" class="overflow-x-auto"></pre>
+          </dd>
+        </div>
+      </div>
+    </main>
+    <div id="footer"></div>
+
+    <script>
+      async function getData() {
+        const res = await fetch('/github');
+
+        const data = await res.text();
+
+        const vpnGateElement = document.getElementById('vpn-gate');
+
+        vpnGateElement.innerText = data;
+      }
+
+      getData();
+    </script>
+
+    <script>
+      function getRandomInt1(min = 0, max = 6) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      async function getYoutube() {
+        const res = await fetch('/youtube');
+
+        const channelData = await res.json();
+
+        const youtubeElement = document.getElementById('youtube');
+        const updateElement = document.getElementById('youtube-update');
+
+        updateElement.innerText = channelData.updateTime;
+
+        const channel = [
+          { name: '李老师不是你老师', link: '/@whyyoutouzhele' },
+          { name: '崔永元', link: '/@user-ur4kb7pc8k' },
+          { name: '文昭談古論今', link: '/@wenzhaoofficial' },
+          { name: '亚军王歪嘴', link: '/channel/UC1Uv-MMtdKmG_HoeW9B6eyw' },
+          { name: 'Leonard', link: '/channel/UC1mx_wcSHtfpLk5N_zY0TRg' },
+          { name: '攝徒日記', link: '/@funtv8964' },
+          { name: '陈秋实', link: '/c/陈秋实官方频道' },
+        ];
+
+        const randomChannel1 = channel[getRandomInt1()];
+        const randomChannel2 = channel[getRandomInt1()];
+
+        channelData?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          const randomChannel = i % 2 === 0 ? randomChannel1 : randomChannel2;
+
+          console.log('randomChannel: ', randomChannel);
+
+          linkElement.href = item + randomChannel?.link ?? '';
+          linkElement.target = '_blank';
+
+          linkElement.innerText = randomChannel?.name ?? 'Youtube';
+
+          youtubeElement.appendChild(linkElement);
+          youtubeElement.appendChild(breakLineElement);
+        });
+      }
+
+      getYoutube();
+    </script>
+
+    <script>
+      function getRandomInt2(min = 1, max = 10) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      async function getWiki() {
+        const res = await fetch('/wiki');
+
+        const tempData = await res.json();
+
+        const naWiki = 'https://wiki.604kph.xyz/, https://wiki.slipfox.xyz/';
+        const data = tempData?.resources?.filter(
+          (item) => !naWiki.includes(item)
+        );
+
+        const instanceElement = document.getElementById('wiki');
+        const updateElement = document.getElementById('wiki-update');
+
+        updateElement.innerText = tempData.updateTime;
+
+        const knownWikis = [
+          { name: '1989天安门事件', link: '/wiki/六四事件?lang=zh' },
+          { name: '三年大饥荒', link: '/wiki/三年困难时期?lang=zh' },
+          { name: '十年文革动荡', link: '/wiki/文化大革命?lang=zh' },
+          { name: '白纸运动', link: '/wiki/白紙運動?lang=zh' },
+          { name: '计划生育', link: '/wiki/计划生育?lang=zh' },
+          {
+            name: '首位中国人诺贝尔奖得主-刘晓波',
+            link: '/wiki/刘晓波?lang=zh',
+          },
+          {
+            name: '香港反送中',
+            link: '/wiki/反對逃犯條例修訂草案運動?lang=zh',
+          },
+          { name: '徐州铁链女', link: '/wiki/丰县生育八孩女子事件?lang=zh' },
+          { name: '鼠头鸭脖', link: '/wiki/鼠头鸭脖事件?lang=zh' },
+          { name: '山河大学', link: '/wiki/山河大学?lang=zh' },
+        ];
+
+        data?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item + knownWikis?.[i]?.link;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `${knownWikis?.[i]?.name}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getWiki();
+    </script>
+
+    <script>
+      async function getNitter() {
+        const res = await fetch('/nitter');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('nitter');
+        const updateElement = document.getElementById('nitter-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙免注册推特镜像地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      //getNitter();
+    </script>
+
+    <script>
+      async function getSearchX() {
+        const res = await fetch('/searchx');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('searchx');
+        const updateElement = document.getElementById('searchx-update');
+
+        updateElement.innerText = data.updateTime;
+
+        const knownSearches = [
+          { name: '编程随想' },
+          { name: '拆墙运动 github' },
+          { name: '首位中国人诺贝尔奖得主-刘晓波' },
+          { name: '徐州铁链女' },
+          { name: '鼠头鸭脖' },
+          { name: '山河大学' },
+          { name: '李老师不是你老师' },
+          { name: 'Youtube' },
+          { name: 'ChatGPT' },
+          { name: '推特' },
+        ];
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `${knownSearches?.[i]?.name}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getSearchX();
+    </script>
+
+    <script>
+      async function getObfs4() {
+        const res = await fetch('/obfs4');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('obfs4');
+        const updateElement = document.getElementById('obfs4-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('code');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.innerText = item;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getObfs4();
+    </script>
+
+    <script>
+      async function getHost() {
+        const res = await fetch('/host');
+
+        const dataArr = await res.json();
+
+        const data = dataArr?.[0];
+
+        const linkElement1 = document.getElementById('host1');
+
+        linkElement1.href = `http://${data.ip}:${data.port}`;
+
+        linkElement1.innerText = `点击访问, http://${data.ip}:${data.port}`;
+
+        if (dataArr.length > 1) {
+          const data1 = dataArr?.[1];
+
+          const linkElement2 = document.getElementById('host2');
+
+          linkElement2.href = `http://${data1.ip}:${data1.port}`;
+
+          linkElement2.innerText = `点击访问, http://${data1.ip}:${data1.port}`;
+        }
+
+        //const status = data.status === 'success' ? '可访问' : '被屏蔽';
+
+        //linkElement2.href = 'https://' + data.hostname;
+        //linkElement2.innerText = `点击访问, 状态: ${status}, 更新时间: ${data.updateTime}, 安全链接， 需要点击 高级 -> 继续, https://${data.hostname}`;
+      }
+
+      getHost();
+    </script>
+
+    <script>
+      async function getPDF() {
+        const res = await fetch('/pdf');
+
+        const data = await res.json();
+
+        const pdfElement = document.getElementById('pdf');
+
+        const elements = data.map(
+          (item) =>
+            `<div class='relative'>
+            <div class='sticky top-0 z-10 border-y border-b-gray-200 border-t-gray-100 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900'>
+              <h3>${item.year}</h3>
+            </div>
+            <ul role='list' class='divide-y divide-gray-100'>
+              <li class='flex gap-x-4 px-3 py-5'>
+
+                <div class='min-w-0'>
+                  <p class='text-sm font-semibold leading-6 text-gray-900'>
+                    <a href='${item.link1}' target='_blank' class='font-semibold text-indigo-600'>${item.description} HTTP 下载1</a>
+                  </p>
+                  <p class='text-sm font-semibold leading-6 text-gray-900'>
+                    <a href='${item.link2}' target='_blank' class='font-semibold text-indigo-600'>${item.description} Github HTTPS 下载2</a>
+                  </p>
+                </div>
+                <div class='min-w-0'>
+                  
+                </div>
+              </li>
+            </ul>
+          </div>`
+        );
+
+        pdfElement.innerHTML = elements.join('');
+      }
+
+      getPDF();
+    </script>
+  </body>
+</html>
