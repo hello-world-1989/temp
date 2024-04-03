@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./tailwindcss.js"></script>
     <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件</title>
+    <title>
+      推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
+    </title>
     <meta charset="UTF-8" />
     <meta
       name="description"
@@ -44,9 +46,9 @@
   </head>
   <body>
     <div id="header"></div>
-    <main class="relative mt-20">
+    <main class="mt-20 mx-20">
       <div class="flex justify-center">
-        <div>
+        <div class="w-4/5">
           <p class="font-bold">
             动态免墙IP站点, 可以安全分享到朋友圈而不被炸号
           </p>
@@ -57,7 +59,7 @@
           <p id="why-group"></p>
 
           <nav
-            class="isolate inline-flex grid grid-cols-4 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
+            class="isolate grid grid-cols-4 md:grid-cols-7 lg:grid-cols-12 -space-x-px rounded-md shadow-sm mt-10"
             aria-label="Pagination"
             id="page-group"
           ></nav>
@@ -65,7 +67,7 @@
       </div>
       <div class="flex justify-center mt-10">
         <div id="tweet">
-          <div class="max-w-3xl">
+          <div class="">
             <div class="bg-white px-4 py-5 sm:px-6">
               <div class="flex space-x-3">
                 <div class="flex-shrink-0">
@@ -292,7 +294,7 @@
             imageElement = imagesArr.join('');
           }
 
-          return `<div class="max-w-3xl">
+          return `<div class="">
               <div class="bg-white px-4 py-5 sm:px-6">
                 <div class="flex space-x-3">
                   <div class="flex-shrink-0">
@@ -330,7 +332,7 @@
               </div>
               <ul
                 role="list"
-                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 lg:grid-cols-2 xl:gap-x-4"
+                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4"
               >
                 ${imageElement}
               </ul>
