@@ -1,0 +1,27 @@
+version: '3'
+services:
+  xrayr:
+    image: ghcr.io/xrayr-project/xrayr:latest
+    volumes:
+      - ./config:/etc/XrayR/ # 映射配置文件夹
+    restart: always
+    network_mode: host
+  web:
+    image: endgfw/web:web-only
+    volumes:
+      - ../temp/android:/app/temp/android/
+      - ../temp/mac:/app/temp/mac/
+      - ../temp/windows:/app/temp/windows/
+      - ../temp/whyyoutouzhele:/app/temp/whyyoutouzhele/
+    ports:
+      - '80:8081'
+      - '443:8081'
+      # - '3000:8081'
+      # - '3001:8081'
+      # - '3306:8081'
+      # - '3389:8081'
+      # - '5000:8081'
+      # - '5001:8081'
+      # - '6379:8081'
+      # - '8964:8081'
+    restart: always
