@@ -91,21 +91,18 @@
           </h1>
           <br />
           <h1>
-            V2Ray/Outline节点, 导入到V2Ray/Outline<a
-              id="outline"
-              href="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss"
-              target="_blank"
-            >
-              https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</a
-            >
+            点击复制节点, 导入到V2Ray/Outline
+            <button onclick="copyText('outline')" id="outline">
+              https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+            </button>
           </h1>
           <h1>
-            V2Ray订阅链接包含推墙运动节点<a
-              href="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together"
-              target="_blank"
+            点击复制V2Ray订阅链接包含推墙运动节点<button
+              id="v2ray"
+              onclick="copyText('v2ray')"
             >
-              https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</a
-            >
+              https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
+            </button>
           </h1>
         </div>
       </div>
@@ -437,6 +434,31 @@
       }
 
       getSS();
+    </script>
+
+    <script>
+      function copyText(elementId) {
+        // Get the text field
+        var textToCopy = document.getElementById(elementId);
+
+        // Select the text
+        var range = document.createRange();
+        range.selectNode(textToCopy);
+        window.getSelection().removeAllRanges(); // clear current selection
+        window.getSelection().addRange(range); // to select text
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        window.getSelection().removeAllRanges();
+      }
     </script>
   </body>
 </html>
