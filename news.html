@@ -298,6 +298,10 @@
           );
 
           temp = await res.json();
+
+          if (temp.length === 0) {
+            isEmpty = true;
+          }
         } catch (err) {
           console.error('error loading data');
           isEmpty = true;
@@ -305,9 +309,14 @@
 
         const data = temp
           ?.map((item) => {
+            if (item.createdDate.length === 16) {
+              return item;
+            }
+
             const datetimeTemp = item.createdDate;
             const datetimeStr = datetimeTemp?.split(' ');
             const dateStr = datetimeStr[0];
+
             const timeStr = datetimeStr?.[1]?.split(':');
             const hourStrTemp = timeStr?.[0];
             const minStrTemp = timeStr?.[1];
