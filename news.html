@@ -303,9 +303,24 @@
           isEmpty = true;
         }
 
-        const data = temp?.sort((a, b) =>
-          a.createdDate > b.createdDate ? -1 : 1
-        );
+        const data = temp
+          ?.map((item) => {
+            const datetimeTemp = item.createdDate;
+            const datetimeStr = datetimeTemp?.split(' ');
+            const dateStr = datetimeStr[0];
+            const timeStr = datetimeStr?.[1]?.split(':');
+            const hourStrTemp = timeStr?.[0];
+            const minStrTemp = timeStr?.[1];
+            const hourStr =
+              hourStrTemp?.length == 1 ? `0${hourStrTemp}` : hourStrTemp;
+            const minuteStr =
+              minStrTemp?.length == 1 ? `0${minStrTemp}` : minStrTemp;
+
+            item.createdDate = `${dateStr} ${hourStr}:${minuteStr}`;
+
+            return item;
+          })
+          .sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1));
 
         const pdfElement = document.getElementById('tweet');
 
