@@ -554,35 +554,49 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
 
     console.log(`*********${ip} is reachable`);
 
-    console.log(`*********${ip} is able to connect from China`);
-    const res = {
-      ip,
-      port: confirmedPort,
-      updatedTime: new Date().getTime() + extraExpiry,
-    };
+    const verifyRes = await axios.get(`http://${ip}:${confirmedPort}/youtube`);
 
-    hostsMap.set(ip, res);
-    endGFWHosts.push(res);
+    const verifyData = verifyRes.data;
+
+    if (verifyData?.updateTime) {
+      console.log(`*********${ip} is able to connect from China`);
+      const res = {
+        ip,
+        port: confirmedPort,
+        updatedTime: new Date().getTime() + extraExpiry,
+      };
+
+      hostsMap.set(ip, res);
+      endGFWHosts.push(res);
+    }
   }
 }
 
 async function getEndGFWMirror() {
   const keyArray = await fetchAPI();
 
-  const ssKey1 = keyArray?.[keyArray.length - 1];
+  console.log('keyArray: ', keyArray);
+
+  const ssKeyArray = keyArray?.filter(
+    (item) => item.startsWith('ss://') && item.includes('end-gfw')
+  );
   // const ssKey2 = keyArray?.[1];
 
-  const temp1 = ssKey1?.split('@')?.[1];
-  // const temp2 = ssKey2?.split('@')?.[1];
+  if (ssKeyArray.length > 0) {
+    const ssKey1 = ssKeyArray[ssKeyArray.length - 1];
 
-  const ip1 = temp1?.split(':')?.[0];
-  // const ip2 = temp2?.split(':')?.[0];
+    const temp1 = ssKey1?.split('@')?.[1];
+    // const temp2 = ssKey2?.split('@')?.[1];
 
-  const extraExpiry = new Date().getTime();
+    const ip1 = temp1?.split(':')?.[0];
+    // const ip2 = temp2?.split(':')?.[0];
 
-  if (process.env.NODE_ENV?.includes('dev')) {
-  } else {
-    await saveMirrorInMemory(ip1, NODE_PORT, extraExpiry);
+    const extraExpiry = new Date().getTime();
+
+    if (process.env.NODE_ENV?.includes('dev')) {
+    } else {
+      await saveMirrorInMemory(ip1, NODE_PORT, extraExpiry);
+    }
   }
 }
 
