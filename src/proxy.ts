@@ -573,6 +573,7 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
 }
 
 async function getEndGFWMirror() {
+  await readHosts();
   const keyArray = await fetchAPI();
 
   console.log('keyArray: ', keyArray);
@@ -595,7 +596,7 @@ async function getEndGFWMirror() {
 
     if (process.env.NODE_ENV?.includes('dev')) {
     } else {
-      await saveMirrorInMemory(ip1, NODE_PORT, extraExpiry);
+      await saveMirrorInMemory(ip1, 8081, extraExpiry);
     }
   }
 }
@@ -634,6 +635,4 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-const port = NODE_PORT || 80;
-
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(80, () => console.log(`listening on port 80`));

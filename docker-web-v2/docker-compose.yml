@@ -1,0 +1,20 @@
+version: '3'
+services:
+  # xrayr:
+  #   image: ghcr.io/xrayr-project/xrayr:latest
+  #   volumes:
+  #     - ./config:/etc/XrayR/ # 映射配置文件夹
+  #   restart: always
+  #   network_mode: host
+  web:
+    image: endgfw/web:dev
+    environment:
+      - NODE_PORT=8081 #
+    ports:
+      - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
+    volumes:
+      - ../temp/android:/app/temp/android/
+      - ../temp/mac:/app/temp/mac/
+      - ../temp/windows:/app/temp/windows/
+      - ../temp/whyyoutouzhele:/app/temp/whyyoutouzhele/
+    restart: always
