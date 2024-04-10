@@ -6,7 +6,7 @@
     <script src="./tailwindcss.js"></script>
     <link rel="icon" type="image/x-icon" href="images/default.png" />
     <title>
-      推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
+      新闻 推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
     </title>
     <meta charset="UTF-8" />
     <meta
@@ -46,7 +46,7 @@
   </head>
   <body>
     <div id="header"></div>
-    <main class="mt-20 mx-8 lg:mx-20">
+    <main class="mt-20 mx-4 lg:mx-20">
       <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
         <div class="">
           <p class="font-bold">
@@ -294,48 +294,60 @@
 
         try {
           const res = await fetch(
-            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+            `/news-data?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
           );
 
           temp = await res.json();
+
+          if (temp.length === 0) {
+            isEmpty = true;
+          }
         } catch (err) {
           console.error('error loading data');
           isEmpty = true;
         }
 
-        const data = temp?.sort((a, b) =>
-          a.createdDate > b.createdDate ? -1 : 1
-        );
+        const data = temp
+          ?.map((item) => {
+            if (item.createdDate.length === 16) {
+              return item;
+            }
+
+            const datetimeTemp = item.createdDate;
+            const datetimeStr = datetimeTemp?.split(' ');
+            const dateStr = datetimeStr[0];
+
+            const timeStr = datetimeStr?.[1]?.split(':');
+            const hourStrTemp = timeStr?.[0];
+            const minStrTemp = timeStr?.[1];
+            const hourStr =
+              hourStrTemp?.length == 1 ? `0${hourStrTemp}` : hourStrTemp;
+            const minuteStr =
+              minStrTemp?.length == 1 ? `0${minStrTemp}` : minStrTemp;
+
+            item.createdDate = `${dateStr} ${hourStr}:${minuteStr}`;
+
+            return item;
+          })
+          .sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1));
 
         const pdfElement = document.getElementById('tweet');
 
         const elements = data.map((item) => {
-          const images = item?.images?.split(',');
-
-          if (item.videos) {
-            const videoImages = item.videos?.split(',');
-            images.push(...videoImages);
-          }
+          const images = item?.thumbnail;
 
           let imageElement = '';
 
-          if (images?.length > 0) {
-            const imagesArr = images
-              .filter((item) => item !== '')
-              .map(
-                (item) =>
-                  `<li class='relative'>
+          if (item?.thumbnail) {
+            imageElement = `<li class='relative'>
               <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
                 <img
-                  src='/resource${item}'
+                  src='/news-resource${item?.thumbnail}'
                   alt=''
                   class='pointer-events-none object-cover group-hover:opacity-75'
                 />
               </div>
-            </li>`
-              );
-
-            imageElement = imagesArr.join('');
+            </li>`;
           }
 
           return `<div class="">
@@ -344,16 +356,16 @@
                   <div class="flex-shrink-0">
                     <img
                       class="h-10 w-10 rounded-full"
-                      src="images/whyyoutouzhele.jpg"
+                      src="images/${item.sourceId}.jpg"
                       alt=""
                     />
                   </div>
                   <div class="min-w-0 flex-1">
                     <p class="text-lg font-bold text-gray-900">
-                      <a href="" class="">李老师不是你老师 @whyyoutouzhele </a>
+                      <a href="" class="">${item.name}</a>
                     </p>
                     <p class="text-sm text-gray-500">
-                      <a href="#" class="">北京时间${item.createdDate}发布</a>
+                      <a href="#" class="">${item.createdDate}发布</a>
                     </p>
                   </div>
                   <div class="flex flex-shrink-0 self-center">
@@ -370,8 +382,14 @@
                 </div>
               </div>
               <div class="px-4 pb-5 sm:p-6 sm:pt-0">
+                <h1 class="font-bold text-lg">${item.title}</h1>
+                <br />
                 <p>
                   ${item.content}
+                </p>
+                <br />
+                <p>
+                <a href="/news-resource/${item.detailImage}" class="font-semibold text-indigo-600">详情, 点击图片放大查看</a>
                 </p>
               </div>
               <ul

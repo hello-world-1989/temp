@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./tailwindcss.js"></script>
     <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>
-      推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
-    </title>
+    <title>李老师推文 推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件</title>
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+      content="李老师推文 推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
     />
     <meta
       name="keywords"
-      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+      content="李老师推文 推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
     />
 
     <script>
@@ -46,13 +44,11 @@
   </head>
   <body>
     <div id="header"></div>
-    <main class="mt-20 mx-8 lg:mx-20">
-      <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
-        <div class="">
+    <main class="relative mt-20">
+      <div class="flex justify-center">
+        <div>
           <p class="font-bold">
-            动态免墙IP站点, 每隔最多3天更新
-            <br />
-            可以安全分享到朋友圈而不被炸号
+            动态免墙IP站点, 可以安全分享到朋友圈而不被炸号
           </p>
           <p>
             <a target="_blank" id="why"></a>
@@ -61,57 +57,15 @@
           <p id="why-group"></p>
 
           <nav
-            class="isolate grid grid-cols-4 md:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
+            class="isolate inline-flex grid grid-cols-4 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
             aria-label="Pagination"
             id="page-group"
           ></nav>
         </div>
-        <div class="mt-4 lg:mt-1">
-          <h1 class="font-bold">翻墙软件推荐</h1>
-          <h1 class="mt-4">安卓手机使用NthLink, Orbot VPN, Cloudflare</h1>
-          <h1>
-            苹果手机苹果电脑使用<a
-              href="./qa.html#apple-account"
-              class="font-semibold text-indigo-600"
-              >海外苹果账户</a
-            >下载NthLink, Orbot VPN, Cloudflare
-          </h1>
-          <h1>微软系统电脑使用VPNGate, NthLink</h1>
-          <h1 class="mt-4">
-            如果以上无法使用， 使用V2Ray系列或Outline
-            <a
-              href="https://donate.stripe.com/8wM8A3649d9W7o4000"
-              class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
-              target="_blank"
-              >欢迎赞助1刀</a
-            >
-          </h1>
-          <h1>
-            赞助将提供更多节点 更快速度订阅链接， 赞助10刀将把组织名称放在网站上
-          </h1>
-          <br />
-          <h1>
-            点击节点复制, 导入到V2Ray/Outline
-            <p class="overflow-auto" onclick="copyText('outline')">
-              <span id="outline"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
-          </h1>
-          <h1>
-            点击链接复制, V2Ray订阅链接包含推墙运动节点<button
-              onclick="copyText('v2ray')"
-            >
-              <span class="overflow-x-auto" id="v2ray">
-                https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</span
-              >
-            </button>
-          </h1>
-        </div>
       </div>
       <div class="flex justify-center mt-10">
         <div id="tweet">
-          <div class="">
+          <div class="max-w-3xl">
             <div class="bg-white px-4 py-5 sm:px-6">
               <div class="flex space-x-3">
                 <div class="flex-shrink-0">
@@ -313,8 +267,7 @@
           const images = item?.images?.split(',');
 
           if (item.videos) {
-            const videoImages = item.videos?.split(',');
-            images.push(...videoImages);
+            images.push(item.videos?.split(',')?.[0]);
           }
 
           let imageElement = '';
@@ -327,7 +280,7 @@
                   `<li class='relative'>
               <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
                 <img
-                  src='/resource${item}'
+                  src='${item}'
                   alt=''
                   class='pointer-events-none object-cover group-hover:opacity-75'
                 />
@@ -338,7 +291,7 @@
             imageElement = imagesArr.join('');
           }
 
-          return `<div class="">
+          return `<div class="max-w-3xl">
               <div class="bg-white px-4 py-5 sm:px-6">
                 <div class="flex space-x-3">
                   <div class="flex-shrink-0">
@@ -376,7 +329,7 @@
               </div>
               <ul
                 role="list"
-                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:gap-x-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4"
+                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 lg:grid-cols-2 xl:gap-x-4"
               >
                 ${imageElement}
               </ul>
@@ -422,46 +375,6 @@
       }
 
       getHost();
-    </script>
-
-    <script>
-      async function getSS() {
-        const res = await fetch('/ss-key');
-
-        const ssKey = await res.text();
-
-        const ssElement = document.getElementById('outline');
-
-        ssElement.href = ssKey;
-        ssElement.innerText = ssKey;
-      }
-
-      getSS();
-    </script>
-
-    <script>
-      function copyText(elementId) {
-        // Get the text field
-        var textToCopy = document.getElementById(elementId);
-
-        // Select the text
-        var range = document.createRange();
-        range.selectNode(textToCopy);
-        window.getSelection().removeAllRanges(); // clear current selection
-        window.getSelection().addRange(range); // to select text
-
-        try {
-          // Now that we've selected the text, execute the copy command
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-          console.log('Copy text command was ' + msg);
-        } catch (err) {
-          console.log('Oops, unable to copy', err);
-        }
-
-        // Remove the selections - NOTE: Might not be necessary in some cases
-        window.getSelection().removeAllRanges();
-      }
     </script>
   </body>
 </html>

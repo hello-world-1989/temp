@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./tailwindcss.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <title>无审查软件 推墙运动 墙倒众人推 大翻墙运动</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+    />
+    <meta
+      name="keywords"
+      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+    />
+
+    <script>
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('header').innerHTML = text;
+
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
+
+          mobileHeader.classList.add('hidden');
+
+          closeMenu.onclick = () => {
+            mobileHeader.classList.add('hidden');
+          };
+
+          openMenu.onclick = () => {
+            mobileHeader.classList.remove('hidden');
+          };
+        });
+
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((text) => (document.getElementById('footer').innerHTML = text));
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main>
+      <div class="mx-auto w-full flex items-center justify-center">
+        <fieldset class="mt-20">
+          <legend class="sr-only"></legend>
+          <div class="grid grid-cols-3 gap-3 sm:grid-cols-5" id="os-group">
+            <!-- Memory Options will be added here using JavaScript -->
+          </div>
+        </fieldset>
+      </div>
+
+      <ul
+        role="list"
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        id="vpn-list"
+      >
+        <!-- More people... -->
+      </ul>
+
+      <!-- FAQs -->
+      <div
+        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pb-24 sm:pt-12 lg:max-w-7xl lg:px-8 lg:pb-8"
+        id="faq"
+      >
+        <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">
+          常见问题
+        </h2>
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+          <dt
+            class="text-base font-semibold leading-7 text-red-600 lg:col-span-5"
+          >
+            风险提示
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0 text-red-600">
+            如果您在国内被国安紧盯(异议人士 活动人士), 使用本站分享的软件、
+            密钥仍会有风险
+            <br />
+            <br />
+            知识有限, 无法保证100%安全有效, 欢迎监督指正
+            <br />
+            <br />
+          </dd>
+        </div>
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            如何保持翻墙防止翻墙软件失效
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              加入
+              <br />
+              <a href="#jami" class="font-semibold text-indigo-600">Jami群组</a>
+              <br />
+              <a
+                href="https://groups.google.com/g/end-gfw"
+                target="_blank"
+                class="font-semibold text-indigo-600"
+                >谷歌群组</a
+              >
+              订阅最新翻墙软件，并设置<b class="font-bold">自动转发</b
+              >到国内邮箱(有风险)
+              <br />
+              我们将每月发送最新翻墙软件、镜像下载地址、镜像谷歌搜索代理、翻墙资讯等
+
+              <br />
+              <a href="#session" class="font-semibold text-indigo-600"
+                >Session群组</a
+              >
+              <br />
+              <a href="#" class="font-semibold text-indigo-600"
+                >Resilio Sync同步</a
+              >
+            </p>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            捐助1刀集资购买机场
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <p class="text-base leading-7 text-gray-600">
+              <a
+                href="https://donate.stripe.com/8wM8A3649d9W7o4000"
+                class="text-lg leading-6 hover:text-gray-900 font-bold text-lime-500"
+                target="_blank"
+                >捐助1刀</a
+              >集资购买机场， 将定期公布资金筹集和使用情况，
+              每增加7刀将新增一个节点
+
+              <br />
+              捐助后请留下邮箱，将发送节点信息
+              <br />
+              集资购买机场优势，节点多后， 防火墙无法屏蔽
+            </p>
+          </dd>
+        </div>
+
+        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+          <dt
+            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+          >
+            苹果手机无需海外账户安装Orbot VPN, Onion Browser(Tor Browser),
+            Session
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            使用苹果电脑安装
+            <br />
+            1 下载 Apple Configurator 2 手机USB连接苹果电脑 3
+            在苹果电脑中找到苹果手机设备
+            <br />
+            4 添加 选择 IPA 应用
+            <br />
+            <br />
+            使用微软PC电脑安装
+            <br />
+            1 安装 iTunes 2 手机USB连接微软系统电脑 3 拖拽 IPA文件到苹果手机设备
+            <br />
+          </dd>
+        </div>
+
+        <dl class="mt-10 space-y-8 divide-y divide-gray-900/10">
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              注册苹果账户
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p
+                class="text-base leading-7 font-semibold text-indigo-600 space-x-10 space-y-10"
+              >
+                海外苹果账户由<a
+                  href="https://twitter.com/ziyoufujian"
+                  target="_blank"
+                  >推特用户自由福建提供</a
+                >
+              </p>
+              <p>用户名 i-eurfkwn@aneeo.cc 密码 Aneeo-1P4bhALUEK</p>
+              <p>
+                登陆海外苹果应用商店下载 或 用电脑下载本站安装包
+                使用爱思助手安装
+              </p>
+              <p
+                class="text-base leading-7 font-semibold text-indigo-600 space-x-10 space-y-10"
+              >
+                <a
+                  href="https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/image/ios-part1.png"
+                  target="_blank"
+                  >图片教程1</a
+                >
+                <a
+                  href="https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/image/ios-part2.png"
+                  target="_blank"
+                  >图片教程1</a
+                >
+              </p>
+              <p
+                class="text-base leading-7 font-semibold text-indigo-600 space-x-10"
+              >
+                <a
+                  href="https://gitlab.com/hello-world-1989/temp/-/raw/main/images/ios-part1.png"
+                  target="_blank"
+                  >图片教程2</a
+                >
+                <a
+                  href="https://gitlab.com/hello-world-1989/temp/-/raw/main/images/ios-part2.png"
+                  target="_blank"
+                  >图片教程2</a
+                >
+              </p>
+            </dd>
+          </div>
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              Fdroid应用商店
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7">
+                <a
+                  href="https://gitlab.com/fdroid/mirror-monitor"
+                  target="_blank"
+                  class="font-semibold text-indigo-600"
+                  >镜像地址列表</a
+                >
+                <br />
+                镜像地址 + 要下载的应用id, 例如
+                <br />
+                <p class="overflow-x-auto">
+                https://mirror.fcix.net/fdroid/repo/org.fdroid.fdroid_1019050.apk
+              </p>
+              </p>
+            </dd>
+          </div>
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              Briar
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7 text-gray-600">
+                无需网络 无需手机号 无需邮箱 无需翻墙， 通讯时需要双方同时在线
+                <br />
+                100%独立的无线宽带网络、提供可变WiFi网络，不依赖任何传统物理接入方式
+                <br />
+                能轻易躲过任何形式的政府监测
+              </p>
+            </dd>
+          </div>
+
+          <div
+            class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+            id="obfs4-instance"
+          >
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              <p>Tor Browser浏览器, Orbot VPN 网桥地址</p>
+              <p><span id="obfs4-update"></span>更新</p>
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <br />
+              <p
+                class="text-base leading-7 text-gray-600 overflow-x-auto"
+                id="obfs4"
+              ></p>
+            </dd>
+          </div>
+
+          <div
+            class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+            id="youtube-instance"
+          >
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              免翻墙Youtube油管，李老师不是你老师频道
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7 text-gray-600">
+                <a
+                  href="https://github.com/hello-world-1989/accessible/blob/main/youtube.json"
+                  target="_blank"
+                  class="font-semibold text-indigo-600"
+                  >免翻墙Youtube油管, <span id="youtube-update"></span>更新</a
+                >
+              </p>
+
+              <br />
+              <p class="text-base leading-7 text-gray-600" id="youtube"></p>
+            </dd>
+          </div>
+
+          <div
+            class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+            id="nitter-instance"
+          >
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              免注册免翻墙查看推特X，李老师不是你老师推文
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7 text-gray-600">
+                <a
+                  href="https://github.com/hello-world-1989/accessible/blob/main/nitter.json"
+                  target="_blank"
+                  class="font-semibold text-indigo-600"
+                  >免翻墙推特地址, <span id="nitter-update"></span>更新</a
+                >
+              </p>
+              <p>只需要在链接后加入推特账号即可, 例如</p>
+              <p>https://nitter.net/whyyoutouzhele</p>
+
+              <br />
+              <p class="text-base leading-7 text-gray-600" id="nitter"></p>
+            </dd>
+          </div>
+
+          <div
+            class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8"
+            id="searchx-instance"
+          >
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              免翻墙SearXNG搜索代理
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7 text-gray-600">
+                <a
+                  href="https://github.com/hello-world-1989/accessible/blob/main/searchx.json"
+                  target="_blank"
+                  class="font-semibold text-indigo-600"
+                  >免翻墙搜索代理, <span id="searchx-update"></span>更新</a
+                >
+              </p>
+              <br />
+              <pre id="searchx" class="overflow-x-auto"></pre>
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="wiki-instance">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              免翻墙维基百科
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7 text-gray-600">
+                <a
+                  href="https://github.com/hello-world-1989/accessible/blob/main/wiki.json"
+                  target="_blank"
+                  class="font-semibold text-indigo-600"
+                  >免翻墙维基百科, <span id="wiki-update"></span>更新</a
+                >
+              </p>
+
+              <br />
+              <p class="text-base leading-7 text-gray-600" id="wiki"></p>
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 overflow-x-clip">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+              id="jami"
+            >
+              Jami 群组
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p>无需手机号 无需邮箱 需要双方同时在线 通讯应用</p>
+              <p class="text-base leading-7 text-gray-600">
+                添加Jami账户, 查找名称 -> ban-gfw -> 加入通讯录 -> 发送任意消息
+                <br />
+                请于加好友后再上线2次（第一次好友通过,第二次加入群组邀请）
+              </p>
+              <p>朋友间使用 可以使用第三方软件通知对方上线</p>
+              <p>第一次使用可能需要使用翻墙软件</p>
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 overflow-x-clip">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+              id="session"
+            >
+              Session 群组
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p>无需手机号 无需邮箱 仅第一次使用需要翻墙 通讯应用</p>
+              <p class="text-base leading-7 text-gray-600">
+                添加Session号码, + -> New Message 发送消息给账户
+              </p>
+              <p class="overflow-x-auto">
+                0574c0e3db87e0ddce32b112c16b626543f20991694b66718160e54d3daa71762f
+              </p>
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              Teleguard
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              无需手机号 无需邮箱 无需翻墙通讯应用
+              <br />
+              添加联系人 WCMS3EU9Q
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              Skred
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              无需手机号 无需邮箱 无需翻墙通讯应用
+              <br />
+              需要双方同时在线
+              <br />
+              群组最多8人， 正在增加
+              <br />
+              适合朋友间交流
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              Resilio Sync 同步所有翻墙软件
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              同步索引 BQDQF2CBGPH6MR2JHOFJRJZJPVYBLAJEH
+              <br />
+              同步安卓翻墙软件 BKLTBILQYZTL2ROLMXG2WG57RF4YN73U6
+              <br />
+              同步苹果手机翻墙教程 BBX4FVEFAWU2TA3V74S5TVQUT6EQDHRRU
+              <br />
+              同步微软系统电脑翻墙软件 BCMRGUVWROZTLKH5DLKIXNH5E2KQWUXDO
+              <br />
+              同步苹果电脑翻墙软件 BWRUPGEXHUC6YFQX3D66DJQ4NFFGDSL3C
+              <br />
+              同步Linux电脑翻墙软件 BVMX66GMUMRYWCZVKFMXGCFMQIVN5HDFT
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              其它问题
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <p class="text-base leading-7 text-gray-600">
+                请前往<a
+                  href="https://github.com/hello-world-1989/temp"
+                  target="_blank"
+                  class="font-semibold text-indigo-600"
+                  >Github</a
+                >查看
+              </p>
+            </dd>
+          </div>
+
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="ooni">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              我们能做什么
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              <span class="text-lime-500">非常需要国内的朋友协助测试</span>
+              <br />
+              安装OONI
+              Probe测试GFW(长城防火墙)屏蔽方式，帮助研究人员开发更好的翻墙软件,
+              轻微风险
+              <br />
+              <br />
+              测试时可能需要给OONI Probe设置内置代理，否则测试报告无法上传,
+              先直接测试，如果失败 设置 -> OONI后台代理 Psiphon
+              或在另外一台安卓手机安装Every Proxy 开启http自定义代理
+              <br />
+              <br />
+              如果你在墙内，帮助身边的人翻墙
+              <br />
+              分享本网站，传播国内发生的新闻
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script>
+      async function getVPN() {
+        const response = await fetch('e2e.json');
+        const vpn = await response.json();
+        return vpn;
+      }
+    </script>
+
+    <script type="module">
+      const osTypes = [
+        {
+          id: 'android',
+          name: '安卓手机',
+          icon: 'images/android.svg',
+        },
+        {
+          id: 'windows',
+          name: '微软电脑',
+          icon: 'images/windows.svg',
+        },
+        {
+          id: 'ios',
+          name: '苹果手机',
+          icon: 'images/ios.svg',
+        },
+        {
+          id: 'mac',
+          name: '苹果电脑',
+          icon: 'images/mac.svg',
+        },
+        {
+          id: 'linux',
+          name: 'Linux电脑',
+          icon: 'images/linux.svg',
+        },
+      ];
+
+      function classNames(...classes) {
+        return classes.filter(Boolean).join(' ');
+      }
+
+      function addLiElement(activeVPN, vpnGroup) {
+        activeVPN.map((item) => {
+          const vpnLiElement = document.createElement('li');
+          vpnLiElement.className =
+            'col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow';
+
+          vpnLiElement.innerHTML = `<div class="flex flex-1 flex-col p-8">
+          <img
+            class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
+            src="${item.image}"
+            alt=""
+          />
+          <h3 class="mt-6 text-sm font-medium text-gray-900">${item.name}</h3>
+          <dl class="mt-1 flex flex-grow flex-col justify-between">
+            <dd class="text-sm text-gray-500">${item.comment}</dd>
+                <dd class='mt-3'>
+                  <a
+                    href='${item.web}'
+                    class='inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'
+                  >
+                    ${item.web ? '官网' : ''}
+                  </a>
+                </dd>
+          </dl>
+        </div>
+        <div>
+          <div class="-mt-px flex divide-x divide-gray-200">
+            <div class="flex w-0 flex-1">
+              <a
+                href="${item.link1}"
+                class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+              >
+
+                下载链接1
+              </a>
+            </div>
+            <div class="-ml-px flex w-0 flex-1">
+              <a
+                href="${item.link2}"
+                class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+              >
+
+                下载链接2
+              </a>
+            </div>
+          </div>
+        </div>`;
+
+          vpnGroup.appendChild(vpnLiElement);
+        });
+      }
+
+      const radioGroup = document.getElementById('os-group');
+      const vpnGroup = document.getElementById('vpn-list');
+
+      const vpn = await getVPN();
+
+      const activeVPN = vpn
+        .filter((item) => item.os == 'android')
+        .sort((a, b) => b.star - a.star);
+
+      addLiElement(activeVPN, vpnGroup);
+
+      osTypes.forEach((option, i) => {
+        const osGroupElement = document.createElement('div');
+
+        osGroupElement.className = classNames(
+          'cursor-pointer focus:outline-none',
+          'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1'
+        );
+
+        osGroupElement.className +=
+          i == 0
+            ? ' selected bg-indigo-600 text-white hover:bg-indigo-500'
+            : ' ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50';
+
+        osGroupElement.innerHTML = `
+          <p>
+            <img src='${option.icon}' /> 
+            <span>${option.name}</span>
+          </p>
+        `;
+
+        osGroupElement.id = option.id;
+
+        osGroupElement.onclick = () => {
+          const selectedOption = radioGroup.querySelector('.selected');
+          if (selectedOption) {
+            selectedOption.classList.remove('selected');
+            selectedOption.classList.remove('bg-indigo-600');
+            selectedOption.classList.remove('text-white');
+            selectedOption.classList.remove('hover:bg-indigo-500');
+
+            selectedOption.classList.add('bg-white');
+            selectedOption.classList.add('text-gray-900');
+            selectedOption.classList.add('hover:bg-gray-50');
+            selectedOption.classList.add('ring-1');
+            selectedOption.classList.add('ring-inset');
+            selectedOption.classList.add('ring-gray-300');
+          }
+
+          const activeVPN = vpn
+            .filter((item) => item.os == osGroupElement.id)
+            .sort((a, b) => b.star - a.star);
+
+          while (vpnGroup.firstChild) {
+            vpnGroup.removeChild(vpnGroup.firstChild);
+          }
+
+          addLiElement(activeVPN, vpnGroup);
+
+          osGroupElement.classList.add('selected');
+          osGroupElement.classList.add('bg-indigo-600');
+          osGroupElement.classList.add('text-white');
+          osGroupElement.classList.add('hover:bg-indigo-500');
+
+          osGroupElement.classList.remove('bg-white');
+          osGroupElement.classList.remove('text-gray-900');
+          osGroupElement.classList.remove('hover:bg-gray-50');
+        };
+
+        radioGroup.appendChild(osGroupElement);
+      });
+    </script>
+
+    <script>
+      async function getData() {
+        const res = await fetch('/github');
+
+        const data = await res.text();
+
+        const vpnGateElement = document.getElementById('vpn-gate');
+
+        vpnGateElement.innerText = data;
+      }
+
+      getData();
+    </script>
+
+    <script>
+      async function getYoutube() {
+        const res = await fetch('/youtube');
+
+        const data = await res.json();
+
+        const youtubeElement = document.getElementById('youtube');
+        const updateElement = document.getElementById('youtube-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙Youtube油管镜像地址${i + 1}`;
+
+          youtubeElement.appendChild(linkElement);
+          youtubeElement.appendChild(breakLineElement);
+        });
+      }
+
+      getYoutube();
+    </script>
+
+    <script>
+      async function getWiki() {
+        const res = await fetch('/wiki');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('wiki');
+        const updateElement = document.getElementById('wiki-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙维基百科镜像地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getWiki();
+    </script>
+
+    <script>
+      async function getNitter() {
+        const res = await fetch('/nitter');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('nitter');
+        const updateElement = document.getElementById('nitter-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙免注册推特镜像地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getNitter();
+    </script>
+
+    <script>
+      async function getSearchX() {
+        const res = await fetch('/searchx');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('searchx');
+        const updateElement = document.getElementById('searchx-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('a');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.href = item;
+          linkElement.target = '_blank';
+
+          linkElement.innerText = `免翻墙搜索代理地址${i + 1}`;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getSearchX();
+    </script>
+
+    <script>
+      async function getObfs4() {
+        const res = await fetch('/obfs4');
+
+        const data = await res.json();
+
+        const instanceElement = document.getElementById('obfs4');
+        const updateElement = document.getElementById('obfs4-update');
+
+        updateElement.innerText = data.updateTime;
+
+        data?.resources?.map((item, i) => {
+          const linkElement = document.createElement('code');
+          const breakLineElement = document.createElement('br');
+          linkElement.className = 'font-semibold text-indigo-600';
+
+          linkElement.innerText = item;
+
+          instanceElement.appendChild(linkElement);
+          instanceElement.appendChild(breakLineElement);
+        });
+      }
+
+      getObfs4();
+    </script>
+  </body>
+</html>

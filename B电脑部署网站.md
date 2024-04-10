@@ -1,10 +1,12 @@
+
+
 1. [下载并安装 Docker](https://www.docker.com/products/docker-desktop/), 仅支持英文
 
 2. 安装完成后 点击 Search images to run
 
 <img src='https://github.com/hello-world-1989/temp/blob/main/docker/step1.png' width='800' height='400' />
 
-3.  搜索 endgfw/web, 并点击 Run
+3.  搜索 endgfw/web, 找到endgfw/web:stable 并点击 Run
 
 <img src='https://github.com/hello-world-1989/temp/blob/main/docker/step2.png' width='800' height='400' />
 

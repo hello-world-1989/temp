@@ -36,7 +36,7 @@ sudo chmod +x /usr/local/bin/dc
 
 mkdir end-gfw
 cd end-gfw
-wget https://github.com/hello-world-1989/temp/raw/main/docker/docker-compose.yml
+wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-compose.yml
 
 ```
 
@@ -50,4 +50,24 @@ sudo dc up -d
 
 6. 防火墙放开 80, 8081 端口, 禁用 IPV6
 
-7. http://公共IPV4地址:8081, 需要访问下确认能打开，才会显示在网站上
+7. 访问 http://公共IPV4地址:8081 确认是否搭建成功
+
+访问 http://公共IPV4地址:8081/report 将上报并展示在end-gfw网站上
+
+8. 更新 
+
+### 小版本更新，重启服务器即可
+
+### 2024.4.11大版本更新
+
+更新方法
+
+```
+cd end-gfw
+
+wget -O docker-compose.yml https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-compose.yml
+
+sudo dc down
+sudo dc up -d
+```
+

@@ -1,8 +1,10 @@
 version: '3'
 services: 
   web: 
-    image: endgfw/web:web-only
+    image: endgfw/web:stable
+    environment:
+      - NODE_PORT=8081 #
     ports:
-      - "8081:8081"
-      - "80:8081"
+      - '80:80'
+      - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
     restart: always

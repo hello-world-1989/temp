@@ -1,0 +1,427 @@
+[
+  {
+    "os": "android",
+    "id": "onionshare",
+    "name": "OnionShare",
+    "link1": "android/android-onionshare.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-onionshare.zip",
+    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
+    "image": "images/onionshare.webp",
+    "web": "https://onionshare.org/",
+    "star": 8
+  },
+  {
+    "os": "windows",
+    "id": "onionshare",
+    "name": "OnionShare",
+    "link1": "windows/windows-onionshare.zip",
+    "link2": "https://github.com/hello-world-1989/windows/raw/main/windows-onionshare.zip",
+    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
+    "image": "images/onionshare.webp",
+    "web": "https://onionshare.org/",
+    "star": 8
+  },
+  {
+    "os": "ios",
+    "id": "onionshare",
+    "name": "OnionShare",
+    "link1": "#",
+    "link2": "#",
+    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
+    "image": "images/onionshare.webp",
+    "web": "https://onionshare.org/",
+    "star": 8
+  },
+  {
+    "os": "mac",
+    "id": "onionshare",
+    "name": "OnionShare",
+    "link1": "mac/mac-onionshare.zip",
+    "link2": "https://github.com/hello-world-1989/mac/raw/main/mac-onionshare.zip",
+    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
+    "image": "images/onionshare.webp",
+    "web": "https://onionshare.org/",
+    "star": 8
+  },
+  {
+    "os": "android",
+    "id": "jami",
+    "name": "Jami通讯软件",
+    "link1": "android/android-jami.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-jami.zip",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
+    "image": "images/jami.webp",
+    "web": "https://jami.net/",
+    "star": 5.1
+  },
+  {
+    "os": "windows",
+    "id": "jami",
+    "name": "Jami通讯软件",
+    "link1": "windows/windows-jami.zip",
+    "link2": "https://github.com/hello-world-1989/windows/releases/download/latest/windows-jami.zip",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
+    "image": "images/jami.webp",
+    "web": "https://jami.net/",
+    "star": 5.1
+  },
+  {
+    "os": "ios",
+    "id": "jami",
+    "name": "Jami通讯软件",
+    "link1": "#",
+    "link2": "#",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
+    "image": "images/jami.webp",
+    "web": "https://jami.net/",
+    "star": 5.1
+  },
+  {
+    "os": "mac",
+    "id": "jami",
+    "name": "Jami通讯软件",
+    "link1": "mac/mac-jami.zip",
+    "link2": "https://github.com/hello-world-1989/mac/releases/download/latest/mac-jami.zip",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
+    "image": "images/jami.webp",
+    "web": "https://jami.net/",
+    "star": 5.1
+  },
+  {
+    "os": "linux",
+    "id": "jami",
+    "name": "Jami通讯软件",
+    "link1": "images/linux-jami.png",
+    "link2": "https://gitlab.com/hello-world-1989/temp/-/raw/main/images/linux-jami.png",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
+    "image": "images/jami.webp",
+    "web": "https://jami.net/",
+    "star": 5.1
+  },
+  {
+    "os": "android",
+    "id": "session",
+    "name": "Session通讯软件",
+    "link1": "android/android-session.zip",
+    "link2": "https://gitlab.com/hello-world-1989/temp/-/raw/main/android-session.zip",
+    "comment": "无需手机号邮箱，无需翻墙使用,加入群组 见 常见问题",
+    "image": "images/session.webp",
+    "web": "https://getsession.org/download",
+    "star": 5
+  },
+  {
+    "os": "windows",
+    "id": "session",
+    "name": "Session通讯软件",
+    "link1": "windows/windows-session.zip",
+    "link2": "https://github.com/hello-world-1989/windows/releases/download/latest/windows-session.zip",
+    "comment": "无需手机号邮箱，无需翻墙使用,加入群组 见 常见问题",
+    "image": "images/session.webp",
+    "web": "https://getsession.org/download",
+    "star": 5
+  },
+  {
+    "os": "ios",
+    "id": "session",
+    "name": "Session通讯软件",
+    "link1": "ios/ios-session.zip",
+    "link2": "https://github.com/hello-world-1989/temp/raw/main/ios/ios-session.zip",
+    "comment": "需要使用电脑安装，详见说明;无需手机号邮箱，无需翻墙使用,加入群组 见 常见问题， 注册海外苹果账户下载",
+    "image": "images/session.webp",
+    "web": "https://getsession.org/download",
+    "star": 5
+  },
+  {
+    "os": "mac",
+    "id": "session",
+    "name": "Session通讯软件",
+    "link1": "mac/mac-session.zip",
+    "link2": "https://github.com/hello-world-1989/mac/releases/download/latest/mac-session.zip",
+    "comment": "无需手机号邮箱，无需翻墙使用,加入群组 见 常见问题",
+    "image": "images/session.webp",
+    "web": "https://getsession.org/download",
+    "star": 5
+  },
+  {
+    "os": "android",
+    "id": "briar",
+    "name": "Briar",
+    "link1": "android/android-briar.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-briar.zip",
+    "comment": "通讯软件，保护隐私",
+    "image": "images/briar.webp",
+    "web": "https://briarproject.org/",
+    "star": 5
+  },
+  {
+    "os": "windows",
+    "id": "briar",
+    "name": "Briar",
+    "link1": "windows/windows-briar.zip",
+    "link2": "https://github.com/hello-world-1989/windows/releases/download/latest/windows-briar.zip",
+    "comment": "通讯软件，保护隐私, 测试阶段",
+    "image": "images/briar.webp",
+    "web": "https://briarproject.org/",
+    "star": 5
+  },
+  {
+    "os": "linux",
+    "id": "briar",
+    "name": "Briar",
+    "link1": "#",
+    "link2": "#",
+    "comment": "通讯软件，保护隐私, 测试阶段",
+    "image": "images/briar.webp",
+    "web": "https://briarproject.org/",
+    "star": 5
+  },
+  {
+    "os": "mac",
+    "id": "briar",
+    "name": "Briar",
+    "link1": "mac/mac-briar.zip",
+    "link2": "https://github.com/hello-world-1989/mac/releases/download/latest/mac-briar.zip",
+    "comment": "通讯软件，保护隐私, 测试阶段",
+    "image": "images/briar.webp",
+    "web": "https://briarproject.org/",
+    "star": 5
+  },
+
+  {
+    "os": "android",
+    "id": "fdroid",
+    "name": "Fdroid应用商店",
+    "link1": "android/android-fdroid.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-fdroid.zip",
+    "comment": "免费 开源软件下载 应用商店, 查看以下使用说明",
+    "image": "images/fdroid.webp",
+    "web": "https://f-droid.org/",
+    "star": 4
+  },
+
+  {
+    "os": "android",
+    "id": "aurora",
+    "name": "Aurora应用商店",
+    "link1": "android/android-aurora.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-aurora.zip",
+    "comment": "应用商店",
+    "image": "images/aurora.webp",
+    "web": "https://f-droid.org/",
+    "star": 4
+  },
+
+  {
+    "os": "android",
+    "id": "everyproxy",
+    "name": "翻墙服务共享",
+    "link1": "android/android-everyproxy.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-everyproxy.zip",
+    "comment": "分享翻墙服务给其它设备",
+    "image": "images/everyproxy.webp",
+    "web": "#",
+    "star": 4
+  },
+
+  {
+    "os": "android",
+    "id": "skred",
+    "name": "Skred",
+    "link1": "android/android-skred.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-skred.zip",
+    "comment": "无需邮箱手机号通讯软件,加入群组 见 常见问题",
+    "image": "images/skred.webp",
+    "web": "https://skred.mobi/en/accueil/",
+    "star": 4
+  },
+  {
+    "os": "ios",
+    "id": "skred",
+    "name": "Skred",
+    "link1": "#",
+    "link2": "#",
+    "comment": "需注册海外苹果账户，图片教程见常见问题",
+    "image": "images/skred.webp",
+    "web": "https://skred.mobi/en/accueil/",
+    "star": 4
+  },
+  {
+    "os": "android",
+    "id": "fcitx5",
+    "name": "小企鹅输入法 5",
+    "link1": "android/android-fcitx5.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-fcitx5.zip",
+    "comment": "输入法工具",
+    "image": "images/fcitx5.webp",
+    "web": "https://f-droid.org/packages/org.fcitx.fcitx5.android/",
+    "star": 4
+  },
+
+  {
+    "os": "android",
+    "id": "gboard",
+    "name": "Gboard",
+    "link1": "android/android-gboard.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-gboard.zip",
+    "comment": "输入法工具",
+    "image": "images/gboard.webp",
+    "web": "https://support.google.com/gboard#topic=9023832",
+    "star": 4
+  },
+  {
+    "os": "ios",
+    "id": "gboard",
+    "name": "Gboard",
+    "link1": "#",
+    "link2": "#",
+    "comment": "输入法工具, 需注册海外苹果账户，图片教程见常见问题",
+    "image": "images/gboard.webp",
+    "web": "https://support.google.com/gboard#topic=9023832",
+    "star": 4
+  },
+
+  {
+    "os": "android",
+    "id": "chrome",
+    "name": "Google Chrome浏览器",
+    "link1": "android/android-chrome.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-chrome.zip",
+    "comment": "浏览器",
+    "image": "images/chrome.webp",
+    "web": "https://www.google.com/chrome/",
+    "star": 5
+  },
+  {
+    "os": "windows",
+    "id": "chrome",
+    "name": "Google Chrome浏览器",
+    "link1": "windows/windows-chrome.zip",
+    "link2": "https://github.com/hello-world-1989/windows/releases/download/latest/windows-chrome.zip",
+    "comment": "浏览器",
+    "image": "images/chrome.webp",
+    "web": "https://www.google.com/chrome/",
+    "star": 5
+  },
+  {
+    "os": "ios",
+    "id": "chrome",
+    "name": "Google Chrome浏览器",
+    "link1": "#",
+    "link2": "#",
+    "comment": "浏览器",
+    "image": "images/chrome.webp",
+    "web": "https://www.google.com/chrome/",
+    "star": 5
+  },
+  {
+    "os": "mac",
+    "id": "chrome",
+    "name": "Google Chrome浏览器",
+    "link1": "mac/mac-chrome.zip",
+    "link2": "https://github.com/hello-world-1989/mac/releases/download/latest/mac-chrome.zip",
+    "comment": "点对点文件同步软件",
+    "image": "images/chrome.webp",
+    "web": "https://www.google.com/chrome/",
+    "star": 5
+  },
+
+  {
+    "os": "android",
+    "id": "resilio",
+    "name": "Resilio Sync",
+    "link1": "android/android-resilio.zip",
+    "link2": "https://github.com/hello-world-1989/android/releases/download/latest/android-resilio.zip",
+    "comment": "点对点文件同步软件,见 常见问题",
+    "image": "images/resilio.webp",
+    "web": "https://www.resilio.com/individuals/",
+    "star": 2
+  },
+  {
+    "os": "windows",
+    "id": "resilio",
+    "name": "Resilio Sync",
+    "link1": "windows/windows-resilio.zip",
+    "link2": "https://github.com/hello-world-1989/windows/releases/download/latest/windows-resilio.zip",
+    "comment": "点对点文件同步软件,见 常见问题",
+    "image": "images/resilio.webp",
+    "web": "https://www.resilio.com/individuals/",
+    "star": 2
+  },
+  {
+    "os": "ios",
+    "id": "resilio",
+    "name": "Resilio Sync",
+    "link1": "#1",
+    "link2": "#1",
+    "comment": "点对点文件同步软件,见 常见问题",
+    "image": "images/resilio.webp",
+    "web": "https://www.resilio.com/individuals/",
+    "star": 2
+  },
+  {
+    "os": "mac",
+    "id": "resilio",
+    "name": "Resilio Sync",
+    "link1": "mac/mac-resilio.zip",
+    "link2": "https://github.com/hello-world-1989/mac/releases/download/latest/mac-resilio.zip",
+    "comment": "点对点文件同步软件,见 常见问题",
+    "image": "images/resilio.webp",
+    "web": "https://www.resilio.com/individuals/",
+    "star": 2
+  },
+  {
+    "os": "linux",
+    "id": "resilio",
+    "name": "Resilio Sync",
+    "link1": "#",
+    "link2": "#",
+    "comment": "点对点文件同步软件,见 常见问题",
+    "image": "images/resilio.webp",
+    "web": "https://www.resilio.com/individuals/",
+    "star": 2
+  },
+  {
+    "os": "android",
+    "id": "ooni",
+    "name": "OONI Probe",
+    "link1": "android/android-ooni.zip",
+    "link2": "https://github.com/hello-world-1989/android/raw/main/android-ooni.zip",
+    "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
+    "image": "images/ooni.webp",
+    "web": "https://ooni.org/install/",
+    "star": 8
+  },
+  {
+    "os": "windows",
+    "id": "ooni",
+    "name": "OONI Probe",
+    "link1": "windows/windows-ooni.zip",
+    "link2": "https://github.com/hello-world-1989/windows/releases/download/latest/windows-ooni.zip",
+    "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
+    "image": "images/ooni.webp",
+    "web": "https://ooni.org/install/",
+    "star": 8
+  },
+  {
+    "os": "ios",
+    "id": "ooni",
+    "name": "OONI Probe",
+    "link1": "#",
+    "link2": "#",
+    "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
+    "image": "images/ooni.webp",
+    "web": "https://ooni.org/install/",
+    "star": 8
+  },
+  {
+    "os": "mac",
+    "id": "ooni",
+    "name": "OONI Probe",
+    "link1": "mac/mac-ooni.zip",
+    "link2": "https://github.com/hello-world-1989/mac/releases/download/latest/mac-ooni.zip",
+    "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
+    "image": "images/ooni.webp",
+    "web": "https://ooni.org/install/",
+    "star": 8
+  }
+]
