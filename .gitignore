@@ -1,1 +1,8 @@
 .sync/
+
+node_modules
+
+*hosts.json
+*proxy.js
+
+*package-lock.json

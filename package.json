@@ -1,0 +1,30 @@
+{
+  "name": "proxy-server",
+  "version": "1.0.0",
+  "description": "google proxy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start:prod": "ts-node src/proxy.ts",
+    "start": "nodemon src/proxy.ts"
+  },
+  "keywords": [
+    "proxy"
+  ],
+  "author": "end",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "http-proxy": "^1.18.1",
+    "serve-static": "^1.15.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
+    "@types/express": "^4.17.20",
+    "@types/http-proxy": "^1.17.13"
+  }
+}
