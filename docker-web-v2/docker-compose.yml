@@ -1,0 +1,19 @@
+version: '3'
+services:
+  # xrayr:
+  #   image: ghcr.io/xrayr-project/xrayr:latest
+  #   volumes:
+  #     - ./config:/etc/XrayR/ # 映射配置文件夹
+  #   restart: always
+  #   network_mode: host
+  web:
+    image: endgfw/web:dev
+    environment:
+      - NODE_PORT=80
+    volumes:
+      - ../temp/android:/app/temp/android/
+      - ../temp/mac:/app/temp/mac/
+      - ../temp/windows:/app/temp/windows/
+      - ../temp/whyyoutouzhele:/app/temp/whyyoutouzhele/
+    restart: always
+    network_mode: host
