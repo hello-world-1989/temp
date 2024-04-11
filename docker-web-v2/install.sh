@@ -25,6 +25,7 @@ sudo chmod +x /usr/local/bin/dc
 # 下载 web 运行文件
 
 sudo apt install jq -y
+ip_address=$(curl -s https://api.ipify.org?format=json | jq -r '.ip')
 mkdir end-gfw
 cd end-gfw
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-compose.yml
@@ -32,7 +33,7 @@ wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-co
 sudo dc up -d
 
 echo "*******************************************************************************************************************************************"
-echo "Access http://{public ip}:8081 or Access http://{public ip}"
+echo "Access End GFW Web http://$ip_address:8081 or http://$ip_address"
 echo "Firewall port: 80, 443, 8081"
 echo "Disable IPV6"
 echo "*******************************************************************************************************************************************"
