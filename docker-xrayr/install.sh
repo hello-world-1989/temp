@@ -39,6 +39,8 @@ token=$(uuidgen)
 
 sed -i "s/your-uuid-token/$token/g" ./config/config.yml
 
+ip_address=$(curl -s https://api.ipify.org?format=json | jq -r '.ip')
+
 sudo dc up -d
 
 echo "*******************************************************************************************************************************************"
@@ -47,4 +49,5 @@ echo "https://t5uxwur5pwqcpcm4jifn2hlnm40mcrow.lambda-url.us-east-1.on.aws/api/v
 echo "https://t5uxwur5pwqcpcm4jifn2hlnm40mcrow.lambda-url.us-east-1.on.aws/api/v1/client/subscribe?token=$token" > sub.txt
 echo "Firewall port: 80, 443, 8081, 8880, 8886, 8888"
 echo "Disable IPV6"
+echo "Access End GFW Web http://$ip_address or http://$ip_address:8081"
 echo "*******************************************************************************************************************************************"
