@@ -1,3 +1,5 @@
+#wget https://github.com/hello-world-1989/temp/raw/main/docker-web-v2/install.sh && chmod +x install.sh && sudo sh install.sh
+
 sudo apt-get update
 sudo apt-get install \
     apt-transport-https \
