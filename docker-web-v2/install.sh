@@ -24,6 +24,7 @@ sudo chmod +x /usr/local/bin/dc
 
 # 下载 web 运行文件
 
+sudo apt install jq -y
 mkdir end-gfw
 cd end-gfw
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-compose.yml
