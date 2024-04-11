@@ -8,10 +8,10 @@ services:
   #   network_mode: host
   web:
     image: endgfw/web:stable
+    container_name: end-gfw-web
     environment:
       - NODE_PORT=8081 #
     ports:
-      - '80:80'
       - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
     volumes:
       - ../temp/android:/app/temp/android/
@@ -19,3 +19,9 @@ services:
       - ../temp/windows:/app/temp/windows/
       - ../temp/whyyoutouzhele:/app/temp/whyyoutouzhele/
     restart: always
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: end-gfw-web
