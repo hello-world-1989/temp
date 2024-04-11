@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./tailwindcss.js"></script>
+    <link rel="icon" type="image/x-icon" href="custom/image.png" />
+    <title>赞助商</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+    />
+    <meta
+      name="keywords"
+      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+    />
+
+    <script>
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('header').innerHTML = text;
+
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
+
+          mobileHeader.classList.add('hidden');
+
+          closeMenu.onclick = () => {
+            mobileHeader.classList.add('hidden');
+          };
+
+          openMenu.onclick = () => {
+            mobileHeader.classList.remove('hidden');
+          };
+        });
+
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((text) => (document.getElementById('footer').innerHTML = text));
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main class="mt-10">
+      <div
+        id="sponsor-list"
+        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pb-12 sm:pt-12 lg:max-w-7xl lg:px-8 lg:pb-10"
+      ></div>
+    </main>
+    <div id="footer"></div>
+
+    <script>
+      async function getSponsor() {
+        const res = await fetch('/custom/sponsor.txt');
+
+        const dataStr = await res.text();
+
+        console.log('data str', dataStr);
+
+        const dataArr = dataStr?.split('\n');
+
+        const sponsorElement = document.getElementById('sponsor-list');
+
+        const sponsors = dataArr?.map((item, i) => {
+          const line = item?.split('---');
+          const description = line?.[0];
+          const detail = line?.[1];
+
+          let element = `<p>${detail}</p>`;
+
+          if (
+            detail.startsWith('http://') ||
+            detail.startsWith('https://') ||
+            detail.startsWith('/custom')
+          ) {
+            element = `<a
+            href="${detail}"
+            target="_blank"
+            class="font-semibold text-indigo-600"
+            >${detail}</a
+          >`;
+          }
+
+          return `<div class="py-10 lg:grid lg:grid-cols-12 lg:gap-8">
+            <dt
+              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
+            >
+              ${description}
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0">
+              ${element}
+            </dd>
+          </div>`;
+        });
+
+        sponsorElement.innerHTML = sponsors.join('');
+      }
+
+      getSponsor();
+    </script>
+  </body>
+</html>
