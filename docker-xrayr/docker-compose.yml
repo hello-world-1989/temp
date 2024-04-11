@@ -8,6 +8,7 @@ services:
     network_mode: host
   web:
     image: endgfw/web:stable
+    container_name: end-gfw-web
     environment:
       - NODE_PORT=8081 #
     ports:
@@ -19,3 +20,9 @@ services:
       - ../temp/windows:/app/temp/windows/
       - ../temp/whyyoutouzhele:/app/temp/whyyoutouzhele/
     restart: always
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: end-gfw-web
