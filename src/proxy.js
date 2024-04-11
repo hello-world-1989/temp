@@ -17,6 +17,11 @@ const NODE_PORT = process.env.NODE_PORT || 80;
 let vpnData = [];
 let eeData = [];
 
+const MASTER_NODE = process.env.MASTER_NODE || false;
+const IP_CHECK_HOST = process.env.IP_CHECK_HOST;
+const IP_CHECK_REFERER = process.env.IP_CHECK_REFERER;
+const IP_CHECK_URL = process.env.IP_CHECK_URL;
+
 const app = express();
 
 const hbs = create({
@@ -345,15 +350,15 @@ app.use('/vpn-data', async (req, res) => {
       let ip;
 
       if (endGFWHosts.length > 0) {
-        if (endGFWHosts.length > 2) {
-          const today = new Date();
-          // Get the day of the month
-          const hourOfDay = today.getHours();
+        // if (endGFWHosts.length > 2) {
+        //   const today = new Date();
+        //   // Get the day of the month
+        //   const hourOfDay = today.getHours();
 
-          ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
-        } else {
-          ip = endGFWHosts?.[0].ip;
-        }
+        //   ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
+        // } else {
+        ip = endGFWHosts?.[0].ip;
+        // }
 
         vpnData = rawJson.map((item) => {
           item.link1 = `http://${ip}/${item.link1}`;
@@ -382,15 +387,15 @@ app.use('/ee-data', async (req, res) => {
       let ip;
 
       if (endGFWHosts.length > 0) {
-        if (endGFWHosts.length > 2) {
-          const today = new Date();
-          // Get the day of the month
-          const hourOfDay = today.getHours();
+        // if (endGFWHosts.length > 2) {
+        //   const today = new Date();
+        //   // Get the day of the month
+        //   const hourOfDay = today.getHours();
 
-          ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
-        } else {
-          ip = endGFWHosts?.[0].ip;
-        }
+        //   ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
+        // } else {
+        ip = endGFWHosts?.[0].ip;
+        // }
 
         eeData = rawJson.map((item) => {
           item.link1 = `http://${ip}/${item.link1}`;
@@ -410,19 +415,10 @@ app.use('/ee-data', async (req, res) => {
 });
 
 app.use('/report', async (req, res) => {
-  console.log('***report to remote***');
-
-  const ipAddressRes = await axios.get('https://api.ipify.org?format=json');
-
-  let ip = ipAddressRes?.data?.ip;
-
-  console.log('server ip: ', ip);
-
-  if (net.isIPv6(ip)) {
-    res.send('ipv6 is not supported');
+  if (MASTER_NODE) {
+    res.send('success');
   } else {
-    await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
-
+    await report();
     res.send('success');
   }
 });
@@ -572,15 +568,25 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
     const verifyData = verifyRes.data;
 
     if (verifyData?.updateTime) {
-      console.log(`*********${ip} is able to connect from China`);
-      const res = {
-        ip,
-        port: confirmedPort,
-        updatedTime: new Date().getTime() + extraExpiry,
-      };
+      let result4 = 'unknown';
 
-      hostsMap.set(ip, res);
-      endGFWHosts.push(res);
+      if (extraExpiry === 0) {
+        result4 = await ipCheck(ip, confirmedPort);
+      }
+
+      if (result4 === 'fail') {
+        console.log('Not able to connect from China');
+      } else {
+        console.log(`*********${ip} is able to connect from China`);
+        const res = {
+          ip,
+          port: confirmedPort,
+          updatedTime: new Date().getTime() + extraExpiry,
+        };
+
+        hostsMap.set(ip, res);
+        endGFWHosts.push(res);
+      }
     }
   }
 }
@@ -614,6 +620,28 @@ async function getEndGFWMirror() {
   }
 }
 
+async function ipCheck(ipAddress, port) {
+  const headers = {
+    Host: IP_CHECK_HOST,
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:115.0esr) Gecko/20010101 Firefox/115.0esr/9S8eMFpqfT',
+    Accept: 'application/json, text/javascript, */*; q=0.01',
+    'Accept-Encoding': 'gzip, deflate, br',
+    Connection: 'keep-alive',
+    Cookie: '',
+    Referer: IP_CHECK_REFERER, // Example authorization header
+  };
+
+  if (process.env.NODE_ENV?.includes('dev')) {
+    return 'success';
+  }
+
+  const url = `${IP_CHECK_URL}/${ipAddress}/${port}`;
+  const res = await axios.get(url, { headers });
+
+  return res?.data?.tcp ?? 'fail';
+}
+
 async function periodicCheckConnection() {
   const hosts = Array.from(hostsMap.values());
   const temp = [];
@@ -636,9 +664,47 @@ async function periodicCheckConnection() {
   saveHosts();
 }
 
+async function periodicCheckReachable() {
+  const hosts = Array.from(hostsMap.values());
+
+  const temp = [];
+
+  for (const host of hosts) {
+    const result = await ipCheck(host.ip, host.port);
+    if (result === 'success') {
+      temp.push(host);
+    } else {
+      hostsMap.delete(host.ip);
+    }
+  }
+
+  endGFWHosts = temp;
+
+  saveHosts();
+}
+
+async function report() {
+  if (MASTER_NODE) {
+  } else {
+    const ipAddressRes = await axios.get('https://api.ipify.org?format=json');
+
+    let ip = ipAddressRes?.data?.ip;
+
+    console.log('report ip: ', ip);
+
+    if (net.isIPv6(ip)) {
+      res.send('ipv6 is not supported');
+    } else {
+      await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
+    }
+  }
+}
+
 setTimeout(periodicCheckConnection, 600000);
+setTimeout(periodicCheckReachable, 3600000);
 
 getEndGFWMirror();
+report();
 
 // Save data to file before shutdown
 process.on('SIGINT', async () => {
