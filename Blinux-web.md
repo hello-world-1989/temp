@@ -67,6 +67,7 @@ cd end-gfw
 
 wget -O docker-compose.yml https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-compose.yml
 
+sudo dc pull
 sudo dc down
 sudo dc up -d
 ```
