@@ -26,7 +26,7 @@ sudo chmod +x /usr/local/bin/dc
 
 # 下载 web 运行文件
 
-ip_address=$(curl -s https://domains.google.com/checkip)
+ip_address=$(curl -s -4 https://domains.google.com/checkip)
 
 mkdir end-gfw
 cd end-gfw
