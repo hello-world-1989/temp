@@ -8,7 +8,7 @@ https://github.com/hello-world-1989/temp/blob/main/Axrayr-web.md
  1. 一步搭建安装 Docker, Docker-compose, 下载 web 运行文件
 
 ```
-wget https://github.com/hello-world-1989/temp/raw/main/docker-web-v2/install.sh && chmod +x install.sh && sudo sh install.sh
+wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/install.sh && chmod +x install.sh && sudo sh install.sh
 
 ```
    
