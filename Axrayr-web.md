@@ -7,6 +7,9 @@ wget -O install.sh https://github.com/hello-world-1989/temp/raw/stable/docker-xr
 
 ```
 
+自定义 赞助商菜单， 请参考
+
+https://github.com/hello-world-1989/temp/blob/main/Custom.md
    
 2. `cd ~/end-gfw && sudo dc ps` 应该能看到 Up 状态, 如果不能， `sudo dc logs` 查看日志发送到[电报群](https://t.me/end_gfw1)
 
