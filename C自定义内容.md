@@ -8,9 +8,9 @@ https://github.com/hello-world-1989/temp/blob/main/public/temp/custom/sponsor.tx
 
 换行添加新内容
 
-文件放置在public/temp/custom/文件夹中
+文件放置在end-gfw/custom文件夹中
 
-比如/custom/file.zip
+比如end-gfw/custom/file.zip
 
 上传修改过的sponsor.txt和要分享的文件
 
