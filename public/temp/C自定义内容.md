@@ -1,5 +1,10 @@
 # 修改 public/temp/custom/sponsor.txt
-以---三个破折号 分割 简介和内容
+
+请参考
+
+https://github.com/hello-world-1989/temp/blob/main/public/temp/custom/sponsor.txt
+
+以---三个破折号 分割 简介和内容， 
 
 换行添加新内容
 
