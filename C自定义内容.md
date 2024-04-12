@@ -1,8 +1,8 @@
-# 修改 public/temp/custom/sponsor.txt
+# 修改 public/temp/custom.example/sponsor.txt
 
 请参考
 
-https://github.com/hello-world-1989/temp/blob/main/public/temp/custom/sponsor.txt
+https://github.com/hello-world-1989/temp/blob/stable/public/temp/custom.example/sponsor.txt
 
 以---三个破折号 分割 简介和内容， 
 
