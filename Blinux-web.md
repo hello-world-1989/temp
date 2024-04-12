@@ -4,6 +4,10 @@
 
 https://github.com/hello-world-1989/temp/blob/main/Axrayr-web.md
 
+自定义赞助商菜单，请参考
+
+https://github.com/hello-world-1989/temp/blob/main/Custom.md
+
 ## 仅部署网站
  1. 一步搭建安装 Docker, Docker-compose, 下载 web 运行文件
 
