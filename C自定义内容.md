@@ -20,15 +20,16 @@ cd ~/end-gfw/custom
 
 #上传修改过的 sponsor.txt到custom 文件夹
 
-wget -O sponsor.txt 存储sponsor.txt的链接(比如谷歌云盘)
+sudo wget -O sponsor.txt 存储sponsor.txt的链接(比如谷歌云盘)
 
 #上传要分享的文件
 
-wget -O file1.zip 文件下载链接
+sudo wget -O file1.zip 文件下载链接
 
-wget -O file2.zip 文件下载链接
+sudo wget -O file2.zip 文件下载链接
+
 
 #重启服务
-sudo dc restart
+cd ~/end-gfw && sudo dc restart
 
 ```
