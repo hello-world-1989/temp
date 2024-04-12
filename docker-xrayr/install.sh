@@ -41,7 +41,7 @@ token=$(uuidgen)
 
 sed -i "s/your-uuid-token/$token/g" ./config/config.yml
 
-ip_address=$(curl -s https://domains.google.com/checkip)
+ip_address=$(curl -s -4 https://domains.google.com/checkip)
 
 sudo dc up -d
 
