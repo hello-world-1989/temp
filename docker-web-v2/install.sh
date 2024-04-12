@@ -35,6 +35,8 @@ wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-co
 
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/custom.zip
 
+sudo apt install unzip -y
+
 unzip custom.zip
 
 sudo dc up -d
