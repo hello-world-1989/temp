@@ -1,5 +1,7 @@
 # 以AWS Lightsail Ubuntu 为例 部署 Xrayr VPN 翻墙软件 和 网站, 建议1GB内存2T流量以上
 
+### [注册AWS教程](https://docs.google.com/document/d/1xXqXkddCLLr8hHz8G8m7b4JHyxWuYiey7h_14pnCGrY/edit?usp=sharing)
+
  1. 一步搭建， 安装 Docker, Docker-compose, 下载 xrayr 和 web 运行文件
 
 ```
