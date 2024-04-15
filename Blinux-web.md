@@ -1,5 +1,7 @@
 以AWS Lightsail Ubuntu 为例 部署网站
 
+### [注册AWS教程](https://docs.google.com/document/d/1xXqXkddCLLr8hHz8G8m7b4JHyxWuYiey7h_14pnCGrY/edit?usp=sharing)
+
 # 建议网站和Xrayr VPN一起部署， 教程
 
 https://github.com/hello-world-1989/temp/blob/main/Axrayr-web.md
