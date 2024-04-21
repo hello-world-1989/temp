@@ -41,6 +41,13 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, './views'));
 
 app.use('/', express.static(path.join(__dirname, '../public/temp')));
+app.use('/android', express.static(path.join(__dirname, '../public/android')));
+app.use('/windows', express.static(path.join(__dirname, '../public/windows')));
+app.use(
+  '/whyyoutouzhele',
+  express.static(path.join(__dirname, '../public/whyyoutouzhele'))
+);
+app.use('/mac', express.static(path.join(__dirname, '../public/mac')));
 
 axios.defaults.headers.common['Accept-Language'] =
   'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
