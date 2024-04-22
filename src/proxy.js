@@ -41,6 +41,7 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, './views'));
 
 app.use('/', express.static(path.join(__dirname, '../public/temp')));
+
 app.use('/android', express.static(path.join(__dirname, '../android')));
 app.use('/windows', express.static(path.join(__dirname, '../windows')));
 app.use(
@@ -455,6 +456,17 @@ app.use('/node', async (req, res) => {
     res.send('success');
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.use('/check-status', async (req, res) => {
+  try {
+    const result = await isPortReachable('baidu.com', 80, 3000);
+
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.send(false);
   }
 });
 
