@@ -1,8 +1,16 @@
 以AWS Lightsail Ubuntu 为例 部署网站
 
+### [注册AWS教程](https://docs.google.com/document/d/1xXqXkddCLLr8hHz8G8m7b4JHyxWuYiey7h_14pnCGrY/edit?usp=sharing)
+
+### [Vultr教程](https://github.com/hello-world-1989/temp/blob/main/share/vultr.pdf)
+
 # 建议网站和Xrayr VPN一起部署， 教程
 
 https://github.com/hello-world-1989/temp/blob/main/Axrayr-web.md
+
+自定义赞助商菜单，请参考
+
+https://github.com/hello-world-1989/temp/blob/main/Custom.md
 
 ## 仅部署网站
  1. 一步搭建安装 Docker, Docker-compose, 下载 web 运行文件

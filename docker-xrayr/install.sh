@@ -1,4 +1,4 @@
-#wget https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/install.sh && chmod +x install.sh && sudo sh install.sh
+#wget -O install.sh https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/install.sh && chmod +x install.sh && sudo sh install.sh
 
 sudo apt-get update
 sudo apt-get install \
@@ -29,17 +29,19 @@ sudo chmod +x /usr/local/bin/dc
 mkdir end-gfw
 cd end-gfw
 
-sudo apt install unzip jq -y
+sudo apt install unzip -y
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/config.zip
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/docker-compose.yml
+wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/custom.zip
 
 unzip config.zip
+unzip custom.zip
 
 token=$(uuidgen)
 
 sed -i "s/your-uuid-token/$token/g" ./config/config.yml
 
-ip_address=$(curl -s https://api.ipify.org?format=json | jq -r '.ip')
+ip_address=$(curl -s -4 https://domains.google.com/checkip)
 
 sudo dc up -d
 

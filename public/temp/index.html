@@ -46,19 +46,24 @@
   </head>
   <body>
     <div id="header"></div>
-    <main class="mt-20 mx-4 lg:mx-20">
+    <main class="mt-20 mx-8 lg:mx-20">
       <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
         <div class="">
           <p class="font-bold">
             动态免墙IP站点, 每隔最多3天更新
             <br />
             可以安全分享到朋友圈而不被炸号
-          </p>
-          <p>
-            <a target="_blank" id="why"></a>
+            <br />
+            <a href="/download-last-7" class="font-semibold text-indigo-600"
+              >点击下载过去7天新闻， 离线PDF版本</a
+            >
           </p>
 
-          <p id="why-group"></p>
+          <p id="mirror-list"></p>
+
+          <br />
+
+          <p id="current-mirror" class="font-semibold text-indigo-600"></p>
 
           <nav
             class="isolate grid grid-cols-4 md:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
@@ -395,11 +400,9 @@
 
         const dataArr = await res.json();
 
-        const dataGroup = dataArr.slice(0, 5);
+        const whyElement = document.getElementById('mirror-list');
 
-        const whyElement = document.getElementById('why-group');
-
-        dataGroup.forEach((item) => {
+        dataArr.forEach((item) => {
           const linkElement = document.createElement('a');
 
           const newLineElement = document.createElement('br');
@@ -437,6 +440,25 @@
       }
 
       getSS();
+    </script>
+
+    <script>
+      async function getCurrentMirrorStatus() {
+        const res = await fetch('/check-status');
+
+        const currentMirrorStatus = await res.text();
+
+        console.log('currentMirrorStatus: ', currentMirrorStatus);
+
+        const currentMirrorElement = document.getElementById('current-mirror');
+
+        currentMirrorElement.innerText =
+          currentMirrorStatus == 'true'
+            ? '当前镜像节点状态正常'
+            : '当前镜像节点被屏蔽， 请更换IP';
+      }
+
+      getCurrentMirrorStatus();
     </script>
 
     <script>

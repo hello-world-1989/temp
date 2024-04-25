@@ -26,11 +26,18 @@ sudo chmod +x /usr/local/bin/dc
 
 # 下载 web 运行文件
 
-sudo apt install jq -y
-ip_address=$(curl -s https://api.ipify.org?format=json | jq -r '.ip')
+ip_address=$(curl -s -4 https://domains.google.com/checkip)
+
 mkdir end-gfw
 cd end-gfw
+
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/docker-compose.yml
+
+wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/custom.zip
+
+sudo apt install unzip -y
+
+unzip custom.zip
 
 sudo dc up -d
 

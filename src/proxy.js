@@ -42,6 +42,14 @@ app.set('views', path.join(__dirname, './views'));
 
 app.use('/', express.static(path.join(__dirname, '../public/temp')));
 
+app.use('/android', express.static(path.join(__dirname, '../android')));
+app.use('/windows', express.static(path.join(__dirname, '../windows')));
+app.use(
+  '/whyyoutouzhele',
+  express.static(path.join(__dirname, '../whyyoutouzhele'))
+);
+app.use('/mac', express.static(path.join(__dirname, '../mac')));
+
 axios.defaults.headers.common['Accept-Language'] =
   'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
 
@@ -49,6 +57,21 @@ axios.defaults.headers.common['User-Agent'] =
   'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+app.use('/download-last-7', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://github.com/hello-world-1989/latest/releases/download/latest/last7days.pdf`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'application/pdf' });
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
 
 app.get('/tweet-page', async (req, res) => {
   const year = req.query?.year;
@@ -433,6 +456,17 @@ app.use('/node', async (req, res) => {
     res.send('success');
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.use('/check-status', async (req, res) => {
+  try {
+    const result = await isPortReachable('baidu.com', 80, 3000);
+
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.send(false);
   }
 });
 
