@@ -6,16 +6,17 @@
     <script src="./tailwindcss.js"></script>
     <link rel="icon" type="image/x-icon" href="images/default.png" />
     <title>
-      推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
+      大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆墙运动 普及翻墙
+      完全免费翻墙软件
     </title>
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
     />
     <meta
       name="keywords"
-      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
     />
 
     <script>
@@ -50,21 +51,20 @@
       <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
         <div class="">
           <p class="font-bold">
-            动态免墙IP站点, 每隔最多3天更新
+            动态免墙IP站点, 每天更新
             <br />
             可以安全分享到朋友圈而不被炸号
             <br />
-            <a
-              href="/download-last-7"
-              class="font-semibold text-indigo-600"
+            <a href="/download-last-7" class="font-semibold text-indigo-600"
               >点击下载过去7天新闻， 离线PDF版本</a
             >
           </p>
-          <p>
-            <a target="_blank" id="why"></a>
-          </p>
 
-          <p id="why-group"></p>
+          <p id="mirror-list"></p>
+
+          <br />
+
+          <p id="current-mirror" class="font-semibold text-indigo-600"></p>
 
           <nav
             class="isolate grid grid-cols-4 md:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
@@ -82,7 +82,7 @@
               >海外苹果账户</a
             >下载NthLink, Orbot VPN, Cloudflare
           </h1>
-          <h1>微软系统电脑使用VPNGate, NthLink</h1>
+          <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
           <h1 class="mt-4">
             如果以上无法使用， 使用V2Ray系列或Outline
             <a
@@ -335,7 +335,7 @@
                 <img
                   src='/resource${item}'
                   alt=''
-                  class='pointer-events-none object-cover group-hover:opacity-75'
+                  class='pointer-events-none object-cover'
                 />
               </div>
             </li>`
@@ -401,11 +401,9 @@
 
         const dataArr = await res.json();
 
-        const dataGroup = dataArr.slice(0, 5);
+        const whyElement = document.getElementById('mirror-list');
 
-        const whyElement = document.getElementById('why-group');
-
-        dataGroup.forEach((item) => {
+        dataArr.forEach((item) => {
           const linkElement = document.createElement('a');
 
           const newLineElement = document.createElement('br');
@@ -443,6 +441,25 @@
       }
 
       getSS();
+    </script>
+
+    <script>
+      async function getCurrentMirrorStatus() {
+        const res = await fetch('/check-status');
+
+        const currentMirrorStatus = await res.text();
+
+        console.log('currentMirrorStatus: ', currentMirrorStatus);
+
+        const currentMirrorElement = document.getElementById('current-mirror');
+
+        currentMirrorElement.innerText =
+          currentMirrorStatus == 'true'
+            ? '当前镜像节点状态正常'
+            : '当前镜像节点被屏蔽， 请更换IP';
+      }
+
+      getCurrentMirrorStatus();
     </script>
 
     <script>
