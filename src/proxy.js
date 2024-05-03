@@ -1,9 +1,11 @@
 import axios from 'axios';
 import express from 'express';
+import * as fs from 'fs';
 import * as fs2 from 'node:fs/promises';
 import * as path from 'path';
 import * as net from 'net';
 import { create } from 'express-handlebars';
+import * as https from 'https';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -41,14 +43,6 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, './views'));
 
 app.use('/', express.static(path.join(__dirname, '../public/temp')));
-
-app.use('/android', express.static(path.join(__dirname, '../android')));
-app.use('/windows', express.static(path.join(__dirname, '../windows')));
-app.use(
-  '/whyyoutouzhele',
-  express.static(path.join(__dirname, '../whyyoutouzhele'))
-);
-app.use('/mac', express.static(path.join(__dirname, '../mac')));
 
 axios.defaults.headers.common['Accept-Language'] =
   'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
@@ -269,6 +263,25 @@ app.use('/pdf', async (req, res) => {
   }
 });
 
+app.use('/download-pdf', async (req, res) => {
+  try {
+    const tempPath = req.url;
+
+    const rawPath = tempPath.replace('/download-pdf', '');
+
+    const response = await axios.get(
+      `https://github.com/hello-world-1989/whyyoutouzhele/releases/download${rawPath}`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'application/zip' });
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
 app.use('/news-data', async (req, res) => {
   try {
     const year = req.query?.year;
@@ -365,35 +378,30 @@ app.use('/resource', async (req, res) => {
 
 app.use('/vpn-data', async (req, res) => {
   try {
-    const response = await axios.get('/vpn.json');
+    const response = await axios.get(
+      'https://raw.githubusercontent.com/hello-world-1989/temp/main/vpn.json'
+    );
 
-    const rawJson = response?.data;
+    res.send(response?.data);
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
 
-    if (vpnData.length === 0) {
-      let ip;
+app.use('/download-app', async (req, res) => {
+  try {
+    const tempPath = req.url;
 
-      if (endGFWHosts.length > 0) {
-        // if (endGFWHosts.length > 2) {
-        //   const today = new Date();
-        //   // Get the day of the month
-        //   const hourOfDay = today.getHours();
+    const rawPath = tempPath.replace('/download-app', '');
 
-        //   ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
-        // } else {
-        ip = endGFWHosts?.[0].ip;
-        // }
+    const response = await axios.get(
+      `https://github.com/hello-world-1989/temp/releases/download${rawPath}`,
+      { responseType: 'arraybuffer' }
+    );
 
-        vpnData = rawJson.map((item) => {
-          item.link1 = `http://${ip}/${item.link1}`;
-
-          return item;
-        });
-      } else {
-        vpnData = rawJson;
-      }
-    }
-
-    res.send(vpnData);
+    res.writeHead(200, { 'Content-Type': 'application/zip' });
+    res.end(Buffer.from(response.data, 'binary'));
   } catch (err) {
     console.log(err);
     res.send('');
@@ -402,35 +410,11 @@ app.use('/vpn-data', async (req, res) => {
 
 app.use('/ee-data', async (req, res) => {
   try {
-    const response = await axios.get('/ee.json');
+    const response = await axios.get(
+      'https://raw.githubusercontent.com/hello-world-1989/temp/main/ee.json'
+    );
 
-    const rawJson = response?.data;
-
-    if (eeData.length === 0) {
-      let ip;
-
-      if (endGFWHosts.length > 0) {
-        // if (endGFWHosts.length > 2) {
-        //   const today = new Date();
-        //   // Get the day of the month
-        //   const hourOfDay = today.getHours();
-
-        //   ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
-        // } else {
-        ip = endGFWHosts?.[0].ip;
-        // }
-
-        eeData = rawJson.map((item) => {
-          item.link1 = `http://${ip}/${item.link1}`;
-
-          return item;
-        });
-      } else {
-        eeData = rawJson;
-      }
-    }
-
-    res.send(eeData);
+    res.send(response?.data);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -438,7 +422,9 @@ app.use('/ee-data', async (req, res) => {
 });
 
 app.use('/report', async (req, res) => {
-  if (MASTER_NODE) {
+  console.log('master node: ', MASTER_NODE);
+
+  if (MASTER_NODE == 'true') {
     res.send('success');
   } else {
     await report();
@@ -451,7 +437,7 @@ app.use('/node', async (req, res) => {
   const port = req.query?.port;
 
   try {
-    saveMirrorInMemory(ip, port);
+    saveMirrorInMemory(ip, port, 0, false);
 
     res.send('success');
   } catch (err) {
@@ -467,6 +453,45 @@ app.use('/check-status', async (req, res) => {
   } catch (err) {
     console.log(err);
     res.send(false);
+  }
+});
+
+//TODO
+
+app.use('/temp/image', async (req, res) => {
+  try {
+    const rawPath = req.url;
+
+    console.log('path: ', rawPath);
+
+    const response = await axios.get(
+      `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/temp/image${rawPath}`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/temp/video', async (req, res) => {
+  try {
+    const rawPath = req.url;
+
+    const response = await axios.get(
+      `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/temp/video${rawPath}`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
   }
 });
 
@@ -567,7 +592,7 @@ function isPortReachable(host, port, timeout = 2000) {
   });
 }
 
-async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
+async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
   console.log(`*********checking ${ip}`);
 
   if (hostsMap.has(ip)) {
@@ -605,7 +630,14 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
       let result4 = 'unknown';
 
       if (extraExpiry === 0) {
-        result4 = await ipCheck(ip, confirmedPort);
+        try {
+          if (isReboot) {
+          } else {
+            result4 = await ipCheck(ip, confirmedPort);
+          }
+        } catch (err) {
+          result4 === 'fail';
+        }
       }
 
       if (result4 === 'fail') {
@@ -649,7 +681,7 @@ async function getEndGFWMirror() {
 
     if (process.env.NODE_ENV?.includes('dev')) {
     } else {
-      await saveMirrorInMemory(ip1, 8081, extraExpiry);
+      await saveMirrorInMemory(ip1, 8081, extraExpiry, true);
     }
   }
 }
@@ -718,7 +750,9 @@ async function periodicCheckReachable() {
 }
 
 async function report() {
-  if (MASTER_NODE) {
+  console.log('MASTER_NODE: ', MASTER_NODE);
+
+  if (MASTER_NODE == 'true') {
   } else {
     const ipAddressRes = await axios.get('https://api.ipify.org?format=json');
 
@@ -729,7 +763,11 @@ async function report() {
     if (net.isIPv6(ip)) {
       res.send('ipv6 is not supported');
     } else {
-      await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
+      try {
+        await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
+      } catch (err) {
+        console.error('Error report failed');
+      }
     }
   }
 }
@@ -749,3 +787,15 @@ process.on('SIGINT', async () => {
 });
 
 app.listen(80, () => console.log(`listening on port 80`));
+
+if (MASTER_NODE == 'true') {
+  https
+    .createServer(
+      {
+        key: fs.readFileSync(path.join(__dirname, './key.pem')),
+        cert: fs.readFileSync(path.join(__dirname, './cert.pem')),
+      },
+      app
+    )
+    .listen(443, () => console.log(`listening on port 443`));
+}
