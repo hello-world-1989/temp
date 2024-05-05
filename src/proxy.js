@@ -67,6 +67,60 @@ app.use('/download-last-7', async (req, res) => {
   }
 });
 
+app.use('/tweet-page-7', async (req, res) => {
+  try {
+    let result = [];
+    let today = new Date();
+    for (var i = 0; i < 7; i++) {
+      let dayTemp = new Date(today);
+      dayTemp.setDate(dayTemp.getDate() - i);
+
+      let year = '' + dayTemp.getFullYear();
+      let month = '' + (dayTemp.getMonth() + 1);
+      let day = '' + dayTemp.getDate();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      try {
+        const response = await axios.get(
+          `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
+        );
+
+        result.push(...response?.data);
+      } catch (err) {
+        console.error('no data');
+      }
+    }
+
+    const tweets = result
+      ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
+      .map((item) => {
+        const images = item?.images?.split(',');
+
+        if (item.videos) {
+          const videoImages = item.videos?.split(',');
+          images.push(...videoImages);
+        }
+
+        const nonEmpty = images.filter((item) => item);
+
+        item.allImages = nonEmpty;
+
+        return item;
+      });
+
+    const pdfData = {
+      tweets,
+      baseUrl: 'https://end-gfw.com',
+    };
+
+    res.render('tweet', pdfData);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get('/tweet-page', async (req, res) => {
   const year = req.query?.year;
   const month = req.query?.month;
