@@ -2,7 +2,7 @@
 
 请参考
 
-https://github.com/hello-world-1989/temp/blob/stable/public/temp/custom.example/sponsor.txt
+https://github.com/hello-world-1989/temp/blob/stable/public/temp/custom.example/sponsor.txt.example
 
 以---三个破折号 分割 简介和内容， 
 
