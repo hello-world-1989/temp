@@ -344,6 +344,12 @@
             imageElement = imagesArr.join('');
           }
 
+          const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
+
+          const year = createdDate?.[0];
+          const month = createdDate?.[1];
+          const day = createdDate?.[2];
+
           return `<div class="">
               <div class="bg-white px-4 py-5 sm:px-6">
                 <div class="flex space-x-3">
@@ -356,7 +362,8 @@
                   </div>
                   <div class="min-w-0 flex-1">
                     <p class="text-lg font-bold text-gray-900">
-                      <a href="" class="">李老师不是你老师 @whyyoutouzhele </a>
+                      <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${item.id}" id="${item.id}" class="">李老师不是你老师 @whyyoutouzhele </a>
+                      <button onclick="copyTweet('${item.id}')" class="text-normal text-indigo-500">复制分享链接</button>
                     </p>
                     <p class="text-sm text-gray-500">
                       <a href="#" class="">北京时间${item.createdDate}发布</a>
@@ -484,6 +491,33 @@
 
         // Remove the selections - NOTE: Might not be necessary in some cases
         window.getSelection().removeAllRanges();
+      }
+    </script>
+
+    <script>
+      function copyTweet(elementId) {
+        // Get the text field
+        const linkElement = document.getElementById(elementId);
+
+        // Create a temporary input element to hold the link text
+        var tempInput = document.createElement('input');
+        tempInput.value = linkElement.href;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        document.body.removeChild(tempInput);
       }
     </script>
   </body>
