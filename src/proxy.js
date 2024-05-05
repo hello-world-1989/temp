@@ -271,11 +271,12 @@ app.use('/download-pdf', async (req, res) => {
 
     const response = await axios.get(
       `https://github.com/hello-world-1989/whyyoutouzhele/releases/download${rawPath}`,
-      { responseType: 'arraybuffer' }
+      { responseType: 'stream' }
     );
 
-    res.writeHead(200, { 'Content-Type': 'application/zip' });
-    res.end(Buffer.from(response.data, 'binary'));
+    // res.writeHead(200, { 'Content-Type': 'application/zip' });
+    // res.end(Buffer.from(response.data, 'binary'));
+    response.data.pipe(res);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -397,11 +398,12 @@ app.use('/download-app', async (req, res) => {
 
     const response = await axios.get(
       `https://github.com/hello-world-1989/temp/releases/download${rawPath}`,
-      { responseType: 'arraybuffer' }
+      { responseType: 'stream' }
     );
 
-    res.writeHead(200, { 'Content-Type': 'application/zip' });
-    res.end(Buffer.from(response.data, 'binary'));
+    // res.writeHead(200, { 'Content-Type': 'application/zip' });
+    // res.end(Buffer.from(response.data, 'binary'));
+    response.data.pipe(res);
   } catch (err) {
     console.log(err);
     res.send('');
