@@ -42,23 +42,21 @@
 
       fetch('footer.html')
         .then((response) => response.text())
-        .then((text) => (document.getElementById('footer').innerHTML = text));
+        .then((text) => {
+          document.getElementById('footer').innerHTML = text;
+
+          const currentYearSpan = document.getElementById('currentYear');
+          const currentDate = new Date();
+          const currentYear = currentDate.getFullYear();
+          currentYearSpan.textContent = currentYear;
+        });
     </script>
   </head>
   <body>
     <div id="header"></div>
-    <main class="mt-20 mx-4 lg:mx-20">
+    <main class="mt-10 mx-4 lg:mx-20">
       <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
         <div class="">
-          <p class="font-bold">
-            动态免墙IP站点, 每天更新
-            <br />
-            可以安全分享到朋友圈而不被炸号
-          </p>
-          <p>
-            <a target="_blank" id="why"></a>
-          </p>
-
           <p id="why-group"></p>
 
           <nav
@@ -66,48 +64,6 @@
             aria-label="Pagination"
             id="page-group"
           ></nav>
-        </div>
-        <div class="mt-4 lg:mt-1">
-          <h1 class="font-bold">翻墙软件推荐</h1>
-          <h1 class="mt-4">安卓手机使用NthLink, Orbot VPN, Cloudflare</h1>
-          <h1>
-            苹果手机苹果电脑使用<a
-              href="./qa.html#apple-account"
-              class="font-semibold text-indigo-600"
-              >海外苹果账户</a
-            >下载NthLink, Orbot VPN, Cloudflare
-          </h1>
-          <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
-          <h1 class="mt-4">
-            如果以上无法使用， 使用V2Ray系列或Outline
-            <a
-              href="https://donate.stripe.com/8wM8A3649d9W7o4000"
-              class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
-              target="_blank"
-              >欢迎赞助1刀</a
-            >
-          </h1>
-          <h1>
-            赞助将提供更多节点 更快速度订阅链接， 赞助10刀将把组织名称放在网站上
-          </h1>
-          <br />
-          <h1>
-            点击节点复制, 导入到V2Ray/Outline
-            <p class="overflow-auto" onclick="copyText('outline')">
-              <span id="outline"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
-          </h1>
-          <h1>
-            点击链接复制, V2Ray订阅链接包含推墙运动节点<button
-              onclick="copyText('v2ray')"
-            >
-              <span class="overflow-x-auto" id="v2ray">
-                https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</span
-              >
-            </button>
-          </h1>
         </div>
       </div>
       <div class="grid grid-cols-1 gap-x-1 lg:gap-x-8">
@@ -159,7 +115,7 @@
       function getLast7Days() {
         var today = new Date();
         var last7Days = [];
-        for (var i = 0; i < 28; i++) {
+        for (var i = 0; i < 14; i++) {
           var day = new Date(today);
           day.setDate(today.getDate() - i);
           last7Days.push(formatDate(day));
@@ -254,16 +210,6 @@
 
             getTweet(parts[0], parts[1], parts[2]);
 
-            // const activeVPN = vpn.filter(
-            //  (item) => item.os == pageGroupElement.id
-            // );
-
-            //while (vpnGroup.firstChild) {
-            //  vpnGroup.removeChild(vpnGroup.firstChild);
-            // }
-
-            // addLiElement(activeVPN, vpnGroup);
-
             pageGroupElement.classList.add('selected');
             pageGroupElement.classList.add('bg-indigo-600');
             pageGroupElement.classList.add('text-white');
@@ -277,22 +223,9 @@
           pageGroup.appendChild(pageGroupElement);
           i++;
         }
-
-        //dates.forEach(async (item, i) => {});
       }
 
       async function getTweet(year, month, day) {
-        // const res = await fetch(
-        //   `/tweet?year=${year}&month=${month}&day=${day}`
-        // );
-        //year = '2024';
-        //month = '03';
-        //day = '02';
-
-        //const res = await fetch(
-        //   `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
-        // );
-
         let temp = [];
 
         try {
@@ -408,81 +341,6 @@
       }
 
       fetchTweet();
-    </script>
-
-    <script>
-      async function getHost() {
-        const res = await fetch('/host');
-
-        const dataArr = await res.json();
-
-        const dataGroup = dataArr.slice(0, 5);
-
-        const whyElement = document.getElementById('why-group');
-
-        dataGroup.forEach((item) => {
-          const linkElement = document.createElement('a');
-
-          const newLineElement = document.createElement('br');
-
-          if (item.port == 80) {
-            linkElement.href = `http://${item.ip}`;
-
-            linkElement.innerText = `http://${item.ip}`;
-          } else {
-            linkElement.href = `http://${item.ip}:${item.port}/`;
-
-            linkElement.innerText = `http://${item.ip}:${item.port}/`;
-          }
-
-          linkElement.target = '_blank';
-
-          whyElement.appendChild(linkElement);
-          whyElement.appendChild(newLineElement);
-        });
-      }
-
-      getHost();
-    </script>
-
-    <script>
-      async function getSS() {
-        const res = await fetch('/ss-key');
-
-        const ssKey = await res.text();
-
-        const ssElement = document.getElementById('outline');
-
-        ssElement.href = ssKey;
-        ssElement.innerText = ssKey;
-      }
-
-      getSS();
-    </script>
-
-    <script>
-      function copyText(elementId) {
-        // Get the text field
-        var textToCopy = document.getElementById(elementId);
-
-        // Select the text
-        var range = document.createRange();
-        range.selectNode(textToCopy);
-        window.getSelection().removeAllRanges(); // clear current selection
-        window.getSelection().addRange(range); // to select text
-
-        try {
-          // Now that we've selected the text, execute the copy command
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-          console.log('Copy text command was ' + msg);
-        } catch (err) {
-          console.log('Oops, unable to copy', err);
-        }
-
-        // Remove the selections - NOTE: Might not be necessary in some cases
-        window.getSelection().removeAllRanges();
-      }
     </script>
   </body>
 </html>

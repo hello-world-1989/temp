@@ -42,7 +42,14 @@
 
       fetch('footer.html')
         .then((response) => response.text())
-        .then((text) => (document.getElementById('footer').innerHTML = text));
+        .then((text) => {
+          document.getElementById('footer').innerHTML = text;
+
+          const currentYearSpan = document.getElementById('currentYear');
+          const currentDate = new Date();
+          const currentYear = currentDate.getFullYear();
+          currentYearSpan.textContent = currentYear;
+        });
     </script>
   </head>
   <body>
@@ -519,6 +526,14 @@
         // Remove the selections - NOTE: Might not be necessary in some cases
         document.body.removeChild(tempInput);
       }
+    </script>
+
+    <script>
+      // JavaScript code to display the current year in the span element
+      const currentYearSpan = document.getElementById('currentYear');
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      currentYearSpan.textContent = currentYear;
     </script>
   </body>
 </html>
