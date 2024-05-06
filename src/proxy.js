@@ -186,12 +186,14 @@ app.use('/ss-key', async (req, res) => {
 
     const array = base64String.split('\r\n');
 
-    console.log('array: ', array);
-
     let result = '';
 
-    if (array.length > 0) {
-      result = array[array.length - 1];
+    if (array.length > 1) {
+      const node1 = array?.[0];
+      const node2 = array?.[1];
+      result = node1.includes('#kr') ? node1 : node2;
+    } else if (array.length == 1) {
+      result = array?.[0];
     }
 
     res.send(result);
