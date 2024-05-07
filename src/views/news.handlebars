@@ -8,14 +8,14 @@
       <h1>安卓手机使用NthLink, Orbot VPN, Cloudflare</h1>
       <h1>苹果手机苹果电脑使用海外苹果账户下载NthLink, Orbot VPN, Cloudflare,
         网站提供海外苹果账户</h1>
-      <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
+      <h1>微软系统电脑使用VPNGate, NthLink,Cloudflare</h1>
     </div>
   </div>
 
   <div class='flex justify-center mt-4'>
 
     <div id='tweet'>
-      {{#each tweets}}
+      {{#each news}}
         <div
           class='max-w-full mx-4 mt-10 border-2 border-indigo-500 rounded-sm'
           id='{{this.id}}'
@@ -25,16 +25,16 @@
               <div class='flex-shrink-0'>
                 <img
                   class='h-10 w-10 rounded-full'
-                  src='/images/whyyoutouzhele.jpg'
+                  src='/images/{{this.sourceId}}.jpg'
                   alt=''
                 />
               </div>
               <div class='min-w-0 flex-1'>
                 <p class='text-xl font-bold text-gray-900'>
-                  <a href='' class=''>李老师不是你老师 @whyyoutouzhele</a>
+                  <a href='' class=''>{{this.name}}</a>
                 </p>
                 <p class='text-lg text-gray-500'>
-                  <a href='#' class=''>北京时间{{this.createdDate}}发布</a>
+                  <a href='#' class=''>{{this.createdDate}}发布</a>
                 </p>
               </div>
               <div class='flex flex-shrink-0 self-center'>
@@ -50,29 +50,29 @@
               </div>
             </div>
           </div>
-          <div class='px-4 pb-5 text-2xl font-semibold sm:p-6 sm:pt-0'>
-            <p>{{this.content}}</p>
+          <div class='px-4 pb-5 sm:p-6 sm:pt-0'>
+            <h1 class='font-bold text-lg'>{{this.title}}</h1>
+            <br />
+            <p>
+              {{this.content}}
+            </p>
+            <br />
+            <p>
+
+              <div
+                class='group aspect-h-7 aspect-w-10 block w-full h-2/5 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'
+              >
+                <img
+                  src='/news-resource/{{this.detailImage}}'
+                  alt=''
+                  class='pointer-events-none object-cover'
+                  width='w-full'
+                  height='h-full'
+                />
+              </div>
+            </p>
           </div>
-          <ul
-            role='list'
-            class='grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 lg:grid-cols-2 xl:gap-x-4'
-          >
-            {{#each this.allImages}}
-              <li class='relative'>
-                <div
-                  class='group aspect-h-7 aspect-w-10 block w-full h-2/5 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'
-                >
-                  <img
-                    src='/resource{{this}}'
-                    alt=''
-                    class='pointer-events-none object-cover'
-                    width='w-full'
-                    height='h-full'
-                  />
-                </div>
-              </li>
-            {{/each}}
-          </ul>
+
         </div>
       {{/each}}
     </div>

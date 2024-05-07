@@ -110,7 +110,6 @@ app.use('/tweet-page-7', async (req, res) => {
 
     const pdfData = {
       tweets,
-      baseUrl: 'https://end-gfw.com',
     };
 
     res.render('tweet', pdfData);
@@ -152,10 +151,33 @@ app.get('/tweet-page', async (req, res) => {
 
     const pdfData = {
       tweets,
-      baseUrl: 'https://end-gfw.com',
     };
 
     res.render('tweet', pdfData);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get('/news-page', async (req, res) => {
+  const year = req.query?.year;
+  const month = req.query?.month;
+  const day = req.query?.day;
+  const sourceId = req.query?.sourceId;
+  const newsId = req.query?.newsId;
+
+  try {
+    const response = await axios.get(
+      `https://raw.githubusercontent.com/hello-world-1989/json/main/news/${year}/${month}/${day}/${sourceId}.json`
+    );
+
+    const news = response?.data?.filter((item) => item.id == newsId);
+
+    const newsData = {
+      news: news,
+    };
+
+    res.render('news', newsData);
   } catch (err) {
     console.log(err);
   }
