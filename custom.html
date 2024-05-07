@@ -66,35 +66,37 @@
 
           const dataStr = await res.text();
 
-          console.log('data str', dataStr);
+          if (dataStr?.includes('Cannot GET')) {
+          } else {
+            console.log('data str', dataStr);
 
-          const dataArr = dataStr?.split('\n');
+            const dataArr = dataStr?.split('\n');
 
-          const sponsorElement = document.getElementById('sponsor-list');
+            const sponsorElement = document.getElementById('sponsor-list');
 
-          const sponsors = dataArr
-            ?.filter((item) => item)
-            .map((item, i) => {
-              const line = item?.split('---');
-              const description = line?.[0];
-              const detail = line?.[1];
+            const sponsors = dataArr
+              ?.filter((item) => item)
+              .map((item, i) => {
+                const line = item?.split('---');
+                const description = line?.[0];
+                const detail = line?.[1];
 
-              let element = `<p>${detail}</p>`;
+                let element = `<p>${detail}</p>`;
 
-              if (
-                detail?.startsWith('http://') ||
-                detail?.startsWith('https://') ||
-                detail?.startsWith('/custom')
-              ) {
-                element = `<a
+                if (
+                  detail?.startsWith('http://') ||
+                  detail?.startsWith('https://') ||
+                  detail?.startsWith('/custom')
+                ) {
+                  element = `<a
             href="${detail}"
             target="_blank"
             class="font-semibold text-indigo-600"
             >${detail}</a
           >`;
-              }
+                }
 
-              return `<div class="py-10 lg:grid lg:grid-cols-12">
+                return `<div class="py-10 lg:grid lg:grid-cols-12">
             <dt
               class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
             >
@@ -104,9 +106,10 @@
               ${element}
             </dd>
           </div>`;
-            });
+              });
 
-          sponsorElement.innerHTML = sponsors.join('');
+            sponsorElement.innerHTML = sponsors.join('');
+          }
         } catch (err) {
           console.error('Error sponsor txt', err);
         }
