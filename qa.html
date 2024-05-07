@@ -41,14 +41,21 @@
 
       fetch('footer.html')
         .then((response) => response.text())
-        .then((text) => (document.getElementById('footer').innerHTML = text));
+        .then((text) => {
+          document.getElementById('footer').innerHTML = text;
+
+          const currentYearSpan = document.getElementById('currentYear');
+          const currentDate = new Date();
+          const currentYear = currentDate.getFullYear();
+          currentYearSpan.textContent = currentYear;
+        });
     </script>
   </head>
   <body>
     <div id="header"></div>
     <main>
       <div
-        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pb-24 sm:pt-12 lg:max-w-7xl lg:px-8 lg:pb-20"
+        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pt-12 lg:max-w-7xl lg:px-8"
       >
         <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 mt-10">
           <dt
@@ -214,7 +221,7 @@
                   如果不正确请加入Telegram电报群获取暗号</a
                 >
               </p>
-              <p>用户名 i-mfwedw@aneeo.cc 密码 Aneeo-Q9sDZxrUMW</p>
+              <p>用户名 i-mfwedw@aneeo.cc 密码 Aneeo-8dz31RgTRf</p>
               <p>
                 登陆海外苹果应用商店下载, 不要登录icloud，出现安全提示选择
                 其他选项，不升级

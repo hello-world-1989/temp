@@ -5,3 +5,5 @@ node_modules
 *hosts.json
 
 *package-lock.json
+
+./public/temp/custom/

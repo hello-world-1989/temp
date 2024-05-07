@@ -1,9 +1,11 @@
 import axios from 'axios';
 import express from 'express';
+import * as fs from 'fs';
 import * as fs2 from 'node:fs/promises';
 import * as path from 'path';
 import * as net from 'net';
 import { create } from 'express-handlebars';
+import * as https from 'https';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -14,8 +16,11 @@ const __dirname = dirname(__filename);
 const hostsMap = new Map();
 let endGFWHosts = [];
 const NODE_PORT = process.env.NODE_PORT || 80;
-let vpnData = [];
-let eeData = [];
+
+const MASTER_NODE = process.env.MASTER_NODE || false;
+const IP_CHECK_HOST = process.env.IP_CHECK_HOST;
+const IP_CHECK_REFERER = process.env.IP_CHECK_REFERER;
+const IP_CHECK_URL = process.env.IP_CHECK_URL;
 
 const app = express();
 
@@ -44,6 +49,74 @@ axios.defaults.headers.common['User-Agent'] =
   'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+app.use('/download-last-7', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://github.com/hello-world-1989/latest/releases/download/latest/last7days.pdf`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'application/pdf' });
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/tweet-page-7', async (req, res) => {
+  try {
+    let result = [];
+    let today = new Date();
+    for (var i = 0; i < 7; i++) {
+      let dayTemp = new Date(today);
+      dayTemp.setDate(dayTemp.getDate() - i);
+
+      let year = '' + dayTemp.getFullYear();
+      let month = '' + (dayTemp.getMonth() + 1);
+      let day = '' + dayTemp.getDate();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      try {
+        const response = await axios.get(
+          `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
+        );
+
+        result.push(...response?.data);
+      } catch (err) {
+        console.error('no data');
+      }
+    }
+
+    const tweets = result
+      ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
+      .map((item) => {
+        const images = item?.images?.split(',');
+
+        if (item.videos) {
+          const videoImages = item.videos?.split(',');
+          images.push(...videoImages);
+        }
+
+        const nonEmpty = images.filter((item) => item);
+
+        item.allImages = nonEmpty;
+
+        return item;
+      });
+
+    const pdfData = {
+      tweets,
+    };
+
+    res.render('tweet', pdfData);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.get('/tweet-page', async (req, res) => {
   const year = req.query?.year;
@@ -78,10 +151,33 @@ app.get('/tweet-page', async (req, res) => {
 
     const pdfData = {
       tweets,
-      baseUrl: 'https://end-gfw.com',
     };
 
     res.render('tweet', pdfData);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get('/news-page', async (req, res) => {
+  const year = req.query?.year;
+  const month = req.query?.month;
+  const day = req.query?.day;
+  const sourceId = req.query?.sourceId;
+  const newsId = req.query?.newsId;
+
+  try {
+    const response = await axios.get(
+      `https://raw.githubusercontent.com/hello-world-1989/json/main/news/${year}/${month}/${day}/${sourceId}.json`
+    );
+
+    const news = response?.data?.filter((item) => item.id == newsId);
+
+    const newsData = {
+      news: news,
+    };
+
+    res.render('news', newsData);
   } catch (err) {
     console.log(err);
   }
@@ -110,12 +206,14 @@ app.use('/ss-key', async (req, res) => {
 
     const array = base64String.split('\r\n');
 
-    console.log('array: ', array);
-
     let result = '';
 
-    if (array.length > 0) {
-      result = array[array.length - 1];
+    if (array.length > 1) {
+      const node1 = array?.[0];
+      const node2 = array?.[1];
+      result = node1.includes('#kr') ? node1 : node2;
+    } else if (array.length == 1) {
+      result = array?.[0];
     }
 
     res.send(result);
@@ -190,38 +288,9 @@ app.use('/searchx', async (req, res) => {
   }
 });
 
-app.use('/host2', async (req, res) => {
-  try {
-    let result = [];
-    const hiddenHost1 = endGFWHosts?.[0];
-    const hiddenHost2 = endGFWHosts?.[1];
-
-    if (hiddenHost1) {
-      result.push({
-        hostname: hiddenHost1.ip,
-        status: 'success',
-      });
-    }
-
-    if (hiddenHost2) {
-      result.push({
-        hostname: hiddenHost2.ip,
-        status: 'success',
-      });
-    }
-
-    res.send(result);
-  } catch (err) {
-    console.log(err);
-    res.send('');
-  }
-});
-
 app.use('/host', async (req, res) => {
   try {
-    console.log('get top 5 hosts: ', endGFWHosts);
-
-    res.send(endGFWHosts.slice(0, 5));
+    res.send(endGFWHosts.slice(0, 3));
   } catch (err) {
     console.log(err);
     res.send('');
@@ -235,6 +304,26 @@ app.use('/pdf', async (req, res) => {
     );
 
     res.send(response?.data);
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/download-pdf', async (req, res) => {
+  try {
+    const tempPath = req.url;
+
+    const rawPath = tempPath.replace('/download-pdf', '');
+
+    const response = await axios.get(
+      `https://github.com/hello-world-1989/whyyoutouzhele/releases/download${rawPath}`,
+      { responseType: 'stream' }
+    );
+
+    // res.writeHead(200, { 'Content-Type': 'application/zip' });
+    // res.end(Buffer.from(response.data, 'binary'));
+    response.data.pipe(res);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -337,35 +426,31 @@ app.use('/resource', async (req, res) => {
 
 app.use('/vpn-data', async (req, res) => {
   try {
-    const response = await axios.get('/vpn.json');
+    const response = await axios.get(
+      'https://raw.githubusercontent.com/hello-world-1989/temp/main/vpn.json'
+    );
 
-    const rawJson = response?.data;
+    res.send(response?.data);
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
 
-    if (vpnData.length === 0) {
-      let ip;
+app.use('/download-app', async (req, res) => {
+  try {
+    const tempPath = req.url;
 
-      if (endGFWHosts.length > 0) {
-        if (endGFWHosts.length > 2) {
-          const today = new Date();
-          // Get the day of the month
-          const hourOfDay = today.getHours();
+    const rawPath = tempPath.replace('/download-app', '');
 
-          ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
-        } else {
-          ip = endGFWHosts?.[0].ip;
-        }
+    const response = await axios.get(
+      `https://github.com/hello-world-1989/temp/releases/download${rawPath}`,
+      { responseType: 'stream' }
+    );
 
-        vpnData = rawJson.map((item) => {
-          item.link1 = `http://${ip}/${item.link1}`;
-
-          return item;
-        });
-      } else {
-        vpnData = rawJson;
-      }
-    }
-
-    res.send(vpnData);
+    // res.writeHead(200, { 'Content-Type': 'application/zip' });
+    // res.end(Buffer.from(response.data, 'binary'));
+    response.data.pipe(res);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -374,35 +459,11 @@ app.use('/vpn-data', async (req, res) => {
 
 app.use('/ee-data', async (req, res) => {
   try {
-    const response = await axios.get('/ee.json');
+    const response = await axios.get(
+      'https://raw.githubusercontent.com/hello-world-1989/temp/main/ee.json'
+    );
 
-    const rawJson = response?.data;
-
-    if (eeData.length === 0) {
-      let ip;
-
-      if (endGFWHosts.length > 0) {
-        if (endGFWHosts.length > 2) {
-          const today = new Date();
-          // Get the day of the month
-          const hourOfDay = today.getHours();
-
-          ip = hourOfDay / 2 == 0 ? endGFWHosts?.[0].ip : endGFWHosts?.[1].ip;
-        } else {
-          ip = endGFWHosts?.[0].ip;
-        }
-
-        eeData = rawJson.map((item) => {
-          item.link1 = `http://${ip}/${item.link1}`;
-
-          return item;
-        });
-      } else {
-        eeData = rawJson;
-      }
-    }
-
-    res.send(eeData);
+    res.send(response?.data);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -410,19 +471,12 @@ app.use('/ee-data', async (req, res) => {
 });
 
 app.use('/report', async (req, res) => {
-  console.log('***report to remote***');
+  console.log('master node: ', MASTER_NODE);
 
-  const ipAddressRes = await axios.get('https://api.ipify.org?format=json');
-
-  let ip = ipAddressRes?.data?.ip;
-
-  console.log('server ip: ', ip);
-
-  if (net.isIPv6(ip)) {
-    res.send('ipv6 is not supported');
+  if (MASTER_NODE == 'true') {
+    res.send('success');
   } else {
-    await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
-
+    await report();
     res.send('success');
   }
 });
@@ -432,11 +486,61 @@ app.use('/node', async (req, res) => {
   const port = req.query?.port;
 
   try {
-    saveMirrorInMemory(ip, port);
+    saveMirrorInMemory(ip, port, 0, false);
 
     res.send('success');
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.use('/check-status', async (req, res) => {
+  try {
+    const result = await isPortReachable('baidu.com', 80, 3000);
+
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.send(false);
+  }
+});
+
+//TODO
+
+app.use('/temp/image', async (req, res) => {
+  try {
+    const rawPath = req.url;
+
+    console.log('path: ', rawPath);
+
+    const response = await axios.get(
+      `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/temp/image${rawPath}`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/temp/video', async (req, res) => {
+  try {
+    const rawPath = req.url;
+
+    const response = await axios.get(
+      `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/temp/video${rawPath}`,
+      { responseType: 'arraybuffer' }
+    );
+
+    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+
+    res.end(Buffer.from(response.data, 'binary'));
+  } catch (err) {
+    console.log(err);
+    res.send('');
   }
 });
 
@@ -537,7 +641,7 @@ function isPortReachable(host, port, timeout = 2000) {
   });
 }
 
-async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
+async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
   console.log(`*********checking ${ip}`);
 
   if (hostsMap.has(ip)) {
@@ -572,21 +676,38 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0) {
     const verifyData = verifyRes.data;
 
     if (verifyData?.updateTime) {
-      console.log(`*********${ip} is able to connect from China`);
-      const res = {
-        ip,
-        port: confirmedPort,
-        updatedTime: new Date().getTime() + extraExpiry,
-      };
+      let result4 = 'unknown';
 
-      hostsMap.set(ip, res);
-      endGFWHosts.push(res);
+      if (extraExpiry === 0) {
+        try {
+          if (isReboot) {
+          } else {
+            result4 = await ipCheck(ip, confirmedPort);
+          }
+        } catch (err) {
+          result4 === 'fail';
+        }
+      }
+
+      if (result4 === 'fail') {
+        console.log('Not able to connect from China');
+      } else {
+        console.log(`*********${ip} is able to connect from China`);
+        const res = {
+          ip,
+          port: confirmedPort,
+          updatedTime: new Date().getTime() + extraExpiry,
+        };
+
+        hostsMap.set(ip, res);
+        endGFWHosts.push(res);
+      }
     }
   }
 }
 
 async function getEndGFWMirror() {
-  await readHosts();
+  // await readHosts();
   const keyArray = await fetchAPI();
 
   console.log('keyArray: ', keyArray);
@@ -609,9 +730,31 @@ async function getEndGFWMirror() {
 
     if (process.env.NODE_ENV?.includes('dev')) {
     } else {
-      await saveMirrorInMemory(ip1, 8081, extraExpiry);
+      await saveMirrorInMemory(ip1, 8081, extraExpiry, true);
     }
   }
+}
+
+async function ipCheck(ipAddress, port) {
+  const headers = {
+    Host: IP_CHECK_HOST,
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:115.0esr) Gecko/20010101 Firefox/115.0esr/9S8eMFpqfT',
+    Accept: 'application/json, text/javascript, */*; q=0.01',
+    'Accept-Encoding': 'gzip, deflate, br',
+    Connection: 'keep-alive',
+    Cookie: '',
+    Referer: IP_CHECK_REFERER, // Example authorization header
+  };
+
+  if (process.env.NODE_ENV?.includes('dev')) {
+    return 'success';
+  }
+
+  const url = `${IP_CHECK_URL}/${ipAddress}/${port}`;
+  const res = await axios.get(url, { headers });
+
+  return res?.data?.tcp ?? 'fail';
 }
 
 async function periodicCheckConnection() {
@@ -633,19 +776,83 @@ async function periodicCheckConnection() {
   }
 
   endGFWHosts = temp;
-  saveHosts();
+  // saveHosts();
 }
 
-setTimeout(periodicCheckConnection, 600000);
+async function periodicCheckReachable() {
+  const hosts = Array.from(hostsMap.values());
+
+  const temp = [];
+
+  for (const host of hosts) {
+    const result = await ipCheck(host.ip, host.port);
+    if (result === 'success') {
+      temp.push(host);
+    } else {
+      hostsMap.delete(host.ip);
+    }
+  }
+
+  endGFWHosts = temp;
+
+  // saveHosts();
+}
+
+async function report() {
+  console.log('MASTER_NODE: ', MASTER_NODE);
+
+  if (MASTER_NODE == 'true') {
+  } else {
+    const ipAddressRes = await axios.get('https://api.ipify.org?format=json');
+
+    let ip = ipAddressRes?.data?.ip;
+
+    console.log('report ip: ', ip);
+
+    if (net.isIPv6(ip)) {
+      res.send('ipv6 is not supported');
+    } else {
+      try {
+        await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
+
+        if (JSON.stringify(endGFWHosts)?.includes(ip)) {
+        } else {
+          const item = { ip, port: NODE_PORT };
+          endGFWHosts.push(item);
+        }
+      } catch (err) {
+        console.error('Error report failed');
+      }
+    }
+  }
+}
+
+setInterval(periodicCheckConnection, 600000);
+setInterval(periodicCheckReachable, 3600000);
+setInterval(report, 600000);
+setInterval(getEndGFWMirror, 3600000);
 
 getEndGFWMirror();
+report();
 
 // Save data to file before shutdown
 process.on('SIGINT', async () => {
   console.log('Saving hosts:');
-  await saveHosts();
+  // await saveHosts();
 
   process.exit(0);
 });
 
 app.listen(80, () => console.log(`listening on port 80`));
+
+if (MASTER_NODE == 'true') {
+  https
+    .createServer(
+      {
+        key: fs.readFileSync(path.join(__dirname, './key.pem')),
+        cert: fs.readFileSync(path.join(__dirname, './cert.pem')),
+      },
+      app
+    )
+    .listen(443, () => console.log(`listening on port 443`));
+}
