@@ -55,12 +55,12 @@
   <body>
     <div id="header"></div>
     <main class="mt-10 mx-4 lg:mx-20">
-      <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
+      <div class="grid grid-cols-1 gap-x-1 gap-x-2">
         <div class="">
           <p id="why-group"></p>
 
           <nav
-            class="isolate grid grid-cols-4 md:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
+            class="isolate grid grid-cols-5 md:grid-cols-10 -space-x-px rounded-md shadow-sm mt-10"
             aria-label="Pagination"
             id="page-group"
           ></nav>
@@ -69,8 +69,8 @@
       <div class="grid grid-cols-1 gap-x-1 lg:gap-x-8">
         <div class="mt-10">
           <div id="tweet">
-            <div class="px-4">
-              <div class="bg-white px-4 py-5 sm:px-6">
+            <div class="px-2">
+              <div class="bg-white px-2 py-5 sm:px-2">
                 <div class="flex space-x-3">
                   <div class="flex-shrink-0">
                     <img
@@ -115,7 +115,7 @@
       function getLast7Days() {
         var today = new Date();
         var last7Days = [];
-        for (var i = 0; i < 14; i++) {
+        for (var i = 0; i < 10; i++) {
           var day = new Date(today);
           day.setDate(today.getDate() - i);
           last7Days.push(formatDate(day));
@@ -169,7 +169,7 @@
           const parts = item.split('-');
 
           pageGroupElement.className =
-            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
+            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex justify-center px-2 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
 
           if (i == 0) {
             await getTweet(parts[0], parts[1], parts[2]);

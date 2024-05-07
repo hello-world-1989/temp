@@ -16,8 +16,6 @@ const __dirname = dirname(__filename);
 const hostsMap = new Map();
 let endGFWHosts = [];
 const NODE_PORT = process.env.NODE_PORT || 80;
-let vpnData = [];
-let eeData = [];
 
 const MASTER_NODE = process.env.MASTER_NODE || false;
 const IP_CHECK_HOST = process.env.IP_CHECK_HOST;
@@ -268,38 +266,9 @@ app.use('/searchx', async (req, res) => {
   }
 });
 
-app.use('/host2', async (req, res) => {
-  try {
-    let result = [];
-    const hiddenHost1 = endGFWHosts?.[0];
-    const hiddenHost2 = endGFWHosts?.[1];
-
-    if (hiddenHost1) {
-      result.push({
-        hostname: hiddenHost1.ip,
-        status: 'success',
-      });
-    }
-
-    if (hiddenHost2) {
-      result.push({
-        hostname: hiddenHost2.ip,
-        status: 'success',
-      });
-    }
-
-    res.send(result);
-  } catch (err) {
-    console.log(err);
-    res.send('');
-  }
-});
-
 app.use('/host', async (req, res) => {
   try {
-    console.log('get top 5 hosts: ', endGFWHosts);
-
-    res.send(endGFWHosts.slice(0, 5));
+    res.send(endGFWHosts.slice(0, 3));
   } catch (err) {
     console.log(err);
     res.send('');
@@ -716,7 +685,7 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
 }
 
 async function getEndGFWMirror() {
-  await readHosts();
+  // await readHosts();
   const keyArray = await fetchAPI();
 
   console.log('keyArray: ', keyArray);
@@ -785,7 +754,7 @@ async function periodicCheckConnection() {
   }
 
   endGFWHosts = temp;
-  saveHosts();
+  // saveHosts();
 }
 
 async function periodicCheckReachable() {
@@ -804,7 +773,7 @@ async function periodicCheckReachable() {
 
   endGFWHosts = temp;
 
-  saveHosts();
+  // saveHosts();
 }
 
 async function report() {
@@ -823,6 +792,12 @@ async function report() {
     } else {
       try {
         await axios.get(`https://end-gfw.com/node?ip=${ip}&port=${NODE_PORT}`);
+
+        if (JSON.stringify(endGFWHosts)?.includes(ip)) {
+        } else {
+          const item = { ip, port: NODE_PORT };
+          endGFWHosts.push(item);
+        }
       } catch (err) {
         console.error('Error report failed');
       }
@@ -830,8 +805,10 @@ async function report() {
   }
 }
 
-setTimeout(periodicCheckConnection, 600000);
-setTimeout(periodicCheckReachable, 3600000);
+setInterval(periodicCheckConnection, 600000);
+setInterval(periodicCheckReachable, 3600000);
+setInterval(report, 600000);
+setInterval(getEndGFWMirror, 3600000);
 
 getEndGFWMirror();
 report();
@@ -839,7 +816,7 @@ report();
 // Save data to file before shutdown
 process.on('SIGINT', async () => {
   console.log('Saving hosts:');
-  await saveHosts();
+  // await saveHosts();
 
   process.exit(0);
 });
