@@ -87,50 +87,7 @@
     "web": "https://getoutline.org/zh-CN/",
     "star": 9
   },
-  {
-    "os": "android",
-    "id": "onionshare",
-    "name": "OnionShare",
-    "link1": "/download-app/android/android-onionshare.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-onionshare.zip",
-    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
-    "image": "images/onionshare.webp",
-    "web": "https://onionshare.org/",
-    "star": 7.5
-  },
-  {
-    "os": "windows",
-    "id": "onionshare",
-    "name": "OnionShare",
-    "link1": "/download-app/windows/windows-onionshare.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-onionshare.zip",
-    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
-    "image": "images/onionshare.webp",
-    "web": "https://onionshare.org/",
-    "star": 7.5
-  },
-  {
-    "os": "ios",
-    "id": "onionshare",
-    "name": "OnionShare",
-    "link1": "#",
-    "link2": "#",
-    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
-    "image": "images/onionshare.webp",
-    "web": "https://onionshare.org/",
-    "star": 7.5
-  },
-  {
-    "os": "mac",
-    "id": "onionshare",
-    "name": "OnionShare",
-    "link1": "/download-app/mac/mac-onionshare.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-onionshare.zip",
-    "comment": "基于Tor匿名文件分享和通讯工具，国内需要配合网桥使用",
-    "image": "images/onionshare.webp",
-    "web": "https://onionshare.org/",
-    "star": 7.5
-  },
+
   {
     "os": "android",
     "id": "v2ray",
