@@ -298,7 +298,8 @@
                   </div>
                   <div class="min-w-0 flex-1">
                     <p class="text-lg font-bold text-gray-900">
-                      <a href="" class="">${item.name}</a>
+                      <a href="/news-page?year=${year}&month=${month}&day=${day}&sourceId=${item.sourceId}&newsId=${item.id}" id="${item.id}" class="">${item.name} </a>
+                      <button onclick="copyTweet('${item.id}')" class="text-normal text-indigo-500">复制分享链接</button>
                     </p>
                     <p class="text-sm text-gray-500">
                       <a href="#" class="">${item.createdDate}发布</a>
@@ -341,6 +342,33 @@
       }
 
       fetchTweet();
+    </script>
+
+    <script>
+      function copyTweet(elementId) {
+        // Get the text field
+        const linkElement = document.getElementById(elementId);
+
+        // Create a temporary input element to hold the link text
+        var tempInput = document.createElement('input');
+        tempInput.value = linkElement.href;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        document.body.removeChild(tempInput);
+      }
     </script>
   </body>
 </html>
