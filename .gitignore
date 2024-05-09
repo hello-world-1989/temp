@@ -7,3 +7,10 @@ node_modules
 *package-lock.json
 
 ./public/temp/custom/
+
+
+src/key.pem
+
+src/cert.pem
+
+whyyoutouzhele
