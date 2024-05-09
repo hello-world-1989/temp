@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./tailwindcss.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <title>
+      大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆墙运动 普及翻墙
+      完全免费翻墙软件
+    </title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+    />
+    <meta
+      name="keywords"
+      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+    />
+
+    <script>
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('header').innerHTML = text;
+
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
+
+          mobileHeader.classList.add('hidden');
+
+          closeMenu.onclick = () => {
+            mobileHeader.classList.add('hidden');
+          };
+
+          openMenu.onclick = () => {
+            mobileHeader.classList.remove('hidden');
+          };
+        });
+
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('footer').innerHTML = text;
+
+          const currentYearSpan = document.getElementById('currentYear');
+          const currentDate = new Date();
+          const currentYear = currentDate.getFullYear();
+          currentYearSpan.textContent = currentYear;
+        });
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main class="mt-20 mx-8 lg:mx-20">
+      <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
+        <div class="">
+          <p class="font-bold">
+            动态免墙IP站点, 每天更新
+            <br />
+            可以安全分享到朋友圈而不被炸号
+            <br />
+            <a href="/download-last-7" class="font-semibold text-indigo-600"
+              >点击下载过去7天新闻， 离线PDF版本</a
+            >
+          </p>
+
+          <p id="mirror-list"></p>
+
+          <br />
+
+          <p id="current-mirror" class="font-semibold text-indigo-600"></p>
+
+          <nav
+            class="isolate grid grid-cols-4 md:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
+            aria-label="Pagination"
+            id="page-group"
+          ></nav>
+        </div>
+        <div class="mt-4 lg:mt-1">
+          <h1 class="font-bold">翻墙软件推荐</h1>
+          <h1 class="mt-4">安卓手机使用NthLink, Orbot VPN, Cloudflare</h1>
+          <h1>
+            苹果手机苹果电脑使用<a
+              href="./qa.html#apple-account"
+              class="font-semibold text-indigo-600"
+              >海外苹果账户</a
+            >下载NthLink, Orbot VPN, Cloudflare
+          </h1>
+          <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
+          <h1 class="mt-4">
+            如果以上无法使用， 使用V2Ray系列或Outline
+            <a
+              href="https://donate.stripe.com/8wM8A3649d9W7o4000"
+              class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
+              target="_blank"
+              >欢迎赞助1刀</a
+            >
+          </h1>
+          <h1>
+            赞助将提供更多节点 更快速度订阅链接， 赞助10刀将把组织名称放在网站上
+          </h1>
+          <br />
+          <h1>
+            点击节点复制, 导入到V2Ray/Outline
+            <p class="overflow-auto" onclick="copyText('outline')">
+              <span id="outline"
+                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
+              >
+            </p>
+          </h1>
+          <h1>
+            点击链接复制, V2Ray订阅链接包含推墙运动节点<button
+              onclick="copyText('v2ray')"
+            >
+              <span class="overflow-x-auto" id="v2ray">
+                https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</span
+              >
+            </button>
+          </h1>
+        </div>
+      </div>
+      <div class="flex justify-center mt-10">
+        <div id="tweet">
+          <div class="">
+            <div class="bg-white px-4 py-5 sm:px-6">
+              <div class="flex space-x-3">
+                <div class="flex-shrink-0">
+                  <img
+                    class="h-10 w-10 rounded-full"
+                    src="https://pbs.twimg.com/profile_images/1558667234855292929/RqgodvGb_400x400.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-lg font-bold text-gray-900">
+                    <a href="" class="">李老师不是你老师 @whyyoutouzhele</a>
+                  </p>
+                  <p class="text-sm text-gray-500">
+                    <a href="#" class="">北京时间0000-00-00 00:00:00发布</a>
+                  </p>
+                </div>
+                <div class="flex flex-shrink-0 self-center">
+                  <div class="relative inline-block text-left">
+                    <div
+                      class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="menu-0-button"
+                      tabindex="-1"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="px-4 pb-5 sm:p-6 sm:pt-0">
+              <p>更新中，请稍后查看...或查看昨日新闻</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div id="footer"></div>
+
+    <script>
+      let isEmpty = false;
+      function getLast7Days() {
+        var today = new Date();
+        var last7Days = [];
+        for (var i = 0; i < 28; i++) {
+          var day = new Date(today);
+          day.setDate(today.getDate() - i);
+          last7Days.push(formatDate(day));
+        }
+        return last7Days;
+      }
+
+      function convertToShanghaiTime(utcDate) {
+        var shanghaiOffset = 8; // Shanghai is UTC+8
+        var shanghaiDate = new Date(
+          utcDate.getTime() + shanghaiOffset * 60 * 60 * 1000
+        );
+        return shanghaiDate;
+      }
+
+      // Get last 7 days in Shanghai time zone
+      function getLast7DaysInShanghai() {
+        var last7Days = getLast7Days();
+        var last7DaysInShanghai = [];
+
+        last7Days.forEach(function (date) {
+          var utcDate = new Date(date + 'T00:00:00Z');
+          var shanghaiDate = convertToShanghaiTime(utcDate);
+
+          last7DaysInShanghai.push(formatDate(shanghaiDate));
+        });
+        return last7DaysInShanghai;
+      }
+
+      function formatDate(date) {
+        var year = '' + date.getFullYear();
+        var month = '' + (date.getMonth() + 1);
+        var day = '' + date.getDate();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+      }
+
+      async function fetchTweet() {
+        const pagesElement = document.getElementById('pages');
+
+        const dates = getLast7DaysInShanghai();
+
+        let i = 0;
+        for (const item of dates) {
+          const pageGroupElement = document.createElement('a');
+          const pageGroup = document.getElementById('page-group');
+
+          const parts = item.split('-');
+
+          pageGroupElement.className =
+            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
+
+          if (i == 0) {
+            await getTweet(parts[0], parts[1], parts[2]);
+
+            if (isEmpty) {
+              const yesterday = dates[i + 1];
+              const parts = yesterday.split('-');
+              await getTweet(parts[0], parts[1], parts[2]);
+            }
+          }
+
+          pageGroupElement.className +=
+            i == 0
+              ? ' bg-indigo-600 text-white selected hover:bg-indigo-500'
+              : ' text-gray-900';
+
+          pageGroupElement.id = item;
+
+          pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
+
+          pageGroupElement.onclick = () => {
+            const selectedOption = pageGroup.querySelector('.selected');
+            if (selectedOption) {
+              selectedOption.classList.remove('selected');
+              selectedOption.classList.remove('bg-indigo-600');
+              selectedOption.classList.remove('text-white');
+              selectedOption.classList.remove('hover:bg-indigo-500');
+
+              selectedOption.classList.add('bg-white');
+              selectedOption.classList.add('text-gray-900');
+              selectedOption.classList.add('hover:bg-gray-50');
+              selectedOption.classList.add('ring-1');
+              selectedOption.classList.add('ring-inset');
+              selectedOption.classList.add('ring-gray-300');
+            }
+
+            //const folder = parts[0] + '/' + parts[1] + '/' + parts[2];
+
+            getTweet(parts[0], parts[1], parts[2]);
+
+            // const activeVPN = vpn.filter(
+            //  (item) => item.os == pageGroupElement.id
+            // );
+
+            //while (vpnGroup.firstChild) {
+            //  vpnGroup.removeChild(vpnGroup.firstChild);
+            // }
+
+            // addLiElement(activeVPN, vpnGroup);
+
+            pageGroupElement.classList.add('selected');
+            pageGroupElement.classList.add('bg-indigo-600');
+            pageGroupElement.classList.add('text-white');
+            pageGroupElement.classList.add('hover:bg-indigo-500');
+
+            pageGroupElement.classList.remove('bg-white');
+            pageGroupElement.classList.remove('text-gray-900');
+            pageGroupElement.classList.remove('hover:bg-gray-50');
+          };
+
+          pageGroup.appendChild(pageGroupElement);
+          i++;
+        }
+
+        //dates.forEach(async (item, i) => {});
+      }
+
+      async function getTweet(year, month, day) {
+        // const res = await fetch(
+        //   `/tweet?year=${year}&month=${month}&day=${day}`
+        // );
+        //year = '2024';
+        //month = '03';
+        //day = '02';
+
+        //const res = await fetch(
+        //   `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
+        // );
+
+        let temp = [];
+
+        try {
+          const res = await fetch(
+            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );
+
+          temp = await res.json();
+        } catch (err) {
+          console.error('error loading data');
+          isEmpty = true;
+        }
+
+        const data = temp?.sort((a, b) =>
+          a.createdDate > b.createdDate ? -1 : 1
+        );
+
+        const pdfElement = document.getElementById('tweet');
+
+        const elements = data.map((item) => {
+          const images = item?.images?.split(',');
+
+          if (item.videos) {
+            const videoImages = item.videos?.split(',');
+            images.push(...videoImages);
+          }
+
+          let imageElement = '';
+
+          if (images?.length > 0) {
+            const imagesArr = images
+              .filter((item) => item !== '')
+              .map(
+                (item) =>
+                  `<li class='relative'>
+              <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
+                <img
+                  src='/resource${item}'
+                  alt=''
+                  class='pointer-events-none object-cover'
+                />
+              </div>
+            </li>`
+              );
+
+            imageElement = imagesArr.join('');
+          }
+
+          const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
+
+          const year = createdDate?.[0];
+          const month = createdDate?.[1];
+          const day = createdDate?.[2];
+
+          return `<div class="">
+              <div class="bg-white px-4 py-5 sm:px-6">
+                <div class="flex space-x-3">
+                  <div class="flex-shrink-0">
+                    <img
+                      class="h-10 w-10 rounded-full"
+                      src="images/whyyoutouzhele.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-lg font-bold text-gray-900">
+                      <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${item.id}" id="${item.id}" class="">李老师不是你老师 @whyyoutouzhele </a>
+                      <button onclick="copyTweet('${item.id}')" class="text-normal text-indigo-500">复制分享链接</button>
+                    </p>
+                    <p class="text-sm text-gray-500">
+                      <a href="#" class="">北京时间${item.createdDate}发布</a>
+                    </p>
+                  </div>
+                  <div class="flex flex-shrink-0 self-center">
+                    <div class="relative inline-block text-left">
+                      <div
+                        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-0-button"
+                        tabindex="-1"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 pb-5 sm:p-6 sm:pt-0">
+                <p>
+                  ${item.content}
+                </p>
+              </div>
+              <ul
+                role="list"
+                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:gap-x-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4"
+              >
+                ${imageElement}
+              </ul>
+            </div>`;
+        });
+
+        pdfElement.innerHTML = elements.join('');
+      }
+
+      fetchTweet();
+    </script>
+
+    <script>
+      async function getHost() {
+        const res = await fetch('/host');
+
+        const dataArr = await res.json();
+
+        const whyElement = document.getElementById('mirror-list');
+
+        dataArr.forEach((item) => {
+          const linkElement = document.createElement('a');
+
+          const newLineElement = document.createElement('br');
+
+          if (item.port == 80) {
+            linkElement.href = `http://${item.ip}`;
+
+            linkElement.innerText = `http://${item.ip}`;
+          } else {
+            linkElement.href = `http://${item.ip}:${item.port}/`;
+
+            linkElement.innerText = `http://${item.ip}:${item.port}/`;
+          }
+
+          linkElement.target = '_blank';
+
+          whyElement.appendChild(linkElement);
+          whyElement.appendChild(newLineElement);
+        });
+      }
+
+      getHost();
+    </script>
+
+    <script>
+      async function getSS() {
+        const res = await fetch('/ss-key');
+
+        const ssKey = await res.text();
+
+        const ssElement = document.getElementById('outline');
+
+        ssElement.href = ssKey;
+        ssElement.innerText = ssKey;
+      }
+
+      getSS();
+    </script>
+
+    <script>
+      async function getCurrentMirrorStatus() {
+        const res = await fetch('/check-status');
+
+        const currentMirrorStatus = await res.text();
+
+        console.log('currentMirrorStatus: ', currentMirrorStatus);
+
+        const currentMirrorElement = document.getElementById('current-mirror');
+
+        currentMirrorElement.innerText =
+          currentMirrorStatus == 'true'
+            ? '当前镜像节点状态正常'
+            : '当前镜像节点被屏蔽， 请更换IP';
+      }
+
+      getCurrentMirrorStatus();
+    </script>
+
+    <script>
+      function copyText(elementId) {
+        // Get the text field
+        var textToCopy = document.getElementById(elementId);
+
+        // Select the text
+        var range = document.createRange();
+        range.selectNode(textToCopy);
+        window.getSelection().removeAllRanges(); // clear current selection
+        window.getSelection().addRange(range); // to select text
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        window.getSelection().removeAllRanges();
+      }
+    </script>
+
+    <script>
+      function copyTweet(elementId) {
+        // Get the text field
+        const linkElement = document.getElementById(elementId);
+
+        // Create a temporary input element to hold the link text
+        var tempInput = document.createElement('input');
+        tempInput.value = linkElement.href;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        document.body.removeChild(tempInput);
+      }
+    </script>
+
+    <script>
+      // JavaScript code to display the current year in the span element
+      const currentYearSpan = document.getElementById('currentYear');
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      currentYearSpan.textContent = currentYear;
+    </script>
+  </body>
+</html>

@@ -1,6 +1,12 @@
 version: '3'
-services: 
-  web: 
+services:
+  xrayr:
+    image: ghcr.io/xrayr-project/xrayr:latest
+    volumes:
+      - ./config:/etc/XrayR/ # 映射配置文件夹
+    restart: always
+    network_mode: host
+  web:
     image: endgfw/web:stable
     container_name: end-gfw-web
     environment:
@@ -8,6 +14,9 @@ services:
     ports:
       - '80:80'
       - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
+    volumes:
+      - ./custom:/app/temp/public/temp/custom/
+      - /var/run/docker.sock:/var/run/docker.sock
     restart: always
   watchtower:
     image: containrrr/watchtower
