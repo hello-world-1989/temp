@@ -682,10 +682,10 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
         try {
           if (isReboot) {
           } else {
-            result4 = await ipCheck(ip, confirmedPort);
+            // result4 = await ipCheck(ip, confirmedPort);
           }
         } catch (err) {
-          result4 === 'fail';
+          // result4 === 'fail';
         }
       }
 
