@@ -6,7 +6,7 @@ node_modules
 
 *package-lock.json
 
-./public/temp/custom/
+public/temp/custom/
 
 
 src/key.pem
