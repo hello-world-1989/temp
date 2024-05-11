@@ -18,6 +18,7 @@ let endGFWHosts = [];
 const NODE_PORT = process.env.NODE_PORT || 80;
 
 const MASTER_NODE = process.env.MASTER_NODE || false;
+const PRIVATE_NODE = process.env.PRIVATE_NODE || false;
 const IP_CHECK_HOST = process.env.IP_CHECK_HOST;
 const IP_CHECK_REFERER = process.env.IP_CHECK_REFERER;
 const IP_CHECK_URL = process.env.IP_CHECK_URL;
@@ -801,7 +802,7 @@ async function periodicCheckReachable() {
 async function report() {
   console.log('MASTER_NODE: ', MASTER_NODE);
 
-  if (MASTER_NODE == 'true') {
+  if (MASTER_NODE == 'true' || PRIVATE_NODE == 'true') {
   } else {
     const ipAddressRes = await axios.get('https://api.ipify.org?format=json');
 
