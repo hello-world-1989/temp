@@ -55,11 +55,10 @@ app.use('/download-last-7', async (req, res) => {
   try {
     const response = await axios.get(
       `https://github.com/hello-world-1989/latest/releases/download/latest/last7days.pdf`,
-      { responseType: 'arraybuffer' }
+      { responseType: 'stream' }
     );
 
-    res.writeHead(200, { 'Content-Type': 'application/pdf' });
-    res.end(Buffer.from(response.data, 'binary'));
+    response.data.pipe(res);
   } catch (err) {
     console.log(err);
     res.send('');
