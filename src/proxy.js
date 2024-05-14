@@ -505,6 +505,24 @@ app.use('/check-status', async (req, res) => {
   }
 });
 
+app.use('/ip-check', async (req, res) => {
+  try {
+    const ipAddress = req.query?.ip;
+    const port = req.query?.port ?? 80;
+
+    const result = await ipCheck(ipAddress, port);
+
+    console.log('IP Address:', `${ipAddress}:${port} is ${result}`);
+
+    res.send({
+      status: result,
+    });
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
 //TODO
 
 app.use('/temp/image', async (req, res) => {
