@@ -13,5 +13,6 @@ services:
     image: containrrr/watchtower
     container_name: watchtower
     volumes:
+      - ./custom:/app/temp/public/temp/custom/
       - /var/run/docker.sock:/var/run/docker.sock
     command: end-gfw-web
