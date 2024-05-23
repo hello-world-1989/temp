@@ -1,11 +1,11 @@
 import axios from 'axios';
 import express from 'express';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import * as fs2 from 'node:fs/promises';
 import * as path from 'path';
 import * as net from 'net';
 import { create } from 'express-handlebars';
-import * as https from 'https';
+// import * as https from 'https';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -863,14 +863,14 @@ process.on('SIGINT', async () => {
 
 app.listen(80, () => console.log(`listening on port 80`));
 
-if (MASTER_NODE == 'true') {
-  https
-    .createServer(
-      {
-        key: fs.readFileSync(path.join(__dirname, './key.pem')),
-        cert: fs.readFileSync(path.join(__dirname, './cert.pem')),
-      },
-      app
-    )
-    .listen(443, () => console.log(`listening on port 443`));
-}
+// if (MASTER_NODE == 'true') {
+//   https
+//     .createServer(
+//       {
+//         key: fs.readFileSync(path.join(__dirname, './key.pem')),
+//         cert: fs.readFileSync(path.join(__dirname, './cert.pem')),
+//       },
+//       app
+//     )
+//     .listen(443, () => console.log(`listening on port 443`));
+// }
