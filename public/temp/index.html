@@ -165,7 +165,7 @@
     <div id="footer"></div>
 
     <script>
-      let isEmpty = false;
+      let isEmpty = true;
       function getLast7Days() {
         var today = new Date();
         var last7Days = [];
@@ -225,11 +225,11 @@
           pageGroupElement.className =
             'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
 
-          if (i == 0) {
-            await getTweet(parts[0], parts[1], parts[2]);
+          for (let j = 0; j < 5; j++) {
+            //await getTweet(parts[0], parts[1], parts[2]);
 
             if (isEmpty) {
-              const yesterday = dates[i + 1];
+              const yesterday = dates[j + 1];
               const parts = yesterday.split('-');
               await getTweet(parts[0], parts[1], parts[2]);
             }
@@ -311,6 +311,8 @@
           );
 
           temp = await res.json();
+
+          isEmpty = false;
         } catch (err) {
           console.error('error loading data');
           isEmpty = true;

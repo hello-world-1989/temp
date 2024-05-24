@@ -3,7 +3,7 @@
 
 # 请访问 [网站](https://www.end-gfw.com/) 更清晰分类
 
-# 推墙运动 拆墙运动 v2ray 订阅链接, 包含自建节点IP， 可免翻墙访问李老师推文 下载翻墙软件, 其它节点均从网络搜集, 未能保证安全,谨慎使用
+# 大翻墙运动 信息倒灌行动 拆墙运动 v2ray 订阅链接, 包含自建节点IP， 可免翻墙访问李老师推文 下载翻墙软件
 
 ```
 https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
@@ -127,7 +127,7 @@ L2TP服务器地址，每小时更新
 
 [Open VPN Youtube油管视频教程](https://www.youtube.com/watch?v=GHhv5NI1EfI)
 
->安卓版本12以上需要[下载OpenVPN客户端](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/OpenVPN_3.3.4_Apkpure.apk)  [备用链接](https://github.com/hello-world-1989/temp/raw/main/android/OpenVPN_3.3.4_Apkpure.apk)和.ovpn才能使用 VPN Gate 提供的这种翻墙方式
+>安卓版本12以上需要[下载OpenVPN客户端](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/OpenVPN_3.3.4_Apkpure.apk) 和.ovpn才能使用 VPN Gate 提供的这种翻墙方式
 
 >VPN Gate 镜像页面(图片中Mirror List) 下载 .ovpn文件 见以上视频教程
 
@@ -165,47 +165,47 @@ obfs4 68.183.36.57:23411 11A47B73E44EC752E77B9864D8A26D250613B642 cert=Jc9MHFAfa
 
 nthlink 2024年2月中旬测试可用，欢迎下载使用并反馈, 如果无法使用， 尝试将DNS更改为 8.8.4.4或 1.1.1.1或 9.9.9.9
 
-[本网站下载1](https://www.end-gfw.com/android/android-nthlink.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-nthlink.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-nthlink.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-nthlink.zip)
 [谷歌应用商店下载](https://play.google.com/store/apps/details?id=com.nthlink.android.client)
 [Apkpure下载](https://apkpure.net/nthlink/com.nthlink.android.client)
 
 
 Warp Plus, CloudFlare 出品, 网站 1.1.1.1, 密钥 zQ457r3W-4P8W9sK3-P4RW087H， [自助生成密钥](https://replit.com/@ygkkkk/WarpKey-Register-PRO?v=1)
 
-[本网站下载1](https://www.end-gfw.com/android/android-warpplus.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-warpplus.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-warpplus.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-warpplus.zip)
 
 OpenVPN Android, 需配合VPN Servers for OpenVPN使用, 欢迎下载使用并反馈
 
-[本网站下载1](https://www.end-gfw.com/android/android-openvpnandroid.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-openvpnandroid.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-openvpnandroid.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-openvpnandroid.zip)
 
 VPN Servers for OpenVPN, 需配合OpenVPN Android使用
 
-[本网站下载1](https://www.end-gfw.com/android/android-vpnserver.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-vpnserver.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-vpnserver.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-vpnserver.zip)
 
 New Node
 
 >很多广东网友反馈无法链接， 广东网友请尝试nthlink
 
-[本网站下载1](https://www.end-gfw.com/android/android-newnode.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-newnode.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-newnode.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-newnode.zip)
 [谷歌应用商店下载](https://play.google.com/store/apps/details?id=com.clostra.newnode.vpn) 
 [Apkpure下载](https://apkpure.net/newnode/com.newnode.messenger/download)
 
 [迷雾通官网](https://waa.ai/xiazaimiwutong)， 需注册（无需手机号邮箱）
 
-[本网站下载1](https://www.end-gfw.com/android/android-geph.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-geph.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-geph.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-geph.zip)
 [谷歌应用商店下载](https://play.google.com/store/apps/details?id=io.geph.android)
 [Apkpure下载](https://apkpure.net/cn/geph-resilient-anti-blocking/io.geph.android)
 
 自由门 2023年8月中旬测试可用，欢迎下载使用并反馈
 
-[本网站下载1](https://www.end-gfw.com/android/android-freegate.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-freegate.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-freegate.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-freegate.zip)
 [Github备用下载](https://github.com/sglfree/freesky)
 
 Wireguard, [自助生成密钥](https://replit.com/@ygkkkk/WARP-Wireguard-Register?v=1)
@@ -217,27 +217,27 @@ Orbot Tor VPN, 如果链接不上，很大可能配置问题, 需要开启 使�
 
 如果还不能链接，请使用自定义网桥 -> 粘贴网桥地址， 发邮件到[邮箱](mailto:end.gfw@hotmail.com) 标题: 索取网桥地址
 
-[本网站下载1](https://www.end-gfw.com/android/android-orbot.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-orbot.zip)
 [官方Github下载](https://github.com/guardianproject/orbot/releases)
 
 
 Psiphon 2023年8月中旬测试后发现不稳定，测试不一定准确，欢迎下载使用并反馈
 
-[本网站下载1](https://www.end-gfw.com/android/android-psiphon.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-psiphon.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/android/android-psiphon.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-psiphon.zip)
 [Apkpure下载](https://apkpure.net/psiphon/com.psiphon3)
 
 无界 欢迎下载使用并反馈
 
 [本网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/u.apk)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/main/android/u.apk)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/u.apk)
 [Github备用下载](https://github.com/sglfree/freesky)
 
 
 Tor Browser 可能需要开启snowflake或者输入自定义obfs4网桥
 
 [本网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/Tor_12.5.2_Apkpure.apk)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/main/android/Tor_12.5.2_Apkpure.apk)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-tor.zip)
 [谷歌应用商店下载](https://play.google.com/store/apps/details?id=org.torproject.torbrowser)
 [Apkpure下载](https://apkpure.net/tor-browser/org.torproject.torbrowser)
 
@@ -267,8 +267,8 @@ Tor Browser 可能需要开启snowflake或者输入自定义obfs4网桥
 <img src='https://www.end-gfw.com/images/ios-part2.png' width='250' height='350' />
 
 WARP Plus苹果电脑客户端， CloudFlare 出品, 网站 1.1.1.1, 密钥 zQ457r3W-4P8W9sK3-P4RW087H, [自助生成密钥](https://replit.com/@ygkkkk/WarpKey-Register-PRO?v=1)
-[本网站下载1](https://www.end-gfw.com/mac/mac-warpplus.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/mac/mac-warpplus.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/mac/mac-warpplus.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/mac/mac-warpplus.zip)
 
 Open VPN 苹果电脑客户端
 [本网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/mac/openvpn-connect-3.4.3.4617_signed.dmg)
@@ -277,8 +277,8 @@ Open VPN 苹果电脑客户端
 [迷雾通官网](https://waa.ai/xiazaimiwutong)， 需注册（无需手机号邮箱）
 
 迷雾通苹果电脑客户端
-[本网站下载1](https://www.end-gfw.com/mac/mac-geph.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/mac/mac-geph.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/mac/mac-geph.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/mac/mac-geph.zip)
 </details>
 
 
@@ -286,17 +286,18 @@ Open VPN 苹果电脑客户端
 <summary><a id="windows">微软系统客户端下载 -- 未经墙内测试</a></summary>
 
 NthLink, 如果无法使用， 尝试将DNS更改为 8.8.4.4或 1.1.1.1或 9.9.9.9
-[本网站下载1](https://www.end-gfw.com/windows/windows-nthlink.zip)
-[本网站下载2](https://gitlab.com/hello-world-1989/temp/-/raw/main/windows-nthlink.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-nthlink.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-nthlink.zip)
 [官方网站下载](https://s3.us-west-1.amazonaws.com/dwo-jar-kmf-883/nthlink-win-6_2_2.exe)
 
 WARP Plus，CloudFlare 出品, 网站 1.1.1.1,密钥 zQ457r3W-4P8W9sK3-P4RW087H, [自助生成密钥](https://replit.com/@ygkkkk/WarpKey-Register-PRO?v=1)
-[本网站下载1](https://www.end-gfw.com/windows/windows-warpplus.zip)
-[本网站下载2](https://gitlab.com/hello-world-1989/temp/-/raw/main/windows-warpplus.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-warpplus.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-warpplus.zip)
+
 
 自由门
-[本网站下载1](https://www.end-gfw.com/windows/windows-freegate.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/windows/windows-freegate.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-freegate.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-freegate.zip)
 [官方网站下载](https://d1mqnu3031neuj.cloudfront.net/login2.html?i=a2)
 
 无界
@@ -305,24 +306,24 @@ WARP Plus，CloudFlare 出品, 网站 1.1.1.1,密钥 zQ457r3W-4P8W9sK3-P4RW087H,
 [官方网站下载](https://d1mqnu3031neuj.cloudfront.net/login2.html?i=a3)
 
 VPN Gate
-[本网站下载1](https://www.end-gfw.com/windows/windows-vpngate.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/windows/windows-vpngate.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-vpngate.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-vpngate.zip)
 [官方网站下载](https://download.vpngate.jp/common/cd.aspx/vpngate-client-2023.10.02-build-9799.157056.zip)
 
 [迷雾通官网](https://waa.ai/xiazaimiwutong)， 需注册（无需手机号邮箱）
 
-[本网站下载1](https://www.end-gfw.com/windows/windows-geph.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/windows/windows-geph.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-geph.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-geph.zip)
 
 Tor Browser, 可能需要开启snowflake或者输入自定义网桥
-[本网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/windows/torbrowser-install-win64-12.5.2_ALL.exe)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/main/windows/torbrowser-install-win64-12.5.2_ALL.exe)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-tor.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-tor.zip)
 [官方网站下载](https://www.torproject.org/dist/torbrowser/12.0.4/torbrowser-install-win64-12.5.2_ALL.exe)
 
 
 Psiphon
-[本网站下载1](https://www.end-gfw.com/windows/windows-psiphon.zip)
-[本网站下载2](https://github.com/hello-world-1989/temp/raw/latest/windows/windows-psiphon.zip)
+[本网站下载1](https://www.end-gfw.com/download-app/windows/windows-psiphon.zip)
+[本网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-psiphon.zip)
 [官方网站下载](https://psiphon.ca/psiphon3.exe)
 </details>
 
@@ -344,7 +345,8 @@ WARP Plus, Open VPN, Tor Browser, 迷雾通(-ios)
 
 <details>
 <summary><a id="share">共享安卓手机VPN链接</a></summary>
-安卓手机[下载 every proxy](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/EveryProxy_12.8_Apkpure.xapk) [备用链接](https://github.com/hello-world-1989/temp/raw/main/android/EveryProxy_12.8_Apkpure.xapk)可以 共享VPN给 电脑 苹果手机
+
+安卓手机[下载 every proxy](https://www.end-gfw.com/download-app/android/android-everyproxy.zip) [备用链接](https://github.com/hello-world-1989/temp/releases/download/android/android-everyproxy.zip)可以 共享VPN给 电脑 苹果手机
 
 [Every Proxy免翻墙视频教程下载](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/video/sharevpn.mp4) [备用链接](https://github.com/hello-world-1989/temp/raw/main/video/sharevpn.mp4)
 
@@ -379,19 +381,19 @@ Session 去中心化分布式通讯，无需手机号邮箱，无需翻墙也可
 [Session Youtube油管视频教程](https://www.youtube.com/watch?v=oq5ZcZnS5h0)
 
 Session 安卓手机
-[网站下载1](https://www.end-gfw.com/android/android-session.zip)
-[网站下载2](https://github.com/hello-world-1989/temp/raw/latest/android/android-session.zip)
+[网站下载1](https://www.end-gfw.com/download-app/android/android-session.zip)
+[网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-session.zip)
 [Apkpure下载](https://apkpure.net/cn/session-private-messenger/network.loki.messenger/download)
 [谷歌应用商店下载](https://play.google.com/store/apps/details?id=network.loki.messenger)
 
 
 Session 微软电脑
-[网站下载1](https://www.end-gfw.com/windows/windows-session.zip)
-[网站下载2](https://github.com/hello-world-1989/temp/raw/latest/windows/windows-session.zip)
+[网站下载1](https://www.end-gfw.com/download-app/windows/windows-session.zip)
+[网站下载2](https://github.com/hello-world-1989/temp/releases/download/windows/windows-session.zip)
 
 Session 苹果电脑
-[网站下载1](https://www.end-gfw.com/mac/mac-session.zip)
-[网站下载2](https://gitlab.com/hello-world-1989/temp/-/raw/main/mac-session.zip)
+[网站下载1](https://www.end-gfw.com/download-app/mac/mac-session.zip)
+[网站下载2](https://github.com/hello-world-1989/temp/releases/download/mac/mac-session.zip)
 
 添加Session号码或者扫描二维码加群
 
@@ -401,25 +403,21 @@ Session 苹果电脑
 
 Jami 蜂拥 点对点，去中心化分布式通讯，无需手机号邮箱，无需翻墙也可使用，使用体验不佳
 
-[网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/android-jami.zip)
-[网站下载2](https://github.com/hello-world-1989/temp/raw/main/android/android-jami.zip)
+[网站下载1](https://www.end-gfw.com/download-app/android/android-jami.zip)
+[网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-jami.zip)
 [Apkpure下载](https://apkpure.net/cn/jami/cx.ring/download)
 [谷歌应用商店下载](https://play.google.com/store/apps/details?id=cx.ring)
 
 Skred messager 点对点，去中心化分布式通讯，无需手机号邮箱，无需翻墙也可使用
 
-[网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/Skred_Messenger_10.4_Apkpure.apk)
-[网站下载2](https://github.com/hello-world-1989/temp/raw/main/android/Skred_Messenger_10.4_Apkpure.apk)
+[网站下载1](https://www.end-gfw.com/download-app/android/android-skred.zip)
+[网站下载2](https://github.com/hello-world-1989/temp/releases/download/android/android-skred.zip)
 [Apkpure下载](https://apkpure.net/cn/skred-messenger/mobi.skred.app/download)
 
 Briar 离线无审查分布式去中心化无网络蓝牙通讯软件,暂时仅支持安卓手机
-[网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/Briar_1.5.7_Apkpure.apk)
-[网站下载1](https://github.com/hello-world-1989/temp/raw/main/android/Briar_1.5.7_Apkpure.apk)
+[网站下载1](https://www.end-gfw.com/download-app/android/android-briar.zip)
+[网站下载1](https://github.com/hello-world-1989/temp/releases/download/android/android-briar.zip)
 [Apkpure下载](https://apkpure.net/cn/briar/org.briarproject.briar.android)
-
-Brigefy 离线附近的人联系
-[End GFW网站下载](https://github.com/end-gfw/google-groups/raw/main/Bridgefy_3.1.18_Apkpure.apk)
-[Apkpure下载](https://apkpure.net/cn/bridgefy-offline-messages/me.bridgefy.main/download)
 
 X Icon Changer 将应用伪装为其它应用，防止被查手机
 [本网站下载1](https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/android/XIconChanger_4.2.9_Apkpure.apk)

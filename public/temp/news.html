@@ -113,42 +113,23 @@
     <script>
       let isEmpty = false;
       function getLast7Days() {
-        var today = new Date();
+        var utcDate = new Date();
+
         var last7Days = [];
         for (var i = 0; i < 10; i++) {
-          var day = new Date(today);
-          day.setDate(today.getDate() - i);
+          var day = new Date(utcDate);
+
+          day.setDate(day.getDate() - i);
+
           last7Days.push(formatDate(day));
         }
         return last7Days;
       }
 
-      function convertToShanghaiTime(utcDate) {
-        var shanghaiOffset = 8; // Shanghai is UTC+8
-        var shanghaiDate = new Date(
-          utcDate.getTime() + shanghaiOffset * 60 * 60 * 1000
-        );
-        return shanghaiDate;
-      }
-
-      // Get last 7 days in Shanghai time zone
-      function getLast7DaysInShanghai() {
-        var last7Days = getLast7Days();
-        var last7DaysInShanghai = [];
-
-        last7Days.forEach(function (date) {
-          var utcDate = new Date(date + 'T00:00:00Z');
-          var shanghaiDate = convertToShanghaiTime(utcDate);
-
-          last7DaysInShanghai.push(formatDate(shanghaiDate));
-        });
-        return last7DaysInShanghai;
-      }
-
       function formatDate(date) {
-        var year = '' + date.getFullYear();
-        var month = '' + (date.getMonth() + 1);
-        var day = '' + date.getDate();
+        var year = '' + date.getUTCFullYear();
+        var month = '' + (date.getUTCMonth() + 1);
+        var day = '' + date.getUTCDate();
 
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
@@ -159,7 +140,7 @@
       async function fetchTweet() {
         const pagesElement = document.getElementById('pages');
 
-        const dates = getLast7DaysInShanghai();
+        const dates = getLast7Days();
 
         let i = 0;
         for (const item of dates) {
