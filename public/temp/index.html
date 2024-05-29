@@ -229,7 +229,7 @@
             //await getTweet(parts[0], parts[1], parts[2]);
 
             if (isEmpty) {
-              const yesterday = dates[j + 1];
+              const yesterday = dates[j];
               const parts = yesterday.split('-');
               await getTweet(parts[0], parts[1], parts[2]);
             }
