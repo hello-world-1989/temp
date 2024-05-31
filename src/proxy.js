@@ -69,7 +69,7 @@ app.use('/tweet-page-7', async (req, res) => {
   try {
     let result = [];
     let today = new Date();
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 3; i++) {
       let dayTemp = new Date(today);
       dayTemp.setDate(dayTemp.getDate() - i);
 
