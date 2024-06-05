@@ -533,7 +533,15 @@ app.use('/url-check/*', async (req, res) => {
 
     const hostname = parsedUrl.hostname;
 
-    const port = parsedUrl?.port ?? rawURL.startsWith('http://') ? 80 : 443;
+    let port = 80;
+
+    if (parsedUrl?.port) {
+      port = parsedUrl?.port;
+    } else {
+      port = rawURL.startsWith('http://') ? 80 : 443;
+    }
+
+    // const port = parsedUrl?.port ??
 
     console.log('hostname: ', hostname);
     console.log('port: ', port);
