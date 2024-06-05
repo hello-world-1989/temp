@@ -507,8 +507,13 @@ app.use('/check-status', async (req, res) => {
 
 app.use('/ip-check', async (req, res) => {
   try {
-    const ipAddress = req.query?.ip;
+    let ipAddress = req.query?.ip;
     const port = req.query?.port ?? 80;
+
+    ipAddress = ipAddress
+      .replace('http://', '')
+      .replace('https://', '')
+      .replace('/', '');
 
     const result = await ipCheck(ipAddress, port);
 
