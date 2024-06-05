@@ -7,6 +7,8 @@ import * as net from 'net';
 import { create } from 'express-handlebars';
 // import * as https from 'https';
 
+import url from 'url';
+
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -510,14 +512,35 @@ app.use('/ip-check', async (req, res) => {
     let ipAddress = req.query?.ip;
     const port = req.query?.port ?? 80;
 
-    ipAddress = ipAddress
-      .replace('http://', '')
-      .replace('https://', '')
-      .replace('/', '');
-
     const result = await ipCheck(ipAddress, port);
 
     console.log('IP Address:', `${ipAddress}:${port} is ${result}`);
+
+    res.send({
+      status: result,
+    });
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/url-check/*', async (req, res) => {
+  try {
+    const rawURL = req.params[0];
+
+    const parsedUrl = new URL(rawURL);
+
+    const hostname = parsedUrl.hostname;
+
+    const port = parsedUrl?.port ?? rawURL.startsWith('http://') ? 80 : 443;
+
+    console.log('hostname: ', hostname);
+    console.log('port: ', port);
+
+    const result = await ipCheck(hostname, port);
+
+    console.log('URL:', `${rawURL}:${port} is ${result}`);
 
     res.send({
       status: result,
