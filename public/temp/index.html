@@ -62,7 +62,7 @@
             可以安全分享到朋友圈而不被炸号
             <br />
             <a href="/download-last-7" class="font-semibold text-indigo-600"
-              >点击下载过去7天新闻， 离线PDF版本</a
+              >点击下载过去3天新闻， 离线PDF版本</a
             >
           </p>
 
@@ -71,12 +71,6 @@
           <br />
 
           <p id="current-mirror" class="font-semibold text-indigo-600"></p>
-
-          <nav
-            class="isolate grid grid-cols-4 md:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
-            aria-label="Pagination"
-            id="page-group"
-          ></nav>
         </div>
         <div class="mt-4 lg:mt-1">
           <h1 class="font-bold">翻墙软件推荐</h1>
@@ -89,7 +83,7 @@
             >下载NthLink, Orbot VPN, Cloudflare
           </h1>
           <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
-          <h1 class="mt-4">
+          <!-- <h1 class="mt-4">
             如果以上无法使用， 使用V2Ray系列或Outline
             <a
               href="https://donate.stripe.com/8wM8A3649d9W7o4000"
@@ -116,9 +110,14 @@
                 https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</span
               >
             </button>
-          </h1>
+          </h1> -->
         </div>
       </div>
+      <nav
+        class="isolate grid grid-cols-4 md:grid-cols-12 -space-x-px rounded-md mt-5"
+        aria-label="Pagination"
+        id="page-group"
+      ></nav>
       <div class="flex justify-center mt-10">
         <div id="tweet">
           <div class="">
@@ -226,7 +225,7 @@
             //await getTweet(parts[0], parts[1], parts[2]);
 
             if (isEmpty) {
-              const yesterday = dates[j + 1];
+              const yesterday = dates[j];
               const parts = yesterday.split('-');
               await getTweet(parts[0], parts[1], parts[2]);
             }
