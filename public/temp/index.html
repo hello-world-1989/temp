@@ -19,6 +19,18 @@
     />
 
     <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            gridTemplateColumns: {
+              14: 'repeat(14, minmax(0, 1fr))',
+            },
+          },
+        },
+      };
+    </script>
+
+    <script>
       fetch('header.html')
         .then((response) => response.text())
         .then((text) => {
@@ -114,7 +126,7 @@
         </div>
       </div>
       <nav
-        class="isolate grid grid-cols-4 md:grid-cols-12 -space-x-px rounded-md mt-5"
+        class="isolate grid grid-cols-4 md:grid-cols-14 -space-x-px rounded-md mt-5"
         aria-label="Pagination"
         id="page-group"
       ></nav>
