@@ -267,28 +267,6 @@
 
   {
     "os": "android",
-    "id": "newnode",
-    "name": "New Node",
-    "link1": "/download-app/android/android-newnode.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-newnode.zip",
-    "comment": "",
-    "image": "images/newnode.webp",
-    "web": "https://www.newnode.com/download-vpn",
-    "star": 8.5
-  },
-  {
-    "os": "ios",
-    "id": "newnode",
-    "name": "New Node",
-    "link1": "#",
-    "link2": "#",
-    "comment": "需注册海外苹果账户，图片教程见常见问题",
-    "image": "images/newnode.webp",
-    "web": "https://www.newnode.com/download-vpn",
-    "star": 8.5
-  },
-  {
-    "os": "android",
     "id": "psiphon",
     "name": "赛风",
     "link1": "/download-app/android/android-psiphon.zip",
@@ -460,6 +438,18 @@
     "name": "自由浏览",
     "link1": "/download-app/windows/windows-freebrowser.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-freebrowser.zip",
+    "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
+    "image": "images/freebrowser.webp",
+    "web": "https://freebrowser.org/#stepSection",
+    "star": 6
+  },
+
+  {
+    "os": "mac",
+    "id": "freebrowser",
+    "name": "自由浏览",
+    "link1": "/download-app/mac/mac-freebrowser.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-freebrowser.zip",
     "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
     "image": "images/freebrowser.webp",
     "web": "https://freebrowser.org/#stepSection",
