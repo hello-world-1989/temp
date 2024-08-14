@@ -95,6 +95,86 @@
               >
             </button>
           </h1>
+
+          <br />
+
+          <div class="block">
+            <select
+              id="year"
+              name="year"
+              class="mt-2 inline-block w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option selected value="2024">2024</option>
+            </select>
+
+            <select
+              id="month"
+              name="month"
+              class="mt-2 inline-block w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option selected value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+
+            <select
+              id="day"
+              name="day"
+              class="mt-2 inline-block w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option selected value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+
+            <button
+              type="submit"
+              onclick="getHistoryTweet()"
+              class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              设置日期查看历史推文
+            </button>
+            <span>(推文自2022年10月1日起)</span>
+          </div>
         </div>
         <div class="mt-4 lg:mt-1">
           <h1 class="font-bold">翻墙软件推荐</h1>
@@ -300,6 +380,18 @@
         }
 
         //dates.forEach(async (item, i) => {});
+      }
+
+      function getHistoryTweet() {
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+        const dayElement = document.getElementById('day');
+
+        const year = yearElement.value;
+        const month = monthElement.value;
+        const day = dayElement.value;
+
+        getTweet(year, month, day);
       }
 
       async function getTweet(year, month, day) {
