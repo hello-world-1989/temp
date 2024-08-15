@@ -7,7 +7,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-nthlink.zip",
     "comment": "美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/",
+    "web": "https://www.nthlink.com/zh/",
     "star": 9
   },
   {
@@ -18,7 +18,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-nthlink.zip",
     "comment": "美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/",
+    "web": "https://www.nthlink.com/zh/",
     "star": 9
   },
   {
@@ -29,7 +29,7 @@
     "link2": "#",
     "comment": ",需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程见常见问题;美国之音推荐",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/",
+    "web": "https://www.nthlink.com/zh/",
     "star": 9
   },
   {
@@ -40,7 +40,7 @@
     "link2": "#",
     "comment": ",需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程常见问题; 美国之音推荐",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/",
+    "web": "https://www.nthlink.com/zh/",
     "star": 9
   },
   {
@@ -51,7 +51,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-outline.zip",
     "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场自助获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/",
+    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 9
   },
   {
@@ -62,7 +62,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-outline.zip",
     "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/",
+    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 9
   },
   {
@@ -73,7 +73,7 @@
     "link2": "#",
     "comment": "需注册海外苹果账户，图片教程见常见问题;谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/",
+    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 9
   },
   {
@@ -84,7 +84,7 @@
     "link2": "#",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/",
+    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 9
   },
 
@@ -96,7 +96,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-v2ray.zip",
     "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/chapter_00/install.html",
+    "web": "https://www.v2ray.com/awesome/tools.html",
     "star": 8
   },
   {
@@ -107,7 +107,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-v2ray.zip",
     "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/chapter_00/install.html",
+    "web": "https://www.v2ray.com/awesome/tools.html",
     "star": 8
   },
   {
@@ -140,7 +140,7 @@
     "link2": "#",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/chapter_00/install.html",
+    "web": "https://www.v2ray.com/awesome/tools.html",
     "star": 8
   },
   {
@@ -162,7 +162,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-v2ray.zip",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/chapter_00/install.html",
+    "web": "https://www.v2ray.com/awesome/tools.html",
     "star": 8
   },
   {
