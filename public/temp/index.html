@@ -98,11 +98,11 @@
 
           <br />
 
-          <div class="block">
+          <div class="sm:flex sm:justify-center lg:justify-start">
             <select
               id="year"
               name="year"
-              class="mt-2 inline-block w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option value="2022">2022</option>
               <option value="2023">2023</option>
@@ -112,7 +112,7 @@
             <select
               id="month"
               name="month"
-              class="mt-2 inline-block w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:3/12 lg:w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option selected value="01">1</option>
               <option value="02">2</option>
@@ -131,7 +131,7 @@
             <select
               id="day"
               name="day"
-              class="mt-2 inline-block w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:3/12 lg:w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option selected value="01">1</option>
               <option value="02">2</option>
@@ -166,14 +166,19 @@
               <option value="31">31</option>
             </select>
 
-            <button
-              type="submit"
-              onclick="getHistoryTweet()"
-              class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              设置日期查看历史推文
-            </button>
-            <span>(推文自2022年10月1日起)</span>
+            <div class="sm:block sm:mt-2 lg:inline-block lg:mt-0">
+              <button
+                type="submit"
+                onclick="getHistoryTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                设置日期查看历史推文
+              </button>
+            </div>
+
+            <span class="sm:block sm:mt-2 lg:inline-block lg:mt-0">
+              (推文自2022年10月1日起)
+            </span>
           </div>
         </div>
         <div class="mt-4 lg:mt-1">
