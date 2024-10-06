@@ -5,9 +5,10 @@
     "name": "NthLink",
     "link1": "/download-app/android/android-nthlink.zip",
     "link2": "https://www.downloadnth.com/download.html",
+    "helpLink": "nthLink.pdf",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/zh/",
+    "web": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -16,9 +17,10 @@
     "name": "Nthlink",
     "link1": "/download-app/windows/windows-nthlink.zip",
     "link2": "https://www.downloadnth.com/download.html",
+    "helpLink": "nthLink.pdf",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/zh/",
+    "web": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -27,9 +29,10 @@
     "name": "NthLink",
     "link1": "#",
     "link2": "https://www.downloadnth.com/download.html",
+    "helpLink": "nthLink.pdf",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程见常见问题;美国之音推荐",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/zh/",
+    "web": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -38,9 +41,10 @@
     "name": "NthLink",
     "link1": "#",
     "link2": "https://www.downloadnth.com/download.html",
+    "helpLink": "nthLink.pdf",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程常见问题; 美国之音推荐",
     "image": "images/nthlink.webp",
-    "web": "https://www.nthlink.com/zh/",
+    "web": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
