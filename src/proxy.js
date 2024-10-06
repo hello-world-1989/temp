@@ -429,7 +429,7 @@ app.use('/resource', async (req, res) => {
 app.use('/vpn-data', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/hello-world-1989/temp/main/vpn.json'
+      'https://raw.githubusercontent.com/hello-world-1989/temp/refs/heads/main/public/temp/vpn.json'
     );
 
     res.send(response?.data);
