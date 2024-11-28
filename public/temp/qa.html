@@ -50,6 +50,25 @@
           currentYearSpan.textContent = currentYear;
         });
     </script>
+    <script>
+      const currentDomain = window.location.hostname;
+
+      // Check the domain and conditionally add the script
+      if (
+        currentDomain === 'end-gfw.com' ||
+        currentDomain === 'vpn.ban-gfw.com'
+      ) {
+        const script = document.createElement('script');
+        script.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308'; // Replace with your script URL
+        script.type = 'text/javascript';
+        script.async = true;
+        script.crossorigin = 'anonymous';
+
+        // Append the script to the document head or body
+        document.head.appendChild(script);
+      }
+    </script>
   </head>
   <body>
     <div id="header"></div>
@@ -596,3 +615,4 @@
     <div id="footer"></div>
   </body>
 </html>
+
