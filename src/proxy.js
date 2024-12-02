@@ -96,16 +96,16 @@ app.use('/tweet-page-7', async (req, res) => {
     const tweets = result
       ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
       .map((item) => {
-        const images = item?.images?.split(',');
+        const images = item?.images?.split(',') ?? [];
 
-        if (item.videos) {
-          const videoImages = item.videos?.split(',');
+        if (item?.videos) {
+          const videoImages = item?.videos?.split(',');
           images.push(...videoImages);
         }
 
         const nonEmpty = images.filter((item) => item);
 
-        item.allImages = nonEmpty;
+        item.allImages = nonEmpty ?? [];
 
         return item;
       });
@@ -137,16 +137,16 @@ app.get('/tweet-page', async (req, res) => {
     const tweets = response?.data
       ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
       .map((item) => {
-        const images = item?.images?.split(',');
+        const images = item?.images?.split(',') ?? [];
 
-        if (item.videos) {
+        if (item?.videos) {
           const videoImages = item.videos?.split(',');
           images.push(...videoImages);
         }
 
-        const nonEmpty = images.filter((item) => item);
+        const nonEmpty = images?.filter((item) => item);
 
-        item.allImages = nonEmpty;
+        item.allImages = nonEmpty ?? [];
 
         return item;
       });
