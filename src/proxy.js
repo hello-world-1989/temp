@@ -126,13 +126,20 @@ app.get('/tweet-page', async (req, res) => {
   const day = req.query?.day;
   const id = req.query?.id;
 
-  console.log('year: ', year);
-  console.log('id: ', id);
+  let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
+
+  if (month) {
+    url += `/${month}`;
+  }
+
+  if (day) {
+    url += `/${day}`;
+  }
+
+  url += `/${id}.json`;
 
   try {
-    const response = await axios.get(
-      `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${day}/${id}.json`
-    );
+    const response = await axios.get(url);
 
     const tweets = response?.data
       ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
@@ -393,9 +400,19 @@ app.use('/tweet', async (req, res) => {
     const day = req.query?.day;
     const id = req.query?.id;
 
-    const response = await axios.get(
-      `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${day}/${id}.json`
-    );
+    let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
+
+    if (month) {
+      url += `/${month}`;
+    }
+
+    if (day) {
+      url += `/${day}`;
+    }
+
+    url += `/${id}.json`;
+
+    const response = await axios.get(url);
 
     res.send(response?.data);
   } catch (err) {
