@@ -499,17 +499,6 @@
       }
 
       async function getTweet(year, month, day) {
-        // const res = await fetch(
-        //   `/tweet?year=${year}&month=${month}&day=${day}`
-        // );
-        //year = '2024';
-        //month = '03';
-        //day = '02';
-
-        //const res = await fetch(
-        //   `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
-        // );
-
         let temp = [];
 
         try {
@@ -525,9 +514,15 @@
           isEmpty = true;
         }
 
-        const data = temp?.sort((a, b) =>
-          a.createdDate > b.createdDate ? -1 : 1
-        );
+        const sort = (a, b) => {
+          if (day) {
+            return a.createdDate > b.createdDate ? -1 : 1;
+          } else {
+            return a.views < b.views ? 1 : -1;
+          }
+        };
+
+        const data = temp?.sort((a, b) => sort(a, b));
 
         const pdfElement = document.getElementById('tweet');
 
