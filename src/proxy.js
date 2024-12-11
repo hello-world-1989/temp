@@ -408,6 +408,8 @@ app.use('/tweet', async (req, res) => {
     const day = req.query?.day;
     const id = req.query?.id;
 
+    console.log('month: ', month);
+
     let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
 
     if (month) {
