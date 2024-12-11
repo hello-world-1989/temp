@@ -142,7 +142,7 @@ app.get('/tweet-page', async (req, res) => {
     if (day) {
       return a.createdDate > b.createdDate ? -1 : 1;
     } else {
-      return a.views < b.views ? -1 : 1;
+      return a.views < b.views ? 1 : -1;
     }
   };
 
@@ -407,6 +407,8 @@ app.use('/tweet', async (req, res) => {
     const month = req.query?.month;
     const day = req.query?.day;
     const id = req.query?.id;
+
+    console.log('month: ', month);
 
     let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
 

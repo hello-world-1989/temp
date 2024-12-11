@@ -139,9 +139,10 @@
             <select
               id="month"
               name="month"
-              class="mt-2 inline-block sm:3/12 lg:w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
-              <option selected value="01">1</option>
+              <option selected value="">月份</option>
+              <option value="01">1</option>
               <option value="02">2</option>
               <option value="03">3</option>
               <option value="04">4</option>
@@ -158,9 +159,10 @@
             <select
               id="day"
               name="day"
-              class="mt-2 inline-block sm:3/12 lg:w-1/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
-              <option selected value="01">1</option>
+              <option selected value="">日期</option>
+              <option value="01">1</option>
               <option value="02">2</option>
               <option value="03">3</option>
               <option value="04">4</option>
@@ -193,7 +195,31 @@
               <option value="31">31</option>
             </select>
 
-            <div class="mt-2 lg:inline-block lg:ml-2">
+            <div class="lg:flex lg:mt-3 lg:ml-2">(推文自2022年10月1日起)</div>
+          </div>
+
+          <div class="sm:flex sm:justify-center lg:hidden">
+            <div class="flex justify-center mt-2">
+              <button
+                type="submit"
+                onclick="getYearlyTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                设置年份查看年度推文
+              </button>
+            </div>
+
+            <div class="flex justify-center mt-2">
+              <button
+                type="submit"
+                onclick="getMonthlyTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                设置年月查看月度推文
+              </button>
+            </div>
+
+            <div class="flex justify-center mt-2">
               <button
                 type="submit"
                 onclick="getHistoryTweet()"
@@ -202,10 +228,6 @@
                 设置日期查看历史推文
               </button>
             </div>
-
-            <span class="mt-2 lg:inline-block lg:ml-2">
-              (推文自2022年10月1日起)
-            </span>
           </div>
         </div>
         <div class="mt-4 lg:mt-1">
@@ -238,6 +260,38 @@
               >
             </p>
           </h1>
+
+          <div class="hidden lg:flex lg:mt-3">
+            <div class="mt-2 lg:inline-block lg:ml-2">
+              <button
+                type="submit"
+                onclick="getYearlyTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                设置年份查看年度推文
+              </button>
+            </div>
+
+            <div class="mt-2 lg:inline-block lg:ml-2">
+              <button
+                type="submit"
+                onclick="getMonthlyTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                设置年月查看月度推文
+              </button>
+            </div>
+
+            <div class="mt-2 lg:inline-block lg:ml-2">
+              <button
+                type="submit"
+                onclick="getHistoryTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                设置日期查看历史推文
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <nav
@@ -424,6 +478,24 @@
         const day = dayElement.value;
 
         getTweet(year, month, day);
+      }
+
+      function getMonthlyTweet() {
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+
+        const year = yearElement.value;
+        const month = monthElement.value;
+
+        getTweet(year, month, '');
+      }
+
+      function getYearlyTweet() {
+        const yearElement = document.getElementById('year');
+
+        const year = yearElement.value;
+
+        getTweet(year, '', '');
       }
 
       async function getTweet(year, month, day) {
