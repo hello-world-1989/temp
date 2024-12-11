@@ -142,7 +142,7 @@ app.get('/tweet-page', async (req, res) => {
     if (day) {
       return a.createdDate > b.createdDate ? -1 : 1;
     } else {
-      return a.views < b.views ? -1 : 1;
+      return a.views < b.views ? 1 : -1;
     }
   };
 
