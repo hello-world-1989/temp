@@ -138,11 +138,19 @@ app.get('/tweet-page', async (req, res) => {
 
   url += `/${id}.json`;
 
+  const sort = (a, b) => {
+    if (day) {
+      return a.createdDate > b.createdDate ? -1 : 1;
+    } else {
+      return a.views < b.views ? -1 : 1;
+    }
+  };
+
   try {
     const response = await axios.get(url);
 
     const tweets = response?.data
-      ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
+      ?.sort((a, b) => sort(a, b))
       .map((item) => {
         const images = item?.images?.split(',') ?? [];
 
