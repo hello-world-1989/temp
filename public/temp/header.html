@@ -28,11 +28,138 @@
       <a href="https://end-gfw.com/">总站/主站</a>
       <a href="./">分站首页</a>
       <a href="./news.html" class="flex">新闻</a>
-      <a href="./gfw-free.html" class="flex"
-        ><img src="images/youtube.svg" /> 免墙资源<img
-          src="images/wikipedia.svg"
-      /></a>
-      <a href="./vpn.html" class="flex">免费翻墙软件</a>
+
+      <div class="relative inline-block text-left group">
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            id="menu-button"
+            aria-expanded="false"
+            aria-haspopup="false"
+          >
+            免费翻墙软件
+            <svg
+              class="-mr-1 size-5 text-gray-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="hidden absolute group-hover:block right-0 z-10 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1"
+        >
+          <div class="py-1" role="none">
+            <!-- Active: "bg-gray-100 text-gray-900 outline-none", Not Active: "text-gray-700" -->
+            <a
+              href="./vpn.html"
+              class="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-1"
+              >免费翻墙软件</a
+            >
+
+            <a
+              href="./gfw-free.html"
+              class="flex px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-2"
+              ><img src="images/youtube.svg" /> 免墙资源<img
+                src="images/wikipedia.svg"
+            /></a>
+
+            <a
+              href="https://www.youtube.com/@end_gfw/streams"
+              target="_blank"
+              class="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-3"
+              >免费自建机场</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="relative inline-block text-left group">
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            id="menu-button"
+            aria-expanded="false"
+            aria-haspopup="false"
+          >
+            历史记忆
+            <svg
+              class="-mr-1 size-5 text-gray-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="hidden absolute group-hover:block right-0 z-10 w-20 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1"
+        >
+          <div class="py-1" role="none">
+            <a
+              href="./vpn.html"
+              class="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-1"
+              >2024</a
+            >
+
+            <a
+              href="./gfw-free.html"
+              class="flex px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-2"
+              >2023</a
+            >
+
+            <a
+              href="https://www.youtube.com/@end_gfw/streams"
+              target="_blank"
+              class="block px-4 py-2 text-sm text-gray-700"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-3"
+              >2022</a
+            >
+          </div>
+        </div>
+      </div> -->
 
       <a href="./qa.html" class="flex">常见问题</a>
       <a href="./custom.html" class="flex font-bold text-indigo-500"
@@ -42,9 +169,6 @@
         href="https://www.opentech.fund/projects-we-support/supported-projects/?sc=&filter1=&filter2=&order-by-selector=date-desc&pageno=1#"
         target="_blank"
         >反审查前线</a
-      >
-      <a href="https://www.youtube.com/@end_gfw/streams" target="_blank"
-        >免费自建机场</a
       >
     </nav>
     <div class="flex flex-1 items-center justify-end md:text-xs lg:text-base">

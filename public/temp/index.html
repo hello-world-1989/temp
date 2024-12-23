@@ -199,6 +199,20 @@
           </div>
 
           <div class="sm:flex sm:justify-center lg:hidden">
+            <div class="mt-2 ml-2">
+              <div
+                class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
+              >
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="输入关键词,回车键搜索"
+                  class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
             <div class="flex justify-center mt-2">
               <button
                 type="submit"
@@ -262,13 +276,27 @@
           </h1>
 
           <div class="hidden lg:flex lg:mt-3">
+            <div class="mt-2 ml-2">
+              <div
+                class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
+              >
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="输入关键词,回车键搜索"
+                  class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
             <div class="mt-2 lg:inline-block lg:ml-2">
               <button
                 type="submit"
                 onclick="getYearlyTweet()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置年份查看年度推文
+                设置年份年度推文
               </button>
             </div>
 
@@ -278,7 +306,7 @@
                 onclick="getMonthlyTweet()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置年月查看月度推文
+                设置年月月度推文
               </button>
             </div>
 
@@ -288,7 +316,7 @@
                 onclick="getHistoryTweet()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置日期查看历史推文
+                设置日期历史推文
               </button>
             </div>
           </div>
@@ -342,6 +370,14 @@
     <div id="footer"></div>
 
     <script>
+      document
+        .querySelector('#search')
+        .addEventListener('keypress', function (event) {
+          if (event.key === 'Enter') {
+            searchTweet();
+          }
+        });
+
       let isEmpty = true;
       function getLast7Days() {
         var today = new Date();
@@ -498,22 +534,27 @@
         getTweet(year, '', '');
       }
 
-      async function getTweet(year, month, day) {
+      async function searchTweet() {
+        const searchElement = document.getElementById('search');
+
+        const keyword = searchElement.value;
+
+        console.log('keyword: ', keyword);
+
         let temp = [];
 
         try {
-          const res = await fetch(
-            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
-          );
+          const res = await fetch(`/search-tweet?keyword=${keyword}`);
 
           temp = await res.json();
-
-          isEmpty = false;
         } catch (err) {
-          console.error('error loading data');
-          isEmpty = true;
+          console.error('error searching data', keyword);
         }
 
+        composePage(temp, '1');
+      }
+
+      function composePage(tweetArray) {
         const sort = (a, b) => {
           if (day) {
             return a.createdDate > b.createdDate ? -1 : 1;
@@ -522,7 +563,7 @@
           }
         };
 
-        const data = temp?.sort((a, b) => sort(a, b));
+        const data = tweetArray?.sort((a, b) => sort(a, b));
 
         const pdfElement = document.getElementById('tweet');
 
@@ -608,6 +649,25 @@
         });
 
         pdfElement.innerHTML = elements.join('');
+      }
+
+      async function getTweet(year, month, day) {
+        let temp = [];
+
+        try {
+          const res = await fetch(
+            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );
+
+          temp = await res.json();
+
+          isEmpty = false;
+        } catch (err) {
+          console.error('error loading data');
+          isEmpty = true;
+        }
+
+        composePage(temp, day);
       }
 
       fetchTweet();

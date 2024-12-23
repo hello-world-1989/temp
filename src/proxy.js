@@ -408,8 +408,6 @@ app.use('/tweet', async (req, res) => {
     const day = req.query?.day;
     const id = req.query?.id;
 
-    console.log('month: ', month);
-
     let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
 
     if (month) {
@@ -425,6 +423,45 @@ app.use('/tweet', async (req, res) => {
     const response = await axios.get(url);
 
     res.send(response?.data);
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/search-tweet', async (req, res) => {
+  try {
+    const keyword = req.query?.keyword;
+
+    console.log('keyword', keyword);
+
+    let url = `https://api.github.com/search/code?q=${keyword} in:file repo:hello-world-1989/json`;
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      },
+    });
+
+    const promises = response?.data?.items
+      ?.filter((item) => item.name === 'whyyoutouzhele.json')
+      .map((item) => {
+        let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/${item.path}`;
+
+        const promise = axios.get(url);
+
+        return promise;
+      });
+
+    const results = await Promise.all(promises);
+
+    const temp = results.map((item) => item.data);
+
+    const temp1 = temp
+      .flat()
+      .filter((item) => item?.content?.includes(keyword));
+
+    res.send(temp1);
   } catch (err) {
     console.log(err);
     res.send('');
