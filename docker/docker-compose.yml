@@ -5,6 +5,7 @@ services:
     container_name: end-gfw-web
     environment:
       - NODE_PORT=8081 #
+      - GITHUB_TOKEN=123 #must replace with token, otherwise, search will not work
     ports:
       - '80:80'
       - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
