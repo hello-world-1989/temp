@@ -205,8 +205,8 @@
               >
                 <input
                   type="text"
-                  name="search"
-                  id="search"
+                  name="search1"
+                  id="search1"
                   placeholder="输入关键词,回车键搜索"
                   class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
                 />
@@ -282,8 +282,8 @@
               >
                 <input
                   type="text"
-                  name="search"
-                  id="search"
+                  name="search2"
+                  id="search2"
                   placeholder="输入关键词,回车键搜索"
                   class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
                 />
@@ -371,7 +371,15 @@
 
     <script>
       document
-        .querySelector('#search')
+        .querySelector('#search1')
+        .addEventListener('keypress', function (event) {
+          if (event.key === 'Enter') {
+            searchTweet();
+          }
+        });
+
+      document
+        .querySelector('#search2')
         .addEventListener('keypress', function (event) {
           if (event.key === 'Enter') {
             searchTweet();
@@ -535,11 +543,16 @@
       }
 
       async function searchTweet() {
-        const searchElement = document.getElementById('search');
+        const searchElement1 = document.getElementById('search1');
+        const searchElement2 = document.getElementById('search2');
 
-        const keyword = searchElement.value;
+        const keyword = searchElement1.value || searchElement2.value;
 
         console.log('keyword: ', keyword);
+
+        if (!keyword) {
+          return;
+        }
 
         let temp = [];
 
