@@ -429,6 +429,43 @@ app.use('/tweet', async (req, res) => {
   }
 });
 
+app.use('/event', async (req, res) => {
+  try {
+    const year = req.query?.year;
+
+    console.log('year', year);
+
+    let url = `https://api.github.com/search/code?q=events in:path repo:hello-world-1989/json`;
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      },
+    });
+
+    const promises = response?.data?.items
+      ?.filter((item) => item.path?.includes(year))
+      .map((item) => {
+        let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/${item.path}`;
+
+        const promise = axios.get(url);
+
+        return promise;
+      });
+
+    const results = await Promise.all(promises);
+
+    const temp = results
+      .map((item) => item.data)
+      .sort((a, b) => a.date - b.date);
+
+    res.send(temp);
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
 app.use('/search-tweet', async (req, res) => {
   try {
     const keyword = req.query?.keyword;
