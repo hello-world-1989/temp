@@ -16,6 +16,7 @@
 
     <div id='tweet'>
       {{#each tweets}}
+        {{#if (mod @index 5)}}<div class='html2pdf__page-break'></div>{{/if}}
         <div
           class='max-w-full mx-4 mt-10 border-2 border-indigo-500 rounded-sm'
           id='{{this.id}}'

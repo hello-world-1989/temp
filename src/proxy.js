@@ -33,8 +33,8 @@ const hbs = create({
     foo() {
       return 'FOO!';
     },
-    bar() {
-      return 'BAR!';
+    mod(a, b) {
+      return a % b;
     },
   },
 });
@@ -165,6 +165,65 @@ app.get('/tweet-page', async (req, res) => {
 
         return item;
       });
+
+    const pdfData = {
+      tweets,
+    };
+
+    res.render('tweet', pdfData);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get('/search-tweet-page', async (req, res) => {
+  const keyword = req.query?.keyword;
+
+  console.log('keyword', keyword);
+
+  let url = `https://api.github.com/search/code?q=${keyword} in:file repo:hello-world-1989/json`;
+
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+  });
+
+  const promises = response?.data?.items
+    ?.filter((item) => item.name === 'whyyoutouzhele.json')
+    .map((item) => {
+      let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/${item.path}`;
+
+      const promise = axios.get(url);
+
+      return promise;
+    });
+
+  const results = await Promise.all(promises);
+
+  const temp = results.map((item) => item.data);
+
+  const temp1 = temp.flat().filter((item) => item?.content?.includes(keyword));
+
+  const sort = (a, b) => {
+    return a.createdDate > b.createdDate ? -1 : 1;
+  };
+
+  try {
+    const tweets = temp1?.sort(sort).map((item) => {
+      const images = item?.images?.split(',') ?? [];
+
+      if (item?.videos) {
+        const videoImages = item.videos?.split(',');
+        images.push(...videoImages);
+      }
+
+      const nonEmpty = images?.filter((item) => item);
+
+      item.allImages = nonEmpty ?? [];
+
+      return item;
+    });
 
     const pdfData = {
       tweets,

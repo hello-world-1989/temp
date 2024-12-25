@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./tailwindcss.js"></script>
+    <script src="./html2pdf.bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="images/default.png" />
     <title>
       大翻墙运动 信息倒灌行动 拆墙运动 墙倒众人推 普及翻墙 完全免费翻墙软件 VPN
@@ -216,6 +217,26 @@
             <div class="flex justify-center mt-2">
               <button
                 type="submit"
+                onclick="searchTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                搜索
+              </button>
+            </div>
+
+            <div class="flex justify-center mt-2">
+              <button
+                type="submit"
+                onclick="searchTweetPage()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                下载当前推文(最多10条)
+              </button>
+            </div>
+
+            <div class="flex justify-center mt-2">
+              <button
+                type="submit"
                 onclick="getYearlyTweet()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -239,7 +260,7 @@
                 onclick="getHistoryTweet()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置日期查看历史推文
+                设置日期查看当天推文
               </button>
             </div>
           </div>
@@ -276,7 +297,7 @@
           </h1>
 
           <div class="hidden lg:flex lg:mt-3">
-            <div class="mt-2 ml-2">
+            <div class="mt-2 ml-2 w-1/3">
               <div
                 class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
               >
@@ -290,33 +311,55 @@
               </div>
             </div>
 
-            <div class="mt-2 lg:inline-block lg:ml-2">
+            <div class="mt-2 lg:ml-2 w-1/3 flex justify-center">
+              <button
+                type="submit"
+                onclick="searchTweet()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                搜索
+              </button>
+            </div>
+
+            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
+              <button
+                type="submit"
+                onclick="searchTweetPage()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                下载当前推文(最多10条)
+              </button>
+            </div>
+          </div>
+
+          <div class="hidden lg:flex lg:mt-3">
+            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
               <button
                 type="submit"
                 onclick="getYearlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置年份年度推文
+                设置年份查看年度推文
               </button>
             </div>
 
-            <div class="mt-2 lg:inline-block lg:ml-2">
+            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
               <button
                 type="submit"
                 onclick="getMonthlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置年月月度推文
+                设置年月查看月度推文
               </button>
             </div>
 
-            <div class="mt-2 lg:inline-block lg:ml-2">
+            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
               <button
                 type="submit"
                 onclick="getHistoryTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                设置日期历史推文
+                设置日期查看当天推文
               </button>
             </div>
           </div>
@@ -368,6 +411,7 @@
       </div>
     </main>
     <div id="footer"></div>
+    <div id="content"></div>
 
     <script>
       document
@@ -740,8 +784,6 @@
 
         const currentMirrorStatus = await res.text();
 
-        console.log('currentMirrorStatus: ', currentMirrorStatus);
-
         const currentMirrorElement = document.getElementById('current-mirror');
 
         currentMirrorElement.innerText =
@@ -806,11 +848,62 @@
     </script>
 
     <script>
-      // JavaScript code to display the current year in the span element
-      const currentYearSpan = document.getElementById('currentYear');
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-      currentYearSpan.textContent = currentYear;
+      async function getTweetPage(year, month, day) {
+        try {
+          const res = await fetch(
+            `/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );
+
+          const htmlContent = await res.text();
+
+          const opt = {
+            margin: 1,
+            filename: `${year}${month}${day}`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 5, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+          };
+
+          html2pdf().from(htmlContent).set(opt).save();
+        } catch (err) {
+          console.error('getTweetPage err: ', err);
+        }
+      }
+
+      async function searchTweetPage() {
+        const searchElement1 = document.getElementById('search1');
+        const searchElement2 = document.getElementById('search2');
+
+        const keyword = searchElement1.value || searchElement2.value;
+
+        console.log('keyword: ', keyword);
+
+        try {
+          const res = await fetch(`/search-tweet-page?keyword=${keyword}`);
+
+          const htmlContent = await res.text();
+
+          const opt = {
+            margin: 1,
+            filename: `${keyword}`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+          };
+
+          html2pdf().from(htmlContent).set(opt).save();
+        } catch (err) {
+          console.error('getTweetPage err: ', err);
+        }
+      }
+
+      function getYearlyTweetPage() {
+        const yearElement = document.getElementById('year');
+
+        const year = yearElement.value;
+
+        getTweetPage(year, '', '');
+      }
     </script>
   </body>
 </html>
