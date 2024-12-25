@@ -78,7 +78,7 @@
       >
         <div
           id="event-group"
-          class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 mt-10"
+          class="pt-12 lg:pt-0 lg:grid lg:grid-cols-12 lg:gap-8 mt-10"
         ></div>
       </div>
     </main>
@@ -100,15 +100,34 @@
 
         const eventGroupElement = document.getElementById('event-group');
 
-        const elements = data.map((item) => {
-          return `<dt
+        const elements = data.map((item, i) => {
+          const currentYearMonth = item?.date + '';
+
+          const year = currentYearMonth?.slice(0, 4);
+          const month = currentYearMonth?.slice(4);
+
+          let element = '';
+
+          if (i == 0) {
+            element = `<div class="flex justify-center col-span-12"> <a target="_blank" class="font-semibold text-indigo-600" href="/tweet-page?year=${year}&id=whyyoutouzhele">查看${year}年度浏览量最多推文</a></div>`;
+          }
+
+          element += `
+          
+          <dt
             class="text-base font-semibold leading-7 text-black lg:col-span-5"
           >
-            ${item?.date}
+            ${year}年${month}月
           </dt>
           <dd class="mt-4 lg:col-span-7 lg:mt-0 text-black">
-            ${item?.data?.map((a) => a.keyword)?.join(',')}
-          </dd>`;
+            <a target="_blank" class="font-semibold text-indigo-600" href="/tweet-page?year=${year}&month=${month}&id=whyyoutouzhele">查看${month}月度浏览量最多推文</a>
+            <br></br>
+            <p>${item?.data?.map((a) => a.keyword)?.join(',')}</p>
+          </dd>
+          
+          `;
+
+          return element;
         });
 
         eventGroupElement.innerHTML = elements.join('');
