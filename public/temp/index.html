@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./tailwindcss.js"></script>
-    <script src="./html2pdf.bundle.min.js"></script>
+    <!-- <script src="./html2pdf.bundle.min.js"></script> -->
     <link rel="icon" type="image/x-icon" href="images/default.png" />
     <title>
       大翻墙运动 信息倒灌行动 拆墙运动 墙倒众人推 普及翻墙 完全免费翻墙软件 VPN
@@ -230,7 +230,7 @@
                 onclick="searchTweetPage()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                下载当前推文(最多10条)
+                预览下载当前搜索推文
               </button>
             </div>
 
@@ -261,6 +261,16 @@
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 设置日期查看当天推文
+              </button>
+            </div>
+
+            <div class="flex justify-center mt-2">
+              <button
+                type="submit"
+                onclick="getTweetPage()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                预览下载推文
               </button>
             </div>
           </div>
@@ -327,7 +337,7 @@
                 onclick="searchTweetPage()"
                 class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                下载当前推文(最多10条)
+                预览下载当前搜索推文
               </button>
             </div>
           </div>
@@ -337,7 +347,7 @@
               <button
                 type="submit"
                 onclick="getYearlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-0.5 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 设置年份查看年度推文
               </button>
@@ -347,7 +357,7 @@
               <button
                 type="submit"
                 onclick="getMonthlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-0.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 设置年月查看月度推文
               </button>
@@ -357,9 +367,19 @@
               <button
                 type="submit"
                 onclick="getHistoryTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-0.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 设置日期查看当天推文
+              </button>
+            </div>
+
+            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
+              <button
+                type="submit"
+                onclick="getTweetPage()"
+                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                预览下载推文
               </button>
             </div>
           </div>
@@ -848,13 +868,25 @@
     </script>
 
     <script>
-      async function getTweetPage(year, month, day) {
+      async function getTweetPage() {
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+        const dayElement = document.getElementById('day');
+
+        const year = yearElement.value;
+        const month = monthElement.value;
+        const day = dayElement.value;
+
         try {
-          const res = await fetch(
+          /* const res = await fetch(
+            `/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );*/
+
+          window.open(
             `/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
           );
 
-          const htmlContent = await res.text();
+          /* const htmlContent = await res.text();
 
           const opt = {
             margin: 1,
@@ -865,6 +897,7 @@
           };
 
           html2pdf().from(htmlContent).set(opt).save();
+          */
         } catch (err) {
           console.error('getTweetPage err: ', err);
         }
@@ -876,12 +909,14 @@
 
         const keyword = searchElement1.value || searchElement2.value;
 
-        console.log('keyword: ', keyword);
+        if (!keyword) {
+          return;
+        }
 
         try {
-          const res = await fetch(`/search-tweet-page?keyword=${keyword}`);
+          window.open(`/search-tweet-page?keyword=${keyword}`);
 
-          const htmlContent = await res.text();
+          /* const htmlContent = await res.text();
 
           const opt = {
             margin: 1,
@@ -892,6 +927,8 @@
           };
 
           html2pdf().from(htmlContent).set(opt).save();
+
+          */
         } catch (err) {
           console.error('getTweetPage err: ', err);
         }
@@ -902,7 +939,7 @@
 
         const year = yearElement.value;
 
-        getTweetPage(year, '', '');
+        // getTweetPage(year, '', '');
       }
     </script>
   </body>
