@@ -12,11 +12,11 @@
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="大翻墙运动 信息倒灌行动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+      content="大翻墙运动 信息倒灌行动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 推墙大联盟 李老师不是你老师 中国新闻 中国禁闻 中国审查 GFW 自由 民主 人权 宪政 防火墙 突破防火墙 国内新闻 中国热点事件 中国新闻总结 李老师不是你老师 推文离线下载 离线PDF推文 免费翻墙 翻墙节点 敏感词"
     />
     <meta
       name="keywords"
-      content="大翻墙运动 信息倒灌行动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+      content="大翻墙运动 信息倒灌行动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特 推墙大联盟 李老师不是你老师 中国新闻 中国禁闻 中国审查 GFW 自由 民主 人权 宪政 防火墙 突破防火墙 国内新闻 中国热点事件 中国新闻总结 李老师不是你老师 推文离线下载 离线PDF推文 免费翻墙 翻墙节点 敏感词"
     />
 
     <script>
@@ -162,7 +162,46 @@
               name="day"
               class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
-              <option selected value="">日期</option>
+              <option selected value="">开始日期</option>
+              <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+
+            <select
+              id="end-day"
+              name="end-day"
+              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option selected value="">结束日期</option>
               <option value="01">1</option>
               <option value="02">2</option>
               <option value="03">3</option>
@@ -580,12 +619,14 @@
         const yearElement = document.getElementById('year');
         const monthElement = document.getElementById('month');
         const dayElement = document.getElementById('day');
+        const endDayElement = document.getElementById('end-day');
 
         const year = yearElement.value;
         const month = monthElement.value;
         const day = dayElement.value;
+        const endDay = endDayElement.value;
 
-        getTweet(year, month, day);
+        getTweet(year, month, day, endDay);
       }
 
       function getMonthlyTweet() {
@@ -728,12 +769,12 @@
         pdfElement.innerHTML = elements.join('');
       }
 
-      async function getTweet(year, month, day) {
+      async function getTweet(year, month, day, endDay = '') {
         let temp = [];
 
         try {
           const res = await fetch(
-            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+            `/tweet?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=whyyoutouzhele`
           );
 
           temp = await res.json();
@@ -872,10 +913,12 @@
         const yearElement = document.getElementById('year');
         const monthElement = document.getElementById('month');
         const dayElement = document.getElementById('day');
+        const endDayElement = document.getElementById('end-day');
 
         const year = yearElement.value;
         const month = monthElement.value;
         const day = dayElement.value;
+        const endDay = endDayElement.value;
 
         try {
           /* const res = await fetch(
@@ -883,7 +926,7 @@
           );*/
 
           window.open(
-            `/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+            `/tweet-page?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=whyyoutouzhele`
           );
 
           /* const htmlContent = await res.text();
