@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import express from 'express';
 // import * as fs from 'fs';
@@ -124,6 +125,7 @@ app.get('/tweet-page', async (req, res) => {
   const year = req.query?.year;
   const month = req.query?.month;
   const day = req.query?.day;
+  const endDay = req.query?.endDay;
   const id = req.query?.id;
 
   let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
@@ -146,10 +148,43 @@ app.get('/tweet-page', async (req, res) => {
     }
   };
 
+  let result = [];
+
   try {
     const response = await axios.get(url);
+    result = response?.data ?? [];
+  } catch (err) {
+    console.error('tweet page error', err);
+  }
 
-    const tweets = response?.data
+  try {
+    if (month && day && endDay) {
+      const startDayNumber = parseInt(day);
+      const endDayNumber = parseInt(endDay);
+
+      for (let i = startDayNumber + 1; i <= endDayNumber; i++) {
+        let endDayStr = i + '';
+        if (i < 10) endDayStr = '0' + i;
+
+        try {
+          let endDayURL = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${endDayStr}/${id}.json`;
+
+          const currentResponse = await axios.get(endDayURL);
+
+          const currentData = currentResponse?.data ?? [];
+          result.push(...currentData);
+        } catch (err) {
+          console.error('end day error', err);
+          continue;
+        }
+      }
+    }
+  } catch (err) {
+    console.error('end day error', err);
+  }
+
+  try {
+    const tweets = result
       ?.sort((a, b) => sort(a, b))
       .map((item) => {
         const images = item?.images?.split(',') ?? [];
@@ -183,13 +218,21 @@ app.get('/search-tweet-page', async (req, res) => {
 
   let url = `https://api.github.com/search/code?q=${keyword} in:file repo:hello-world-1989/json`;
 
-  const response = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
-  });
+  let result = [];
 
-  const promises = response?.data?.items
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      },
+    });
+
+    result = response?.data;
+  } catch (err) {
+    console.error('search tweet page err', err);
+  }
+
+  const promises = result?.items
     ?.filter((item) => item.name === 'whyyoutouzhele.json')
     .map((item) => {
       let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/${item.path}`;
@@ -465,6 +508,7 @@ app.use('/tweet', async (req, res) => {
     const year = req.query?.year;
     const month = req.query?.month;
     const day = req.query?.day;
+    const endDay = req.query?.endDay;
     const id = req.query?.id;
 
     let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
@@ -481,7 +525,35 @@ app.use('/tweet', async (req, res) => {
 
     const response = await axios.get(url);
 
-    res.send(response?.data);
+    let result = response?.data ?? [];
+
+    try {
+      if (month && day && endDay) {
+        const startDayNumber = parseInt(day);
+        const endDayNumber = parseInt(endDay);
+
+        for (let i = startDayNumber + 1; i <= endDayNumber; i++) {
+          let endDayStr = i + '';
+          if (i < 10) endDayStr = '0' + i;
+
+          try {
+            let endDayURL = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${endDayStr}/${id}.json`;
+
+            const currentResponse = await axios.get(endDayURL);
+
+            const currentData = currentResponse?.data ?? [];
+            result.push(...currentData);
+          } catch (err) {
+            console.error('end day error', err);
+            continue;
+          }
+        }
+      }
+    } catch (err) {
+      console.error('end day error', err);
+    }
+
+    res.send(result);
   } catch (err) {
     console.log(err);
     res.send('');
