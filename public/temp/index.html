@@ -61,6 +61,8 @@
           const currentDate = new Date();
           const currentYear = currentDate.getFullYear();
           currentYearSpan.textContent = currentYear;
+
+          document.getElementById('year').value = currentYear;
         });
     </script>
 
@@ -86,7 +88,7 @@
   </head>
   <body>
     <div id="header"></div>
-    <main class="mt-20 mx-8 lg:mx-20">
+    <main class="mt-20 mx-4 lg:mx-20">
       <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
         <div class="">
           <p class="font-bold">
@@ -126,21 +128,26 @@
 
           <br />
 
-          <div class="sm:flex sm:justify-center lg:justify-start ml-16 lg:ml-0">
+          <div class="sm:flex sm:justify-center lg:justify-start ml-8 lg:ml-0">
             <select
               id="year"
               name="year"
-              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option value="2022">2022</option>
               <option value="2023">2023</option>
-              <option selected value="2024">2024</option>
+              <option value="2024">2024</option>
+              <option selected value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
             </select>
 
             <select
               id="month"
               name="month"
-              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option selected value="">月份</option>
               <option value="01">1</option>
@@ -160,7 +167,7 @@
             <select
               id="day"
               name="day"
-              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option selected value="">开始日期</option>
               <option value="01">1</option>
@@ -199,7 +206,7 @@
             <select
               id="end-day"
               name="end-day"
-              class="mt-2 inline-block sm:3/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
             >
               <option selected value="">结束日期</option>
               <option value="01">1</option>
