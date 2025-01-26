@@ -758,7 +758,9 @@
               </div>
               <div class="px-4 pb-5 sm:p-6 sm:pt-0">
                 <p>
-                  ${item.content}
+                  ${item?.content
+                    ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
+                    ?.trim()}
                 </p>
               </div>
               <ul
