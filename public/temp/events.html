@@ -133,7 +133,10 @@
         eventGroupElement.innerHTML = elements.join('');
       }
 
-      getEvent('2024');
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+
+      getEvent(currentYear);
     </script>
   </body>
 </html>
