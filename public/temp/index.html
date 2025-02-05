@@ -19,6 +19,14 @@
       content="大翻墙运动 信息倒灌行动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 厕所革命 自由福建 周鋒 FengZhou 一人一推 惡人榜 拆牆運動 闽越合众国 恶人榜 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特 推墙大联盟 李老师不是你老师 中国新闻 中国禁闻 中国审查 GFW 自由 民主 人权 宪政 防火墙 突破防火墙 国内新闻 中国热点事件 中国新闻总结 李老师不是你老师 推文离线下载 离线PDF推文 免费翻墙 翻墙节点 敏感词"
     />
 
+    <script
+      src="./crypto-js.min.js"
+      integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="./hmac-sha1.min.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -95,10 +103,10 @@
             动态免墙IP站点, 每天更新
             <br />
             可以安全分享到朋友圈而不被炸号
-            <br />
+            <!-- <br />
             <a href="/download-last-7" class="font-semibold text-indigo-600"
               >点击下载过去3天新闻， 离线PDF版本</a
-            >
+            > -->
           </p>
 
           <p id="mirror-list"></p>
@@ -119,6 +127,14 @@
             >
               <span class="overflow-x-auto" id="v2ray">
                 https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</span
+              >
+            </button>
+          </h1>
+
+          <h1>
+            速度更快节点，订阅链接每周更新<button onclick="copyText('v2ray1')">
+              <span class="overflow-x-auto" id="v2ray1">
+                https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-</span
               >
             </button>
           </h1>
@@ -736,8 +752,12 @@
                   </div>
                   <div class="min-w-0 flex-1">
                     <p class="text-lg font-bold text-gray-900">
-                      <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${item.id}" id="${item.id}" class="">李老师不是你老师 @whyyoutouzhele </a>
-                      <button onclick="copyTweet('${item.id}')" class="text-normal text-indigo-500">复制分享链接</button>
+                      <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${
+            item.id
+          }" id="${item.id}" class="">李老师不是你老师 @whyyoutouzhele </a>
+                      <button onclick="copyTweet('${
+                        item.id
+                      }')" class="text-normal text-indigo-500">复制分享链接</button>
                     </p>
                     <p class="text-sm text-gray-500">
                       <a href="#" class="">北京时间${item.createdDate}发布</a>
@@ -991,6 +1011,31 @@
 
         // getTweetPage(year, '', '');
       }
+    </script>
+
+    <script>
+      const getWeekNumber = () => {
+        const date = new Date();
+        const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+        const pastDaysOfYear =
+          (date.getTime() - firstDayOfYear.getTime()) / 86400000; // Milliseconds per day
+        return Math.ceil((pastDaysOfYear + 1) / 7);
+      };
+
+      const hashWeek = () => {
+        const weekNumber = getWeekNumber();
+        const hash = CryptoJS.SHA1(weekNumber + '').toString();
+
+        return hash;
+      };
+
+      const updateLink = () => {
+        document.getElementById(
+          'v2ray1'
+        ).innerText = `https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-${hashWeek()}`;
+      };
+
+      updateLink();
     </script>
   </body>
 </html>
