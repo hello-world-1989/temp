@@ -15,7 +15,7 @@ wget -O install.sh https://github.com/hello-world-1989/temp/raw/stable/docker-xr
 
 https://github.com/hello-world-1989/temp/blob/main/Custom.md
    
-2. `cd ~/end-gfw && sudo dc ps` 应该能看到 Up 状态, 如果不能， `sudo dc logs` 查看日志发送到[电报群](https://t.me/end_gfw1)
+2. `cd ~/end-gfw && sudo dc up -d && sudo dc ps` 应该能看到 Up 状态, 如果不能， `sudo dc logs` 查看日志发送到[电报群](https://t.me/end_gfw1)
 
 3. 防火墙放开 80, 443, 8081, 8880, 8886, 8888 (AWS联网自定义规则中8081,8880,8886,8888 可以简写为 8000-9000) 端口, 禁用 IPV6
 
