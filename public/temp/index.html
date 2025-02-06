@@ -1031,14 +1031,15 @@
         const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
         const pastDaysOfYear =
           (date.getTime() - firstDayOfYear.getTime()) / 86400000; // Milliseconds per day
-        return Math.ceil((pastDaysOfYear + 1) / 7);
+        //return Math.ceil((pastDaysOfYear + 1) / 7);
+        return Math.ceil(pastDaysOfYear / 3);
       };
 
       const hashWeek = () => {
         const weekNumber = getWeekNumber();
         const hash = CryptoJS.SHA1(weekNumber + '').toString();
 
-        return hash;
+        return hash.slice(0, 6);
       };
 
       const updateLink = () => {
