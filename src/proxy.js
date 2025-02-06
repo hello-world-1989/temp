@@ -318,7 +318,7 @@ app.use('/github', async (req, res) => {
 app.use('/ss-key', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss'
+      'https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-ss'
     );
 
     const base64String = response?.data;
@@ -335,7 +335,7 @@ app.use('/ss-key', async (req, res) => {
       result = array?.[0];
     }
 
-    res.send(result);
+    res.send(base64String.split('\r\n').slice(0, 2).join('\r\n'));
   } catch (err) {
     console.log(err);
     res.send('');
