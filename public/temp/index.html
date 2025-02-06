@@ -110,14 +110,23 @@
           </p>
 
           <p id="mirror-list"></p>
-
+          <!-- 
           <br />
 
           <p id="current-mirror" class="font-semibold text-indigo-600"></p>
-
+-->
           <br />
 
-          <h1>本域名已添加广告，请多查看广告支持开发更多反封锁工具</h1>
+          <h1 class="font-semibold text-indigo-600">
+            本域名已添加广告，请多查看广告支持添加更多服务器节点
+          </h1>
+
+          <a
+            href="https://donate.stripe.com/8wM8A3649d9W7o4000"
+            class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
+            target="_blank"
+            >欢迎赞助1刀</a
+          >
 
           <br />
 
@@ -336,30 +345,26 @@
         </div>
         <div class="mt-4 lg:mt-1">
           <h1 class="font-bold">翻墙软件推荐</h1>
-          <h1 class="mt-4">安卓手机使用NthLink, Orbot VPN, Cloudflare</h1>
+          <h1 class="mt-4">安卓手机使用NthLink, V2Ray, Outline</h1>
           <h1>
             苹果手机苹果电脑使用<a
               href="./qa.html#apple-account"
               class="font-semibold text-indigo-600"
               >海外苹果账户</a
-            >下载NthLink, Orbot VPN, Cloudflare
+            >下载NthLink, V2Ray, Outline
           </h1>
-          <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
-          <h1 class="mt-4">
-            如果以上无法使用， 使用V2Ray系列或Outline
-            <a
-              href="https://donate.stripe.com/8wM8A3649d9W7o4000"
-              class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
-              target="_blank"
-              >欢迎赞助1刀</a
-            >
-          </h1>
-          <h1>赞助1刀将提供更多节点 更快速度订阅链接</h1>
-          <br />
+          <h1>微软系统电脑使用NthLink, V2Ray, Outline</h1>
+
           <h1>
             点击节点复制, 导入到V2Ray/Outline
-            <p class="overflow-auto" onclick="copyText('outline')">
-              <span id="outline"
+            <p class="overflow-auto" onclick="copyText('outline1')">
+              <span id="outline1"
+                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
+              >
+            </p>
+
+            <p class="overflow-auto" onclick="copyText('outline2')">
+              <span id="outline2"
                 >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
               >
             </p>
@@ -855,18 +860,25 @@
       async function getSS() {
         const res = await fetch('/ss-key');
 
-        const ssKey = await res.text();
+        const ssKeyBase64 = await res.text();
 
-        const ssElement = document.getElementById('outline');
+        const ssKey1 = ssKeyBase64?.split('\r\n')?.[0];
+        const ssKey2 = ssKeyBase64?.split('\r\n')?.[1];
 
-        ssElement.href = ssKey;
-        ssElement.innerText = ssKey;
+        const ssElement1 = document.getElementById('outline1');
+        const ssElement2 = document.getElementById('outline2');
+
+        ssElement1.href = ssKey1;
+        ssElement1.innerText = ssKey1;
+
+        ssElement2.href = ssKey2;
+        ssElement2.innerText = ssKey2;
       }
 
       getSS();
     </script>
 
-    <script>
+    <!-- <script>
       async function getCurrentMirrorStatus() {
         const res = await fetch('/check-status');
 
@@ -881,7 +893,7 @@
       }
 
       getCurrentMirrorStatus();
-    </script>
+    </script> -->
 
     <script>
       function copyText(elementId) {
