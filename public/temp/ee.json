@@ -289,7 +289,7 @@
     "comment": "浏览器",
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
-    "star": 5
+    "star": 10
   },
   {
     "os": "windows",
@@ -300,7 +300,7 @@
     "comment": "浏览器",
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
-    "star": 5
+    "star": 10
   },
   {
     "os": "ios",
@@ -311,7 +311,7 @@
     "comment": "浏览器",
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
-    "star": 5
+    "star": 10
   },
   {
     "os": "mac",
@@ -322,7 +322,7 @@
     "comment": "点对点文件同步软件",
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
-    "star": 5
+    "star": 10
   },
 
   {
