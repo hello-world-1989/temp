@@ -63,7 +63,7 @@
     "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场自助获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 9
+    "star": 11
   },
   {
     "os": "windows",
@@ -76,7 +76,7 @@
     "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 9
+    "star": 11
   },
   {
     "os": "ios",
@@ -89,7 +89,7 @@
     "comment": "需注册海外苹果账户，图片教程见常见问题;谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 9
+    "star": 11
   },
   {
     "os": "mac",
@@ -102,7 +102,7 @@
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 9
+    "star": 11
   },
 
   {
@@ -116,7 +116,7 @@
     "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 8
+    "star": 10
   },
   {
     "os": "windows",
@@ -129,7 +129,7 @@
     "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 8
+    "star": 10
   },
   {
     "os": "ios",
@@ -142,7 +142,7 @@
     "comment": "免费，需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "#",
-    "star": 8
+    "star": 10
   },
   {
     "os": "ios",
@@ -155,7 +155,7 @@
     "comment": "免费，仅支持英文,需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "#",
-    "star": 8
+    "star": 10
   },
   {
     "os": "mac",
@@ -168,7 +168,7 @@
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 8
+    "star": 10
   },
   {
     "os": "ios",
@@ -181,7 +181,7 @@
     "comment": "需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/shadowrocket.webp",
     "web": "#",
-    "star": 8
+    "star": 10
   },
   {
     "os": "mac",
@@ -194,7 +194,7 @@
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 8
+    "star": 10
   },
   {
     "os": "android",
