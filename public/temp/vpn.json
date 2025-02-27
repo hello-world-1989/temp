@@ -6,10 +6,12 @@
     "link1": "/download-app/android/android-nthlink.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-nthlink.zip",
     "helpLink": "nthLink.pdf",
+    "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://getnthlink.com/download.html",
-    "star": 9
+    "web": "https://www.downloadnth.com/download.html",
+    "star": 9,
+    "date": "24年10月10日更新"
   },
   {
     "os": "windows",
@@ -18,6 +20,7 @@
     "link1": "/download-app/windows/windows-nthlink.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-nthlink.zip",
     "helpLink": "nthLink.pdf",
+    "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
     "web": "https://www.downloadnth.com/download.html",
@@ -30,6 +33,7 @@
     "link1": "#",
     "link2": "#",
     "helpLink": "nthLink.pdf",
+    "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程见常见问题;美国之音推荐",
     "image": "images/nthlink.webp",
     "web": "https://www.downloadnth.com/download.html",
@@ -42,6 +46,7 @@
     "link1": "#",
     "link2": "#",
     "helpLink": "nthLink.pdf",
+    "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程常见问题; 美国之音推荐",
     "image": "images/nthlink.webp",
     "web": "https://www.downloadnth.com/download.html",
@@ -53,10 +58,12 @@
     "name": "Outline",
     "link1": "/download-app/android/android-outline.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-outline.zip",
-    "comment": "谷歌出品，密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥",
+    "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场自助获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 10
+    "star": 9
   },
   {
     "os": "windows",
@@ -64,10 +71,12 @@
     "name": "Outline",
     "link1": "/download-app/windows/windows-outline.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-outline.zip",
-    "comment": "谷歌出品，密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥",
+    "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 10
+    "star": 9
   },
   {
     "os": "ios",
@@ -75,10 +84,12 @@
     "name": "Outline",
     "link1": "#",
     "link2": "#",
-    "comment": "需注册海外苹果账户，图片教程见常见问题;谷歌出品，密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥",
+    "comment": "需注册海外苹果账户，图片教程见常见问题;谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 10
+    "star": 9
   },
   {
     "os": "mac",
@@ -86,10 +97,12 @@
     "name": "Outline",
     "link1": "#",
     "link2": "#",
-    "comment": "需注册海外苹果账户，图片教程常见问题; 谷歌出品，密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥",
+    "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/outline.webp",
     "web": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 10
+    "star": 9
   },
 
   {
@@ -98,10 +111,12 @@
     "name": "V2ray",
     "link1": "/download-app/android/android-v2ray.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-v2ray.zip",
-    "comment": "密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 9.5
+    "star": 8
   },
   {
     "os": "windows",
@@ -109,10 +124,12 @@
     "name": "V2ray",
     "link1": "/download-app/windows/windows-v2ray.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-v2ray.zip",
-    "comment": "密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 9.5
+    "star": 8
   },
   {
     "os": "ios",
@@ -120,10 +137,12 @@
     "name": "V2rayU",
     "link1": "#",
     "link2": "#",
-    "comment": "免费，需注册海外苹果账户，图片教程见常见问题;密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "免费，需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "#",
-    "star": 9.5
+    "star": 8
   },
   {
     "os": "ios",
@@ -131,10 +150,12 @@
     "name": "V2box",
     "link1": "#",
     "link2": "#",
-    "comment": "免费，仅支持英文,需注册海外苹果账户，图片教程见常见问题;密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "免费，仅支持英文,需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
     "web": "#",
-    "star": 9.5
+    "star": 8
   },
   {
     "os": "mac",
@@ -142,10 +163,12 @@
     "name": "V2box",
     "link1": "#",
     "link2": "#",
-    "comment": "需注册海外苹果账户，图片教程常见问题; 密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
-    "star": 9.5
+    "star": 8
   },
   {
     "os": "ios",
@@ -153,7 +176,9 @@
     "name": "Shadowrocket",
     "link1": "#",
     "link2": "#",
-    "comment": "需注册海外苹果账户，图片教程见常见问题;密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/shadowrocket.webp",
     "web": "#",
     "star": 8
@@ -164,7 +189,9 @@
     "name": "V2rayU",
     "link1": "/download-app/mac/mac-v2ray.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-v2ray.zip",
-    "comment": "需注册海外苹果账户，图片教程常见问题; 密钥见主页，点击总站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "helpLink": "/index.html",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
     "web": "https://www.v2ray.com/awesome/tools.html",
     "star": 8
