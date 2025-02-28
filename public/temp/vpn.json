@@ -9,7 +9,7 @@
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://www.downloadnth.com/download.html",
+    "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9,
     "date": "24年10月10日更新"
   },
@@ -23,7 +23,7 @@
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
-    "web": "https://www.downloadnth.com/download.html",
+    "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -32,11 +32,12 @@
     "name": "NthLink",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "nthLink.pdf",
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程见常见问题;美国之音推荐",
     "image": "images/nthlink.webp",
-    "web": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -49,7 +50,7 @@
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程常见问题; 美国之音推荐",
     "image": "images/nthlink.webp",
-    "web": "https://www.downloadnth.com/download.html",
+    "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -62,7 +63,7 @@
     "helpText": "获取SS密钥",
     "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场自助获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
+    "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11
   },
   {
@@ -75,7 +76,7 @@
     "helpText": "获取SS密钥",
     "comment": "谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
+    "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11
   },
   {
@@ -84,11 +85,12 @@
     "name": "Outline",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#outline",
     "helpText": "获取SS密钥",
     "comment": "需注册海外苹果账户，图片教程见常见问题;谷歌出品，需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11
   },
   {
@@ -101,7 +103,7 @@
     "helpText": "获取SS密钥",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/outline.webp",
-    "web": "https://getoutline.org/zh-CN/get-started/#step-3",
+    "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11
   },
 
@@ -115,7 +117,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/awesome/tools.html",
+    "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10
   },
   {
@@ -128,7 +130,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/awesome/tools.html",
+    "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10
   },
   {
@@ -137,11 +139,12 @@
     "name": "V2rayU",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
     "comment": "免费，需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
-    "web": "#",
     "star": 10
   },
   {
@@ -150,11 +153,12 @@
     "name": "V2box",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
     "comment": "免费，仅支持英文,需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/v2ray.webp",
-    "web": "#",
     "star": 10
   },
   {
@@ -167,7 +171,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/awesome/tools.html",
+    "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10
   },
   {
@@ -176,11 +180,12 @@
     "name": "Shadowrocket",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需注册海外苹果账户，图片教程见常见问题;需要访问密钥才能使用，点击免费自建机场获取，如果是活动人士，发邮件索取免费使用",
     "image": "images/shadowrocket.webp",
-    "web": "#",
     "star": 10
   },
   {
@@ -193,7 +198,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
-    "web": "https://www.v2ray.com/awesome/tools.html",
+    "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10
   },
   {
@@ -204,7 +209,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-warpplus.zip",
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "web": "https://1.1.1.1/zh-Hans/",
+    "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1
   },
   {
@@ -215,7 +220,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-warpplus.zip",
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "web": "https://1.1.1.1/zh-Hans/",
+    "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1
   },
   {
@@ -224,9 +229,10 @@
     "name": "Warp Plus",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "解锁谷歌服务和很多应用，可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "web": "https://1.1.1.1/zh-Hans/",
     "star": 8.1
   },
   {
@@ -237,7 +243,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-warpplus.zip",
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "web": "https://1.1.1.1/zh-Hans/",
+    "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1
   },
   {
@@ -248,7 +254,7 @@
     "link2": "#",
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "web": "https://1.1.1.1/zh-Hans/",
+    "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1
   },
   {
@@ -259,7 +265,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-geph.zip",
     "comment": "需注册(无需手机号邮箱)",
     "image": "images/geph.webp",
-    "web": "https://geph.io/zhs",
+    "mainLink": "https://geph.io/zhs",
     "star": 7.2
   },
   {
@@ -270,7 +276,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-geph.zip",
     "comment": "需注册(无需手机号邮箱)",
     "image": "images/geph.webp",
-    "web": "https://geph.io/zhs",
+    "mainLink": "https://geph.io/zhs",
     "star": 7.2
   },
   {
@@ -281,7 +287,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-geph.zip",
     "comment": "需注册(无需手机号邮箱)",
     "image": "images/geph.webp",
-    "web": "https://geph.io/zhs",
+    "mainLink": "https://geph.io/zhs",
     "star": 7.2
   },
   {
@@ -292,7 +298,7 @@
     "link2": "#",
     "comment": "需注册(无需手机号邮箱)",
     "image": "images/geph.webp",
-    "web": "https://geph.io/zhs",
+    "mainLink": "https://geph.io/zhs",
     "star": 7.2
   },
 
@@ -304,7 +310,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-psiphon.zip",
     "comment": "",
     "image": "images/psiphon.png",
-    "web": "https://psiphon.ca/zh/download.html",
+    "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6
   },
   {
@@ -315,7 +321,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-psiphon.zip",
     "comment": "",
     "image": "images/psiphon.png",
-    "web": "https://psiphon.ca/zh/download.html",
+    "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6
   },
   {
@@ -324,9 +330,10 @@
     "name": "赛风",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "需注册海外苹果账户，图片教程见常见问题",
     "image": "images/psiphon.png",
-    "web": "https://psiphon.ca/zh/download.html",
     "star": 6
   },
   {
@@ -337,7 +344,7 @@
     "link2": "#",
     "comment": "仅苹果芯片版本",
     "image": "images/psiphon.png",
-    "web": "https://psiphon.ca/zh/download.html",
+    "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6
   },
   {
@@ -348,7 +355,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-orbot.zip",
     "comment": "设置静态IP和DNS 8.8.4.4, 需要配合网桥使用，发邮件获取;隐私优先，速度慢",
     "image": "images/orbot.png",
-    "web": "https://orbot.app/zh_Hans/download/",
+    "mainLink": "https://orbot.app/zh_Hans/download/",
     "star": 8.7
   },
   {
@@ -357,9 +364,10 @@
     "name": "Orbot VPN",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "需要使用电脑安装，详见说明;需要配合网桥使用，发邮件获取;隐私优先，速度慢; 需注册海外苹果账户，图片教程见常见问题",
     "image": "images/orbot.png",
-    "web": "https://orbot.app/zh_Hans/download/",
     "star": 8.7
   },
   {
@@ -370,7 +378,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-orbot.zip",
     "comment": "需要配合网桥使用，发邮件获取;隐私优先，速度慢",
     "image": "images/orbot.png",
-    "web": "https://orbot.app/zh_Hans/download/",
+    "mainLink": "https://orbot.app/zh_Hans/download/",
     "star": 8.7
   },
 
@@ -382,7 +390,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-tor.zip",
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
-    "web": "https://www.torproject.org/download/",
+    "mainLink": "https://www.torproject.org/download/",
     "star": 8.5
   },
   {
@@ -393,7 +401,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-tor.zip",
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
-    "web": "https://www.torproject.org/download/",
+    "mainLink": "https://www.torproject.org/download/",
     "star": 8.5
   },
   {
@@ -402,9 +410,10 @@
     "name": "Onion Browser浏览器",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "可能需要使用电脑安装，详见说明;浏览器;需配合Orbot VPN和网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
-    "web": "https://www.torproject.org/download/",
     "star": 8.5
   },
   {
@@ -415,7 +424,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-tor.zip",
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
-    "web": "https://www.torproject.org/download/",
+    "mainLink": "https://www.torproject.org/download/",
     "star": 8.5
   },
 
@@ -427,7 +436,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-freegate.zip",
     "comment": "老牌VPN，值得信赖",
     "image": "images/freegate.webp",
-    "web": "https://dongtaiwang.com/loc/phome.php?v=0",
+    "mainLink": "https://dongtaiwang.com/loc/phome.php?v=0",
     "star": 7
   },
   {
@@ -438,7 +447,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-freegate.zip",
     "comment": "老牌VPN，值得信赖",
     "image": "images/freegate.webp",
-    "web": "https://dongtaiwang.com/loc/phome.php?v=0",
+    "mainLink": "https://dongtaiwang.com/loc/phome.php?v=0",
     "star": 7
   },
   {
@@ -449,7 +458,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-vpngate.zip",
     "comment": "前往镜像地址下载VPN Gate 客户端",
     "image": "images/vpngate.png",
-    "web": "https://www.vpngate.net/cn/download.aspx",
+    "mainLink": "https://www.vpngate.net/cn/download.aspx",
     "star": 9
   },
   {
@@ -460,7 +469,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-freebrowser.zip",
     "comment": "",
     "image": "images/freebrowser.webp",
-    "web": "https://freebrowser.org/#stepSection",
+    "mainLink": "https://freebrowser.org/#stepSection",
     "star": 6
   },
   {
@@ -471,7 +480,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-freebrowser.zip",
     "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
     "image": "images/freebrowser.webp",
-    "web": "https://freebrowser.org/#stepSection",
+    "mainLink": "https://freebrowser.org/#stepSection",
     "star": 6
   },
 
@@ -483,7 +492,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-freebrowser.zip",
     "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
     "image": "images/freebrowser.webp",
-    "web": "https://freebrowser.org/#stepSection",
+    "mainLink": "https://freebrowser.org/#stepSection",
     "star": 6
   },
 
@@ -495,7 +504,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-ooni.zip",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "web": "https://ooni.org/install/",
+    "mainLink": "https://ooni.org/install/",
     "star": 8.8
   },
   {
@@ -506,7 +515,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-ooni.zip",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "web": "https://ooni.org/install/",
+    "mainLink": "https://ooni.org/install/",
     "star": 8.8
   },
   {
@@ -515,9 +524,10 @@
     "name": "OONI Probe",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "web": "https://ooni.org/install/",
     "star": 8.8
   },
   {
@@ -528,7 +538,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-ooni.zip",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "web": "https://ooni.org/install/",
+    "mainLink": "https://ooni.org/install/",
     "star": 8.8
   }
 ]
