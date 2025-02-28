@@ -46,11 +46,12 @@
     "name": "NthLink",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "nthLink.pdf",
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,需注册海外苹果账户，图片教程常见问题; 美国之音推荐",
     "image": "images/nthlink.webp",
-    "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9
   },
   {
@@ -99,11 +100,12 @@
     "name": "Outline",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#outline",
     "helpText": "获取SS密钥",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/outline.webp",
-    "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11
   },
 
@@ -167,11 +169,12 @@
     "name": "V2box",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
-    "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10
   },
   {
@@ -194,11 +197,12 @@
     "name": "V2rayU",
     "link1": "/download-app/mac/mac-v2ray.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-v2ray.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
     "comment": "需注册海外苹果账户，图片教程常见问题; 点击免费自建机场获取",
     "image": "images/v2ray.webp",
-    "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10
   },
   {
@@ -241,9 +245,10 @@
     "name": "WARP Plus",
     "link1": "/download-app/mac/mac-warpplus.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-warpplus.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1
   },
   {
@@ -285,9 +290,10 @@
     "name": "迷雾通",
     "link1": "/download-app/mac/mac-geph.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-geph.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "需注册(无需手机号邮箱)",
     "image": "images/geph.webp",
-    "mainLink": "https://geph.io/zhs",
     "star": 7.2
   },
   {
@@ -342,9 +348,10 @@
     "name": "赛风",
     "link1": "#",
     "link2": "#",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "仅苹果芯片版本",
     "image": "images/psiphon.png",
-    "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6
   },
   {
@@ -376,9 +383,10 @@
     "name": "Orbot VPN",
     "link1": "/download-app/mac/mac-orbot.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-orbot.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "需要配合网桥使用，发邮件获取;隐私优先，速度慢",
     "image": "images/orbot.png",
-    "mainLink": "https://orbot.app/zh_Hans/download/",
     "star": 8.7
   },
 
@@ -422,9 +430,10 @@
     "name": "Tor浏览器",
     "link1": "/download-app/mac/mac-tor.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-tor.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
-    "mainLink": "https://www.torproject.org/download/",
     "star": 8.5
   },
 
@@ -490,9 +499,10 @@
     "name": "自由浏览",
     "link1": "/download-app/mac/mac-freebrowser.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-freebrowser.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
     "image": "images/freebrowser.webp",
-    "mainLink": "https://freebrowser.org/#stepSection",
     "star": 6
   },
 
@@ -536,9 +546,10 @@
     "name": "OONI Probe",
     "link1": "/download-app/mac/mac-ooni.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-ooni.zip",
+    "mainLink": "/qa.html#apple-account",
+    "mainText": "获取苹果账户",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "mainLink": "https://ooni.org/install/",
     "star": 8.8
   }
 ]
