@@ -843,16 +843,28 @@ async function fetchAPI() {
     return [];
   }
 
-  const response = await axios.get(url);
+  let result = [];
 
-  const base64String = response.data;
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      },
+    });
 
-  const decodedBuffer = Buffer.from(base64String, 'base64');
-  const decodedString = decodedBuffer.toString('utf-8');
+    const base64String = response.data;
 
-  const array = decodedString.split('\r\n');
+    const decodedBuffer = Buffer.from(base64String, 'base64');
+    const decodedString = decodedBuffer.toString('utf-8');
 
-  return array;
+    const array = decodedString.split('\r\n');
+
+    result = array;
+  } catch (err) {
+    console.log('fetchAPI error', err);
+  }
+
+  return result;
 }
 
 async function readSSKey() {
