@@ -11,6 +11,7 @@ import url from 'url';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { parse } from 'node:path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -321,7 +322,7 @@ app.use('/github', async (req, res) => {
 app.use('/ss-key', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-ss',
+      'https://api.github.com/repos/hello-world-1989/v2-sub/contents/end-gfw-together-ss',
       {
         headers: {
           Authorization: `token ${process.env.GITHUB_TOKEN}`,
@@ -329,21 +330,25 @@ app.use('/ss-key', async (req, res) => {
       }
     );
 
-    const base64String = response?.data;
+    const base64String = response?.data?.content;
 
-    const array = base64String.split('\r\n');
+    const decodedBuffer = Buffer.from(base64String, 'base64');
 
-    let result = '';
+    const decodedString = decodedBuffer.toString('utf-8');
 
-    if (array.length > 1) {
-      const node1 = array?.[0];
-      const node2 = array?.[1];
-      result = node1.includes('#kr') ? node1 : node2;
-    } else if (array.length == 1) {
-      result = array?.[0];
-    }
+    // const array = decodedString.split('\r\n');
 
-    res.send(base64String.split('\r\n').slice(0, 2).join('\r\n'));
+    // let result = '';
+
+    // if (array.length > 1) {
+    //   const node1 = array?.[0];
+    //   const node2 = array?.[1];
+    //   result = node1.includes('#kr') ? node1 : node2;
+    // } else if (array.length == 1) {
+    //   result = array?.[0];
+    // }
+
+    res.send(decodedString?.split('\r\n')?.slice(0, 2)?.join('\r\n'));
   } catch (err) {
     console.log(err);
     res.send('');
@@ -519,7 +524,7 @@ app.use('/tweet', async (req, res) => {
     const endDay = req.query?.endDay;
     const id = req.query?.id;
 
-    let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
+    let url = `https://api.github.com/repos/hello-world-1989/json/contents/tweet/${year}`;
 
     if (month) {
       url += `/${month}`;
@@ -539,7 +544,12 @@ app.use('/tweet', async (req, res) => {
         },
       });
 
-      result = response?.data ?? [];
+      let rawResult = response?.data?.content;
+      let resultStr = Buffer.from(rawResult, 'base64').toString('utf-8');
+
+      result = JSON.parse(resultStr);
+
+      console.log('result: ', result);
 
       if (month && day && endDay) {
         const startDayNumber = parseInt(day);
@@ -550,7 +560,7 @@ app.use('/tweet', async (req, res) => {
           if (i < 10) endDayStr = '0' + i;
 
           try {
-            let endDayURL = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${endDayStr}/${id}.json`;
+            let endDayURL = `https://api.github.com/repos/hello-world-1989/json/contents/tweet/${year}/${month}/${endDayStr}/${id}.json`;
 
             const currentResponse = await axios.get(endDayURL, {
               headers: {
@@ -558,8 +568,15 @@ app.use('/tweet', async (req, res) => {
               },
             });
 
-            const currentData = currentResponse?.data ?? [];
-            result.push(...currentData);
+            const rawCurrentData = currentResponse?.data?.content ?? [];
+
+            let resultStr = Buffer.from(rawCurrentData, 'base64').toString(
+              'utf-8'
+            );
+
+            let temp = JSON.parse(resultStr);
+
+            result.push(...temp);
           } catch (err) {
             console.error('end day error', err);
             continue;
