@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import express from 'express';
 // import * as fs from 'fs';
@@ -318,7 +317,12 @@ app.use('/github', async (req, res) => {
 app.use('/ss-key', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-ss'
+      'https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-ss',
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        },
+      }
     );
 
     const base64String = response?.data;
@@ -523,11 +527,12 @@ app.use('/tweet', async (req, res) => {
 
     url += `/${id}.json`;
 
-    const response = await axios.get(url);
-
-    let result = response?.data ?? [];
-
+    let result = [];
     try {
+      const response = await axios.get(url);
+
+      result = response?.data ?? [];
+
       if (month && day && endDay) {
         const startDayNumber = parseInt(day);
         const endDayNumber = parseInt(endDay);

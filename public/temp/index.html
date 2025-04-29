@@ -838,6 +838,28 @@
       }
     </script>
 
+    <script>
+      async function getSS() {
+        const res = await fetch('/ss-key');
+
+        const ssKeyBase64 = await res.text();
+
+        const ssKey1 = ssKeyBase64?.split('\r\n')?.[0];
+        const ssKey2 = ssKeyBase64?.split('\r\n')?.[1];
+
+        const ssElement1 = document.getElementById('outline1');
+        const ssElement2 = document.getElementById('outline2');
+
+        ssElement1.href = ssKey1;
+        ssElement1.innerText = ssKey1;
+
+        ssElement2.href = ssKey2;
+        ssElement2.innerText = ssKey2;
+      }
+
+      getSS();
+    </script>
+
     <script type="module">
       await fetchTweet();
     </script>
@@ -873,28 +895,6 @@
       }
 
       getHost();
-    </script>
-
-    <script>
-      async function getSS() {
-        const res = await fetch('/ss-key');
-
-        const ssKeyBase64 = await res.text();
-
-        const ssKey1 = ssKeyBase64?.split('\r\n')?.[0];
-        const ssKey2 = ssKeyBase64?.split('\r\n')?.[1];
-
-        const ssElement1 = document.getElementById('outline1');
-        const ssElement2 = document.getElementById('outline2');
-
-        ssElement1.href = ssKey1;
-        ssElement1.innerText = ssKey1;
-
-        ssElement2.href = ssKey2;
-        ssElement2.innerText = ssKey2;
-      }
-
-      getSS();
     </script>
 
     <!-- <script>
