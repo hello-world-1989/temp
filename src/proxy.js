@@ -168,7 +168,11 @@ app.get('/tweet-page', async (req, res) => {
         try {
           let endDayURL = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${endDayStr}/${id}.json`;
 
-          const currentResponse = await axios.get(endDayURL);
+          const currentResponse = await axios.get(endDayURL, {
+            headers: {
+              Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            },
+          });
 
           const currentData = currentResponse?.data ?? [];
           result.push(...currentData);
@@ -320,7 +324,7 @@ app.use('/ss-key', async (req, res) => {
       'https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-ss',
       {
         headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
         },
       }
     );
@@ -529,7 +533,11 @@ app.use('/tweet', async (req, res) => {
 
     let result = [];
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      });
 
       result = response?.data ?? [];
 
@@ -544,7 +552,11 @@ app.use('/tweet', async (req, res) => {
           try {
             let endDayURL = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${endDayStr}/${id}.json`;
 
-            const currentResponse = await axios.get(endDayURL);
+            const currentResponse = await axios.get(endDayURL, {
+              headers: {
+                Authorization: `token ${process.env.GITHUB_TOKEN}`,
+              },
+            });
 
             const currentData = currentResponse?.data ?? [];
             result.push(...currentData);
