@@ -591,10 +591,10 @@
           pageGroupElement.className =
             'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
 
-          for (let j = 0; j < 5; j++) {
+          for (let j = 0; j < 2; j++) {
             //await getTweet(parts[0], parts[1], parts[2]);
 
-            if (isEmpty) {
+            if (isEmpty && i === 0) {
               const yesterday = dates[j];
               const parts = yesterday.split('-');
               await getTweet(parts[0], parts[1], parts[2]);
@@ -610,7 +610,7 @@
 
           pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
 
-          pageGroupElement.onclick = () => {
+          pageGroupElement.onclick = async () => {
             const selectedOption = pageGroup.querySelector('.selected');
             if (selectedOption) {
               selectedOption.classList.remove('selected');
@@ -628,7 +628,7 @@
 
             //const folder = parts[0] + '/' + parts[1] + '/' + parts[2];
 
-            getTweet(parts[0], parts[1], parts[2]);
+            await getTweet(parts[0], parts[1], parts[2]);
 
             // const activeVPN = vpn.filter(
             //  (item) => item.os == pageGroupElement.id
@@ -657,7 +657,7 @@
         //dates.forEach(async (item, i) => {});
       }
 
-      function getHistoryTweet() {
+      async function getHistoryTweet() {
         const yearElement = document.getElementById('year');
         const monthElement = document.getElementById('month');
         const dayElement = document.getElementById('day');
@@ -668,25 +668,25 @@
         const day = dayElement.value;
         const endDay = endDayElement.value;
 
-        getTweet(year, month, day, endDay);
+        await getTweet(year, month, day, endDay);
       }
 
-      function getMonthlyTweet() {
+      async function getMonthlyTweet() {
         const yearElement = document.getElementById('year');
         const monthElement = document.getElementById('month');
 
         const year = yearElement.value;
         const month = monthElement.value;
 
-        getTweet(year, month, '');
+        await getTweet(year, month, '');
       }
 
-      function getYearlyTweet() {
+      async function getYearlyTweet() {
         const yearElement = document.getElementById('year');
 
         const year = yearElement.value;
 
-        getTweet(year, '', '');
+        await getTweet(year, '', '');
       }
 
       async function searchTweet() {
@@ -830,14 +830,16 @@
 
           isEmpty = false;
         } catch (err) {
-          console.error('error loading data');
+          console.error('error loading data', err);
           isEmpty = true;
         }
 
         composePage(temp, day);
       }
+    </script>
 
-      fetchTweet();
+    <script type="module">
+      await fetchTweet();
     </script>
 
     <script>
