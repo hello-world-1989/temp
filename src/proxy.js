@@ -690,12 +690,19 @@ app.use('/resource', async (req, res) => {
     console.log('path: ', rawPath);
 
     const response = await axios.get(
-      `https://raw.githubusercontent.com/hello-world-1989/resource/main${rawPath}`,
-      { responseType: 'arraybuffer' }
+      `https://api.github.com/repos/hello-world-1989/resource/contents${rawPath}`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      }
     );
 
+    let base64String = response?.data?.content;
+    const decodedBuffer = Buffer.from(base64String, 'base64');
+
     res.writeHead(200, { 'Content-Type': 'image/jpeg' });
-    res.end(Buffer.from(response.data, 'binary'));
+    res.end(decodedBuffer);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -864,9 +871,16 @@ app.use('/temp/image', async (req, res) => {
     console.log('path: ', rawPath);
 
     const response = await axios.get(
-      `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/temp/image${rawPath}`,
-      { responseType: 'arraybuffer' }
+      `https://api.github.com/repos/hello-world-1989/cn-news/contents/temp/image${rawPath}`,
+      // { responseType: 'arraybuffer' },
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      }
     );
+
+    console.log('response: ', response.data);
 
     res.writeHead(200, { 'Content-Type': 'image/jpeg' });
     res.end(Buffer.from(response.data, 'binary'));
