@@ -648,16 +648,26 @@ app.use('/search-tweet', async (req, res) => {
     const promises = response?.data?.items
       ?.filter((item) => item.name === 'whyyoutouzhele.json')
       .map((item) => {
-        let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/${item.path}`;
+        let url = `https://api.github.com/repos/hello-world-1989/json/contents/${item.path}`;
 
-        const promise = axios.get(url);
+        const promise = axios.get(url, {
+          headers: {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          },
+        });
 
         return promise;
       });
 
     const results = await Promise.all(promises);
 
-    const temp = results.map((item) => item.data);
+    const temp = results.map((item) => {
+      const base64String = item?.data?.content;
+      const decodedBuffer = Buffer.from(base64String, 'base64');
+      const decodedString = decodedBuffer.toString('utf-8');
+
+      return JSON.parse(decodedString);
+    });
 
     const temp1 = temp
       .flat()
