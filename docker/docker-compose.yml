@@ -17,9 +17,3 @@ services:
       - ./custom:/app/temp/public/temp/custom/
       - /var/run/docker.sock:/var/run/docker.sock
     command: end-gfw-web
-  subconverter:
-    image: tindy2013/subconverter:latest
-    container_name: subconverter
-    ports:
-      - "9999:25500"
-    restart: always
