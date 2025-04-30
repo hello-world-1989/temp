@@ -866,7 +866,7 @@ app.use('/temp/video', async (req, res) => {
 
 async function fetchAPI() {
   const url =
-    'https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together';
+    'https://api.github.com/repos/hello-world-1989/cn-news/contents/end-gfw-together';
 
   if (process.env.NODE_ENV?.includes('dev')) {
     return [];
@@ -877,11 +877,11 @@ async function fetchAPI() {
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
       },
     });
 
-    const base64String = response.data;
+    const base64String = response?.data?.content;
 
     const decodedBuffer = Buffer.from(base64String, 'base64');
     const decodedString = decodedBuffer.toString('utf-8');
