@@ -695,10 +695,20 @@ app.use('/resource', async (req, res) => {
 app.use('/vpn-data', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/hello-world-1989/temp/refs/heads/main/public/temp/vpn.json'
+      'https://api.github.com/repos/hello-world-1989/temp/contents/public/temp/vpn.json',
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      }
     );
 
-    res.send(response?.data);
+    const base64String = response?.data?.content;
+    const decodedBuffer = Buffer.from(base64String, 'base64');
+    const decodedString = decodedBuffer.toString('utf-8');
+    const result = JSON.parse(decodedString);
+
+    res.send(result);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -728,10 +738,20 @@ app.use('/download-app', async (req, res) => {
 app.use('/ee-data', async (req, res) => {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/hello-world-1989/temp/main/ee.json'
+      'https://api.github.com/repos/hello-world-1989/temp/contents/ee.json',
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+      }
     );
 
-    res.send(response?.data);
+    const base64String = response?.data?.content;
+    const decodedBuffer = Buffer.from(base64String, 'base64');
+    const decodedString = decodedBuffer.toString('utf-8');
+    const result = JSON.parse(decodedString);
+
+    res.send(result);
   } catch (err) {
     console.log(err);
     res.send('');
@@ -866,7 +886,7 @@ app.use('/temp/video', async (req, res) => {
 
 async function fetchAPI() {
   const url =
-    'https://api.github.com/repos/hello-world-1989/cn-news/contents/end-gfw-together';
+    'https://api.github.com/repos/hello-world-1989/cn-news/contents/end-gfw-together-ss';
 
   if (process.env.NODE_ENV?.includes('dev')) {
     return [];
@@ -883,8 +903,12 @@ async function fetchAPI() {
 
     const base64String = response?.data?.content;
 
+    console.log('base64String: ', base64String);
+
     const decodedBuffer = Buffer.from(base64String, 'base64');
     const decodedString = decodedBuffer.toString('utf-8');
+
+    console.log('decodedString: ', decodedString);
 
     const array = decodedString.split('\r\n');
 
@@ -1003,38 +1027,38 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
 
     console.log(`*********${ip} is reachable`);
 
-    const verifyRes = await axios.get(`http://${ip}:${confirmedPort}/youtube`);
+    // const verifyRes = await axios.get(`http://${ip}:${confirmedPort}/youtube`);
 
-    const verifyData = verifyRes.data;
+    // const verifyData = verifyRes.data;
 
-    if (verifyData?.updateTime) {
-      let result4 = 'unknown';
+    // if (verifyData?.updateTime) {
+    let result4 = 'unknown';
 
-      if (extraExpiry === 0) {
-        try {
-          if (isReboot) {
-          } else {
-            // result4 = await ipCheck(ip, confirmedPort);
-          }
-        } catch (err) {
-          // result4 === 'fail';
+    if (extraExpiry === 0) {
+      try {
+        if (isReboot) {
+        } else {
+          // result4 = await ipCheck(ip, confirmedPort);
         }
-      }
-
-      if (result4 === 'fail') {
-        console.log('Not able to connect from China');
-      } else {
-        console.log(`*********${ip} is able to connect from China`);
-        const res = {
-          ip,
-          port: confirmedPort,
-          updatedTime: new Date().getTime() + extraExpiry,
-        };
-
-        hostsMap.set(ip, res);
-        endGFWHosts.push(res);
+      } catch (err) {
+        // result4 === 'fail';
       }
     }
+
+    if (result4 === 'fail') {
+      console.log('Not able to connect from China');
+    } else {
+      console.log(`*********${ip} is able to connect from China`);
+      const res = {
+        ip,
+        port: confirmedPort,
+        updatedTime: new Date().getTime() + extraExpiry,
+      };
+
+      hostsMap.set(ip, res);
+      endGFWHosts.push(res);
+    }
+    // }
   }
 }
 
