@@ -11,10 +11,12 @@ services:
     container_name: end-gfw-web
     environment:
       - NODE_PORT=8081 #
-    ports:
-      - '80:80'
-      - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
+      - MASTER_NODE=true
+      - PRIVATE_NODE=false
       - GITHUB_TOKEN=123 #must replace with token, otherwise, search will not work
+    ports:
+      #- '80:80'
+      - '8081:80' #8081可以修改为3000-65535之间的数字， 但必须和 NODE_PORT 一致
     volumes:
       - ./custom:/app/temp/public/temp/custom/
       - /var/run/docker.sock:/var/run/docker.sock
@@ -25,3 +27,42 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: end-gfw-web
+  subconverter:
+    image: tindy2013/subconverter:latest
+    container_name: subconverter
+    ports:
+      - "8888:25500"
+    restart: always
+  docker-cron:
+    image: ghcr.io/end-gfw/docker-cron:stable
+    container_name: docker-cron
+    environment:
+      - NODE_PORT=8081 #
+      - GITHUB_OWNER_HELLO=hello-world-1989
+      - GITHUB_OWNER_END=jfeenefjed
+      - GITHUB_OWNER_ANOTHER=xldfjeffejfijeijffe
+      - GITHUB_TOKEN_HELLO=
+      - GITHUB_TOKEN_END=
+      - GITHUB_TOKEN_XIXI=
+      - PRIVATE_JSON_TOKEN=
+      - PRIVATE_JSON_REPO=private_json
+      - ENABLE_SEND_EMAIL=Y
+      - ENABLE_RETRIEVE_TWEET=Y
+      - ENABLE_POST_TWEET=Y
+      - ENABLE_RETWEET=N
+      - GOOGLE_TRANSLATE_PROJECT_ID=avian-cogency-426402-f8
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/docker-cron/src/application_default_credentials_end_gfw.json
+      - TRANSLATE_LANG=en
+      - ENABLE_TEST=N
+      - GEMINI_API_KEY=
+      - ENABLE_SUMMARY=Y
+      - FROM=end.gfw01@gmail.com
+      - APP_PASSWORD=
+      - ENABLE_FROM_CURRENT=Y
+      - ENABLE_REDUCE_POST=N
+      - ENABLE_REDUCE_COMMENT=N
+      - TWITTER_ACCOUNT_TYPE=primary
+      - TWITTER_CONSUMER_KEY= 
+      - TWITTER_CONSUMER_SECRET=
+      - TWITTER_ACCESS_KEY=
+      - TWITTER_ACCESS_TOKEN=
