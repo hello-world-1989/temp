@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name end-gfw.com;
+    server_name end-gfw.com www.end-gfw.com;
 
     location / {
         proxy_pass http://localhost:8081;
