@@ -393,6 +393,24 @@
                 >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
               >
             </p>
+
+            <p class="overflow-auto hidden" onclick="copyText('outline3')">
+              <span id="outline3"
+                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
+              >
+            </p>
+
+            <p class="overflow-auto hidden" onclick="copyText('outline4')">
+              <span id="outline4"
+                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
+              >
+            </p>
+
+            <p class="overflow-auto hidden" onclick="copyText('outline5')">
+              <span id="outline5"
+                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
+              >
+            </p>
           </h1>
 
           <div class="hidden lg:flex lg:mt-3">
@@ -852,17 +870,32 @@
 
         const ssKeyBase64 = await res.text();
 
-        const ssKey1 = ssKeyBase64?.split('\r\n')?.[0];
-        const ssKey2 = ssKeyBase64?.split('\r\n')?.[1];
+        const ssKeys = ssKeyBase64?.split('\r\n')
+        
+        //const ssKey1 = ssKeys?.[0];
+        //const ssKey2 = ssKeys?.[1];
 
-        const ssElement1 = document.getElementById('outline1');
-        const ssElement2 = document.getElementById('outline2');
+        ssKeys.forEach((key, i) => {
+          const element = document.getElementById(`outline${i+1}`);
+          element.parentElement.classList.remove('hidden')
+          element.innerText = key;
+        })
 
-        ssElement1.href = ssKey1;
-        ssElement1.innerText = ssKey1;
+        
 
-        ssElement2.href = ssKey2;
-        ssElement2.innerText = ssKey2;
+        //const ssElement1 = document.getElementById('outline1');
+        //const ssElement2 = document.getElementById('outline2');
+        //const ssElement3 = document.getElementById('outline3');
+        //const ssElement4 = document.getElementById('outline4');
+        //const ssElement5 = document.getElementById('outline5');
+
+        //ssElement1.href = ssKey1;
+        //ssElement1.innerText = ssKey1;
+
+        //ssElement2.href = ssKey2;
+        //ssElement2.innerText = ssKey2;
+
+        
       }
 
       getSS();
