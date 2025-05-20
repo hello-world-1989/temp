@@ -348,7 +348,7 @@ app.use('/ss-key', async (req, res) => {
     //   result = array?.[0];
     // }
 
-    res.send(decodedString?.split('\r\n')?.slice(0, 2)?.join('\r\n'));
+    res.send(decodedString?.split('\r\n')?.slice(0, 5)?.join('\r\n'));
   } catch (err) {
     console.log(err);
     res.send('');
