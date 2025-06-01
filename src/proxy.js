@@ -12,6 +12,7 @@ import url from 'url';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { parse } from 'node:path';
+import { getAppleId } from './get-apple-id.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,6 +20,7 @@ const __dirname = dirname(__filename);
 const hostsMap = new Map();
 let endGFWHosts = [];
 const NODE_PORT = process.env.NODE_PORT || 80;
+let appleAccount = new Map();
 
 const MASTER_NODE = process.env.MASTER_NODE || false;
 const PRIVATE_NODE = process.env.PRIVATE_NODE || false;
@@ -423,6 +425,28 @@ app.use('/searchx', async (req, res) => {
 app.use('/host', async (req, res) => {
   try {
     res.send(endGFWHosts.slice(0, 3));
+  } catch (err) {
+    console.log(err);
+    res.send('');
+  }
+});
+
+app.use('/apple-account', async (req, res) => {
+  try {
+    let account;
+    if (appleAccount.has('appleId')) {
+      account = appleAccount.get('appleId');
+    } else {
+      let [password, expireDate] = await getAppleId();
+      account = {
+        username: 'i-eyurbrt@aneeo.cc',
+        password,
+        expireDate,
+      };
+
+      appleAccount.set('appleId', account);
+    }
+    res.send(account);
   } catch (err) {
     console.log(err);
     res.send('');
