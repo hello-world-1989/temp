@@ -108,7 +108,6 @@
     "image": "images/outline.webp",
     "star": 11
   },
-
   {
     "os": "android",
     "id": "v2ray",
@@ -120,6 +119,19 @@
     "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接",
     "image": "images/v2ray.webp",
     "mainLink": "https://www.v2ray.com/awesome/tools.html",
+    "star": 10
+  },
+  {
+    "os": "android",
+    "id": "clash",
+    "name": "Clash",
+    "link1": "/download-app/android/android-clash.zip",
+    "link2": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.13/cmfa-2.11.13-meta-universal-release.apk",
+    "helpLink": "/index.html#v2ray_sub",
+    "helpText": "获取订阅链接",
+    "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开clash->配置 右上角+ ->从URL导入主页Clash订阅链接",
+    "image": "images/v2ray.webp",
+    "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
     "star": 10
   },
   {
