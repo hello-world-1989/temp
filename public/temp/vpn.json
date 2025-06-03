@@ -130,7 +130,7 @@
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取订阅链接",
     "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开clash->配置 右上角+ ->从URL导入主页Clash订阅链接",
-    "image": "images/v2ray.webp",
+    "image": "images/clash.png",
     "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
     "star": 10
   },
