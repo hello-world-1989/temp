@@ -38,6 +38,8 @@ wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/custom.zi
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/end-gfw.com
 
 sudo ln -s end-gfw.com /etc/nginx/sites-enabled/
+sudo cp end-gfw.com /etc/nginx/sites-enabled/
+sudo cp proxy.end-gfw.com /etc/nginx/sites-available/
 
 sudo nginx -t
 sudo systemctl start nginx
