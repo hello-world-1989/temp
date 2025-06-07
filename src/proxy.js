@@ -823,6 +823,20 @@ app.use('/node', async (req, res) => {
   }
 });
 
+app.use('/renew-plan', async (req, res) => {
+  const token = req.query?.token;
+
+  const RENEW_PLAN_URL = process.env.RENEW_PLAN_URL;
+
+  try {
+    const response = await axios.get(`${RENEW_PLAN_URL}?token=${token}`);
+  } catch (err) {
+    console.error('renew plan error', err);
+  }
+
+  res.send('success');
+});
+
 app.use('/check-status', async (req, res) => {
   try {
     const result = await isPortReachable('baidu.com', 80, 3000);
