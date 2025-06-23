@@ -323,22 +323,29 @@ app.use('/github', async (req, res) => {
 
 app.use('/ss-key', async (req, res) => {
   try {
-    const response = await axios.get(
-      'https://api.github.com/repos/hello-world-1989/v2-sub/contents/end-gfw-together-ss',
-      {
-        headers: {
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
-        },
-      }
-    );
+    // const response = await axios.get(
+    //   'https://api.github.com/repos/hello-world-1989/v2-sub/contents/end-gfw-together-ss',
+    //   {
+    //     headers: {
+    //       Authorization: `token ${process.env.GITHUB_TOKEN}`,
+    //     },
+    //   }
+    // );
 
-    const base64String = response?.data?.content;
+    const response = await axios.get(process.env.SUB_URL)
+
+    // const base64String = response?.data?.content;
+    const base64String = response?.data;
 
     const decodedBuffer = Buffer.from(base64String, 'base64');
 
     const decodedString = decodedBuffer.toString('utf-8');
 
-    // const array = decodedString.split('\r\n');
+
+
+    const array = decodedString.split('\r\n');
+
+    const ssArray = array.filter(item => item.startsWith('ss://'))
 
     // let result = '';
 
@@ -350,7 +357,7 @@ app.use('/ss-key', async (req, res) => {
     //   result = array?.[0];
     // }
 
-    res.send(decodedString?.split('\r\n')?.slice(0, 5)?.join('\r\n'));
+    res.send(ssArray?.slice(0, 3)?.join('\r\n'));
   } catch (err) {
     console.log(err);
     res.send('');
