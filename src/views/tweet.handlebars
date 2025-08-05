@@ -1,96 +1,374 @@
-<main class='relative'>
-  <div class='flex justify-center mt-4'>
-    <div class='text-lg font-bold'>
-      <h1><a href='https://end-gfw.com' target='_blank'>大翻墙运动:
-          https://end-gfw.com</a>,
-        <a href='https://twitter.com/end_gfw' target='_blank'>推特end_gfw</a>,
-        免墙Youtube， 免墙谷歌， 免墙维基百科</h1>
-      <h1>安卓手机使用NthLink, Orbot VPN, Cloudflare</h1>
-      <h1>苹果手机苹果电脑使用海外苹果账户下载NthLink, Orbot VPN, Cloudflare,
-        网站提供海外苹果账户</h1>
-      <h1>微软系统电脑使用VPNGate, NthLink, Cloudflare</h1>
-    </div>
+<!-- SEO and accessibility improvements -->
+<div id='pdf-content'>
+<header class='bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg'>
+  <div class='container mx-auto px-4 py-6'>
+    <nav class='flex flex-col space-y-3 text-center lg:space-y-2'>
+      <h1 class='text-xl font-bold leading-tight sm:text-2xl lg:text-3xl'>
+        <a href='https://end-gfw.com' target='_blank' rel='noopener noreferrer' 
+           class='hover:text-blue-200 transition-colors duration-200'
+           aria-label='大翻墙运动官网'>
+          大翻墙运动: https://end-gfw.com
+        </a>
+      </h1>
+      <div class='flex flex-wrap justify-center gap-2 text-sm sm:text-base'>
+        <a href='https://twitter.com/end_gfw' target='_blank' rel='noopener noreferrer'
+           class='bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition-colors duration-200'
+           aria-label='推特账号'>
+          📱 推特end_gfw
+        </a>
+      </div>
+    </nav>
+    
+    <!-- Device-specific instructions with better mobile layout -->
+    <section class='mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3' aria-label='设备使用指南'>
+      <div class='bg-white/10 rounded-lg p-4 backdrop-blur-sm'>
+        <h2 class='font-semibold text-green-200 mb-2'>📱 安卓设备</h2>
+        <p class='text-sm'>推荐使用Outline, V2Ray, Clash, NthLink</p>
+      </div>
+      <div class='bg-white/10 rounded-lg p-4 backdrop-blur-sm'>
+        <h2 class='font-semibold text-blue-200 mb-2'>🍎 苹果设备</h2>
+        <p class='text-sm'>推荐使用海外账户下载Outline, V2Ray, Clash, NthLink</p>
+      </div>
+      <div class='bg-white/10 rounded-lg p-4 backdrop-blur-sm sm:col-span-2 lg:col-span-1'>
+        <h2 class='font-semibold text-purple-200 mb-2'>💻 Windows系统</h2>
+        <p class='text-sm'>推荐使用Outline, V2Ray, Clash, NthLink</p>
+      </div>
+    </section>
   </div>
+</header>
 
-  <br></br>
+<main class='container mx-auto px-4 py-6'>
 
-  <div class='flex justify-center text-2xl text-indigo-600'>
+  <!-- Modern download action with better UX -->
+  <!-- <section class='text-center mb-8'>
+    <button 
+      onclick='downloadPDF();' 
+      class='bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 
+             text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 
+             transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-300'
+      aria-label='下载PDF文件'>
+      📄 下载PDF
+    </button>
+  </section> -->
 
-    <button onclick='window.print();'>
-      下载PDF</button>
-  </div>
-
-  <div class='flex justify-center mt-4'>
-
-    <div id='tweet'>
+  <!-- Tweets section with improved mobile layout and performance -->
+  <section class='tweets-container' aria-label='推文内容'>
+    <div class='grid gap-6 sm:gap-8'>
       {{#each tweets}}
-        <div
-          class='max-w-full mx-4 mt-10 border-2 border-indigo-500 rounded-sm'
+        <article 
+          class='bg-white rounded-xl shadow-lg hover:shadow-xl border border-gray-200 
+                 transition-shadow duration-300 overflow-hidden'
           id='{{this.id}}'
-        >
-          <div class='bg-white px-4 py-5 sm:px-6'>
-            <div class='flex space-x-3'>
+          itemscope 
+          itemtype='http://schema.org/SocialMediaPosting'>
+          
+          <!-- Tweet header with optimized layout -->
+          <header class='bg-gradient-to-r from-gray-50 to-blue-50 px-4 py-4 sm:px-6 border-b border-gray-100'>
+            <div class='flex items-start space-x-3'>
               <div class='flex-shrink-0'>
                 <img
-                  class='h-10 w-10 rounded-full'
+                  class='h-10 w-10 rounded-full ring-2 ring-blue-200 object-cover'
                   src='/images/whyyoutouzhele.jpg'
-                  alt=''
+                  alt='李老师不是你老师头像'
+                  loading='lazy'
+                  width='40'
+                  height='40'
                 />
               </div>
               <div class='min-w-0 flex-1'>
-                <p class='text-xl font-bold text-gray-900'>
-                  <a href='' class=''>李老师不是你老师 @whyyoutouzhele</a>
-                </p>
-                <p class='text-lg text-gray-500'>
-                  <a href='#' class=''>北京时间{{this.createdDate}}发布</a>
-                </p>
-              </div>
-              <div class='flex flex-shrink-0 self-center'>
-                <div class='relative inline-block text-left'>
-                  <div
-                    class='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none'
-                    role='menu'
-                    aria-orientation='vertical'
-                    aria-labelledby='menu-0-button'
-                    tabindex='-1'
-                  ></div>
-                </div>
+                <h3 class='text-lg font-bold text-gray-900 truncate' itemprop='author'>
+                  李老师不是你老师 
+                  <span class='text-blue-600 font-normal'>@whyyoutouzhele</span>
+                </h3>
+                <time 
+                  class='text-sm text-gray-500 block'
+                  datetime='{{this.createdDate}}'
+                  itemprop='datePublished'>
+                  🕒 北京时间 {{this.createdDate}} 发布
+                </time>
               </div>
             </div>
+          </header>
+          
+          <!-- Tweet content with better typography -->
+          <div class='px-4 py-5 sm:px-6'>
+            <div class='prose prose-lg max-w-none' itemprop='text'>
+              <p class='text-gray-800 leading-relaxed whitespace-pre-wrap'>{{this.content}}</p>
+            </div>
           </div>
-          <div class='px-4 pb-5 text-2xl font-semibold sm:p-6 sm:pt-0'>
-            <p>{{this.content}}</p>
-          </div>
-          <ul
-            role='list'
-            class='grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 lg:grid-cols-2 xl:gap-x-4'
-          >
-            {{#each this.allImages}}
-              <li class='relative'>
-                <div
-                  class='group aspect-h-7 aspect-w-10 block w-full h-2/5 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'
-                >
-                  <img
-                    src='/resource{{this}}'
-                    alt=''
-                    class='pointer-events-none object-cover'
-                    width='w-full'
-                    height='h-full'
-                  />
-                </div>
-              </li>
-            {{/each}}
-          </ul>
-        </div>
+          
+          <!-- Images with responsive grid and lazy loading -->
+          {{#if this.allImages}}
+            <div class='px-4 pb-5 sm:px-6'>
+              <div 
+                class='grid gap-3 grid-cols-1 sm:grid-cols-2'
+                role='img'
+                aria-label='推文图片'>
+                {{#each this.allImages}}
+                  <div class='relative group'>
+                    <div class='aspect-w-16 aspect-h-9 rounded-lg overflow-hidden bg-gray-100'>
+                      <img
+                        src='/resource{{this}}'
+                        alt='推文图片 {{@index}}'
+                        class='object-cover w-full h-full group-hover:scale-105 transition-transform duration-300'
+                        loading='lazy'
+                        decoding='async'
+                      />
+                    </div>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          {{/if}}
+        </article>
       {{/each}}
     </div>
-
-  </div>
-  <div class='flex justify-center mt-10 mb-10'>
-    <div class='text-lg font-bold'>
-      <h1>如果以上无法使用， 使用V2Ray系列或Outline, 订阅链接</h1>
-      <h1
-      >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</h1>
+  </section>
+  <!-- Footer with V2Ray information -->
+  <footer class='mt-12 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl p-6'>
+    <div class='text-center space-y-4'>
+      <h2 class='text-xl font-bold text-yellow-400'>🔧 备用方案</h2>
+      <div class='space-y-2'>
+        <p class='text-lg font-semibold'>如果以上无法使用，使用 V2Ray 系列或 Outline</p>
+        <div class='bg-gray-700 rounded-lg p-4 break-all'>
+          <p class='text-sm text-gray-300 mb-2'>V2Ray订阅链接:</p>
+          <code class='text-green-400 text-sm sm:text-base block mb-2'>
+            https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
+          </code>
+          
+        </div>
+        <div class='bg-gray-700 rounded-lg p-4 break-all'>
+          <p class='text-sm text-gray-300 mb-2'>Clash订阅链接:</p>
+          <code class='text-green-400 text-sm sm:text-base block mb-2'>
+            https://raw.githubusercontent.com/hello-world-1989/cn-news/refs/heads/main/clash.yaml
+          </code>
+          
+        </div>
+      </div>
     </div>
-  </div>
+  </footer>
 </main>
+</div>
+
+<!-- Performance optimization: Add preload hints -->
+<link rel='preload' href='/images/whyyoutouzhele.jpg' as='image' type='image/jpeg'>
+
+<!-- HTML2PDF Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+  async function downloadPDF() {
+    const element = document.getElementById('pdf-content');
+    
+    if (!element) {
+      console.error('PDF content element not found');
+      alert('PDF content not found. Please try again.');
+      return;
+    }
+    
+    console.log('Starting PDF generation...');
+    
+    // Temporarily hide the download button for PDF
+    const downloadButton = document.querySelector('button[onclick="downloadPDF();"]');
+    const originalButtonText = downloadButton ? downloadButton.textContent : '';
+    if (downloadButton) {
+      downloadButton.textContent = '生成中...';
+      downloadButton.disabled = true;
+    }
+    
+    try {
+      // Wait for all images to load
+      await waitForImages(element);
+      
+      // Hide buttons in the original element temporarily
+      const buttons = element.querySelectorAll('button');
+      buttons.forEach(btn => btn.style.display = 'none');
+      
+      // Scroll to top to ensure proper rendering
+      window.scrollTo(0, 0);
+      
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `tweets-${new Date().toISOString().split('T')[0]}.pdf`,
+        image: { 
+          type: 'jpeg', 
+          quality: 0.95 
+        },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          logging: true,
+          letterRendering: true,
+          removeContainer: true,
+          foreignObjectRendering: true
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait' 
+        },
+        pagebreak: { 
+          mode: ['avoid-all', 'css', 'legacy'],
+          before: '.tweet-page-break',
+          after: '.tweet-page-break'
+        }
+      };
+
+      console.log('Generating PDF with options:', opt);
+      console.log('Element dimensions:', {
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+        scrollHeight: element.scrollHeight
+      });
+      
+      await html2pdf().set(opt).from(element).save();
+      
+      console.log('PDF generated successfully');
+      
+    } catch (error) {
+      console.error('PDF generation failed:', error);
+      alert('PDF generation failed. Please try again.');
+    } finally {
+      // Restore the buttons
+      const buttons = element.querySelectorAll('button');
+      buttons.forEach(btn => btn.style.display = '');
+      
+      // Restore the download button
+      if (downloadButton) {
+        downloadButton.textContent = originalButtonText;
+        downloadButton.disabled = false;
+      }
+    }
+  }
+  
+  function waitForImages(element) {
+    return new Promise((resolve) => {
+      const images = element.querySelectorAll('img');
+      if (images.length === 0) {
+        console.log('No images to wait for');
+        resolve();
+        return;
+      }
+      
+      let loadedCount = 0;
+      const totalImages = images.length;
+      
+      console.log(`Waiting for ${totalImages} images to load`);
+      
+      const checkComplete = () => {
+        if (loadedCount >= totalImages) {
+          console.log(`All images processed: ${loadedCount}/${totalImages}`);
+          resolve();
+        }
+      };
+      
+      images.forEach((img, index) => {
+        if (img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
+          loadedCount++;
+          console.log(`Image ${index + 1} already loaded (${img.src})`);
+          checkComplete();
+        } else {
+          // Create a new image to force loading
+          const newImg = new Image();
+          newImg.crossOrigin = 'anonymous';
+          
+          newImg.onload = () => {
+            loadedCount++;
+            console.log(`Image ${index + 1} loaded successfully (${loadedCount}/${totalImages})`);
+            img.src = newImg.src; // Update the original image
+            checkComplete();
+          };
+          
+          newImg.onerror = () => {
+            loadedCount++;
+            console.log(`Image ${index + 1} failed to load: ${img.src} (${loadedCount}/${totalImages})`);
+            checkComplete();
+          };
+          
+          // Start loading
+          newImg.src = img.src;
+        }
+      });
+      
+      // Fallback timeout - reduced to 3 seconds for faster processing
+      setTimeout(() => {
+        console.log(`Image loading timeout: ${loadedCount}/${totalImages} loaded, proceeding with PDF generation`);
+        resolve();
+      }, 3000);
+    });
+  }
+</script>
+
+<style>
+  /* Critical CSS for improved performance */
+  .tweets-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Smooth scrolling for better UX */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* PDF content styling */
+  #pdf-content {
+    background: white;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Ensure images are visible in PDF */
+  #pdf-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure text content is visible */
+  #pdf-content * {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Better font rendering for PDF */
+  #pdf-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Print styles for PDF generation */
+  @media print {
+    header, footer, button {
+      display: none !important;
+    }
+    
+    .tweets-container {
+      max-width: none;
+    }
+    
+    article {
+      break-inside: avoid;
+      margin-bottom: 2rem;
+    }
+  }
+  
+  /* Enhanced mobile responsiveness */
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    article {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+</style>

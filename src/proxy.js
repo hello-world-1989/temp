@@ -39,6 +39,15 @@ const hbs = create({
     mod(a, b) {
       return a % b;
     },
+    gt(a, b) {
+      return a > b;
+    },
+    eq(a, b) {
+      return a === b;
+    },
+    lt(a, b) {
+      return a < b;
+    },
   },
 });
 
