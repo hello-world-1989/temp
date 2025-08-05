@@ -1,22 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <script src="./tailwindcss.js"></script>
     <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>
-      常见问题 推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
-    </title>
-    <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
-    />
-    <meta
-      name="keywords"
-      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
-    />
+    <link rel="apple-touch-icon" href="images/default.png" />
+    
+    <!-- SEO Meta Tags -->
+    <title>重要事件时间线 - 推墙运动历史记录 | 完全免费翻墙软件</title>
+    <meta name="description" content="浏览重要历史事件时间线，了解推墙运动发展历程。提供完全免费翻墙软件，支持科学上网、自由访问互联网。包含最新VPN、代理工具和翻墙技术。" />
+    <meta name="keywords" content="历史事件,时间线,推墙运动,翻墙软件,科学上网,VPN,代理,免费翻墙,GFW,防火墙,v2ray,shadowsocks,自由上网" />
+    <meta name="author" content="推墙运动" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="/events.html" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="重要事件时间线 - 推墙运动历史记录" />
+    <meta property="og:description" content="浏览重要历史事件时间线，了解推墙运动发展历程。提供完全免费翻墙软件，支持科学上网。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/events.html" />
+    <meta property="og:image" content="images/default.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="重要事件时间线 - 推墙运动历史记录" />
+    <meta name="twitter:description" content="浏览重要历史事件时间线，了解推墙运动发展历程。" />
 
     <script>
       fetch('header.html')
@@ -70,73 +83,182 @@
       }
     </script>
   </head>
-  <body>
+  <body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+    <!-- Loading Spinner -->
+    <div id="loading" class="fixed inset-0 bg-white bg-opacity-80 flex items-center justify-center z-50">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+    </div>
+    
     <div id="header"></div>
-    <main>
-      <div
-        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pt-12 lg:max-w-7xl lg:px-8"
-      >
-        <div
-          id="event-group"
-          class="pt-12 lg:pt-0 lg:grid lg:grid-cols-12 lg:gap-8 mt-10"
-        ></div>
-      </div>
+    
+    <!-- Main Content -->
+    <main class="relative">
+      <!-- Hero Section -->
+      <section class="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white py-12 sm:py-16 mt-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+            重要事件时间线
+          </h1>
+          <p class="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            记录历史，见证变迁。浏览重要事件的发展脉络，了解社会进步的足迹。
+          </p>
+        </div>
+      </section>
+
+      <!-- Content Section -->
+      <section class="py-8 sm:py-12 lg:py-16">
+        <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <!-- Year Navigation -->
+          <div class="mb-8 sm:mb-12">
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
+              <a href="/events2022.html" 
+                 class="px-4 py-2 bg-white text-indigo-600 font-medium rounded-lg shadow-md hover:shadow-lg hover:bg-indigo-50 transition-all duration-200 text-sm sm:text-base">
+                2022年
+              </a>
+              <a href="/events2023.html" 
+                 class="px-4 py-2 bg-white text-indigo-600 font-medium rounded-lg shadow-md hover:shadow-lg hover:bg-indigo-50 transition-all duration-200 text-sm sm:text-base">
+                2023年
+              </a>
+              <a href="/events2024.html" 
+                 class="px-4 py-2 bg-white text-indigo-600 font-medium rounded-lg shadow-md hover:shadow-lg hover:bg-indigo-50 transition-all duration-200 text-sm sm:text-base">
+                2024年
+              </a>
+              <span class="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg shadow-md text-sm sm:text-base">
+                当前年份
+              </span>
+            </div>
+          </div>
+
+          <!-- Events Container -->
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div id="event-group" class="divide-y divide-gray-100">
+              <!-- Loading content will be inserted here -->
+              <div class="p-6 sm:p-8 text-center text-gray-500">
+                <div class="animate-pulse">
+                  <div class="h-4 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
+                  <div class="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
     <div id="footer"></div>
 
     <script>
+      // Enhanced mobile-friendly script with better error handling and UI
       async function getEvent(year) {
+        const loadingElement = document.getElementById('loading');
+        const eventGroupElement = document.getElementById('event-group');
+        
         let temp = [];
 
         try {
           const res = await fetch(`/event?year=${year}`);
-
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
           temp = await res.json();
         } catch (err) {
-          console.error('error loading data');
+          console.error('Error loading data:', err);
+          eventGroupElement.innerHTML = `
+            <div class="p-6 sm:p-8 text-center">
+              <div class="text-red-500 mb-4">
+                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.696-.833-2.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">加载失败</h3>
+              <p class="text-gray-600 mb-4">无法加载事件数据，请稍后重试</p>
+              <button onclick="location.reload()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                重新加载
+              </button>
+            </div>
+          `;
+          return;
         }
 
         const data = temp;
 
-        const eventGroupElement = document.getElementById('event-group');
-
         const elements = data.map((item, i) => {
           const currentYearMonth = item?.date + '';
-
           const year = currentYearMonth?.slice(0, 4);
           const month = currentYearMonth?.slice(4);
 
           let element = '';
 
-          if (i == 0) {
-            element = `<div class="flex justify-center col-span-12"> <a target="_blank" class="font-semibold text-indigo-600" href="/tweet-page?year=${year}&id=whyyoutouzhele">查看${year}年度浏览量最多推文</a></div>`;
+          if (i === 0) {
+            element = `
+              <div class="p-6 sm:p-8 bg-gradient-to-r from-indigo-50 to-blue-50">
+                <div class="text-center">
+                  <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">${year}年度事件回顾</h2>
+                  <a target="_blank" 
+                     class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1" 
+                     href="/tweet-page?year=${year}&id=whyyoutouzhele">
+                    <span>查看${year}年度浏览量最多推文</span>
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            `;
           }
 
+          const keywords = item?.data?.map((a) => a.keyword) || [];
+          const keywordTags = keywords.map(keyword => 
+            `<span class="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full mr-1 mb-1">${keyword}</span>`
+          ).join('');
+          
+          const moreCount = keywords.length > 50 ? keywords.length - 8 : 0;
+          
           element += `
-          
-          <dt
-            class="text-base font-semibold leading-7 text-black lg:col-span-5"
-          >
-            ${year}年${month}月
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0 text-black">
-            <a target="_blank" class="font-semibold text-indigo-600" href="/tweet-page?year=${year}&month=${month}&id=whyyoutouzhele">查看${month}月度浏览量最多推文</a>
-            <br></br>
-            <p>${item?.data?.map((a) => a.keyword)?.join(',')}</p>
-          </dd>
-          
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+                <div class="sm:w-1/3">
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-900 flex items-center">
+                    <span class="w-2 h-2 bg-indigo-600 rounded-full mr-3"></span>
+                    ${year}年${month}月
+                  </h3>
+                </div>
+                <div class="sm:w-2/3">
+                  <div class="mb-4">
+                    <a target="_blank" 
+                       class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-semibold text-sm sm:text-base transition-colors duration-200" 
+                       href="/tweet-page?year=${year}&month=${month}&id=whyyoutouzhele">
+                      查看${month}月度浏览量最多推文
+                      <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                      </svg>
+                    </a>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex flex-wrap">
+                      ${keywordTags}
+                      ${moreCount > 0 ? `<span class="inline-block px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full">+${moreCount}更多</span>` : ''}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           `;
 
           return element;
         });
 
         eventGroupElement.innerHTML = elements.join('');
+        
+        // Hide loading spinner
+        if (loadingElement) {
+          loadingElement.style.display = 'none';
+        }
       }
 
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-
-      getEvent(currentYear);
+      // Initialize the page
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        getEvent(currentYear);
+      });
     </script>
   </body>
 </html>

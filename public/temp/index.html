@@ -545,10 +545,10 @@
             <svg class="w-5 h-5 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
             </svg>
-            最近日期
+            最近新闻
           </h3>
           <nav
-            class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2"
+            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-2"
             aria-label="日期导航"
             id="page-group"
           ></nav>
@@ -610,7 +610,7 @@
       function getLast7Days() {
         var today = new Date();
         var last7Days = [];
-        for (var i = 0; i < 28; i++) {
+        for (var i = 0; i < 12; i++) {
           var day = new Date(today);
           day.setDate(today.getDate() - i);
           last7Days.push(formatDate(day));

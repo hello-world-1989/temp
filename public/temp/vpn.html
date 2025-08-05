@@ -1,338 +1,657 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./tailwindcss.js"></script>
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="color-scheme" content="light" />
+    
+    <!-- SEO Meta Tags -->
+    <title>免费翻墙软件下载 - VPN科学上网工具 | 大翻墙运动</title>
+    <meta name="description" content="提供最新免费翻墙软件下载，支持Android、iOS、Windows、Mac、Linux系统。安全稳定的VPN科学上网工具，突破网络封锁，自由访问互联网。" />
+    <meta name="keywords" content="免费翻墙软件,VPN下载,科学上网,翻墙工具,代理软件,Shadowsocks,V2Ray,Trojan,突破网络封锁,自由上网" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="免费翻墙软件下载 - VPN科学上网工具" />
+    <meta property="og:description" content="提供最新免费翻墙软件下载，支持多平台，安全稳定的科学上网解决方案。" />
+    <meta property="og:image" content="images/default.png" />
+    <meta property="og:url" content="https://end-gfw.com/vpn.html" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="免费翻墙软件下载 - VPN科学上网工具" />
+    <meta name="twitter:description" content="提供最新免费翻墙软件下载，支持多平台，安全稳定的科学上网解决方案。" />
+    <meta name="twitter:image" content="images/default.png" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "免费翻墙软件下载",
+      "description": "提供最新免费翻墙软件下载，支持多平台系统",
+      "url": "https://end-gfw.com/vpn.html",
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "翻墙软件集合",
+        "operatingSystem": ["Android", "iOS", "Windows", "macOS", "Linux"],
+        "applicationCategory": "SecurityApplication"
+      }
+    }
+    </script>
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>
-      大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆墙运动 普及翻墙
-      完全免费翻墙软件
-    </title>
-    <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
-    />
-    <meta
-      name="keywords"
-      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
-    />
+    <link rel="apple-touch-icon" href="images/default.png" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./tailwindcss.js" as="script" />
+    <link rel="preload" href="header.html" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="footer.html" as="fetch" crossorigin="anonymous" />
+    
+    <script src="./tailwindcss.js"></script>
+    
+    <!-- Custom CSS for enhanced styling -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        .animate-fade-in {
+          animation: fadeIn 0.6s ease-in-out;
+        }
+        .animate-slide-up {
+          animation: slideUp 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      }
+      
+      .platform-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .platform-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      
+      .platform-card.selected {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      
+      .app-card {
+        transition: all 0.3s ease;
+      }
+      
+      .app-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .section-title {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .download-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+      }
+      
+      .download-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px -5px rgba(102, 126, 234, 0.4);
+      }
+      
+      .hero-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      .loading-skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+      
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+    </style>
 
     <script>
-      fetch('header.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('header').innerHTML = text;
+      // Enhanced header/footer loading with error handling
+      async function loadComponent(url, elementId) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          const text = await response.text();
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.innerHTML = text;
+            return true;
+          }
+        } catch (error) {
+          console.error(`Failed to load ${url}:`, error);
+          return false;
+        }
+      }
 
+      async function initializeComponents() {
+        // Load header
+        const headerLoaded = await loadComponent('header.html', 'header');
+        if (headerLoaded) {
           const mobileHeader = document.getElementById('mobile-header');
           const closeMenu = document.getElementById('close-menu');
           const openMenu = document.getElementById('open-menu');
 
-          mobileHeader.classList.add('hidden');
-
-          closeMenu.onclick = () => {
+          if (mobileHeader && closeMenu && openMenu) {
             mobileHeader.classList.add('hidden');
-          };
+            closeMenu.onclick = () => mobileHeader.classList.add('hidden');
+            openMenu.onclick = () => mobileHeader.classList.remove('hidden');
+          }
+        }
 
-          openMenu.onclick = () => {
-            mobileHeader.classList.remove('hidden');
-          };
-        });
-
-      fetch('footer.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('footer').innerHTML = text;
-
+        // Load footer
+        const footerLoaded = await loadComponent('footer.html', 'footer');
+        if (footerLoaded) {
           const currentYearSpan = document.getElementById('currentYear');
-          const currentDate = new Date();
-          const currentYear = currentDate.getFullYear();
-          currentYearSpan.textContent = currentYear;
-        });
+          if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+          }
+        }
+      }
+
+      // Initialize when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeComponents);
+      } else {
+        initializeComponents();
+      }
     </script>
     <script>
+      // Enhanced ad loading with better performance and error handling
       const currentDomain = window.location.hostname;
+      const allowedDomains = ['end-gfw.com', 'vpn.ban-gfw.com'];
 
-      // Check the domain and conditionally add the script
-      if (
-        currentDomain === 'end-gfw.com' ||
-        currentDomain === 'vpn.ban-gfw.com'
-      ) {
+      if (allowedDomains.includes(currentDomain)) {
         const script = document.createElement('script');
-        script.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308'; // Replace with your script URL
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
         script.type = 'text/javascript';
         script.async = true;
-        script.crossorigin = 'anonymous';
-
-        // Append the script to the document head or body
+        script.crossOrigin = 'anonymous';
+        script.onerror = () => console.warn('AdSense script failed to load');
         document.head.appendChild(script);
       }
     </script>
   </head>
-  <body>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded">
+      跳转到主要内容
+    </a>
+    
     <div id="header"></div>
-    <main>
-      <div class="mx-auto w-full flex items-center justify-center">
-        <fieldset class="mt-20">
-          <legend class="sr-only"></legend>
-          <div class="grid grid-cols-3 gap-3 sm:grid-cols-5" id="os-group">
-            <!-- Memory Options will be added here using JavaScript -->
+    
+    <!-- Loading spinner -->
+    <div id="loading-spinner" class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50 hidden">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+    </div>
+    
+    <main id="main-content" class="animate-fade-in">
+      <!-- Hero Section -->
+      <section class="hero-gradient text-white py-16 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-slide-up">
+            免费翻墙软件下载
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 opacity-90 animate-slide-up" style="animation-delay: 0.2s">
+            安全、稳定、免费的科学上网解决方案
+          </p>
+          <p class="text-lg opacity-80 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.4s">
+            支持 Android、iOS、Windows、Mac、Linux 多平台，突破网络封锁，自由访问互联网
+          </p>
+        </div>
+      </section>
+
+      <!-- Platform Selection -->
+      <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">选择您的设备平台</h2>
+            <p class="text-lg text-gray-600">点击下方图标选择对应的操作系统</p>
           </div>
-        </fieldset>
-      </div>
+          
+          <fieldset class="w-full flex items-center justify-center" aria-label="选择操作系统">
+            <legend class="sr-only">操作系统选择</legend>
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 max-w-4xl w-full" id="os-group">
+              <!-- Platform options will be added here using JavaScript -->
+            </div>
+          </fieldset>
+        </div>
+      </section>
 
-      <h1
-        class="mx-auto w-full flex items-center justify-center my-10 text-2xl font-bold leading-10 tracking-tight text-gray-900"
-      >
-        翻墙软件
-      </h1>
+      <!-- VPN Apps Section -->
+      <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold section-title mb-4">翻墙软件</h2>
+            <p class="text-lg text-gray-600">精选的免费翻墙工具，安全可靠</p>
+          </div>
+          
+          <!-- Loading skeleton -->
+          <div id="vpn-loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+          </div>
+          
+          <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 hidden" id="vpn-list" aria-label="翻墙软件列表"></ul>
+        </div>
+      </section>
 
-      <ul
-        role="list"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        id="vpn-list"
-      ></ul>
-
-      <h1
-        class="mx-auto w-full flex items-center justify-center my-10 text-2xl font-bold leading-10 tracking-tight text-gray-900"
-      >
-        无审查软件
-      </h1>
-
-      <ul
-        role="list"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        id="e2e-list"
-      ></ul>
-
-      <!-- FAQs -->
+      <!-- E2E Apps Section -->
+      <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold section-title mb-4">无审查软件</h2>
+            <p class="text-lg text-gray-600">端到端加密的通信工具，保护您的隐私</p>
+          </div>
+          
+          <!-- Loading skeleton -->
+          <div id="e2e-loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+            <div class="loading-skeleton h-64 rounded-lg"></div>
+          </div>
+          
+          <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 hidden" id="e2e-list" aria-label="无审查软件列表"></ul>
+        </div>
+      </section>
     </main>
-
-    <!-- <div id="footer"></div> -->
 
     <!-- Footer -->
     <div id="footer"></div>
 
     <script type="module">
+      // Enhanced OS types with better icons and descriptions
       const osTypes = [
         {
           id: 'android',
           name: '安卓手机',
           icon: 'images/android.svg',
+          description: 'Android 手机和平板'
         },
         {
           id: 'windows',
           name: '微软电脑',
           icon: 'images/windows.svg',
+          description: 'Windows 桌面系统'
         },
         {
           id: 'ios',
           name: '苹果手机',
           icon: 'images/ios.svg',
+          description: 'iPhone 和 iPad'
         },
         {
           id: 'mac',
           name: '苹果电脑',
           icon: 'images/mac.svg',
+          description: 'macOS 桌面系统'
         },
         {
           id: 'linux',
           name: 'Linux电脑',
           icon: 'images/linux.svg',
+          description: 'Linux 发行版'
         },
       ];
 
+      // Enhanced API functions with better error handling and caching
+      const cache = new Map();
+      
+      async function fetchWithCache(url, cacheKey) {
+        if (cache.has(cacheKey)) {
+          return cache.get(cacheKey);
+        }
+        
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          cache.set(cacheKey, data);
+          return data;
+        } catch (error) {
+          console.error(`Failed to fetch ${url}:`, error);
+          return null;
+        }
+      }
+
       async function getVPN() {
-        const response = await fetch('/vpn-data');
-        const vpn = await response.json();
-        return vpn;
+        return await fetchWithCache('/vpn-data', 'vpn');
       }
 
       async function getE2E() {
-        const response = await fetch('/ee-data');
-
-        const e2e = await response.json();
-
-        return e2e;
+        return await fetchWithCache('/ee-data', 'e2e');
       }
 
+      // Utility functions
       function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
       }
 
-      function addLiElement(activeVPN, vpnGroup) {
-        activeVPN.map((item) => {
-          const vpnLiElement = document.createElement('li');
-          vpnLiElement.className =
-            'col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow';
+      function sanitizeText(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
 
-          vpnLiElement.innerHTML = `<div class="flex flex-1 flex-col p-8">
-          <img
-            class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
-            src="${item.image}"
-            alt=""
-          />
-          <h3 class="mt-6 text-sm font-medium text-gray-900">${item.name}</h3>
-          <dl class="mt-1 flex flex-grow flex-col justify-between">
-            <dd class="text-sm text-gray-500">${item.comment}</dd>
-                <dd class='mt-3'>
+      // Enhanced app card creation with better accessibility and modern design
+      function createAppCard(item) {
+        const card = document.createElement('li');
+        card.className = 'app-card col-span-1 flex flex-col divide-y divide-gray-200 rounded-xl bg-white text-center shadow-sm hover:shadow-lg transition-all duration-300';
+        
+        const sanitizedName = sanitizeText(item.name);
+        const sanitizedComment = sanitizeText(item.comment);
+        
+        card.innerHTML = `
+          <div class="flex flex-1 flex-col p-6">
+            <img
+              class="mx-auto h-24 w-24 flex-shrink-0 rounded-2xl object-cover bg-gray-100"
+              src="${item.image}"
+              alt="${sanitizedName} 图标"
+              loading="lazy"
+              onerror="this.src='images/default.png'"
+            />
+            <h3 class="mt-4 text-lg font-semibold text-gray-900">${sanitizedName}</h3>
+            <dl class="mt-2 flex flex-grow flex-col justify-between">
+              <dd class="text-sm text-gray-600 leading-relaxed">${sanitizedComment}</dd>
+              <dd class="mt-4 space-y-2">
+                ${item.mainLink ? `
                   <a
-                    href='${item?.mainLink}'
-                    class='inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'
+                    href="${item.mainLink}"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="访问 ${sanitizedName} 官网"
                   >
-                    ${item.mainLink ? item?.mainText ?? '官网自助下载' : ''}
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                    ${item.mainText || '官网下载'}
                   </a>
-
-                  ${
-                    item.helpLink
-                      ? `
-                      <a
-                        href='${item.helpLink}'
-                        class='inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'
-                        target='_blank'
-                        >
-                        ${item.helpLink ? item.helpText : ''}
-                      </a>`
-                      : `<div></div>`
-                  }
-                </dd>
-          </dl>
-        </div>
-        <div>
-          <div class="-mt-px flex divide-x divide-gray-200">
-            <div class="-ml-px flex w-0 flex-1">
-              <a
-                href="${item.link2}"
-                class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-              >
-
-                Github HTTPS下载
-              </a>
-            </div>
-            <div class="flex w-0 flex-1">
-              <a
-                href="${item.link1}"
-                class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-              >
-
-                免墙HTTP下载
-              </a>
-            </div>
-            
+                ` : ''}
+                
+                ${item.helpLink ? `
+                  <a
+                    href="${item.helpLink}"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="${sanitizedName} 帮助文档"
+                  >
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    ${item.helpText || '使用帮助'}
+                  </a>
+                ` : ''}
+              </dd>
+            </dl>
           </div>
-        </div>`;
-
-          vpnGroup.appendChild(vpnLiElement);
-        });
+          <div>
+            <div class="-mt-px flex divide-x divide-gray-200">
+              <div class="flex w-0 flex-1">
+                <a
+                  href="${item.link2}"
+                  class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-2 rounded-bl-xl border border-transparent py-4 text-sm font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="通过 GitHub 下载 ${sanitizedName}"
+                >
+                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  GitHub 下载
+                </a>
+              </div>
+              <div class="-ml-px flex w-0 flex-1">
+                <a
+                  href="${item.link1}"
+                  class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-2 rounded-br-xl border border-transparent py-4 text-sm font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="通过免墙链接下载 ${sanitizedName}"
+                >
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  免墙下载
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        return card;
       }
 
-      const radioGroup = document.getElementById('os-group');
-      const vpnGroup = document.getElementById('vpn-list');
-      const e2eGroup = document.getElementById('e2e-list');
-
-      let vpn;
-      let e2e;
-      let activeVPN;
-      let activeE2E;
-
-      try {
-        e2e = await getE2E();
-      } catch (err) {
-        console.log('load e2e json error', err);
-      }
-
-      try {
-        vpn = await getVPN();
-      } catch (err) {
-        console.log('load vpn json error', err);
-      }
-
-      if (vpn) {
-        activeVPN = vpn
-          ?.filter((item) => item.os == 'android')
-          ?.sort((a, b) => b.star - a.star);
-
-        addLiElement(activeVPN, vpnGroup);
-      }
-
-      if (e2e) {
-        activeE2E = e2e
-          ?.filter((item) => item.os == 'android')
-          ?.sort((a, b) => b.star - a.star);
-        addLiElement(activeE2E, e2eGroup);
-      }
-
-      osTypes.forEach((option, i) => {
-        const osGroupElement = document.createElement('div');
-
-        osGroupElement.className = classNames(
-          'cursor-pointer focus:outline-none',
-          'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1'
+      // Enhanced platform selection with better UX
+      function createPlatformCard(option, index, isSelected = false) {
+        const card = document.createElement('div');
+        card.className = classNames(
+          'platform-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+          'flex flex-col items-center justify-center rounded-xl py-4 px-3 text-sm font-semibold transition-all duration-300',
+          'hover:shadow-md active:scale-95',
+          isSelected 
+            ? 'selected bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg' 
+            : 'bg-white text-gray-700 border border-gray-200 hover:border-indigo-300'
         );
 
-        osGroupElement.className +=
-          i == 0
-            ? ' selected bg-indigo-600 text-white hover:bg-indigo-500'
-            : ' ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50';
-
-        osGroupElement.innerHTML = `
-          <p>
-            <img src='${option.icon}' /> 
-            <span>${option.name}</span>
-          </p>
+        card.innerHTML = `
+          <img 
+            src="${option.icon}" 
+            alt="${option.name}" 
+            class="h-8 w-8 mb-2 transition-transform duration-200 group-hover:scale-110"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          />
+          <span class="text-center leading-tight">${option.name}</span>
+          <span class="text-xs opacity-75 mt-1 text-center">${option.description}</span>
         `;
 
-        osGroupElement.id = option.id;
+        card.id = option.id;
+        card.setAttribute('role', 'radio');
+        card.setAttribute('aria-checked', isSelected.toString());
+        card.setAttribute('tabindex', isSelected ? '0' : '-1');
+        card.setAttribute('aria-label', `选择 ${option.name} (${option.description})`);
 
-        osGroupElement.onclick = () => {
-          const selectedOption = radioGroup.querySelector('.selected');
-          if (selectedOption) {
-            selectedOption.classList.remove('selected');
-            selectedOption.classList.remove('bg-indigo-600');
-            selectedOption.classList.remove('text-white');
-            selectedOption.classList.remove('hover:bg-indigo-500');
+        return card;
+      }
 
-            selectedOption.classList.add('bg-white');
-            selectedOption.classList.add('text-gray-900');
-            selectedOption.classList.add('hover:bg-gray-50');
-            selectedOption.classList.add('ring-1');
-            selectedOption.classList.add('ring-inset');
-            selectedOption.classList.add('ring-gray-300');
+      // Enhanced loading and rendering functions
+      function showLoading(show = true) {
+        const spinner = document.getElementById('loading-spinner');
+        const vpnLoading = document.getElementById('vpn-loading');
+        const e2eLoading = document.getElementById('e2e-loading');
+        const vpnList = document.getElementById('vpn-list');
+        const e2eList = document.getElementById('e2e-list');
+
+        if (show) {
+          spinner?.classList.remove('hidden');
+          vpnLoading?.classList.remove('hidden');
+          e2eLoading?.classList.remove('hidden');
+          vpnList?.classList.add('hidden');
+          e2eList?.classList.add('hidden');
+        } else {
+          spinner?.classList.add('hidden');
+          vpnLoading?.classList.add('hidden');
+          e2eLoading?.classList.add('hidden');
+          vpnList?.classList.remove('hidden');
+          e2eList?.classList.remove('hidden');
+        }
+      }
+
+      function renderApps(apps, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Clear existing content
+        container.innerHTML = '';
+        
+        if (!apps || apps.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <h3 class="mt-2 text-sm font-medium text-gray-900">暂无可用软件</h3>
+              <p class="mt-1 text-sm text-gray-500">该平台暂时没有可用的软件，请选择其他平台。</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Sort by rating and render
+        const sortedApps = apps.sort((a, b) => (b.star || 0) - (a.star || 0));
+        const fragment = document.createDocumentFragment();
+        
+        sortedApps.forEach(app => {
+          const card = createAppCard(app);
+          fragment.appendChild(card);
+        });
+        
+        container.appendChild(fragment);
+      }
+
+      // Enhanced platform switching with smooth transitions
+      function switchPlatform(selectedId, vpnData, e2eData) {
+        const radioGroup = document.getElementById('os-group');
+        if (!radioGroup) return;
+
+        // Update platform selection UI
+        const cards = radioGroup.querySelectorAll('[role="radio"]');
+        cards.forEach(card => {
+          const isSelected = card.id === selectedId;
+          card.setAttribute('aria-checked', isSelected.toString());
+          card.setAttribute('tabindex', isSelected ? '0' : '-1');
+          
+          if (isSelected) {
+            card.className = card.className.replace(/bg-white.*?border-gray-200/, 'selected bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg');
+          } else {
+            card.className = card.className.replace(/selected.*?shadow-lg/, 'bg-white text-gray-700 border border-gray-200 hover:border-indigo-300');
+          }
+        });
+
+        // Filter and render apps
+        const filteredVPN = vpnData?.filter(item => item.os === selectedId) || [];
+        const filteredE2E = e2eData?.filter(item => item.os === selectedId) || [];
+
+        renderApps(filteredVPN, 'vpn-list');
+        renderApps(filteredE2E, 'e2e-list');
+      }
+
+      // Initialize the application
+      async function initializeApp() {
+        showLoading(true);
+        
+        try {
+          // Load data concurrently
+          const [vpnData, e2eData] = await Promise.all([
+            getVPN(),
+            getE2E()
+          ]);
+
+          // Create platform selection
+          const radioGroup = document.getElementById('os-group');
+          if (radioGroup) {
+            const fragment = document.createDocumentFragment();
+            
+            osTypes.forEach((option, index) => {
+              const isSelected = index === 0; // Default to first option (Android)
+              const card = createPlatformCard(option, index, isSelected);
+              
+              // Add click handler
+              card.addEventListener('click', () => {
+                switchPlatform(option.id, vpnData, e2eData);
+              });
+              
+              // Add keyboard support
+              card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  switchPlatform(option.id, vpnData, e2eData);
+                }
+              });
+              
+              fragment.appendChild(card);
+            });
+            
+            radioGroup.appendChild(fragment);
           }
 
-          const activeVPN = vpn
-            .filter((item) => item.os == osGroupElement.id)
-            .sort((a, b) => b.star - a.star);
+          // Load default platform (Android)
+          switchPlatform('android', vpnData, e2eData);
+          
+        } catch (error) {
+          console.error('Failed to initialize app:', error);
+          // Show error state
+          document.getElementById('vpn-list')?.classList.remove('hidden');
+          document.getElementById('e2e-list')?.classList.remove('hidden');
+        } finally {
+          showLoading(false);
+        }
+      }
 
-          const activeE2E = e2e
-            .filter((item) => item.os == osGroupElement.id)
-            .sort((a, b) => b.star - a.star);
+      // Start the app when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeApp);
+      } else {
+        initializeApp();
+      }
 
-          while (vpnGroup.firstChild) {
-            vpnGroup.removeChild(vpnGroup.firstChild);
-          }
-
-          while (e2eGroup.firstChild) {
-            e2eGroup.removeChild(e2eGroup.firstChild);
-          }
-
-          addLiElement(activeVPN, vpnGroup);
-
-          addLiElement(activeE2E, e2eGroup);
-
-          osGroupElement.classList.add('selected');
-          osGroupElement.classList.add('bg-indigo-600');
-          osGroupElement.classList.add('text-white');
-          osGroupElement.classList.add('hover:bg-indigo-500');
-
-          osGroupElement.classList.remove('bg-white');
-          osGroupElement.classList.remove('text-gray-900');
-          osGroupElement.classList.remove('hover:bg-gray-50');
-        };
-
-        radioGroup.appendChild(osGroupElement);
+      // Add keyboard navigation for platform selection
+      document.addEventListener('keydown', (e) => {
+        const radioGroup = document.getElementById('os-group');
+        if (!radioGroup) return;
+        
+        const focusedCard = document.activeElement;
+        if (!focusedCard?.hasAttribute('role') || focusedCard.getAttribute('role') !== 'radio') return;
+        
+        const cards = Array.from(radioGroup.querySelectorAll('[role="radio"]'));
+        const currentIndex = cards.indexOf(focusedCard);
+        
+        let newIndex = currentIndex;
+        
+        switch (e.key) {
+          case 'ArrowLeft':
+          case 'ArrowUp':
+            e.preventDefault();
+            newIndex = currentIndex > 0 ? currentIndex - 1 : cards.length - 1;
+            break;
+          case 'ArrowRight':
+          case 'ArrowDown':
+            e.preventDefault();
+            newIndex = currentIndex < cards.length - 1 ? currentIndex + 1 : 0;
+            break;
+          default:
+            return;
+        }
+        
+        cards[newIndex].focus();
       });
     </script>
   </body>

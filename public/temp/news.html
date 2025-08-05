@@ -1,378 +1,692 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./tailwindcss.js"></script>
-    <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>
-      新闻 大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆墙运动 普及翻墙
-      完全免费翻墙软件
-    </title>
-    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- SEO Meta Tags -->
+    <title>新闻资讯 | 大翻墙运动 - 自由上网工具与新闻</title>
     <meta
       name="description"
-      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+      content="获取最新的翻墙新闻资讯，了解互联网自由上网动态。提供免费VPN、代理工具和科学上网方法，支持大翻墙运动和信息自由传播。"
     />
     <meta
       name="keywords"
-      content="大翻墙运动 信息倒灌行动 推墙运动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+      content="翻墙新闻,科学上网,VPN,代理服务器,互联网自由,大翻墙运动,免费VPN,翻墙工具,信息自由,网络安全"
     />
+    <meta name="author" content="大翻墙运动" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="新闻资讯 | 大翻墙运动 - 自由上网工具与新闻" />
+    <meta property="og:description" content="获取最新的翻墙新闻资讯，了解互联网自由上网动态。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="images/default.png" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="大翻墙运动" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="新闻资讯 | 大翻墙运动" />
+    <meta name="twitter:description" content="获取最新的翻墙新闻资讯，了解互联网自由上网动态。" />
+    <meta name="twitter:image" content="images/default.png" />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <link rel="apple-touch-icon" href="images/default.png" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./tailwindcss.js" as="script" />
+    <link rel="preload" href="header.html" as="fetch" crossorigin />
+    <link rel="preload" href="footer.html" as="fetch" crossorigin />
+    
+    <!-- TailwindCSS -->
+    <script src="./tailwindcss.js"></script>
+    
+    <!-- Custom CSS for enhanced mobile experience -->
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Loading animation */
+      .loading {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      /* Focus improvements for accessibility */
+      .focus-ring:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+      }
+      
+      /* Image lazy loading placeholder */
+      .img-placeholder {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+      
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      
+      /* Enhanced mobile touch targets */
+      @media (max-width: 768px) {
+        .touch-target {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+    </style>
 
+    <!-- Optimized JavaScript Loading -->
     <script>
-      fetch('header.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('header').innerHTML = text;
+      // Performance optimization: Load critical resources first
+      const loadComponent = async (url, elementId) => {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          const text = await response.text();
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.innerHTML = text;
+            return true;
+          }
+        } catch (error) {
+          console.error(`Failed to load ${url}:`, error);
+          return false;
+        }
+      };
 
-          const mobileHeader = document.getElementById('mobile-header');
-          const closeMenu = document.getElementById('close-menu');
-          const openMenu = document.getElementById('open-menu');
+      // Load header and footer with error handling
+      Promise.all([
+        loadComponent('header.html', 'header'),
+        loadComponent('footer.html', 'footer')
+      ]).then(() => {
+        // Initialize mobile menu after header loads
+        initializeMobileMenu();
+        // Update footer year
+        updateFooterYear();
+      });
 
+      function initializeMobileMenu() {
+        const mobileHeader = document.getElementById('mobile-header');
+        const closeMenu = document.getElementById('close-menu');
+        const openMenu = document.getElementById('open-menu');
+
+        if (mobileHeader && closeMenu && openMenu) {
           mobileHeader.classList.add('hidden');
-
-          closeMenu.onclick = () => {
+          
+          closeMenu.addEventListener('click', () => {
             mobileHeader.classList.add('hidden');
-          };
+          });
 
-          openMenu.onclick = () => {
+          openMenu.addEventListener('click', () => {
             mobileHeader.classList.remove('hidden');
-          };
-        });
+          });
+        }
+      }
 
-      fetch('footer.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('footer').innerHTML = text;
-
-          const currentYearSpan = document.getElementById('currentYear');
-          const currentDate = new Date();
-          const currentYear = currentDate.getFullYear();
-          currentYearSpan.textContent = currentYear;
-        });
+      function updateFooterYear() {
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) {
+          currentYearSpan.textContent = new Date().getFullYear();
+        }
+      }
     </script>
 
+    <!-- Conditional Google AdSense Loading -->
     <script>
       const currentDomain = window.location.hostname;
 
-      // Check the domain and conditionally add the script
       if (
         currentDomain === 'end-gfw.com' ||
         currentDomain === 'vpn.ban-gfw.com'
       ) {
         const script = document.createElement('script');
         script.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308'; // Replace with your script URL
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
         script.type = 'text/javascript';
         script.async = true;
-        script.crossorigin = 'anonymous';
-
-        // Append the script to the document head or body
+        script.crossOrigin = 'anonymous';
+        script.onerror = () => console.log('AdSense failed to load');
         document.head.appendChild(script);
       }
     </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "新闻资讯 | 大翻墙运动",
+      "description": "获取最新的翻墙新闻资讯，了解互联网自由上网动态。",
+      "publisher": {
+        "@type": "Organization",
+        "name": "大翻墙运动"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": ""
+      }
+    }
+    </script>
   </head>
-  <body>
-    <div id="header"></div>
-    <main class="mt-10 mx-4 lg:mx-20">
-      <div class="grid grid-cols-1 gap-x-1 gap-x-2">
-        <div class="">
-          <p id="why-group"></p>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
+      跳转到主要内容
+    </a>
 
-          <nav
-            class="isolate grid grid-cols-5 md:grid-cols-10 -space-x-px rounded-md shadow-sm mt-10"
-            aria-label="Pagination"
-            id="page-group"
-          ></nav>
+    <!-- Header -->
+    <header id="header" role="banner"></header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container mx-auto px-4 py-8 lg:px-6 xl:px-8 max-w-7xl" role="main">
+
+      <!-- Loading State -->
+      <div id="loading-state" class="hidden">
+        <div class="flex items-center justify-center py-12">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <span class="ml-3 text-gray-600">正在加载新闻...</span>
         </div>
       </div>
-      <div class="grid grid-cols-1 gap-x-1 lg:gap-x-8">
-        <div class="mt-10">
-          <div id="tweet">
-            <div class="px-2">
-              <div class="bg-white px-2 py-5 sm:px-2">
-                <div class="flex space-x-3">
+
+      <!-- Content Grid -->
+      <div class="grid grid-cols-1 gap-6 lg:gap-8 mt-5">
+        <!-- Navigation and Controls -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <p id="why-group" class="text-gray-700 mb-6 leading-relaxed"></p>
+
+          <!-- Date Navigation -->
+          <nav
+            class="flex flex-wrap gap-2 justify-center md:justify-start"
+            aria-label="日期导航"
+            id="page-group"
+            role="navigation"
+          ></nav>
+        </div>
+
+        <!-- News Content -->
+        <div class="space-y-6">
+          <div id="tweet" role="feed" aria-label="新闻内容">
+            <!-- Default Loading Content -->
+            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <div class="p-6">
+                <div class="flex items-start space-x-4">
                   <div class="flex-shrink-0">
-                    <img
-                      class="h-10 w-10 rounded-full"
-                      src="images/rfi.jpg"
-                      alt=""
-                    />
+                    <div class="h-12 w-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                      <span class="text-white font-bold text-lg">📻</span>
+                    </div>
                   </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-lg font-bold text-gray-900">
-                      <a href="" class="">法国国际广播 @rfi</a>
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      <a href="#" class="">北京时间0000-00-00 00:00:00发布</a>
-                    </p>
-                  </div>
-                  <div class="flex flex-shrink-0 self-center">
-                    <div class="relative inline-block text-left">
-                      <div
-                        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="menu-0-button"
-                        tabindex="-1"
-                      ></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <h2 class="text-xl font-bold text-gray-900">法国国际广播 @rfi</h2>
+                      <time class="text-sm text-gray-500" datetime="">
+                        北京时间 实时更新
+                      </time>
+                    </div>
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                      <p class="text-gray-700 flex items-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        正在更新最新新闻，请稍后查看或浏览昨日新闻...
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-                <p>更新中，请稍后查看...或查看昨日新闻</p>
-              </div>
-            </div>
+            </article>
           </div>
         </div>
       </div>
-    </main>
-    <div id="footer"></div>
 
+      <!-- Back to Top Button -->
+      <button
+        id="back-to-top"
+        class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 transform translate-y-16 opacity-0 focus-ring"
+        aria-label="返回顶部"
+        title="返回顶部"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+      </button>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" role="contentinfo"></footer>
+
+    <!-- Enhanced JavaScript with Performance Optimizations -->
     <script>
       let isEmpty = false;
+      let currentController = null; // For cancelling ongoing requests
+
+      // Performance: Cache DOM elements
+      const cache = {
+        pageGroup: null,
+        tweet: null,
+        loadingState: null,
+        backToTop: null
+      };
+
+      // Initialize cache after DOM loads
+      document.addEventListener('DOMContentLoaded', () => {
+        cache.pageGroup = document.getElementById('page-group');
+        cache.tweet = document.getElementById('tweet');
+        cache.loadingState = document.getElementById('loading-state');
+        cache.backToTop = document.getElementById('back-to-top');
+        
+        initializeBackToTop();
+        fetchTweet();
+      });
+
+      function initializeBackToTop() {
+        if (!cache.backToTop) return;
+        
+        // Show/hide back to top button based on scroll
+        let throttleTimer = null;
+        window.addEventListener('scroll', () => {
+          if (throttleTimer) return;
+          
+          throttleTimer = setTimeout(() => {
+            const scrolled = window.pageYOffset > 300;
+            cache.backToTop.style.transform = scrolled ? 'translateY(0)' : 'translateY(4rem)';
+            cache.backToTop.style.opacity = scrolled ? '1' : '0';
+            throttleTimer = null;
+          }, 100);
+        });
+
+        cache.backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
       function getLast7Days() {
-        var utcDate = new Date();
-
-        var last7Days = [];
-        for (var i = 0; i < 10; i++) {
-          var day = new Date(utcDate);
-
+        const utcDate = new Date();
+        const last7Days = [];
+        
+        for (let i = 0; i < 10; i++) {
+          const day = new Date(utcDate);
           day.setDate(day.getDate() - i);
-
           last7Days.push(formatDate(day));
         }
+        
         return last7Days;
       }
 
       function formatDate(date) {
-        var year = '' + date.getUTCFullYear();
-        var month = '' + (date.getUTCMonth() + 1);
-        var day = '' + date.getUTCDate();
+        const year = String(date.getUTCFullYear());
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
 
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        return [year, month, day].join('-');
+      function showLoading(show = true) {
+        if (cache.loadingState) {
+          cache.loadingState.classList.toggle('hidden', !show);
+        }
       }
 
       async function fetchTweet() {
-        const pagesElement = document.getElementById('pages');
+        showLoading(true);
+        
+        try {
+          const dates = getLast7Days();
+          let activeIndex = 0;
 
-        const dates = getLast7Days();
+          // Create date navigation buttons
+          for (let i = 0; i < dates.length; i++) {
+            const date = dates[i];
+            const parts = date.split('-');
+            const button = createDateButton(date, parts, i === 0);
+            
+            if (cache.pageGroup) {
+              cache.pageGroup.appendChild(button);
+            }
 
-        let i = 0;
-        for (const item of dates) {
-          const pageGroupElement = document.createElement('a');
-          const pageGroup = document.getElementById('page-group');
-
-          const parts = item.split('-');
-
-          pageGroupElement.className =
-            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex justify-center px-2 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
-
-          if (i == 0) {
-            await getTweet(parts[0], parts[1], parts[2]);
-
-            if (isEmpty) {
-              const yesterday = dates[i + 1];
-              const parts = yesterday.split('-');
+            // Load first date's content
+            if (i === 0) {
               await getTweet(parts[0], parts[1], parts[2]);
+              
+              if (isEmpty && dates[1]) {
+                const yesterdayParts = dates[1].split('-');
+                await getTweet(yesterdayParts[0], yesterdayParts[1], yesterdayParts[2]);
+                activeIndex = 1;
+                updateActiveButton(dates[1]);
+              }
             }
           }
+        } catch (error) {
+          console.error('Failed to initialize news feed:', error);
+          showErrorMessage('加载新闻时出现错误，请稍后重试。');
+        } finally {
+          showLoading(false);
+        }
+      }
 
-          pageGroupElement.className +=
-            i == 0
-              ? ' bg-indigo-600 text-white selected hover:bg-indigo-500'
-              : ' text-gray-900';
+      function createDateButton(date, parts, isActive) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.id = date;
+        button.setAttribute('aria-label', `查看 ${parts[1]}月${parts[2]}日 的新闻`);
+        
+        const baseClasses = 'touch-target px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus-ring';
+        const activeClasses = 'bg-blue-600 text-white shadow-md hover:bg-blue-700';
+        const inactiveClasses = 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400';
+        
+        button.className = `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
+        button.textContent = `${parts[1]}-${parts[2]}`;
+        
+        if (isActive) {
+          button.classList.add('active');
+        }
 
-          pageGroupElement.id = item;
+        button.addEventListener('click', async () => {
+          if (button.classList.contains('active')) return;
+          
+          showLoading(true);
+          updateActiveButton(date);
+          await getTweet(parts[0], parts[1], parts[2]);
+          showLoading(false);
+        });
 
-          pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
+        return button;
+      }
 
-          pageGroupElement.onclick = () => {
-            const selectedOption = pageGroup.querySelector('.selected');
-            if (selectedOption) {
-              selectedOption.classList.remove('selected');
-              selectedOption.classList.remove('bg-indigo-600');
-              selectedOption.classList.remove('text-white');
-              selectedOption.classList.remove('hover:bg-indigo-500');
+      function updateActiveButton(activeDate) {
+        if (!cache.pageGroup) return;
+        
+        // Remove active state from all buttons
+        cache.pageGroup.querySelectorAll('button').forEach(btn => {
+          btn.classList.remove('active', 'bg-blue-600', 'text-white', 'shadow-md', 'hover:bg-blue-700');
+          btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300', 'hover:bg-gray-50', 'hover:border-gray-400');
+        });
 
-              selectedOption.classList.add('bg-white');
-              selectedOption.classList.add('text-gray-900');
-              selectedOption.classList.add('hover:bg-gray-50');
-              selectedOption.classList.add('ring-1');
-              selectedOption.classList.add('ring-inset');
-              selectedOption.classList.add('ring-gray-300');
-            }
-
-            //const folder = parts[0] + '/' + parts[1] + '/' + parts[2];
-
-            getTweet(parts[0], parts[1], parts[2]);
-
-            pageGroupElement.classList.add('selected');
-            pageGroupElement.classList.add('bg-indigo-600');
-            pageGroupElement.classList.add('text-white');
-            pageGroupElement.classList.add('hover:bg-indigo-500');
-
-            pageGroupElement.classList.remove('bg-white');
-            pageGroupElement.classList.remove('text-gray-900');
-            pageGroupElement.classList.remove('hover:bg-gray-50');
-          };
-
-          pageGroup.appendChild(pageGroupElement);
-          i++;
+        // Add active state to selected button
+        const activeButton = document.getElementById(activeDate);
+        if (activeButton) {
+          activeButton.classList.add('active', 'bg-blue-600', 'text-white', 'shadow-md', 'hover:bg-blue-700');
+          activeButton.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300', 'hover:bg-gray-50', 'hover:border-gray-400');
         }
       }
 
       async function getTweet(year, month, day) {
-        let temp = [];
+        // Cancel ongoing request
+        if (currentController) {
+          currentController.abort();
+        }
+        
+        currentController = new AbortController();
+        isEmpty = false;
 
         try {
-          const res = await fetch(
-            `/news-data?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          const response = await fetch(
+            `/news-data?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`,
+            { signal: currentController.signal }
           );
 
-          temp = await res.json();
-
-          if (temp.length === 0) {
-            isEmpty = true;
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-        } catch (err) {
-          console.error('error loading data');
+
+          const data = await response.json();
+          
+          if (!data || data.length === 0) {
+            isEmpty = true;
+            showNoDataMessage();
+            return;
+          }
+
+          renderNewsItems(processNewsData(data));
+          
+        } catch (error) {
+          if (error.name === 'AbortError') {
+            return; // Request was cancelled
+          }
+          
+          console.error('Error loading news data:', error);
           isEmpty = true;
+          showErrorMessage('无法加载新闻数据，请检查网络连接或稍后重试。');
         }
+      }
 
-        const data = temp
-          ?.map((item) => {
-            if (item.createdDate.length === 16) {
-              return item;
+      function processNewsData(rawData) {
+        return rawData
+          .map(item => {
+            // Normalize date format
+            if (item.createdDate && item.createdDate.length !== 16) {
+              const parts = item.createdDate.split(' ');
+              const datePart = parts[0];
+              const timeParts = parts[1]?.split(':') || [];
+              
+              const hour = String(timeParts[0] || '00').padStart(2, '0');
+              const minute = String(timeParts[1] || '00').padStart(2, '0');
+              
+              item.createdDate = `${datePart} ${hour}:${minute}`;
             }
-
-            const datetimeTemp = item.createdDate;
-            const datetimeStr = datetimeTemp?.split(' ');
-            const dateStr = datetimeStr[0];
-
-            const timeStr = datetimeStr?.[1]?.split(':');
-            const hourStrTemp = timeStr?.[0];
-            const minStrTemp = timeStr?.[1];
-            const hourStr =
-              hourStrTemp?.length == 1 ? `0${hourStrTemp}` : hourStrTemp;
-            const minuteStr =
-              minStrTemp?.length == 1 ? `0${minStrTemp}` : minStrTemp;
-
-            item.createdDate = `${dateStr} ${hourStr}:${minuteStr}`;
-
             return item;
           })
           .sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1));
+      }
 
-        const pdfElement = document.getElementById('tweet');
+      function renderNewsItems(newsData) {
+        if (!cache.tweet) return;
 
-        const elements = data.map((item) => {
-          const images = item?.thumbnail;
+        const newsHTML = newsData.map(item => createNewsItemHTML(item)).join('');
+        cache.tweet.innerHTML = newsHTML;
+        
+        // Add lazy loading for images
+        addImageLazyLoading();
+      }
 
-          let imageElement = '';
+      function createNewsItemHTML(item) {
+        const imageElement = item.thumbnail ? `
+          <div class="mt-6">
+            <div class="relative group">
+              <img
+                src="/news-resource${item.thumbnail}"
+                alt="${item.title}"
+                class="w-full h-48 object-cover rounded-lg shadow-sm border border-gray-200 transition-transform group-hover:scale-105"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+              <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
+            </div>
+          </div>
+        ` : '';
 
-          if (item?.thumbnail) {
-            imageElement = `<li class='relative'>
-              <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
-                <img
-                  src='/news-resource${item?.thumbnail}'
-                  alt=''
-                  class='pointer-events-none object-cover'
-                />
-              </div>
-            </li>`;
-          }
-
-          return `<div class="">
-              <div class="bg-white px-4 py-5 sm:px-6">
-                <div class="flex space-x-3">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="h-10 w-10 rounded-full"
-                      src="images/${item.sourceId}.jpg"
-                      alt=""
-                    />
+        return `
+          <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 mb-6">
+            <div class="p-6">
+              <header class="flex items-start space-x-4 mb-4">
+                <div class="flex-shrink-0">
+                  <img
+                    src="images/${item.sourceId}.jpg"
+                    alt="${item.name}"
+                    class="h-12 w-12 rounded-full object-cover border-2 border-gray-200"
+                    loading="lazy"
+                    onerror="this.src='images/default.png'"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between flex-wrap gap-2">
+                    <h2 class="text-lg font-bold text-gray-900">${item.name}</h2>
+                    <button 
+                      onclick="copyTweet('${item.id}')" 
+                      class="touch-target text-sm font-medium text-blue-600 hover:text-blue-800 focus-ring px-2 py-1 rounded"
+                      aria-label="复制分享链接"
+                    >
+                      📋 复制链接
+                    </button>
                   </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-lg font-bold text-gray-900">
-                      <a href="#" class="">${item.name} </a>
-                      <button onclick="copyTweet('${item.id}')" class="text-normal text-indigo-500">复制分享链接</button>
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      <a href="#" class="">${item.createdDate}发布</a>
-                    </p>
-                  </div>
-                  <div class="flex flex-shrink-0 self-center">
-                    <div class="relative inline-block text-left">
-                      <div
-                        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="menu-0-button"
-                        tabindex="-1"
-                      ></div>
-                    </div>
-                  </div>
+                  <time class="text-sm text-gray-500" datetime="${item.createdDate}">
+                    ${item.createdDate} 发布
+                  </time>
+                </div>
+              </header>
+              
+              <div class="space-y-4">
+                <h3 class="text-xl font-bold text-gray-900 leading-tight">${item.title}</h3>
+                <div class="prose prose-gray max-w-none">
+                  <p class="text-gray-700 leading-relaxed">${item.content}</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-100">
+                  <a 
+                    href="/news-resource/${item.detailImage}" 
+                    id="${item.id}"
+                    class="touch-target inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors focus-ring"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🖼️ 查看详情图片
+                  </a>
+                  <a 
+                    href="${item.newsLink}" 
+                    class="touch-target inline-flex items-center px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors focus-ring"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    📰 原文链接 (需翻墙)
+                  </a>
                 </div>
               </div>
-              <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-                <h1 class="font-bold text-lg">${item.title}</h1>
-                <br />
-                <p>
-                  ${item.content}
-                </p>
-                <br />
-                <p>
-                <a href="/news-resource/${item.detailImage}" id="${item.id}" class="font-semibold text-indigo-600">详情, 双击图片放大，右键保存图片稍后查看</a>
-                </p>
-                <p>
-                <a href="${item.newsLink}" class="font-semibold text-indigo-600">详情, 文字版，需翻墙</a>
-                </p>
-              </div>
-              <ul
-                role="list"
-                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:gap-x-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4"
-              >
-                ${imageElement}
-              </ul>
-            </div>`;
-        });
-
-        pdfElement.innerHTML = elements.join('');
+              
+              ${imageElement}
+            </div>
+          </article>
+        `;
       }
 
-      fetchTweet();
-    </script>
+      function addImageLazyLoading() {
+        if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.remove('img-placeholder');
+                imageObserver.unobserve(img);
+              }
+            });
+          });
 
-    <script>
-      function copyTweet(elementId) {
-        // Get the text field
+          document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            img.classList.add('img-placeholder');
+            imageObserver.observe(img);
+          });
+        }
+      }
+
+      function showNoDataMessage() {
+        if (!cache.tweet) return;
+        
+        cache.tweet.innerHTML = `
+          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
+            <div class="text-6xl mb-4">📰</div>
+            <h3 class="text-lg font-medium text-yellow-800 mb-2">暂无新闻数据</h3>
+            <p class="text-yellow-700">该日期暂无新闻内容，请尝试选择其他日期。</p>
+          </div>
+        `;
+      }
+
+      function showErrorMessage(message) {
+        if (!cache.tweet) return;
+        
+        cache.tweet.innerHTML = `
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h3 class="text-lg font-medium text-red-800 mb-2">加载失败</h3>
+            <p class="text-red-700">${message}</p>
+            <button 
+              onclick="location.reload()" 
+              class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus-ring"
+            >
+              重新加载
+            </button>
+          </div>
+        `;
+      }
+
+      // Enhanced copy function with better UX
+      async function copyTweet(elementId) {
         const linkElement = document.getElementById(elementId);
-
-        // Create a temporary input element to hold the link text
-        var tempInput = document.createElement('input');
-        tempInput.value = linkElement.href;
-        document.body.appendChild(tempInput);
-
-        tempInput.select();
-        tempInput.setSelectionRange(0, 99999);
+        if (!linkElement) return;
 
         try {
-          // Now that we've selected the text, execute the copy command
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-          console.log('Copy text command was ' + msg);
-        } catch (err) {
-          console.log('Oops, unable to copy', err);
+          if (navigator.clipboard) {
+            await navigator.clipboard.writeText(linkElement.href);
+          } else {
+            // Fallback for older browsers
+            const tempInput = document.createElement('input');
+            tempInput.value = linkElement.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+          }
+          
+          showToast('链接已复制到剪贴板 📋', 'success');
+        } catch (error) {
+          console.error('Failed to copy:', error);
+          showToast('复制失败，请手动复制链接', 'error');
         }
-
-        // Remove the selections - NOTE: Might not be necessary in some cases
-        document.body.removeChild(tempInput);
       }
+
+      function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        const bgColor = type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600';
+        
+        toast.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full opacity-0 transition-all duration-300`;
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
+        // Animate in
+        setTimeout(() => {
+          toast.style.transform = 'translateX(0)';
+          toast.style.opacity = '1';
+        }, 100);
+        
+        // Animate out and remove
+        setTimeout(() => {
+          toast.style.transform = 'translateX(full)';
+          toast.style.opacity = '0';
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Global error handler
+      window.addEventListener('error', (e) => {
+        console.error('Global error:', e.error);
+      });
+      
+      // Make copyTweet globally available
+      window.copyTweet = copyTweet;
     </script>
   </body>
 </html>
