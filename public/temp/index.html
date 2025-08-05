@@ -1,23 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- SEO Meta Tags -->
+    <title>免费翻墙软件 - 完全免费VPN代理服务 | 大翻墙运动</title>
+    <meta name="description" content="提供完全免费的翻墙软件和VPN代理服务，支持V2Ray、Shadowsocks等多种协议。每日更新节点，支持安卓、iOS、Windows、Mac等全平台。突破网络封锁，畅享自由互联网。" />
+    <meta name="keywords" content="免费翻墙,VPN代理,科学上网,V2Ray,Shadowsocks,翻墙软件,免费VPN,代理服务器,突破封锁,网络自由" />
+    <meta name="author" content="End GFW Together" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="免费翻墙软件 - 完全免费VPN代理服务" />
+    <meta property="og:description" content="提供完全免费的翻墙软件和VPN代理服务，每日更新节点，支持全平台。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://end-gfw.com" />
+    <meta property="og:image" content="images/default.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="免费翻墙软件 - 完全免费VPN代理服务" />
+    <meta name="twitter:description" content="提供完全免费的翻墙软件和VPN代理服务，每日更新节点，支持全平台。" />
+    <meta name="twitter:image" content="images/default.png" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://end-gfw.com" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <link rel="apple-touch-icon" href="images/default.png" />
+    
+    <!-- Tailwind CSS -->
     <script src="./tailwindcss.js"></script>
     <!-- <script src="./html2pdf.bundle.min.js"></script> -->
-    <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>
-      大翻墙运动 信息倒灌行动 拆墙运动 墙倒众人推 普及翻墙 完全免费翻墙软件 VPN
-    </title>
-    <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="大翻墙运动 信息倒灌行动 墙倒众人推 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 厕所革命 自由福建 周鋒 FengZhou 一人一推 惡人榜 拆牆運動 闽越合众国 恶人榜 推墙大联盟 李老师不是你老师 中国新闻 中国禁闻 中国审查 GFW 自由 民主 人权 宪政 防火墙 突破防火墙 国内新闻 中国热点事件 中国新闻总结 李老师不是你老师 推文离线下载 离线PDF推文 免费翻墙 翻墙节点 敏感词"
-    />
-    <meta
-      name="keywords"
-      content="大翻墙运动 信息倒灌行动 墙倒众人推 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 厕所革命 自由福建 周鋒 FengZhou 一人一推 惡人榜 拆牆運動 闽越合众国 恶人榜 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特 推墙大联盟 李老师不是你老师 中国新闻 中国禁闻 中国审查 GFW 自由 民主 人权 宪政 防火墙 突破防火墙 国内新闻 中国热点事件 中国新闻总结 李老师不是你老师 推文离线下载 离线PDF推文 免费翻墙 翻墙节点 敏感词"
-    />
 
     <script
       src="./crypto-js.min.js"
@@ -33,6 +50,36 @@
           extend: {
             gridTemplateColumns: {
               14: 'repeat(14, minmax(0, 1fr))',
+            },
+            colors: {
+              primary: {
+                50: '#eff6ff',
+                100: '#dbeafe',
+                500: '#3b82f6',
+                600: '#2563eb',
+                700: '#1d4ed8',
+              },
+              accent: {
+                500: '#10b981',
+                600: '#059669',
+              }
+            },
+            fontFamily: {
+              'sans': ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-in-out',
+              'slide-up': 'slideUp 0.3s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(10px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
             },
           },
         },
@@ -94,520 +141,470 @@
       }
     </script>
   </head>
-  <body>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md">
+      跳转到主要内容
+    </a>
+    
     <div id="header"></div>
-    <main class="mt-20 mx-4 lg:mx-20">
-      <div class="grid grid-cols-1 gap-x-1 lg:grid-cols-2 gap-x-8">
-        <div class="">
-          <p class="font-bold">
-            动态免墙IP站点, 每天更新
-            <br />
-            可以安全分享到朋友圈而不被炸号
-            <!-- <br />
-            <a href="/download-last-7" class="font-semibold text-indigo-600"
-              >点击下载过去3天新闻， 离线PDF版本</a
-            > -->
-          </p>
+    
+    <main id="main-content" class="container mx-auto px-4 pt-20">
+      
 
-          <p id="mirror-list"></p>
-          <!-- 
-          <br />
-
-          <p id="current-mirror" class="font-semibold text-indigo-600"></p>
--->
-          <br />
-
-          <h1 class="font-semibold text-indigo-600">
-            本域名已添加广告，请多查看总站广告支持添加更多服务器节点
-          </h1>
-
-          <a
-            href="./custom.html"
-            class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
-            target="_blank"
-            >欢迎赞助/合作/推广, 让想翻墙的人都可以翻墙</a
-          >
-
-          <br />
-
-          <p id="v2ray_sub">
-            <br />
-            V2Ray订阅链接,点击链接复制
-            <br />
-            <button onclick="copyText('v2ray')">
-              <span class="overflow-x-auto" id="v2ray">
-                https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</span
-              >
-            </button>
-
-            <!-- <span class="font-semibold text-indigo-600"
-              >V2Ray订阅链接, 速度更快节点，每3天更新</span
-            ><button onclick="copyText('v2ray1')">
-              <span class="overflow-x-auto" id="v2ray1">
-                https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-</span
-              >
-            </button> -->
-
-            <br />
-            Clash订阅链接,点击链接复制
-            <br />
-            <button onclick="copyText('clash')">
-              <span class="overflow-x-auto" id="clash">
-                https://raw.githubusercontent.com/hello-world-1989/cn-news/refs/heads/main/clash.yaml</span
-              >
-            </button>
-            <br />
-
-            <button onclick="copyText('apple-id')" id="apple-account">
-              海外苹果账户 用户名 点击此行任意位置复制
-              <span class="overflow-x-auto" id="apple-id"> </span>
-            </button>
-            <br />
-
-            <button onclick="copyText('apple-password')">
-              过期时间:<span id="apple-expiry"></span>，
-              密码，点击此行任意位置复制，
-              <span class="overflow-x-auto" id="apple-password">
-                https://raw.githubusercontent.com/hello-world-1989/cn-news/refs/heads/main/clash.yaml</span
-              >
-            </button>
-          </p>
-
-          <br />
-
-          <div class="">
-            <h1>
-              一次性赞助任意金额(USD 2-5)，长期获得(20-50M/s,至少3个月，最长1年)更快速度更加稳定更多线路,
-            30天到期后主页输入id签到即可（需3天内签到一次），联系end-gfw,
-            免费获取10M/s（需3天内签到一次）
-            </h1>
-          </div>
-
-          <br />
-
-          <div class="sm:flex sm:justify-center lg:justify-start ml-8 lg:ml-0">
-            <select
-              id="year"
-              name="year"
-              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="2025">2025</option>
-              <option value="2026">2026</option>
-              <option value="2027">2027</option>
-              <option value="2028">2028</option>
-              <option value="2029">2029</option>
-            </select>
-
-            <select
-              id="month"
-              name="month"
-              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option selected value="">月份</option>
-              <option value="01">1</option>
-              <option value="02">2</option>
-              <option value="03">3</option>
-              <option value="04">4</option>
-              <option value="05">5</option>
-              <option value="06">6</option>
-              <option value="07">7</option>
-              <option value="08">8</option>
-              <option value="09">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </select>
-
-            <select
-              id="day"
-              name="day"
-              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option selected value="">开始日期</option>
-              <option value="01">1</option>
-              <option value="02">2</option>
-              <option value="03">3</option>
-              <option value="04">4</option>
-              <option value="05">5</option>
-              <option value="06">6</option>
-              <option value="07">7</option>
-              <option value="08">8</option>
-              <option value="09">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-            </select>
-
-            <select
-              id="end-day"
-              name="end-day"
-              class="mt-2 inline-block sm:2/12 lg:w-2/12 rounded-md border-0 py-1.5 px-1 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option selected value="">结束日期</option>
-              <option value="01">1</option>
-              <option value="02">2</option>
-              <option value="03">3</option>
-              <option value="04">4</option>
-              <option value="05">5</option>
-              <option value="06">6</option>
-              <option value="07">7</option>
-              <option value="08">8</option>
-              <option value="09">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-            </select>
-
-            <div class="lg:flex lg:mt-3 lg:ml-2">(推文自2022年10月1日起)</div>
-          </div>
-
-          <div class="sm:flex sm:justify-center lg:hidden">
-            <div class="mt-2 ml-2">
-              <div
-                class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
-              >
-                <input
-                  type="text"
-                  name="search1"
-                  id="search1"
-                  placeholder="输入关键词,回车键搜索"
-                  class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                />
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Left Column - VPN Links and Mirror Sites -->
+        <div class="space-y-6">
+          <!-- VPN Subscription Links -->
+          <section id="vpn-links" class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <svg class="w-6 h-6 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              订阅链接
+            </h2>
+            
+            <div class="space-y-4">
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">V2Ray订阅链接</h3>
+                <button onclick="copyText('v2ray')" class="w-full text-left p-3 bg-white border rounded-lg hover:bg-gray-50 transition-colors">
+                  <span class="text-sm text-gray-600 break-all" id="v2ray">
+                    https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
+                  </span>
+                </button>
+              </div>
+              
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">Clash订阅链接</h3>
+                <button onclick="copyText('clash')" class="w-full text-left p-3 bg-white border rounded-lg hover:bg-gray-50 transition-colors">
+                  <span class="text-sm text-gray-600 break-all" id="clash">
+                    https://raw.githubusercontent.com/hello-world-1989/cn-news/refs/heads/main/clash.yaml
+                  </span>
+                </button>
               </div>
             </div>
+          </section>
 
-            <div class="flex justify-center mt-2">
-              <button
-                type="submit"
-                onclick="searchTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                搜索
+          <!-- Apple Account Section -->
+          <!-- <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <svg class="w-6 h-6 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-0.257-0.257A6 6 0 1118 8zM2 8a6 6 0 1012 0A6 6 0 002 8z" clip-rule="evenodd"></path>
+              </svg>
+              海外Apple账户
+            </h2>
+            
+            <div class="space-y-3">
+              <button onclick="copyText('apple-id')" id="apple-account" class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div class="text-sm text-gray-600">用户名 (点击复制)</div>
+                <span class="font-mono text-sm" id="apple-id"></span>
+              </button>
+              
+              <button onclick="copyText('apple-password')" class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <div class="text-sm text-gray-600">
+                  过期时间: <span id="apple-expiry"></span> | 密码 (点击复制)
+                </div>
+                <span class="font-mono text-sm" id="apple-password">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/refs/heads/main/clash.yaml
+                </span>
               </button>
             </div>
+          </section> -->
 
-            <div class="flex justify-center mt-2">
-              <button
-                type="submit"
-                onclick="searchTweetPage()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                预览下载当前搜索推文
-              </button>
-            </div>
+          <!-- Sponsorship Section -->
+          <section class="bg-gradient-to-r from-accent-500 to-accent-600 text-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-xl font-bold mb-4">支持我们</h2>
+            <p class="mb-4 opacity-90">
+              一次性赞助任意金额(USD 2-5)，长期获得(20-50M/s,至少3个月，最长1年)更快速度更加稳定更多线路
+            </p>
+            <a href="./custom.html" target="_blank" class="inline-block bg-white text-accent-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              欢迎赞助/合作/推广
+            </a>
+          </section>
 
-            <div class="flex justify-center mt-2">
-              <button
-                type="submit"
-                onclick="getYearlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                设置年份查看年度推文
-              </button>
-            </div>
-
-            <div class="flex justify-center mt-2">
-              <button
-                type="submit"
-                onclick="getMonthlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                设置年月查看月度推文
-              </button>
-            </div>
-
-            <div class="flex justify-center mt-2">
-              <button
-                type="submit"
-                onclick="getHistoryTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                设置日期查看当天推文
-              </button>
-            </div>
-
-            <div class="flex justify-center mt-2">
-              <button
-                type="submit"
-                onclick="getTweetPage()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                预览下载推文
-              </button>
-            </div>
-          </div>
+          <!-- Mirror Sites -->
+          <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">镜像站点</h2>
+            <div id="mirror-list" class="space-y-2"></div>
+          </section>
         </div>
-        <div class="mt-4 lg:mt-1">
-          <h1 class="font-bold">翻墙软件推荐</h1>
-          <h1 class="mt-4">
-            安卓手机使用Outline,V2Ray,NthLink
-            <a href="./vpn.html" class="font-semibold text-indigo-600"
-              >下载链接</a
-            >
-          </h1>
-          <h1>
-            苹果手机苹果电脑使用<a
-              href="./qa.html#apple-account"
-              class="font-semibold text-indigo-600"
-              >海外苹果账户</a
-            >下载Outline,V2Ray,NthLink
-          </h1>
-          <h1>
-            微软系统电脑使用Outline,V2Ray,NthLink
-            <a href="./vpn.html" class="font-semibold text-indigo-600"
-              >下载链接</a
-            >
-          </h1>
 
-          <h1 id="outline">
-            <br />
-            SS密钥，点击下方复制, 导入到Outline/V2Ray
-            <br />
-            <p class="overflow-auto" onclick="copyText('outline1')">
-              <span id="outline1"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
+        <!-- Right Column - Software Downloads and Search -->
+        <div class="space-y-6">
+          <!-- Software Download Section -->
+          <section id="download-section" class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <svg class="w-6 h-6 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              翻墙软件推荐
+            </h2>
+            
+            <div class="space-y-4">
+              <div class="p-4 border border-gray-200 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">🤖 安卓手机</h3>
+                <p class="text-gray-600 mb-3">使用Outline、V2Ray、NthLink</p>
+                <a href="./vpn.html" class="text-primary-600 hover:text-primary-700 font-semibold">下载链接 →</a>
+              </div>
+              
+              <div class="p-4 border border-gray-200 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">🍎 苹果设备</h3>
+                <p class="text-gray-600 mb-3">使用海外苹果账户下载Outline、V2Ray、NthLink</p>
+                <a href="./qa.html#apple-account" class="text-primary-600 hover:text-primary-700 font-semibold">获取账户 →</a>
+              </div>
+              
+              <div class="p-4 border border-gray-200 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">💻 Windows电脑</h3>
+                <p class="text-gray-600 mb-3">使用Outline、V2Ray、NthLink</p>
+                <a href="./vpn.html" class="text-primary-600 hover:text-primary-700 font-semibold">下载链接 →</a>
+              </div>
+            </div>
+          </section>
 
-            <br />
+          <!-- SS Keys Section -->
+          <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">SS密钥</h2>
+            <p class="text-gray-600 mb-4">点击下方链接复制，导入到Outline/V2Ray</p>
+            
+            <div id="outline" class="space-y-3">
+              <p class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors" onclick="copyText('outline1')">
+                <span id="outline1" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+              
+              <p class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors" onclick="copyText('outline2')">
+                <span id="outline2" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+              
+              <p class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden" onclick="copyText('outline3')">
+                <span id="outline3" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+              
+              <p class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden" onclick="copyText('outline4')">
+                <span id="outline4" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+              
+              <p class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden" onclick="copyText('outline5')">
+                <span id="outline5" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+            </div>
+          </section>
 
-            <p class="overflow-auto" onclick="copyText('outline2')">
-              <span id="outline2"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
-
-            <p class="overflow-auto hidden" onclick="copyText('outline3')">
-              <span id="outline3"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
-
-            <p class="overflow-auto hidden" onclick="copyText('outline4')">
-              <span id="outline4"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
-
-            <p class="overflow-auto hidden" onclick="copyText('outline5')">
-              <span id="outline5"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss</span
-              >
-            </p>
-          </h1>
-          
-
-          <div class=" lg:flex lg:mt-3">
-            <div class="mt-2 ml-2 w-2/5">
-              <div
-                class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
-              >
+          <!-- Check-in Section -->
+          <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">用户签到</h2>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <div class="flex-1">
                 <input
                   type="text"
                   name="token"
                   id="token"
-                  placeholder="输入你的id"
-                  class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
+                  placeholder="输入你的ID"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 />
               </div>
-            </div>
-
-            <div class="mt-2 lg:ml-2 w-1/5 flex justify-center">
               <button
                 type="submit"
                 onclick="renewPlan()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 transition-colors"
               >
                 签到
               </button>
             </div>
-            <span id="token-status" class="mt-3 hidden"></span>
-          </div>
-
-          <div class="hidden lg:flex lg:mt-3">
-            <div class="mt-2 ml-2 w-1/3">
-              <div
-                class="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
-              >
-                <input
-                  type="text"
-                  name="search2"
-                  id="search2"
-                  placeholder="输入关键词,回车键搜索"
-                  class="block min-w-0 grow px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
-            <div class="mt-2 lg:ml-2 w-1/3 flex justify-center">
-              <button
-                type="submit"
-                onclick="searchTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                搜索
-              </button>
-            </div>
-
-            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
-              <button
-                type="submit"
-                onclick="searchTweetPage()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                预览下载当前搜索推文
-              </button>
-            </div>
-          </div>
-
-          <div class="hidden lg:flex lg:mt-3">
-            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
-              <button
-                type="submit"
-                onclick="getYearlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-0.5 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                设置年份查看年度推文
-              </button>
-            </div>
-
-            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
-              <button
-                type="submit"
-                onclick="getMonthlyTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-0.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                设置年月查看月度推文
-              </button>
-            </div>
-
-            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
-              <button
-                type="submit"
-                onclick="getHistoryTweet()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-0.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                设置日期查看当天推文
-              </button>
-            </div>
-
-            <div class="mt-2 lg:inline-block lg:ml-2 w-1/3">
-              <button
-                type="submit"
-                onclick="getTweetPage()"
-                class="flex-none incline-block rounded-md bg-indigo-600 py-1.5 px-5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                预览下载推文
-              </button>
-            </div>
-          </div>
+            <span id="token-status" class="mt-3 hidden text-sm"></span>
+          </section>
         </div>
       </div>
-      <nav
-        class="isolate grid grid-cols-4 md:grid-cols-14 -space-x-px rounded-md mt-5"
-        aria-label="Pagination"
-        id="page-group"
-      ></nav>
-      <div class="flex justify-center mt-10">
-        <div id="tweet">
-          <div class="">
-            <div class="bg-white px-4 py-5 sm:px-6">
-              <div class="flex space-x-3">
-                <div class="flex-shrink-0">
-                  <img
-                    class="h-10 w-10 rounded-full"
-                    src="https://pbs.twimg.com/profile_images/1558667234855292929/RqgodvGb_400x400.jpg"
-                    alt=""
-                  />
-                </div>
-                <div class="min-w-0 flex-1">
-                  <p class="text-lg font-bold text-gray-900">
-                    <a href="" class="">李老师不是你老师 @whyyoutouzhele</a>
-                  </p>
-                  <p class="text-sm text-gray-500">
-                    <a href="#" class="">北京时间0000-00-00 00:00:00发布</a>
-                  </p>
-                </div>
-                <div class="flex flex-shrink-0 self-center">
-                  <div class="relative inline-block text-left">
-                    <div
-                      class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="menu-0-button"
-                      tabindex="-1"
-                    ></div>
-                  </div>
+
+      <!-- Search and Date Selection Section -->
+      <section class="bg-white rounded-xl shadow-lg p-6 mt-8 animate-fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">内容搜索</h2>
+        
+        <!-- Date Selection -->
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold text-gray-700 mb-4">选择日期范围</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="space-y-2">
+              <label for="year" class="block text-sm font-medium text-gray-700">年份</label>
+              <div class="relative">
+                <select id="year" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="2022">2022年</option>
+                  <option value="2023">2023年</option>
+                  <option value="2024">2024年</option>
+                  <option value="2025">2025年</option>
+                  <option value="2026">2026年</option>
+                  <option value="2027">2027年</option>
+                  <option value="2028">2028年</option>
+                  <option value="2029">2029年</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
                 </div>
               </div>
             </div>
-            <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-              <p>更新中，请稍后查看...或查看昨日新闻</p>
+            
+            <div class="space-y-2">
+              <label for="month" class="block text-sm font-medium text-gray-700">月份</label>
+              <div class="relative">
+                <select id="month" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="">选择月份</option>
+                  <option value="01">1月</option>
+                  <option value="02">2月</option>
+                  <option value="03">3月</option>
+                  <option value="04">4月</option>
+                  <option value="05">5月</option>
+                  <option value="06">6月</option>
+                  <option value="07">7月</option>
+                  <option value="08">8月</option>
+                  <option value="09">9月</option>
+                  <option value="10">10月</option>
+                  <option value="11">11月</option>
+                  <option value="12">12月</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="day" class="block text-sm font-medium text-gray-700">开始日期</label>
+              <div class="relative">
+                <select id="day" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="">选择日期</option>
+                  <option value="01">1日</option>
+                  <option value="02">2日</option>
+                  <option value="03">3日</option>
+                  <option value="04">4日</option>
+                  <option value="05">5日</option>
+                  <option value="06">6日</option>
+                  <option value="07">7日</option>
+                  <option value="08">8日</option>
+                  <option value="09">9日</option>
+                  <option value="10">10日</option>
+                  <option value="11">11日</option>
+                  <option value="12">12日</option>
+                  <option value="13">13日</option>
+                  <option value="14">14日</option>
+                  <option value="15">15日</option>
+                  <option value="16">16日</option>
+                  <option value="17">17日</option>
+                  <option value="18">18日</option>
+                  <option value="19">19日</option>
+                  <option value="20">20日</option>
+                  <option value="21">21日</option>
+                  <option value="22">22日</option>
+                  <option value="23">23日</option>
+                  <option value="24">24日</option>
+                  <option value="25">25日</option>
+                  <option value="26">26日</option>
+                  <option value="27">27日</option>
+                  <option value="28">28日</option>
+                  <option value="29">29日</option>
+                  <option value="30">30日</option>
+                  <option value="31">31日</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="end-day" class="block text-sm font-medium text-gray-700">结束日期</label>
+              <div class="relative">
+                <select id="end-day" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="">选择日期</option>
+                  <option value="01">1日</option>
+                  <option value="02">2日</option>
+                  <option value="03">3日</option>
+                  <option value="04">4日</option>
+                  <option value="05">5日</option>
+                  <option value="06">6日</option>
+                  <option value="07">7日</option>
+                  <option value="08">8日</option>
+                  <option value="09">9日</option>
+                  <option value="10">10日</option>
+                  <option value="11">11日</option>
+                  <option value="12">12日</option>
+                  <option value="13">13日</option>
+                  <option value="14">14日</option>
+                  <option value="15">15日</option>
+                  <option value="16">16日</option>
+                  <option value="17">17日</option>
+                  <option value="18">18日</option>
+                  <option value="19">19日</option>
+                  <option value="20">20日</option>
+                  <option value="21">21日</option>
+                  <option value="22">22日</option>
+                  <option value="23">23日</option>
+                  <option value="24">24日</option>
+                  <option value="25">25日</option>
+                  <option value="26">26日</option>
+                  <option value="27">27日</option>
+                  <option value="28">28日</option>
+                  <option value="29">29日</option>
+                  <option value="30">30日</option>
+                  <option value="31">31日</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+            <div class="flex items-center">
+              <svg class="h-5 w-5 text-blue-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm text-blue-700">推文数据自2022年10月1日起</span>
             </div>
           </div>
         </div>
-      </div>
+        
+        <!-- Search Input -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+          <div class="flex-1">
+            <input
+              type="text"
+              name="search1"
+              id="search1"
+              placeholder="输入关键词，回车键搜索"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            />
+            <!-- Hidden search2 for JavaScript compatibility -->
+            <input type="hidden" name="search2" id="search2" />
+          </div>
+          <button
+            type="submit"
+            onclick="searchTweet()"
+            class="px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 transition-colors"
+          >
+            搜索内容
+          </button>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <button
+            onclick="searchTweetPage()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            预览下载搜索结果
+          </button>
+          <button
+            onclick="getYearlyTweet()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            查看年度推文
+          </button>
+          <button
+            onclick="getMonthlyTweet()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            查看月度推文
+          </button>
+          <button
+            onclick="getHistoryTweet()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            查看当日推文
+          </button>
+          <button
+            onclick="getTweetPage()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            预览下载推文
+          </button>
+        </div>
+      </section>
+
+      <!-- Date Navigation -->
+      <section class="mt-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+            最近日期
+          </h3>
+          <nav
+            class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2"
+            aria-label="日期导航"
+            id="page-group"
+          ></nav>
+        </div>
+      </section>
+
+      <!-- Content Display -->
+      <section class="mt-8" id="tweet">
+        <div class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+          <div class="flex items-center space-x-4 mb-4">
+            <img
+              class="h-12 w-12 rounded-full"
+              src="https://pbs.twimg.com/profile_images/1558667234855292929/RqgodvGb_400x400.jpg"
+              alt="李老师头像"
+            />
+            <div>
+              <h3 class="text-lg font-bold text-gray-900">李老师不是你老师 @whyyoutouzhele</h3>
+              <p class="text-sm text-gray-600">北京时间0000-00-00 00:00:00发布</p>
+            </div>
+          </div>
+          <div class="prose max-w-none">
+            <p class="text-gray-700">更新中，请稍后查看...或查看昨日新闻</p>
+          </div>
+        </div>
+      </section>
     </main>
+
     <div id="footer"></div>
     <div id="content"></div>
 
-    <script>
-      document
-        .querySelector('#search1')
-        .addEventListener('keypress', function (event) {
-          if (event.key === 'Enter') {
-            searchTweet();
-          }
-        });
+    <!-- Notification for copy success -->
+    <div id="copy-notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden">
+      复制成功！
+    </div>
 
-      document
-        .querySelector('#search2')
-        .addEventListener('keypress', function (event) {
-          if (event.key === 'Enter') {
-            searchTweet();
-          }
-        });
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const search1 = document.querySelector('#search1');
+        const search2 = document.querySelector('#search2');
+        
+        if (search1) {
+          search1.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+              searchTweet();
+            }
+          });
+        }
+
+        if (search2) {
+          search2.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+              searchTweet();
+            }
+          });
+        }
+      });
 
       let isEmpty = true;
       function getLast7Days() {
@@ -655,84 +652,87 @@
       }
 
       async function fetchTweet() {
-        const pagesElement = document.getElementById('pages');
-
         const dates = getLast7DaysInShanghai();
+        const pageGroup = document.getElementById('page-group');
+
+        if (!pageGroup) {
+          console.error('Page group element not found');
+          return;
+        }
+
+        // Clear existing content
+        pageGroup.innerHTML = '';
 
         let i = 0;
         for (const item of dates) {
-          const pageGroupElement = document.createElement('a');
-          const pageGroup = document.getElementById('page-group');
-
+          const pageGroupElement = document.createElement('button');
           const parts = item.split('-');
 
-          pageGroupElement.className =
-            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
-
-          for (let j = 0; j < 2; j++) {
-            //await getTweet(parts[0], parts[1], parts[2]);
-
-            if (isEmpty && i === 0) {
-              const yesterday = dates[j];
-              const parts = yesterday.split('-');
-              await getTweet(parts[0], parts[1], parts[2]);
+          // Create modern button styling
+          pageGroupElement.className = `
+            relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 
+            focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+            border border-gray-200 hover:border-primary-300 hover:shadow-md
+            ${i === 0 
+              ? 'bg-primary-600 text-white border-primary-600 shadow-lg selected hover:bg-primary-700' 
+              : 'bg-white text-gray-700 hover:bg-gray-50'
             }
+          `.replace(/\s+/g, ' ').trim();
+
+          pageGroupElement.type = 'button';
+          pageGroupElement.id = item;
+          
+          // Create better date display
+          const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+          const month = parseInt(parts[1]) - 1;
+          const day = parseInt(parts[2]);
+          
+          pageGroupElement.innerHTML = `
+            <div class="text-center">
+              <div class="text-xs opacity-75">${monthNames[month]}</div>
+              <div class="font-semibold">${day}</div>
+            </div>
+          `;
+
+          // Add hover tooltip
+          pageGroupElement.title = `查看 ${parts[0]}年${parts[1]}月${parts[2]}日 的内容`;
+
+          // Load first day's content
+          if (isEmpty && i === 0) {
+            await getTweet(parts[0], parts[1], parts[2]);
           }
 
-          pageGroupElement.className +=
-            i == 0
-              ? ' bg-indigo-600 text-white selected hover:bg-indigo-500'
-              : ' text-gray-900';
-
-          pageGroupElement.id = item;
-
-          pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
-
           pageGroupElement.onclick = async () => {
-            const selectedOption = pageGroup.querySelector('.selected');
-            if (selectedOption) {
-              selectedOption.classList.remove('selected');
-              selectedOption.classList.remove('bg-indigo-600');
-              selectedOption.classList.remove('text-white');
-              selectedOption.classList.remove('hover:bg-indigo-500');
+            // Remove selected state from all buttons
+            const allButtons = pageGroup.querySelectorAll('button');
+            allButtons.forEach(btn => {
+              btn.classList.remove('selected', 'bg-primary-600', 'text-white', 'border-primary-600', 'shadow-lg', 'hover:bg-primary-700');
+              btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-50', 'border-gray-200');
+            });
 
-              selectedOption.classList.add('bg-white');
-              selectedOption.classList.add('text-gray-900');
-              selectedOption.classList.add('hover:bg-gray-50');
-              selectedOption.classList.add('ring-1');
-              selectedOption.classList.add('ring-inset');
-              selectedOption.classList.add('ring-gray-300');
-            }
+            // Add selected state to clicked button
+            pageGroupElement.classList.add('selected', 'bg-primary-600', 'text-white', 'border-primary-600', 'shadow-lg', 'hover:bg-primary-700');
+            pageGroupElement.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-50', 'border-gray-200');
 
-            //const folder = parts[0] + '/' + parts[1] + '/' + parts[2];
-
+            // Load content for selected date
             await getTweet(parts[0], parts[1], parts[2]);
-
-            // const activeVPN = vpn.filter(
-            //  (item) => item.os == pageGroupElement.id
-            // );
-
-            //while (vpnGroup.firstChild) {
-            //  vpnGroup.removeChild(vpnGroup.firstChild);
-            // }
-
-            // addLiElement(activeVPN, vpnGroup);
-
-            pageGroupElement.classList.add('selected');
-            pageGroupElement.classList.add('bg-indigo-600');
-            pageGroupElement.classList.add('text-white');
-            pageGroupElement.classList.add('hover:bg-indigo-500');
-
-            pageGroupElement.classList.remove('bg-white');
-            pageGroupElement.classList.remove('text-gray-900');
-            pageGroupElement.classList.remove('hover:bg-gray-50');
           };
 
           pageGroup.appendChild(pageGroupElement);
           i++;
         }
 
-        //dates.forEach(async (item, i) => {});
+        // Add loading indicator
+        if (dates.length === 0) {
+          pageGroup.innerHTML = `
+            <div class="col-span-full text-center py-8 text-gray-500">
+              <svg class="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              暂无可用日期
+            </div>
+          `;
+        }
       }
 
       async function getHistoryTweet() {
@@ -820,111 +820,125 @@
         composePage(temp, '1');
       }
 
-      function composePage(tweetArray) {
-        const sort = (a, b) => {
-          if (day) {
-            return a.createdDate > b.createdDate ? -1 : 1;
-          } else {
-            return a.views < b.views ? 1 : -1;
-          }
-        };
+        function composePage(tweetArray) {
+          const sort = (a, b) => {
+            if (day) {
+              return a.createdDate > b.createdDate ? -1 : 1;
+            } else {
+              return a.views < b.views ? 1 : -1;
+            }
+          };
 
-        const data = tweetArray?.sort((a, b) => sort(a, b));
+          const data = tweetArray?.sort((a, b) => sort(a, b));
 
-        const pdfElement = document.getElementById('tweet');
+          const pdfElement = document.getElementById('tweet');
 
-        const elements = data.map((item) => {
-          const images = item?.images?.split(',');
+          const elements = data.map((item) => {
+            const images = item?.images?.split(',');
 
-          if (item.videos) {
-            const videoImages = item.videos?.split(',');
-            images.push(...videoImages);
-          }
+            if (item.videos) {
+              const videoImages = item.videos?.split(',');
+              images.push(...videoImages);
+            }
 
-          let imageElement = '';
+            let imageElement = '';
 
-          if (images?.length > 0) {
-            const imagesArr = images
-              .filter((item) => item !== '')
-              .map(
-                (item) =>
-                  `<li class='relative'>
-              <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
-                <img
-                  src='/resource${item}'
-                  alt=''
-                  class='object-cover'
-                />
-              </div>
-            </li>`
-              );
-
-            imageElement = imagesArr.join('');
-          }
-
-          const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
-
-          const year = createdDate?.[0];
-          const month = createdDate?.[1];
-          const day = createdDate?.[2];
-
-          return `<div class="">
-              <div class="bg-white px-4 py-5 sm:px-6">
-                <div class="flex space-x-3">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="h-10 w-10 rounded-full"
-                      src="images/whyyoutouzhele.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-lg font-bold text-gray-900">
-                      <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${
-            item.id
-          }" id="${item.id}" class="">李老师不是你老师 @whyyoutouzhele </a>
-                      <button onclick="copyTweet('${
-                        item.id
-                      }')" class="text-normal text-indigo-500">复制分享链接</button>
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      <a href="#" class="">北京时间${item.createdDate}发布</a>
-                    </p>
-                  </div>
-                  <div class="flex flex-shrink-0 self-center">
-                    <div class="relative inline-block text-left">
-                      <div
-                        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="menu-0-button"
-                        tabindex="-1"
-                      ></div>
-                    </div>
-                  </div>
+            if (images?.length > 0) {
+              const imagesArr = images
+                .filter((item) => item !== '')
+                .map(
+                  (item) =>
+                    `<li class='relative'>
+                <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:shadow-lg transition-shadow'>
+                  <img
+                    src='/resource${item}'
+                    alt='推文图片'
+                    class='object-cover hover:scale-105 transition-transform duration-300'
+                    loading='lazy'
+                  />
                 </div>
-              </div>
-              <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-                <p>
-                  ${item?.content
-                    ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
-                    ?.replace(/https:\/\/x\.com\/\S+/g, '')
-                    ?.trim()}
-                </p>
-              </div>
-              <ul
-                role="list"
-                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:gap-x-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4"
-              >
-                ${imageElement}
-              </ul>
-            </div>`;
-        });
+              </li>`
+                );
 
-        pdfElement.innerHTML = elements.join('');
-      }
+              imageElement = imagesArr.join('');
+            }
 
-      async function getTweet(year, month, day, endDay = '') {
+            const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
+
+            const year = createdDate?.[0];
+            const month = createdDate?.[1];
+            const day = createdDate?.[2];
+
+            return `<article class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6 animate-fade-in">
+                <div class="p-6">
+                  <header class="flex items-center space-x-4 mb-4">
+                    <img
+                      class="h-12 w-12 rounded-full ring-2 ring-primary-100"
+                      src="images/whyyoutouzhele.jpg"
+                      alt="李老师头像"
+                      loading="lazy"
+                    />
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold text-gray-900">
+                        <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${
+              item.id
+            }" id="${item.id}" class="hover:text-primary-600 transition-colors">
+                          李老师不是你老师 @whyyoutouzhele
+                        </a>
+                      </h3>
+                      <time class="text-sm text-gray-600" datetime="${item.createdDate}">
+                        北京时间${item.createdDate}发布
+                      </time>
+                    </div>
+                    <button 
+                      onclick="copyTweet('${item.id}')" 
+                      class="px-3 py-1 text-sm text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
+                      title="复制分享链接"
+                    >
+                      <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                      </svg>
+                      分享
+                    </button>
+                  </header>
+                  
+                  <div class="prose prose-gray max-w-none mb-4">
+                    <p class="text-gray-700 leading-relaxed">
+                      ${item?.content
+                        ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
+                        ?.replace(/https:\/\/x\.com\/\S+/g, '')
+                        ?.trim()}
+                    </p>
+                  </div>
+                  
+                  ${imageElement ? `
+                  <div class="mt-4">
+                    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      ${imageElement}
+                    </ul>
+                  </div>
+                  ` : ''}
+                </div>
+              </article>`;
+          });
+
+          if (elements.length === 0) {
+            pdfElement.innerHTML = `
+              <div class="bg-white rounded-xl shadow-lg p-8 text-center animate-fade-in">
+                <div class="w-16 h-16 mx-auto mb-4 text-gray-400">
+                  <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">暂无内容</h3>
+                <p class="text-gray-600">请尝试其他搜索条件或查看其他日期的内容</p>
+              </div>
+            `;
+          } else {
+            pdfElement.innerHTML = elements.join('');
+          }
+        }      async function getTweet(year, month, day, endDay = '') {
         let temp = [];
 
         try {
@@ -974,62 +988,117 @@
         //ssElement2.innerText = ssKey2;
       }
 
-      getSS();
+      // Call when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        getSS();
+      });
     </script>
 
     <script type="module">
-      await fetchTweet();
+      document.addEventListener('DOMContentLoaded', async function() {
+        await fetchTweet();
+      });
     </script>
 
     <script>
-      async function getHost() {
-        const res = await fetch('/host');
+        async function getMirrorHosts() {
+          try {
+            const res = await fetch('/host');
+            const dataArr = await res.json();
 
-        const dataArr = await res.json();
+            const whyElement = document.getElementById('mirror-list');
+            
+            if (!whyElement) {
+              console.error('Mirror list element not found');
+              return;
+            }
 
-        const whyElement = document.getElementById('mirror-list');
+            // Clear existing content
+            whyElement.innerHTML = '';
 
-        dataArr.forEach((item) => {
-          const linkElement = document.createElement('a');
+            if (!dataArr || dataArr.length === 0) {
+              whyElement.innerHTML = `
+                <div class="text-center p-4 text-gray-500">
+                  <svg class="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  </svg>
+                  暂无可用镜像站点
+                </div>
+              `;
+              return;
+            }
 
-          const newLineElement = document.createElement('br');
+            dataArr.forEach((item) => {
+              const linkContainer = document.createElement('div');
+              linkContainer.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors mb-2';
+              
+              const linkElement = document.createElement('a');
+              linkElement.className = 'text-primary-600 hover:text-primary-700 font-medium break-all';
+              linkElement.target = '_blank';
 
-          if (item.port == 80) {
-            linkElement.href = `http://${item.ip}`;
+              if (item.port == 80) {
+                linkElement.href = `http://${item.ip}`;
+                linkElement.innerText = `http://${item.ip}`;
+              } else {
+                linkElement.href = `http://${item.ip}:${item.port}/`;
+                linkElement.innerText = `http://${item.ip}:${item.port}/`;
+              }
 
-            linkElement.innerText = `http://${item.ip}`;
-          } else {
-            linkElement.href = `http://${item.ip}:${item.port}/`;
+              const statusIndicator = document.createElement('div');
+              statusIndicator.className = 'flex items-center text-sm text-gray-600 flex-shrink-0 ml-2';
+              statusIndicator.innerHTML = `
+                <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                可用
+              `;
 
-            linkElement.innerText = `http://${item.ip}:${item.port}/`;
+              linkContainer.appendChild(linkElement);
+              linkContainer.appendChild(statusIndicator);
+              whyElement.appendChild(linkContainer);
+            });
+          } catch (error) {
+            console.error('Error fetching mirror hosts:', error);
+            const whyElement = document.getElementById('mirror-list');
+            if (whyElement) {
+              whyElement.innerHTML = `
+                <div class="text-center p-4 text-red-500">
+                  <svg class="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  </svg>
+                  加载镜像站点失败
+                </div>
+              `;
+            }
           }
+        }
 
-          linkElement.target = '_blank';
-
-          whyElement.appendChild(linkElement);
-          whyElement.appendChild(newLineElement);
+        // Call when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+          getMirrorHosts();
         });
-      }
-
-      getHost();
     </script>
 
     <script>
-      async function getHost() {
-        const res = await fetch('/apple-account');
+      async function getAppleAccount() {
+        try {
+          const res = await fetch('/apple-account');
+          const data = await res.json();
 
-        const data = await res.json();
+          const appleIdElement = document.getElementById('apple-id');
+          const applePasswordElement = document.getElementById('apple-password');
+          const appleExpiryElement = document.getElementById('apple-expiry');
 
-        const appleIdElement = document.getElementById('apple-id');
-        const applePasswordElement = document.getElementById('apple-password');
-        const appleExpiryElement = document.getElementById('apple-expiry');
-
-        appleIdElement.innerText = data.username;
-        applePasswordElement.innerText = data.password;
-        appleExpiryElement.innerText = data.expireDate;
+          if (appleIdElement) appleIdElement.innerText = data.username || '';
+          if (applePasswordElement) applePasswordElement.innerText = data.password || '';
+          if (appleExpiryElement) appleExpiryElement.innerText = data.expireDate || '';
+        } catch (error) {
+          console.error('Error fetching apple account:', error);
+        }
       }
 
-      getHost();
+      // Call when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        getAppleAccount();
+      });
     </script>
 
     <!-- <script>
@@ -1063,14 +1132,30 @@
         try {
           // Now that we've selected the text, execute the copy command
           var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-          console.log('Copy text command was ' + msg);
+          if (successful) {
+            showCopyNotification();
+          }
+          console.log('Copy text command was ' + (successful ? 'successful' : 'unsuccessful'));
         } catch (err) {
           console.log('Oops, unable to copy', err);
         }
 
         // Remove the selections - NOTE: Might not be necessary in some cases
         window.getSelection().removeAllRanges();
+      }
+
+      function showCopyNotification() {
+        const notification = document.getElementById('copy-notification');
+        notification.classList.remove('hidden', 'translate-y-full');
+        notification.classList.add('translate-y-0');
+        
+        setTimeout(() => {
+          notification.classList.remove('translate-y-0');
+          notification.classList.add('translate-y-full');
+          setTimeout(() => {
+            notification.classList.add('hidden');
+          }, 300);
+        }, 2000);
       }
     </script>
 
@@ -1197,12 +1282,16 @@
       };
 
       const updateLink = () => {
-        document.getElementById(
-          'v2ray1'
-        ).innerText = `https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-${hashWeek()}`;
+        const v2ray1Element = document.getElementById('v2ray1');
+        if (v2ray1Element) {
+          v2ray1Element.innerText = `https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-${hashWeek()}`;
+        }
       };
 
-      updateLink();
+      // Only call updateLink if the element exists
+      document.addEventListener('DOMContentLoaded', function() {
+        updateLink();
+      });
     </script>
   </body>
 </html>
