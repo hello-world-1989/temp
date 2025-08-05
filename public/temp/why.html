@@ -1,20 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./tailwindcss.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- SEO Meta Tags -->
+    <title>免费翻墙软件 - 完全免费VPN代理服务 | 大翻墙运动</title>
+    <meta name="description" content="提供完全免费的翻墙软件和VPN代理服务，支持V2Ray、Shadowsocks等多种协议。每日更新节点，支持安卓、iOS、Windows、Mac等全平台。突破网络封锁，畅享自由互联网。" />
+    <meta name="keywords" content="免费翻墙,VPN代理,科学上网,V2Ray,Shadowsocks,翻墙软件,免费VPN,代理服务器,突破封锁,网络自由" />
+    <meta name="author" content="End GFW Together" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="免费翻墙软件 - 完全免费VPN代理服务" />
+    <meta property="og:description" content="提供完全免费的翻墙软件和VPN代理服务，每日更新节点，支持全平台。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://end-gfw.com" />
+    <meta property="og:image" content="images/default.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="免费翻墙软件 - 完全免费VPN代理服务" />
+    <meta name="twitter:description" content="提供完全免费的翻墙软件和VPN代理服务，每日更新节点，支持全平台。" />
+    <meta name="twitter:image" content="images/default.png" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://end-gfw.com" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>李老师推文 推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件</title>
-    <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="李老师推文 推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
-    />
-    <meta
-      name="keywords"
-      content="李老师推文 推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
-    />
+    <link rel="apple-touch-icon" href="images/default.png" />
+    
+    <!-- Tailwind CSS -->
+    <script src="./tailwindcss.js"></script>
+    <!-- <script src="./html2pdf.bundle.min.js"></script> -->
+
+    <script
+      src="./crypto-js.min.js"
+      integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="./hmac-sha1.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            gridTemplateColumns: {
+              14: 'repeat(14, minmax(0, 1fr))',
+            },
+            colors: {
+              primary: {
+                50: '#eff6ff',
+                100: '#dbeafe',
+                500: '#3b82f6',
+                600: '#2563eb',
+                700: '#1d4ed8',
+              },
+              accent: {
+                500: '#10b981',
+                600: '#059669',
+              }
+            },
+            fontFamily: {
+              'sans': ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-in-out',
+              'slide-up': 'slideUp 0.3s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(10px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+            },
+          },
+        },
+      };
+    </script>
 
     <script>
       fetch('header.html')
@@ -39,78 +109,335 @@
 
       fetch('footer.html')
         .then((response) => response.text())
-        .then((text) => (document.getElementById('footer').innerHTML = text));
+        .then((text) => {
+          document.getElementById('footer').innerHTML = text;
+
+          const currentYearSpan = document.getElementById('currentYear');
+          const currentDate = new Date();
+          const currentYear = currentDate.getFullYear();
+          currentYearSpan.textContent = currentYear;
+
+          document.getElementById('year').value = currentYear;
+        });
+    </script>
+
+    <script>
+      const currentDomain = window.location.hostname;
+
+      // Check the domain and conditionally add the script
+      if (
+        currentDomain === 'end-gfw.com' ||
+        currentDomain === 'vpn.ban-gfw.com'
+      ) {
+        const script = document.createElement('script');
+        script.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308'; // Replace with your script URL
+        script.type = 'text/javascript';
+        script.async = true;
+        script.crossorigin = 'anonymous';
+
+        // Append the script to the document head or body
+        document.head.appendChild(script);
+      }
     </script>
   </head>
-  <body>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md">
+      跳转到主要内容
+    </a>
+    
     <div id="header"></div>
-    <main class="relative mt-20">
-      <div class="flex justify-center">
-        <div>
-          <p class="font-bold">
-            动态免墙IP站点, 可以安全分享到朋友圈而不被炸号
-          </p>
-          <p>
-            <a target="_blank" id="why"></a>
-          </p>
+    
+    <main id="main-content" class="container mx-auto px-4 pt-20">
+      
 
-          <p id="why-group"></p>
-
-          <nav
-            class="isolate inline-flex grid grid-cols-4 lg:grid-cols-7 -space-x-px rounded-md shadow-sm mt-10"
-            aria-label="Pagination"
-            id="page-group"
-          ></nav>
-        </div>
-      </div>
-      <div class="flex justify-center mt-10">
-        <div id="tweet">
-          <div class="max-w-3xl">
-            <div class="bg-white px-4 py-5 sm:px-6">
-              <div class="flex space-x-3">
-                <div class="flex-shrink-0">
-                  <img
-                    class="h-10 w-10 rounded-full"
-                    src="https://pbs.twimg.com/profile_images/1558667234855292929/RqgodvGb_400x400.jpg"
-                    alt=""
-                  />
-                </div>
-                <div class="min-w-0 flex-1">
-                  <p class="text-lg font-bold text-gray-900">
-                    <a href="" class="">李老师不是你老师 @whyyoutouzhele</a>
-                  </p>
-                  <p class="text-sm text-gray-500">
-                    <a href="#" class="">北京时间0000-00-00 00:00:00发布</a>
-                  </p>
-                </div>
-                <div class="flex flex-shrink-0 self-center">
-                  <div class="relative inline-block text-left">
-                    <div
-                      class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="menu-0-button"
-                      tabindex="-1"
-                    ></div>
-                  </div>
+      <!-- Search and Date Selection Section -->
+      <section class="bg-white rounded-xl shadow-lg p-6 mt-8 animate-fade-in">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">内容搜索</h2>
+        
+        <!-- Date Selection -->
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold text-gray-700 mb-4">选择日期范围</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="space-y-2">
+              <label for="year" class="block text-sm font-medium text-gray-700">年份</label>
+              <div class="relative">
+                <select id="year" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="2022">2022年</option>
+                  <option value="2023">2023年</option>
+                  <option value="2024">2024年</option>
+                  <option value="2025">2025年</option>
+                  <option value="2026">2026年</option>
+                  <option value="2027">2027年</option>
+                  <option value="2028">2028年</option>
+                  <option value="2029">2029年</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
                 </div>
               </div>
             </div>
-            <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-              <p>更新中，请稍后查看...或查看昨日新闻</p>
+            
+            <div class="space-y-2">
+              <label for="month" class="block text-sm font-medium text-gray-700">月份</label>
+              <div class="relative">
+                <select id="month" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="">选择月份</option>
+                  <option value="01">1月</option>
+                  <option value="02">2月</option>
+                  <option value="03">3月</option>
+                  <option value="04">4月</option>
+                  <option value="05">5月</option>
+                  <option value="06">6月</option>
+                  <option value="07">7月</option>
+                  <option value="08">8月</option>
+                  <option value="09">9月</option>
+                  <option value="10">10月</option>
+                  <option value="11">11月</option>
+                  <option value="12">12月</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="day" class="block text-sm font-medium text-gray-700">开始日期</label>
+              <div class="relative">
+                <select id="day" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="">选择日期</option>
+                  <option value="01">1日</option>
+                  <option value="02">2日</option>
+                  <option value="03">3日</option>
+                  <option value="04">4日</option>
+                  <option value="05">5日</option>
+                  <option value="06">6日</option>
+                  <option value="07">7日</option>
+                  <option value="08">8日</option>
+                  <option value="09">9日</option>
+                  <option value="10">10日</option>
+                  <option value="11">11日</option>
+                  <option value="12">12日</option>
+                  <option value="13">13日</option>
+                  <option value="14">14日</option>
+                  <option value="15">15日</option>
+                  <option value="16">16日</option>
+                  <option value="17">17日</option>
+                  <option value="18">18日</option>
+                  <option value="19">19日</option>
+                  <option value="20">20日</option>
+                  <option value="21">21日</option>
+                  <option value="22">22日</option>
+                  <option value="23">23日</option>
+                  <option value="24">24日</option>
+                  <option value="25">25日</option>
+                  <option value="26">26日</option>
+                  <option value="27">27日</option>
+                  <option value="28">28日</option>
+                  <option value="29">29日</option>
+                  <option value="30">30日</option>
+                  <option value="31">31日</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="end-day" class="block text-sm font-medium text-gray-700">结束日期</label>
+              <div class="relative">
+                <select id="end-day" class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 appearance-none transition-colors">
+                  <option value="">选择日期</option>
+                  <option value="01">1日</option>
+                  <option value="02">2日</option>
+                  <option value="03">3日</option>
+                  <option value="04">4日</option>
+                  <option value="05">5日</option>
+                  <option value="06">6日</option>
+                  <option value="07">7日</option>
+                  <option value="08">8日</option>
+                  <option value="09">9日</option>
+                  <option value="10">10日</option>
+                  <option value="11">11日</option>
+                  <option value="12">12日</option>
+                  <option value="13">13日</option>
+                  <option value="14">14日</option>
+                  <option value="15">15日</option>
+                  <option value="16">16日</option>
+                  <option value="17">17日</option>
+                  <option value="18">18日</option>
+                  <option value="19">19日</option>
+                  <option value="20">20日</option>
+                  <option value="21">21日</option>
+                  <option value="22">22日</option>
+                  <option value="23">23日</option>
+                  <option value="24">24日</option>
+                  <option value="25">25日</option>
+                  <option value="26">26日</option>
+                  <option value="27">27日</option>
+                  <option value="28">28日</option>
+                  <option value="29">29日</option>
+                  <option value="30">30日</option>
+                  <option value="31">31日</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+            <div class="flex items-center">
+              <svg class="h-5 w-5 text-blue-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm text-blue-700">推文数据自2022年10月1日起</span>
             </div>
           </div>
         </div>
-      </div>
+        
+        <!-- Search Input -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+          <div class="flex-1">
+            <input
+              type="text"
+              name="search1"
+              id="search1"
+              placeholder="输入关键词，回车键搜索"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            />
+            <!-- Hidden search2 for JavaScript compatibility -->
+            <input type="hidden" name="search2" id="search2" />
+          </div>
+          <button
+            type="submit"
+            onclick="searchTweet()"
+            class="px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 transition-colors"
+          >
+            搜索内容
+          </button>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <button
+            onclick="searchTweetPage()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            预览下载搜索结果
+          </button>
+          <button
+            onclick="getYearlyTweet()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            查看年度推文
+          </button>
+          <button
+            onclick="getMonthlyTweet()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            查看月度推文
+          </button>
+          <button
+            onclick="getHistoryTweet()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            查看当日推文
+          </button>
+          <button
+            onclick="getTweetPage()"
+            class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+          >
+            预览下载推文
+          </button>
+        </div>
+      </section>
+
+      <!-- Date Navigation -->
+      <section class="mt-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+            最近新闻
+          </h3>
+          <nav
+            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-2"
+            aria-label="日期导航"
+            id="page-group"
+          ></nav>
+        </div>
+      </section>
+
+      <!-- Content Display -->
+      <section class="mt-8" id="tweet">
+        <div class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+          <div class="flex items-center space-x-4 mb-4">
+            <img
+              class="h-12 w-12 rounded-full"
+              src="https://pbs.twimg.com/profile_images/1558667234855292929/RqgodvGb_400x400.jpg"
+              alt="李老师头像"
+            />
+            <div>
+              <h3 class="text-lg font-bold text-gray-900">李老师不是你老师 @whyyoutouzhele</h3>
+              <p class="text-sm text-gray-600">北京时间0000-00-00 00:00:00发布</p>
+            </div>
+          </div>
+          <div class="prose max-w-none">
+            <p class="text-gray-700">更新中，请稍后查看...或查看昨日新闻</p>
+          </div>
+        </div>
+      </section>
     </main>
+
     <div id="footer"></div>
+    <div id="content"></div>
+
+    <!-- Notification for copy success -->
+    <div id="copy-notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden">
+      复制成功！
+    </div>
 
     <script>
-      let isEmpty = false;
+      document.addEventListener('DOMContentLoaded', function() {
+        const search1 = document.querySelector('#search1');
+        const search2 = document.querySelector('#search2');
+        
+        if (search1) {
+          search1.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+              searchTweet();
+            }
+          });
+        }
+
+        if (search2) {
+          search2.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+              searchTweet();
+            }
+          });
+        }
+      });
+
+      let isEmpty = true;
       function getLast7Days() {
         var today = new Date();
         var last7Days = [];
-        for (var i = 0; i < 28; i++) {
+        for (var i = 0; i < 12; i++) {
           var day = new Date(today);
           day.setDate(today.getDate() - i);
           last7Days.push(formatDate(day));
@@ -152,229 +479,646 @@
       }
 
       async function fetchTweet() {
-        const pagesElement = document.getElementById('pages');
-
         const dates = getLast7DaysInShanghai();
+        const pageGroup = document.getElementById('page-group');
+
+        if (!pageGroup) {
+          console.error('Page group element not found');
+          return;
+        }
+
+        // Clear existing content
+        pageGroup.innerHTML = '';
 
         let i = 0;
         for (const item of dates) {
-          const pageGroupElement = document.createElement('a');
-          const pageGroup = document.getElementById('page-group');
-
+          const pageGroupElement = document.createElement('button');
           const parts = item.split('-');
 
-          pageGroupElement.className =
-            'ring-1 ring-inset ring-gray-300 relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
-
-          if (i == 0) {
-            await getTweet(parts[0], parts[1], parts[2]);
-
-            if (isEmpty) {
-              const yesterday = dates[i + 1];
-              const parts = yesterday.split('-');
-              await getTweet(parts[0], parts[1], parts[2]);
+          // Create modern button styling
+          pageGroupElement.className = `
+            relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 
+            focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+            border border-gray-200 hover:border-primary-300 hover:shadow-md
+            ${i === 0 
+              ? 'bg-primary-600 text-white border-primary-600 shadow-lg selected hover:bg-primary-700' 
+              : 'bg-white text-gray-700 hover:bg-gray-50'
             }
+          `.replace(/\s+/g, ' ').trim();
+
+          pageGroupElement.type = 'button';
+          pageGroupElement.id = item;
+          
+          // Create better date display
+          const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+          const month = parseInt(parts[1]) - 1;
+          const day = parseInt(parts[2]);
+          
+          pageGroupElement.innerHTML = `
+            <div class="text-center">
+              <div class="text-xs opacity-75">${monthNames[month]}</div>
+              <div class="font-semibold">${day}</div>
+            </div>
+          `;
+
+          // Add hover tooltip
+          pageGroupElement.title = `查看 ${parts[0]}年${parts[1]}月${parts[2]}日 的内容`;
+
+          // Load first day's content
+          if (isEmpty && i === 0) {
+            await getTweet(parts[0], parts[1], parts[2]);
           }
 
-          pageGroupElement.className +=
-            i == 0
-              ? ' bg-indigo-600 text-white selected hover:bg-indigo-500'
-              : ' text-gray-900';
+          pageGroupElement.onclick = async () => {
+            // Remove selected state from all buttons
+            const allButtons = pageGroup.querySelectorAll('button');
+            allButtons.forEach(btn => {
+              btn.classList.remove('selected', 'bg-primary-600', 'text-white', 'border-primary-600', 'shadow-lg', 'hover:bg-primary-700');
+              btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-50', 'border-gray-200');
+            });
 
-          pageGroupElement.id = item;
+            // Add selected state to clicked button
+            pageGroupElement.classList.add('selected', 'bg-primary-600', 'text-white', 'border-primary-600', 'shadow-lg', 'hover:bg-primary-700');
+            pageGroupElement.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-50', 'border-gray-200');
 
-          pageGroupElement.innerHTML = parts[1] + '-' + parts[2];
-
-          pageGroupElement.onclick = () => {
-            const selectedOption = pageGroup.querySelector('.selected');
-            if (selectedOption) {
-              selectedOption.classList.remove('selected');
-              selectedOption.classList.remove('bg-indigo-600');
-              selectedOption.classList.remove('text-white');
-              selectedOption.classList.remove('hover:bg-indigo-500');
-
-              selectedOption.classList.add('bg-white');
-              selectedOption.classList.add('text-gray-900');
-              selectedOption.classList.add('hover:bg-gray-50');
-              selectedOption.classList.add('ring-1');
-              selectedOption.classList.add('ring-inset');
-              selectedOption.classList.add('ring-gray-300');
-            }
-
-            //const folder = parts[0] + '/' + parts[1] + '/' + parts[2];
-
-            getTweet(parts[0], parts[1], parts[2]);
-
-            // const activeVPN = vpn.filter(
-            //  (item) => item.os == pageGroupElement.id
-            // );
-
-            //while (vpnGroup.firstChild) {
-            //  vpnGroup.removeChild(vpnGroup.firstChild);
-            // }
-
-            // addLiElement(activeVPN, vpnGroup);
-
-            pageGroupElement.classList.add('selected');
-            pageGroupElement.classList.add('bg-indigo-600');
-            pageGroupElement.classList.add('text-white');
-            pageGroupElement.classList.add('hover:bg-indigo-500');
-
-            pageGroupElement.classList.remove('bg-white');
-            pageGroupElement.classList.remove('text-gray-900');
-            pageGroupElement.classList.remove('hover:bg-gray-50');
+            // Load content for selected date
+            await getTweet(parts[0], parts[1], parts[2]);
           };
 
           pageGroup.appendChild(pageGroupElement);
           i++;
         }
 
-        //dates.forEach(async (item, i) => {});
+        // Add loading indicator
+        if (dates.length === 0) {
+          pageGroup.innerHTML = `
+            <div class="col-span-full text-center py-8 text-gray-500">
+              <svg class="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              暂无可用日期
+            </div>
+          `;
+        }
       }
 
-      async function getTweet(year, month, day) {
-        // const res = await fetch(
-        //   `/tweet?year=${year}&month=${month}&day=${day}`
-        // );
-        //year = '2024';
-        //month = '03';
-        //day = '02';
+      async function getHistoryTweet() {
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+        const dayElement = document.getElementById('day');
+        const endDayElement = document.getElementById('end-day');
 
-        //const res = await fetch(
-        //   `https://raw.githubusercontent.com/hello-world-1989/cn-news/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`
-        // );
+        const year = yearElement.value;
+        const month = monthElement.value;
+        const day = dayElement.value;
+        const endDay = endDayElement.value;
+
+        await getTweet(year, month, day, endDay);
+      }
+
+      async function getMonthlyTweet() {
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+
+        const year = yearElement.value;
+        const month = monthElement.value;
+
+        await getTweet(year, month, '');
+      }
+
+      async function getYearlyTweet() {
+        const yearElement = document.getElementById('year');
+
+        const year = yearElement.value;
+
+        await getTweet(year, '', '');
+      }
+
+      async function renewPlan() {
+        const tokenElement = document.getElementById('token');
+        const tokenStatusElement = document.getElementById('token-status');
+        // const tokenErrorElement = document.getElementById('token-error');
+
+        const token = tokenElement.value;
+
+        console.log('token: ', token);
+
+        if (!token) {
+          return;
+        }
+
+        tokenStatusElement.classList.remove('hidden');
+
+        tokenStatusElement.textContent = '签到中...';
 
         let temp = [];
 
         try {
-          const res = await fetch(
-            `/tweet?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
-          );
+          await fetch(`/renew-plan?token=${token}`);
+          tokenStatusElement.textContent = '签到成功!';
+        } catch (err) {
+          tokenStatusElement.textContent = '签到失败!';
+          console.error('error token renew', token);
+        }
+      }
+
+      async function searchTweet() {
+        const searchElement1 = document.getElementById('search1');
+        const searchElement2 = document.getElementById('search2');
+
+        const keyword = searchElement1.value || searchElement2.value;
+
+        console.log('keyword: ', keyword);
+
+        if (!keyword) {
+          return;
+        }
+
+        let temp = [];
+
+        try {
+          const res = await fetch(`/search-tweet?keyword=${keyword}`);
 
           temp = await res.json();
         } catch (err) {
-          console.error('error loading data');
+          console.error('error searching data', keyword);
+        }
+
+        composePage(temp, '1');
+      }
+
+        function composePage(tweetArray) {
+          const sort = (a, b) => {
+            if (day) {
+              return a.createdDate > b.createdDate ? -1 : 1;
+            } else {
+              return a.views < b.views ? 1 : -1;
+            }
+          };
+
+          const data = tweetArray?.sort((a, b) => sort(a, b));
+
+          const pdfElement = document.getElementById('tweet');
+
+          const elements = data.map((item) => {
+            const images = item?.images?.split(',');
+
+            if (item.videos) {
+              const videoImages = item.videos?.split(',');
+              images.push(...videoImages);
+            }
+
+            let imageElement = '';
+
+            if (images?.length > 0) {
+              const imagesArr = images
+                .filter((item) => item !== '')
+                .map(
+                  (item) =>
+                    `<li class='relative'>
+                <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:shadow-lg transition-shadow'>
+                  <img
+                    src='/resource${item}'
+                    alt='推文图片'
+                    class='object-cover hover:scale-105 transition-transform duration-300'
+                    loading='lazy'
+                  />
+                </div>
+              </li>`
+                );
+
+              imageElement = imagesArr.join('');
+            }
+
+            const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
+
+            const year = createdDate?.[0];
+            const month = createdDate?.[1];
+            const day = createdDate?.[2];
+
+            return `<article class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6 animate-fade-in">
+                <div class="p-6">
+                  <header class="flex items-center space-x-4 mb-4">
+                    <img
+                      class="h-12 w-12 rounded-full ring-2 ring-primary-100"
+                      src="images/whyyoutouzhele.jpg"
+                      alt="李老师头像"
+                      loading="lazy"
+                    />
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold text-gray-900">
+                        <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${
+              item.id
+            }" id="${item.id}" class="hover:text-primary-600 transition-colors">
+                          李老师不是你老师 @whyyoutouzhele
+                        </a>
+                      </h3>
+                      <time class="text-sm text-gray-600" datetime="${item.createdDate}">
+                        北京时间${item.createdDate}发布
+                      </time>
+                    </div>
+                    <button 
+                      onclick="copyTweet('${item.id}')" 
+                      class="px-3 py-1 text-sm text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
+                      title="复制分享链接"
+                    >
+                      <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                      </svg>
+                      分享
+                    </button>
+                  </header>
+                  
+                  <div class="prose prose-gray max-w-none mb-4">
+                    <p class="text-gray-700 leading-relaxed">
+                      ${item?.content
+                        ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
+                        ?.replace(/https:\/\/x\.com\/\S+/g, '')
+                        ?.trim()}
+                    </p>
+                  </div>
+                  
+                  ${imageElement ? `
+                  <div class="mt-4">
+                    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      ${imageElement}
+                    </ul>
+                  </div>
+                  ` : ''}
+                </div>
+              </article>`;
+          });
+
+          if (elements.length === 0) {
+            pdfElement.innerHTML = `
+              <div class="bg-white rounded-xl shadow-lg p-8 text-center animate-fade-in">
+                <div class="w-16 h-16 mx-auto mb-4 text-gray-400">
+                  <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">暂无内容</h3>
+                <p class="text-gray-600">请尝试其他搜索条件或查看其他日期的内容</p>
+              </div>
+            `;
+          } else {
+            pdfElement.innerHTML = elements.join('');
+          }
+        }      async function getTweet(year, month, day, endDay = '') {
+        let temp = [];
+
+        try {
+          const res = await fetch(
+            `/tweet?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=whyyoutouzhele`
+          );
+
+          temp = await res.json();
+
+          isEmpty = false;
+        } catch (err) {
+          console.error('error loading data', err);
           isEmpty = true;
         }
 
-        const data = temp?.sort((a, b) =>
-          a.createdDate > b.createdDate ? -1 : 1
-        );
-
-        const pdfElement = document.getElementById('tweet');
-
-        const elements = data.map((item) => {
-          const images = item?.images?.split(',');
-
-          if (item.videos) {
-            images.push(item.videos?.split(',')?.[0]);
-          }
-
-          let imageElement = '';
-
-          if (images?.length > 0) {
-            const imagesArr = images
-              .filter((item) => item !== '')
-              .map(
-                (item) =>
-                  `<li class='relative'>
-              <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100'>
-                <img
-                  src='${item}'
-                  alt=''
-                  class='pointer-events-none object-cover group-hover:opacity-75'
-                />
-              </div>
-            </li>`
-              );
-
-            imageElement = imagesArr.join('');
-          }
-
-          return `<div class="max-w-3xl">
-              <div class="bg-white px-4 py-5 sm:px-6">
-                <div class="flex space-x-3">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="h-10 w-10 rounded-full"
-                      src="images/whyyoutouzhele.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-lg font-bold text-gray-900">
-                      <a href="" class="">李老师不是你老师 @whyyoutouzhele </a>
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      <a href="#" class="">北京时间${item.createdDate}发布</a>
-                    </p>
-                  </div>
-                  <div class="flex flex-shrink-0 self-center">
-                    <div class="relative inline-block text-left">
-                      <div
-                        class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="menu-0-button"
-                        tabindex="-1"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="px-4 pb-5 sm:p-6 sm:pt-0">
-                <p>
-                  ${item.content}
-                </p>
-              </div>
-              <ul
-                role="list"
-                class="grid grid-cols-1 gap-x-1 gap-y-8 sm:grid-cols-1 sm:gap-x-2 lg:grid-cols-2 xl:gap-x-4"
-              >
-                ${imageElement}
-              </ul>
-            </div>`;
-        });
-
-        pdfElement.innerHTML = elements.join('');
+        composePage(temp, day);
       }
-
-      fetchTweet();
     </script>
 
     <script>
-      async function getHost() {
-        const res = await fetch('/host');
+      async function getSS() {
+        const res = await fetch('/ss-key');
 
-        const dataArr = await res.json();
+        const ssKeyBase64 = await res.text();
 
-        const dataGroup = dataArr.slice(0, 5);
+        const ssKeys = ssKeyBase64?.split('\r\n');
 
-        const whyElement = document.getElementById('why-group');
+        //const ssKey1 = ssKeys?.[0];
+        //const ssKey2 = ssKeys?.[1];
 
-        dataGroup.forEach((item) => {
-          const linkElement = document.createElement('a');
-
-          const newLineElement = document.createElement('br');
-
-          if (item.port == 80) {
-            linkElement.href = `http://${item.ip}`;
-
-            linkElement.innerText = `http://${item.ip}`;
-          } else {
-            linkElement.href = `http://${item.ip}:${item.port}/`;
-
-            linkElement.innerText = `http://${item.ip}:${item.port}/`;
-          }
-
-          linkElement.target = '_blank';
-
-          whyElement.appendChild(linkElement);
-          whyElement.appendChild(newLineElement);
+        ssKeys.forEach((key, i) => {
+          const element = document.getElementById(`outline${i + 1}`);
+          element.parentElement.classList.remove('hidden');
+          element.innerText = key;
         });
+
+        //const ssElement1 = document.getElementById('outline1');
+        //const ssElement2 = document.getElementById('outline2');
+        //const ssElement3 = document.getElementById('outline3');
+        //const ssElement4 = document.getElementById('outline4');
+        //const ssElement5 = document.getElementById('outline5');
+
+        //ssElement1.href = ssKey1;
+        //ssElement1.innerText = ssKey1;
+
+        //ssElement2.href = ssKey2;
+        //ssElement2.innerText = ssKey2;
       }
 
-      getHost();
+      // Call when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        getSS();
+      });
+    </script>
+
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', async function() {
+        await fetchTweet();
+      });
+    </script>
+
+    <script>
+        async function getMirrorHosts() {
+          try {
+            const res = await fetch('/host');
+            const dataArr = await res.json();
+
+            const whyElement = document.getElementById('mirror-list');
+            
+            if (!whyElement) {
+              console.error('Mirror list element not found');
+              return;
+            }
+
+            // Clear existing content
+            whyElement.innerHTML = '';
+
+            if (!dataArr || dataArr.length === 0) {
+              whyElement.innerHTML = `
+                <div class="text-center p-4 text-gray-500">
+                  <svg class="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  </svg>
+                  暂无可用镜像站点
+                </div>
+              `;
+              return;
+            }
+
+            dataArr.forEach((item) => {
+              const linkContainer = document.createElement('div');
+              linkContainer.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors mb-2';
+              
+              const linkElement = document.createElement('a');
+              linkElement.className = 'text-primary-600 hover:text-primary-700 font-medium break-all';
+              linkElement.target = '_blank';
+
+              if (item.port == 80) {
+                linkElement.href = `http://${item.ip}`;
+                linkElement.innerText = `http://${item.ip}`;
+              } else {
+                linkElement.href = `http://${item.ip}:${item.port}/`;
+                linkElement.innerText = `http://${item.ip}:${item.port}/`;
+              }
+
+              const statusIndicator = document.createElement('div');
+              statusIndicator.className = 'flex items-center text-sm text-gray-600 flex-shrink-0 ml-2';
+              statusIndicator.innerHTML = `
+                <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                可用
+              `;
+
+              linkContainer.appendChild(linkElement);
+              linkContainer.appendChild(statusIndicator);
+              whyElement.appendChild(linkContainer);
+            });
+          } catch (error) {
+            console.error('Error fetching mirror hosts:', error);
+            const whyElement = document.getElementById('mirror-list');
+            if (whyElement) {
+              whyElement.innerHTML = `
+                <div class="text-center p-4 text-red-500">
+                  <svg class="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                  </svg>
+                  加载镜像站点失败
+                </div>
+              `;
+            }
+          }
+        }
+
+        // Call when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+          getMirrorHosts();
+        });
+    </script>
+
+    <script>
+      async function getAppleAccount() {
+        try {
+          const res = await fetch('/apple-account');
+          const data = await res.json();
+
+          const appleIdElement = document.getElementById('apple-id');
+          const applePasswordElement = document.getElementById('apple-password');
+          const appleExpiryElement = document.getElementById('apple-expiry');
+
+          if (appleIdElement) appleIdElement.innerText = data.username || '';
+          if (applePasswordElement) applePasswordElement.innerText = data.password || '';
+          if (appleExpiryElement) appleExpiryElement.innerText = data.expireDate || '';
+        } catch (error) {
+          console.error('Error fetching apple account:', error);
+        }
+      }
+
+      // Call when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        getAppleAccount();
+      });
+    </script>
+
+    <!-- <script>
+      async function getCurrentMirrorStatus() {
+        const res = await fetch('/check-status');
+
+        const currentMirrorStatus = await res.text();
+
+        const currentMirrorElement = document.getElementById('current-mirror');
+
+        currentMirrorElement.innerText =
+          currentMirrorStatus == 'true'
+            ? '当前镜像节点状态正常'
+            : '当前镜像节点被屏蔽， 请更换IP';
+      }
+
+      getCurrentMirrorStatus();
+    </script> -->
+
+    <script>
+      function copyText(elementId) {
+        // Get the text field
+        var textToCopy = document.getElementById(elementId);
+
+        // Select the text
+        var range = document.createRange();
+        range.selectNode(textToCopy);
+        window.getSelection().removeAllRanges(); // clear current selection
+        window.getSelection().addRange(range); // to select text
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          if (successful) {
+            showCopyNotification();
+          }
+          console.log('Copy text command was ' + (successful ? 'successful' : 'unsuccessful'));
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        window.getSelection().removeAllRanges();
+      }
+
+      function showCopyNotification() {
+        const notification = document.getElementById('copy-notification');
+        notification.classList.remove('hidden', 'translate-y-full');
+        notification.classList.add('translate-y-0');
+        
+        setTimeout(() => {
+          notification.classList.remove('translate-y-0');
+          notification.classList.add('translate-y-full');
+          setTimeout(() => {
+            notification.classList.add('hidden');
+          }, 300);
+        }, 2000);
+      }
+    </script>
+
+    <script>
+      function copyTweet(elementId) {
+        // Get the text field
+        const linkElement = document.getElementById(elementId);
+
+        // Create a temporary input element to hold the link text
+        var tempInput = document.createElement('input');
+        tempInput.value = linkElement.href;
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        document.body.removeChild(tempInput);
+      }
+    </script>
+
+    <script>
+      async function getTweetPage() {
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+        const dayElement = document.getElementById('day');
+        const endDayElement = document.getElementById('end-day');
+
+        const year = yearElement.value;
+        const month = monthElement.value;
+        const day = dayElement.value;
+        const endDay = endDayElement.value;
+
+        try {
+          /* const res = await fetch(
+            `/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele`
+          );*/
+
+          window.open(
+            `/tweet-page?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=whyyoutouzhele`
+          );
+
+          /* const htmlContent = await res.text();
+
+          const opt = {
+            margin: 1,
+            filename: `${year}${month}${day}`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 5, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+          };
+
+          html2pdf().from(htmlContent).set(opt).save();
+          */
+        } catch (err) {
+          console.error('getTweetPage err: ', err);
+        }
+      }
+
+      async function searchTweetPage() {
+        const searchElement1 = document.getElementById('search1');
+        const searchElement2 = document.getElementById('search2');
+
+        const keyword = searchElement1.value || searchElement2.value;
+
+        if (!keyword) {
+          return;
+        }
+
+        try {
+          window.open(`/search-tweet-page?keyword=${keyword}`);
+
+          /* const htmlContent = await res.text();
+
+          const opt = {
+            margin: 1,
+            filename: `${keyword}`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+          };
+
+          html2pdf().from(htmlContent).set(opt).save();
+
+          */
+        } catch (err) {
+          console.error('getTweetPage err: ', err);
+        }
+      }
+
+      function getYearlyTweetPage() {
+        const yearElement = document.getElementById('year');
+
+        const year = yearElement.value;
+
+        // getTweetPage(year, '', '');
+      }
+    </script>
+
+    <script>
+      const getWeekNumber = () => {
+        const date = new Date();
+        const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+        const pastDaysOfYear =
+          (date.getTime() - firstDayOfYear.getTime()) / 86400000; // Milliseconds per day
+        //return Math.ceil((pastDaysOfYear + 1) / 7);
+        return Math.ceil(pastDaysOfYear / 3);
+      };
+
+      const hashWeek = () => {
+        const weekNumber = getWeekNumber();
+        const hash = CryptoJS.SHA1(weekNumber + '').toString();
+
+        return hash.slice(0, 6);
+      };
+
+      const updateLink = () => {
+        const v2ray1Element = document.getElementById('v2ray1');
+        if (v2ray1Element) {
+          v2ray1Element.innerText = `https://raw.githubusercontent.com/hello-world-1989/v2-sub/main/end-gfw-together-${hashWeek()}`;
+        }
+      };
+
+      // Only call updateLink if the element exists
+      document.addEventListener('DOMContentLoaded', function() {
+        updateLink();
+      });
     </script>
   </body>
 </html>

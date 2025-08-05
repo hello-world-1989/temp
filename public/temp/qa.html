@@ -1,33 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./tailwindcss.js"></script>
-    <link rel="icon" type="image/x-icon" href="images/default.png" />
-    <title>
-      常见问题 推墙运动 墙倒众人推 大翻墙运动 拆墙运动 普及翻墙 完全免费翻墙软件
-    </title>
-    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="拆墙运动" />
+    <meta name="theme-color" content="#2563eb" />
+    
+    <!-- SEO Meta Tags -->
+    <title>常见问题 - 推墙运动 | 免费翻墙软件 | 科学上网工具</title>
     <meta
       name="description"
-      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+      content="推墙运动常见问题解答：免费翻墙软件下载、科学上网教程、VPN代理工具使用指南。支持iOS、Android、Windows、Mac系统。"
     />
     <meta
       name="keywords"
-      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+      content="推墙运动,翻墙软件,科学上网,VPN,代理,Shadowsocks,v2ray,Tor,免费翻墙,GFW,防火墙突破"
     />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="常见问题 - 推墙运动 | 免费翻墙软件" />
+    <meta property="og:description" content="推墙运动常见问题解答：免费翻墙软件下载、科学上网教程、VPN代理工具使用指南。" />
+    <meta property="og:url" content="https://end-gfw.com/qa.html" />
+    <meta property="og:image" content="images/default.png" />
+    <meta property="og:site_name" content="推墙运动" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="常见问题 - 推墙运动 | 免费翻墙软件" />
+    <meta name="twitter:description" content="推墙运动常见问题解答：免费翻墙软件下载、科学上网教程、VPN代理工具使用指南。" />
+    <meta name="twitter:image" content="images/default.png" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "name": "推墙运动常见问题",
+      "description": "免费翻墙软件和科学上网工具的常见问题解答",
+      "url": "https://end-gfw.com/qa.html",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "如何保持翻墙防止翻墙软件失效",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "加入谷歌群组订阅最新翻墙软件，设置自动转发到国内邮箱。我们将每月发送最新翻墙软件、镜像下载地址等。"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./tailwindcss.js" as="script" />
+    <link rel="preload" href="header.html" as="fetch" crossorigin />
+    <link rel="preload" href="footer.html" as="fetch" crossorigin />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <link rel="apple-touch-icon" href="images/default.png" />
+    
+    <!-- CSS Framework -->
+    <script src="./tailwindcss.js"></script>
+    
+    <!-- Custom Styles for Better Mobile Experience -->
+    <style>
+      /* Enhanced mobile styles */
+      @media (max-width: 640px) {
+        .mobile-scroll {
+          overflow-x: auto;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+        
+        .mobile-text {
+          word-break: break-word;
+          hyphens: auto;
+        }
+        
+        .mobile-padding {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+      
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Focus styles for accessibility */
+      a:focus, button:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+      
+      /* Loading animation */
+      .loading {
+        opacity: 0;
+        animation: fadeIn 0.5s ease-in-out forwards;
+      }
+      
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
 
     <script>
-      fetch('header.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('header').innerHTML = text;
+      // Enhanced script with error handling and loading states
+      async function loadComponent(url, elementId) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          const text = await response.text();
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.innerHTML = text;
+            element.classList.add('loading');
+          }
+          return true;
+        } catch (error) {
+          console.warn(`Failed to load ${url}:`, error);
+          return false;
+        }
+      }
 
-          const mobileHeader = document.getElementById('mobile-header');
-          const closeMenu = document.getElementById('close-menu');
-          const openMenu = document.getElementById('open-menu');
+      // Load header and footer with improved error handling
+      Promise.all([
+        loadComponent('header.html', 'header'),
+        loadComponent('footer.html', 'footer')
+      ]).then(() => {
+        // Header functionality
+        const mobileHeader = document.getElementById('mobile-header');
+        const closeMenu = document.getElementById('close-menu');
+        const openMenu = document.getElementById('open-menu');
 
+        if (mobileHeader && closeMenu && openMenu) {
           mobileHeader.classList.add('hidden');
 
           closeMenu.onclick = () => {
@@ -37,20 +149,19 @@
           openMenu.onclick = () => {
             mobileHeader.classList.remove('hidden');
           };
-        });
+        }
 
-      fetch('footer.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('footer').innerHTML = text;
-
-          const currentYearSpan = document.getElementById('currentYear');
+        // Footer functionality
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) {
           const currentDate = new Date();
           const currentYear = currentDate.getFullYear();
           currentYearSpan.textContent = currentYear;
-        });
+        }
+      });
     </script>
     <script>
+      // Enhanced ads loading with performance consideration
       const currentDomain = window.location.hostname;
 
       // Check the domain and conditionally add the script
@@ -58,573 +169,629 @@
         currentDomain === 'end-gfw.com' ||
         currentDomain === 'vpn.ban-gfw.com'
       ) {
-        const script = document.createElement('script');
-        script.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308'; // Replace with your script URL
-        script.type = 'text/javascript';
-        script.async = true;
-        script.crossorigin = 'anonymous';
-
-        // Append the script to the document head or body
-        document.head.appendChild(script);
+        // Use requestIdleCallback for better performance
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            const script = document.createElement('script');
+            script.src =
+              'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
+            script.type = 'text/javascript';
+            script.async = true;
+            script.crossorigin = 'anonymous';
+            document.head.appendChild(script);
+          });
+        } else {
+          // Fallback for browsers without requestIdleCallback
+          setTimeout(() => {
+            const script = document.createElement('script');
+            script.src =
+              'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
+            script.type = 'text/javascript';
+            script.async = true;
+            script.crossorigin = 'anonymous';
+            document.head.appendChild(script);
+          }, 1000);
+        }
       }
     </script>
   </head>
-  <body>
-    <div id="header"></div>
-    <main>
-      <div
-        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 pb-8 sm:pt-12 lg:max-w-7xl lg:px-8"
-      >
-        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 mt-10">
-          <dt
-            class="text-base font-semibold leading-7 text-red-600 lg:col-span-5"
-          >
-            风险提示
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0 text-red-600">
-            如果您在国内被国安紧盯(异议人士 活动人士), 使用本站分享的软件、
-            密钥仍会有风险
-            <br />
-            <br />
-            知识有限, 无法保证100%安全有效, 欢迎监督指正
-            <br />
-            <br />
-            华为手机等国产手机内置反诈插件且无法卸载，无法使用翻墙应用，建议购买三星等非国产手机
-            <br />
-          </dd>
-        </div>
-        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            如何保持翻墙防止翻墙软件失效
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p class="text-base leading-7 text-gray-600">
-              加入
-              <br />
-              <a
-                href="https://groups.google.com/g/end-gfw"
-                target="_blank"
-                class="font-semibold text-indigo-600"
-                >谷歌群组</a
-              >
-
-              订阅最新翻墙软件，并设置<b class="font-bold">自动转发</b
-              >到国内邮箱(有风险)
-              <br />
-              我们将每月发送最新翻墙软件、镜像下载地址、镜像谷歌搜索代理、翻墙资讯等
-
-              <br />
-              <a
-                href="./gfw-free.html##session"
-                class="font-semibold text-indigo-600"
-                >Session群组</a
-              >
-              <br />
-              <a href="#" class="font-semibold text-indigo-600"
-                >Resilio Sync同步</a
-              >
+  <body class="bg-gray-50 antialiased">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md">
+      跳转到主要内容
+    </a>
+    
+    <div id="header" role="banner"></div>
+    
+    <main id="main-content" role="main" class="min-h-screen">
+      <!-- Hero Section -->
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 sm:py-16 mt-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              常见问题解答
+            </h1>
+            <p class="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto">
+              免费翻墙软件使用指南，科学上网工具常见问题解答
             </p>
-          </dd>
+          </div>
         </div>
-        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            捐助1刀集资购买机场或
-            <a
-              href="https://github.com/hello-world-1989/xrayr-share"
-              target="_blank"
-              class="text-lg leading-6 hover:text-gray-900 font-semibold text-indigo-500"
-              >参与机场节点分享计划</a
-            >
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p class="text-base leading-7 text-gray-600">
-              <span class="font-semibold text-indigo-600"
-                >每月赞助10刀或每年赞助100刀将把组织名称放在网站赞助列表里</span
-              >
-              <br />
-              <br />
-              <a
-                href="https://donate.stripe.com/8wM8A3649d9W7o4000"
-                class="text-lg leading-6 hover:text-gray-900 font-semibold text-lime-500"
-                target="_blank"
-                >捐助1刀</a
-              >集资购买机场， 将获得高速订阅链接 每增加10刀将新增一个节点
-              <br />
-              <br />
-              捐助后请留下邮箱，将发送订阅链接
-              <br />
-            </p>
-          </dd>
+      </div>
+
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="面包屑导航" class="bg-white border-b border-gray-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <ol class="flex items-center space-x-2 py-3 text-sm">
+            <li><a href="/" class="text-blue-600 hover:text-blue-800">首页</a></li>
+            <li class="text-gray-400">/</li>
+            <li class="text-gray-600">常见问题</li>
+          </ol>
         </div>
-        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            拆墙运动 v2ray 订阅链接, 包含自建节点IP， 可免翻墙访问李老师推文
-            下载翻墙软件, 其它节点均从网络搜集, 未能保证安全,谨慎使用
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p class="text-base leading-7 text-gray-600">
-              <a
-                href="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together"
-                class="font-semibold text-indigo-600"
-                target="_blank"
-                >https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together</a
-              >
-            </p>
-          </dd>
+      </nav>
+
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <!-- Risk Warning Section - Enhanced styling -->
+        <div class="mb-12 bg-red-50 border-l-4 border-red-400 rounded-lg shadow-sm">
+          <div class="p-6 sm:p-8">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <svg class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.996-.833-2.764 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h2 class="text-lg font-semibold text-red-800 mb-4">⚠️ 风险提示</h2>
+                <div class="text-red-700 space-y-3">
+                  <p>如果您在国内被国安紧盯(异议人士 活动人士)，使用本站分享的软件、密钥仍会有风险</p>
+                  <p>知识有限，无法保证100%安全有效，欢迎监督指正</p>
+                  <p>华为手机等国产手机内置反诈插件且无法卸载，无法使用翻墙应用，建议购买三星等非国产手机</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- FAQ Section with Improved Styling -->
+        <section aria-labelledby="faq-heading" class="bg-white rounded-lg shadow-sm border border-gray-200">
+          <h2 id="faq-heading" class="sr-only">常见问题解答</h2>
+          
+          <dl class="divide-y divide-gray-200">
+            <!-- How to maintain circumvention -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">1</span>
+                如何保持翻墙防止翻墙软件失效
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-3">
+                <p>加入
+                  <a href="https://groups.google.com/g/end-gfw" target="_blank" rel="noopener noreferrer" 
+                     class="font-semibold text-blue-600 hover:text-blue-800 underline decoration-2 underline-offset-2">
+                    谷歌群组
+                  </a>
+                  订阅最新翻墙软件，并设置<strong>自动转发</strong>到国内邮箱(有风险)
+                </p>
+                <p>我们将每月发送最新翻墙软件、镜像下载地址、镜像谷歌搜索代理、翻墙资讯等</p>
+                <div class="flex flex-wrap gap-3 mt-4">
+                  <a href="./gfw-free.html##session" 
+                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors">
+                    Session群组
+                  </a>
+                  <a href="#" 
+                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors">
+                    Resilio Sync同步
+                  </a>
+                </div>
+              </dd>
+            </div>
 
-        <!-- <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            苹果手机无需海外账户安装Orbot VPN, Onion Browser(Tor Browser),
-            Session
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            使用苹果电脑安装
-            <br />
-            1 下载 Apple Configurator 2 手机USB连接苹果电脑 3
-            在苹果电脑中找到苹果手机设备
-            <br />
-            4 添加 选择 IPA 应用
-            <br />
-            <br />
-            使用微软PC电脑安装
-            <br />
-            1 安装 iTunes 2 手机USB连接微软系统电脑 3 拖拽 IPA文件到苹果手机设备
-            <br />
-          </dd>
-        </div> -->
+            <!-- Donation and sharing plan -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-green-100 text-green-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">2</span>
+                <div>
+                  捐助1刀集资购买机场或
+                  <a href="https://github.com/hello-world-1989/xrayr-share" target="_blank" rel="noopener noreferrer"
+                     class="text-blue-600 hover:text-blue-800 underline decoration-2 underline-offset-2">
+                    参与机场节点分享计划
+                  </a>
+                </div>
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-3">
+                <p class="text-blue-600 font-semibold">
+                  每月赞助10刀或每年赞助100刀将把组织名称放在网站赞助列表里
+                </p>
+                <p>
+                  <a href="https://donate.stripe.com/8wM8A3649d9W7o4000" target="_blank" rel="noopener noreferrer"
+                     class="inline-flex items-center px-4 py-2 text-lg font-semibold text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
+                    💰 捐助1刀
+                  </a>
+                  集资购买机场，将获得高速订阅链接 每增加10刀将新增一个节点
+                </p>
+                <p>捐助后请留下邮箱，将发送订阅链接</p>
+              </dd>
+            </div>
 
-        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            下载PDF乱码
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            请在浏览器设置-> 外观 -> 自定义字体 ->选择 微软雅黑 字体
-            <br />
-          </dd>
+            <!-- V2ray subscription link -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-purple-100 text-purple-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">3</span>
+                拆墙运动 v2ray 订阅链接
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <p class="mb-3">包含自建节点IP，可免翻墙访问李老师推文下载翻墙软件，其它节点均从网络搜集，未能保证安全，谨慎使用</p>
+                <div class="bg-gray-100 rounded-md p-4 mobile-scroll">
+                  <code class="text-sm text-gray-800 break-all mobile-text">
+                    <a href="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="text-blue-600 hover:text-blue-800">
+                      https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
+                    </a>
+                  </code>
+                </div>
+              </dd>
+            </div>
+
+            <!-- PDF garbled text fix -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-yellow-100 text-yellow-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">4</span>
+                下载PDF乱码
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                  <p class="flex items-start">
+                    <svg class="h-5 w-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    请在浏览器设置 → 外观 → 自定义字体 → 选择 微软雅黑 字体
+                  </p>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Resilio Sync -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">5</span>
+                Resilio Sync 同步所有翻墙软件
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="bg-gray-100 rounded-md p-3">
+                    <p class="text-sm font-medium text-gray-700 mb-1">同步索引</p>
+                    <code class="text-xs text-gray-800 break-all mobile-text">BQDQF2CBGPH6MR2JHOFJRJZJPVYBLAJEH</code>
+                  </div>
+                  <div class="bg-gray-100 rounded-md p-3">
+                    <p class="text-sm font-medium text-gray-700 mb-1">安卓翻墙软件</p>
+                    <code class="text-xs text-gray-800 break-all mobile-text">BJR3WHSGJC2NSITG6QHH3R3TKRF4KH6SQ</code>
+                  </div>
+                  <div class="bg-gray-100 rounded-md p-3">
+                    <p class="text-sm font-medium text-gray-700 mb-1">苹果手机翻墙教程</p>
+                    <code class="text-xs text-gray-800 break-all mobile-text">BNMTM2ZXI2OHFKXWKHUNIBUWTPNCCLNQ6</code>
+                  </div>
+                  <div class="bg-gray-100 rounded-md p-3">
+                    <p class="text-sm font-medium text-gray-700 mb-1">微软系统电脑翻墙软件</p>
+                    <code class="text-xs text-gray-800 break-all mobile-text">BETGWIBSMG43OAUE3N5KAPDT6KHQDQ2FX</code>
+                  </div>
+                  <div class="bg-gray-100 rounded-md p-3">
+                    <p class="text-sm font-medium text-gray-700 mb-1">苹果电脑翻墙软件</p>
+                    <code class="text-xs text-gray-800 break-all mobile-text">B2JBYP7CES2J6ZCP2LDFQ3X3AMXV4X3J2</code>
+                  </div>
+                  <div class="bg-gray-100 rounded-md p-3">
+                    <p class="text-sm font-medium text-gray-700 mb-1">李老师不是你老师推文</p>
+                    <code class="text-xs text-gray-800 break-all mobile-text">BSHVHG3DGGSAYY2TF4ZPQO7V7ST6Y2OO3</code>
+                  </div>
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Additional FAQ Items -->
+        <section aria-labelledby="advanced-faq-heading" class="mt-12 bg-white rounded-lg shadow-sm border border-gray-200">
+          <h2 id="advanced-faq-heading" class="px-6 py-4 text-xl font-semibold text-gray-900 border-b border-gray-200">
+            工具和应用使用指南
+          </h2>
+          
+          <dl class="divide-y divide-gray-200">
+            <!-- Apple Account -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200" id="apple-account">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-red-100 text-red-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🍎</span>
+                海外苹果账户自助获取
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-4">
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                  <p class="font-semibold text-blue-700 mb-2">
+                    <a href="https://ios.aneeo.com/book/88.html" target="_blank" rel="noopener noreferrer" 
+                       class="underline decoration-2 underline-offset-2 hover:text-blue-900">
+                      点击访问 ios.aneeo.com/book/88.html，目前暗号 9534726
+                    </a>
+                  </p>
+                  <p class="text-sm text-blue-600">示例账户(已过期) 用户名: i-mfwedw@aneeo.cc 密码: Aneeo-8dz31RgTRf</p>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                  <h4 class="font-semibold text-yellow-800 mb-2">⚠️ 使用须知：</h4>
+                  <ul class="text-yellow-700 space-y-1 text-sm">
+                    <li>• 登陆海外苹果应用商店下载</li>
+                    <li>• 不要登录iCloud</li>
+                    <li>• 出现安全提示选择其他选项，不升级</li>
+                  </ul>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <a href="https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/image/ios-part1.png" 
+                     target="_blank" rel="noopener noreferrer"
+                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors">
+                    📱 图片教程1-1
+                  </a>
+                  <a href="https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/image/ios-part2.png" 
+                     target="_blank" rel="noopener noreferrer"
+                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors">
+                    📱 图片教程1-2
+                  </a>
+                  <a href="https://gitlab.com/hello-world-1989/temp/-/raw/main/images/ios-part1.png" 
+                     target="_blank" rel="noopener noreferrer"
+                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors">
+                    📱 图片教程2-1
+                  </a>
+                  <a href="https://gitlab.com/hello-world-1989/temp/-/raw/main/images/ios-part2.png" 
+                     target="_blank" rel="noopener noreferrer"
+                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors">
+                    📱 图片教程2-2
+                  </a>
+                </div>
+              </dd>
+            </div>
+
+            <!-- NthLink -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-green-100 text-green-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">N</span>
+                NthLink
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <div class="bg-amber-50 border border-amber-200 rounded-md p-4">
+                  <p class="flex items-start">
+                    <svg class="h-5 w-5 text-amber-600 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    若无法链接尝试更改DNS为 9.9.9.9 或 149.112.112.112 或 8.8.4.4
+                  </p>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Tor/Orbot -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-purple-100 text-purple-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🧅</span>
+                Tor 或 Orbot
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <a href="https://bridges.torproject.org/bridges/?transport=obfs4&ipv6=yes" 
+                     target="_blank" rel="noopener noreferrer"
+                     class="block bg-blue-50 border border-blue-200 rounded-md p-4 hover:bg-blue-100 transition-colors">
+                    <h4 class="font-semibold text-blue-700 mb-1">🌉 获取 obfs4 网桥</h4>
+                    <p class="text-sm text-blue-600">(需翻墙)</p>
+                  </a>
+                  <a href="https://bridges.torproject.org/bridges/?transport=webtunnel&ipv6=yes" 
+                     target="_blank" rel="noopener noreferrer"
+                     class="block bg-blue-50 border border-blue-200 rounded-md p-4 hover:bg-blue-100 transition-colors">
+                    <h4 class="font-semibold text-blue-700 mb-1">🌐 获取 webtunnel 网桥</h4>
+                    <p class="text-sm text-blue-600">(需翻墙)</p>
+                  </a>
+                </div>
+                
+                <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
+                  <p class="mb-2">或请国外朋友获取或发邮件获取：<code class="bg-white px-2 py-1 rounded text-sm">end.gfw@hotmail.com</code></p>
+                  
+                  <h4 class="font-semibold text-gray-800 mt-4 mb-2">配置说明：</h4>
+                  <div class="space-y-2 text-sm">
+                    <p><strong>Orbot:</strong> 使用网桥 → 1. 先尝试Snowflake 2. 自定义网桥(输入获取的网桥，webtunnel obfs4都尝试)</p>
+                    <p><strong>Tor:</strong> 右上角设置 → 配置网桥 → 1. 先尝试Obfs4, meek-azure, snowflake 2. 输入已知网桥</p>
+                  </div>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Outline -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-teal-100 text-teal-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">📡</span>
+                Outline
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-4">
+                <p class="font-semibold text-blue-600">点击免费自建机场获取</p>
+                
+                <div class="bg-green-50 border border-green-200 rounded-md p-4">
+                  <h4 class="font-semibold text-green-800 mb-2">可以用来引导启动其它免费翻墙软件：</h4>
+                  <ul class="text-green-700 space-y-1 text-sm">
+                    <li>1. 链接Outline，然后再链接NthLink</li>
+                    <li>2. 链接Outline <a href="https://bridges.torproject.org/bridges/?transport=obfs4&ipv6=yes" target="_blank" rel="noopener noreferrer" class="underline">获取网桥</a> 给Tor, Orbot VPN使用</li>
+                    <li>3. 链接Outline，打开Session 收发境外邮件等</li>
+                  </ul>
+                </div>
+                
+                <p class="text-sm">免费提供技术支持搭建，搭建完成后自行使用或销售(用户>=3)</p>
+              </dd>
+            </div>
+
+            <!-- WARP Plus -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-orange-100 text-orange-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">☁️</span>
+                WARP Plus
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-3">
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                  <p class="font-semibold text-blue-700 mb-2">国产手机需要安装三件套：</p>
+                  <div class="flex flex-wrap gap-2">
+                    <a href="https://github.com/hello-world-1989/android/releases/download/latest/android-google.zip" 
+                       class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-white rounded-md border border-blue-200 hover:bg-blue-50 transition-colors">
+                      📦 下载链接1
+                    </a>
+                    <a href="https://github.com/hello-world-1989/temp/raw/main/android/android-google-play.zip" 
+                       class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-white rounded-md border border-blue-200 hover:bg-blue-50 transition-colors">
+                      📦 下载链接2
+                    </a>
+                  </div>
+                </div>
+                
+                <p>需要 <a href="https://replit.com/@ygkkkk/WarpKey-Register-PRO?v=1" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 underline decoration-2 underline-offset-2">自助生成密钥</a>，并链接VPN更新密钥</p>
+                
+                <p>可能需要 <a href="https://github.com/Alvin9999/new-pac/blob/master/CloudFlare%E4%BC%98%E8%B4%A8IP" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 underline decoration-2 underline-offset-2">优选IP</a></p>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Communication Apps Section -->
+        <section aria-labelledby="communication-apps-heading" class="mt-12 bg-white rounded-lg shadow-sm border border-gray-200">
+          <h2 id="communication-apps-heading" class="px-6 py-4 text-xl font-semibold text-gray-900 border-b border-gray-200">
+            通讯应用和工具
+          </h2>
+          
+          <dl class="divide-y divide-gray-200">
+            <!-- Fdroid -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-green-100 text-green-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🤖</span>
+                Fdroid应用商店
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-3">
+                <p>
+                  <a href="https://gitlab.com/fdroid/mirror-monitor" target="_blank" rel="noopener noreferrer" 
+                     class="font-semibold text-blue-600 underline decoration-2 underline-offset-2">
+                    📋 镜像地址列表
+                  </a>
+                </p>
+                <p>镜像地址 + 要下载的应用id，例如：</p>
+                <div class="bg-gray-100 rounded-md p-3 mobile-scroll">
+                  <code class="text-sm text-gray-800 break-all mobile-text">
+                    https://mirror.fcix.net/fdroid/repo/org.fdroid.fdroid_1019050.apk
+                  </code>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Briar -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-purple-100 text-purple-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🌐</span>
+                Briar
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <div class="bg-purple-50 border border-purple-200 rounded-md p-4">
+                  <h4 class="font-semibold text-purple-800 mb-2">特点：</h4>
+                  <ul class="text-purple-700 space-y-1 text-sm">
+                    <li>• 无需网络 • 无需手机号 • 无需邮箱 • 无需翻墙</li>
+                    <li>• 通讯时需要双方同时在线</li>
+                    <li>• 100%独立的无线宽带网络，提供可变WiFi网络</li>
+                    <li>• 不依赖任何传统物理接入方式</li>
+                    <li>• 能轻易躲过任何形式的政府监测</li>
+                  </ul>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Jami Group -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200" id="jami">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🔗</span>
+                Jami 群组
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-3">
+                <p class="font-medium">无需手机号 无需邮箱 需要双方同时在线 通讯应用</p>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">使用方法：</h4>
+                  <ol class="text-blue-700 space-y-1 text-sm list-decimal list-inside">
+                    <li>添加Jami账户，查找名称 → ban-gfw → 加入通讯录 → 发送任意消息</li>
+                    <li>请于加好友后再上线2次（第一次好友通过，第二次加入群组邀请）</li>
+                    <li>如果需要跟朋友间通讯，请使用第三方软件通知对方上线</li>
+                    <li>第一次使用可能需要使用翻墙软件</li>
+                  </ol>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Session Group -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200" id="session">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">💬</span>
+                Session 群组
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-3">
+                <p class="font-medium">无需手机号 无需邮箱 仅第一次使用需要翻墙 通讯应用</p>
+                
+                <div class="bg-indigo-50 border border-indigo-200 rounded-md p-4">
+                  <p class="font-semibold text-indigo-800 mb-2">添加方法：</p>
+                  <p class="text-indigo-700 text-sm mb-2">+ → New Message 发送消息给账户</p>
+                  <div class="bg-white rounded border p-2 mobile-scroll">
+                    <code class="text-xs text-gray-800 break-all mobile-text">
+                      0574c0e3db87e0ddce32b112c16b626543f20991694b66718160e54d3daa71762f
+                    </code>
+                  </div>
+                </div>
+              </dd>
+            </div>
+
+            <!-- Skred -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-red-100 text-red-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🔐</span>
+                Skred
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                  <h4 class="font-semibold text-red-800 mb-2">特点：</h4>
+                  <ul class="text-red-700 space-y-1 text-sm">
+                    <li>• 无需手机号 • 无需邮箱 • 无需翻墙通讯应用</li>
+                    <li>• 需要双方同时在线</li>
+                    <li>• 群组最多8人，正在增加</li>
+                    <li>• 适合朋友间交流</li>
+                  </ul>
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Additional Resources Section -->
+        <section aria-labelledby="additional-resources-heading" class="mt-12 bg-white rounded-lg shadow-sm border border-gray-200">
+          <h2 id="additional-resources-heading" class="px-6 py-4 text-xl font-semibold text-gray-900 border-b border-gray-200">
+            其他资源和链接
+          </h2>
+          
+          <dl class="divide-y divide-gray-200">
+            <!-- Other Questions -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">❓</span>
+                其它问题
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <p>请前往 
+                  <a href="https://github.com/hello-world-1989/temp" target="_blank" rel="noopener noreferrer" 
+                     class="font-semibold text-blue-600 hover:text-blue-800 underline decoration-2 underline-offset-2">
+                    Github 项目页面
+                  </a> 查看更多信息
+                </p>
+              </dd>
+            </div>
+
+            <!-- Friendly Links -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🔗</span>
+                友情链接
+              </dt>
+              <dd class="text-gray-700 leading-relaxed">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <a href="https://ban-gfw.com/" target="_blank" rel="noopener noreferrer" 
+                     class="block bg-blue-50 border border-blue-200 rounded-md p-4 hover:bg-blue-100 transition-colors">
+                    <h4 class="font-semibold text-blue-700">🚫 拆墙运动</h4>
+                    <p class="text-sm text-blue-600">ban-gfw.com</p>
+                  </a>
+                  <a href="https://20000.space/" target="_blank" rel="noopener noreferrer" 
+                     class="block bg-red-50 border border-red-200 rounded-md p-4 hover:bg-red-100 transition-colors">
+                    <h4 class="font-semibold text-red-700">📺 免墙Youtube</h4>
+                    <p class="text-sm text-red-600">20000.space</p>
+                  </a>
+                </div>
+              </dd>
+            </div>
+
+            <!-- What We Can Do -->
+            <div class="p-6 sm:p-8 hover:bg-gray-50 transition-colors duration-200" id="ooni">
+              <dt class="text-lg font-semibold text-gray-900 mb-4 flex items-start">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-green-100 text-green-600 rounded-full text-sm font-medium mr-3 flex-shrink-0">🤝</span>
+                我们能做什么
+              </dt>
+              <dd class="text-gray-700 leading-relaxed space-y-4">
+                <div class="bg-green-50 border border-green-200 rounded-md p-4">
+                  <p class="font-semibold text-green-800 mb-2">🔬 非常需要国内的朋友协助测试</p>
+                  <p class="text-green-700 text-sm">
+                    安装OONI Probe测试GFW(长城防火墙)屏蔽方式，帮助研究人员开发更好的翻墙软件，轻微风险
+                  </p>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">OONI Probe 配置说明：</h4>
+                  <ul class="text-blue-700 space-y-1 text-sm">
+                    <li>• 测试时可能需要给OONI Probe设置内置代理，否则测试报告无法上传</li>
+                    <li>• 先直接测试，如果失败：设置 → OONI后台代理 Psiphon</li>
+                    <li>• 或在另外一台安卓手机安装Every Proxy 开启http自定义代理</li>
+                  </ul>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-md p-4">
+                  <h4 class="font-semibold text-orange-800 mb-2">你可以做的事情：</h4>
+                  <ul class="text-orange-700 space-y-1 text-sm">
+                    <li>• 如果你在墙内，帮助身边的人翻墙</li>
+                    <li>• 自行搭建或分享动态IP网站到朋友圈、小红书等，传播国内发生的新闻</li>
+                    <li>• 注册域名指向动态IP，分享域名到朋友圈、小红书等</li>
+                  </ul>
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Back to Top Button -->
+        <div class="fixed bottom-6 right-6 z-50">
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                  class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  aria-label="回到顶部">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+          </button>
         </div>
-
-        <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            Resilio Sync 同步所有翻墙软件
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            同步索引 BQDQF2CBGPH6MR2JHOFJRJZJPVYBLAJEH
-            <br />
-            同步安卓翻墙软件 BJR3WHSGJC2NSITG6QHH3R3TKRF4KH6SQ
-            <br />
-            同步苹果手机翻墙教程 BNMTM2ZXI2OHFKXWKHUNIBUWTPNCCLNQ6
-            <br />
-            同步微软系统电脑翻墙软件 BETGWIBSMG43OAUE3N5KAPDT6KHQDQ2FX
-            <br />
-            同步苹果电脑翻墙软件 B2JBYP7CES2J6ZCP2LDFQ3X3AMXV4X3J2
-            <br />
-            李老师不是你老师推文 BSHVHG3DGGSAYY2TF4ZPQO7V7ST6Y2OO3
-            <br />
-          </dd>
-        </div>
-        <dl class="mt-10 space-y-8 divide-y divide-gray-900/10">
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8" id="apple-account">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              海外苹果账户自助获取
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p
-                class="text-base leading-7 font-semibold text-indigo-600 space-x-10 space-y-10"
-              >
-                <a href="https://ios.aneeo.com/book/88.html" target="_blank">
-                  点击访问https://ios.aneeo.com/book/88.html，目前暗号9534726</a
-                >
-              </p>
-              <p>
-                示例账户(已过期)用户名 i-mfwedw@aneeo.cc 密码 Aneeo-8dz31RgTRf
-              </p>
-              <p>
-                登陆海外苹果应用商店下载, 不要登录icloud，出现安全提示选择
-                其他选项，不升级
-              </p>
-
-              <p
-                class="text-base leading-7 font-semibold text-indigo-600 space-x-10 space-y-10"
-              >
-                <a
-                  href="https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/image/ios-part1.png"
-                  target="_blank"
-                  >图片教程1</a
-                >
-                <a
-                  href="https://end-gfw.s3.ap-northeast-2.amazonaws.com/main/image/ios-part2.png"
-                  target="_blank"
-                  >图片教程1</a
-                >
-              </p>
-              <p
-                class="text-base leading-7 font-semibold text-indigo-600 space-x-10"
-              >
-                <a
-                  href="https://gitlab.com/hello-world-1989/temp/-/raw/main/images/ios-part1.png"
-                  target="_blank"
-                  >图片教程2</a
-                >
-                <a
-                  href="https://gitlab.com/hello-world-1989/temp/-/raw/main/images/ios-part2.png"
-                  target="_blank"
-                  >图片教程2</a
-                >
-              </p>
-            </dd>
-          </div>
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              NthLink
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 text-gray-600">
-                若无法链接尝试更改DNS为9.9.9.9或149.112.112.112或8.8.4.4
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              Tor 或 Orbot
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="font-semibold text-indigo-600">
-                <a
-                  href="https://bridges.torproject.org/bridges/?transport=obfs4&ipv6=yes"
-                  target="_blank"
-                  >自助获取obfs4网桥(需翻墙)
-                </a>
-              </p>
-              <p class="font-semibold text-indigo-600">
-                <a
-                  href="https://bridges.torproject.org/bridges/?transport=webtunnel&ipv6=yes"
-                  target="_blank"
-                  >自助获取webtunnel网桥(需翻墙)
-                </a>
-              </p>
-              <p>或请国外朋友获取或发邮件获取end.gfw@hotmail.com</p>
-              <p class="text-base leading-7 text-gray-600">
-                Orbot -> 使用网桥 -> 1 先尝试Snowflake 2
-                自定义网桥(输入获取的网桥，webtunnel obfs4都尝试下)
-                <br />
-                Tor -> 右上角设置 -> 配置网桥 -> 1 先尝试Obfs4, meek-azure,
-                snowflake 2 输入已知网桥(输入获取的网桥，webtunnel
-                obfs4都尝试下)
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              Outline
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 font-semibold text-indigo-600">
-                点击免费自建机场获取
-              </p>
-              <p>
-                可以用来 引导启动 其它免费翻墙软件(NthLink, Orbot, Tor, Session)
-                <br />
-                使用方法
-                <br />
-                1. 链接Outline， 然后再链接NthLink
-                <br />
-                2. 链接Outline
-                <a
-                  href="https://bridges.torproject.org/bridges/?transport=obfs4&ipv6=yes"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >获取网桥</a
-                >给Tor, Orbot VPN使用
-                <br />
-                3. 链接Outline， 打开Session 收发境外邮件等
-                <br />
-                免费提供技术支持搭建，搭建完成后自行使用或销售(用户>=3)
-                <br />
-                <!-- <span class="font-semibold text-indigo-600"
-                  >或者购买39套餐，将新购一台VPS， 分享拆墙机场收入</span
-                > -->
-                <!-- <a
-                  href="https://proxy.end-gfw.com/"
-                  class="text-base leading-7 text-gray-600 font-semibold text-indigo-600"
-                  target="_blank"
-                >
-                  V2Board销售系统演示
-                </a> -->
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              WARP Plus
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 text-gray-600">
-                国产手机需要安装三件套<a
-                  href="https://github.com/hello-world-1989/android/releases/download/latest/android-google.zip"
-                  class="font-semibold text-indigo-600"
-                  >下载链接1</a
-                >
-                <a
-                  href="https://github.com/hello-world-1989/temp/raw/main/android/android-google-play.zip"
-                  class="font-semibold text-indigo-600"
-                  >下载链接2</a
-                >
-              </p>
-              <p class="text-base leading-7 text-gray-600">
-                需要<a
-                  href="https://replit.com/@ygkkkk/WarpKey-Register-PRO?v=1"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >自助生成密钥</a
-                >，并链接VPN更新密钥
-              </p>
-              <p class="text-base leading-7 text-gray-600">
-                可能需要<a
-                  href="https://github.com/Alvin9999/new-pac/blob/master/CloudFlare%E4%BC%98%E8%B4%A8IP"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >优选IP</a
-                >
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              Fdroid应用商店
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7">
-                <a
-                  href="https://gitlab.com/fdroid/mirror-monitor"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >镜像地址列表</a
-                >
-                <br />
-                镜像地址 + 要下载的应用id, 例如
-              </p>
-
-              <p class="overflow-x-auto">
-                https://mirror.fcix.net/fdroid/repo/org.fdroid.fdroid_1019050.apk
-              </p>
-            </dd>
-          </div>
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              Briar
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 text-gray-600">
-                无需网络 无需手机号 无需邮箱 无需翻墙， 通讯时需要双方同时在线
-                <br />
-                100%独立的无线宽带网络、提供可变WiFi网络，不依赖任何传统物理接入方式
-                <br />
-                能轻易躲过任何形式的政府监测
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 overflow-x-clip">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-              id="jami"
-            >
-              Jami 群组
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p>无需手机号 无需邮箱 需要双方同时在线 通讯应用</p>
-              <p class="text-base leading-7 text-gray-600">
-                添加Jami账户, 查找名称 -> ban-gfw -> 加入通讯录 -> 发送任意消息
-                <br />
-                请于加好友后再上线2次（第一次好友通过,第二次加入群组邀请）
-              </p>
-              <p>如果需要跟朋友间通讯，请使用第三方软件通知对方上线</p>
-              <p>第一次使用可能需要使用翻墙软件</p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8 overflow-x-clip">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-              id="session"
-            >
-              Session 群组
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p>无需手机号 无需邮箱 仅第一次使用需要翻墙 通讯应用</p>
-              <p class="text-base leading-7 text-gray-600">
-                添加Session号码, + -> New Message 发送消息给账户
-              </p>
-              <p class="overflow-x-auto">
-                0574c0e3db87e0ddce32b112c16b626543f20991694b66718160e54d3daa71762f
-              </p>
-            </dd>
-          </div>
-
-          <!-- <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              搜索代理如何使用
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 text-gray-600">
-                使用方法1: (13.125.14.170替换为当前地址栏中IP)
-                <br />
-                在https://www.end-gfw.com/后边直接粘贴想要访问的链接
-                <br />
-                或者http://13.125.14.170/后边直接粘贴想要访问的链接(不安全，
-                联通电信移动可以看到内容)
-                <br />
-                https://13.125.14.170/后边直接粘贴想要访问的链接
-                <br />
-                <br />
-                比如想访问 https://github.com/hello-world-1989
-                <br />
-                在浏览器中的地址应该是
-                <br />
-                https://www.end-gfw.com/https://github.com/hello-world-1989
-                <br />
-                http://13.125.14.170/https://github.com/hello-world-1989(不安全，
-                联通电信移动可以看到内容)
-                <br />
-                https://13.125.14.170/https://github.com/hello-world-1989
-              </p>
-              <p class="text-base leading-7 text-gray-600">
-                使用方法2.
-                <br />
-                在谷歌中搜索想要查找的内容， 在搜索结果中
-                复制想要访问的网站链接， 重复1
-              </p>
-              <p>3. 也适用于拆墙运动镜像网站</p>
-              <p>4. 有些网站可能无法打开</p>
-            </dd>
-          </div> -->
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              Skred
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              无需手机号 无需邮箱 无需翻墙通讯应用
-              <br />
-              需要双方同时在线
-              <br />
-              群组最多8人， 正在增加
-              <br />
-              适合朋友间交流
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              其它问题
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 text-gray-600">
-                请前往<a
-                  href="https://github.com/hello-world-1989/temp"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >Github</a
-                >查看
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              友情链接
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0">
-              <p class="text-base leading-7 text-gray-600">
-                <a
-                  href="https://ban-gfw.com/"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >拆墙运动</a
-                >
-              </p>
-              <p class="text-base leading-7 text-gray-600">
-                <a
-                  href="https://20000.space/"
-                  target="_blank"
-                  class="font-semibold text-indigo-600"
-                  >免墙Youtube</a
-                >
-              </p>
-            </dd>
-          </div>
-
-          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-            <dt
-              class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-            >
-              我们能做什么
-            </dt>
-            <dd class="mt-4 lg:col-span-7 lg:mt-0" id="ooni">
-              <span class="text-lime-500">非常需要国内的朋友协助测试</span>
-              <br />
-              安装OONI
-              Probe测试GFW(长城防火墙)屏蔽方式，帮助研究人员开发更好的翻墙软件,
-              轻微风险
-              <br />
-              <br />
-              测试时可能需要给OONI Probe设置内置代理，否则测试报告无法上传,
-              先直接测试，如果失败 设置 -> OONI后台代理 Psiphon
-              或在另外一台安卓手机安装Every Proxy 开启http自定义代理
-              <br />
-              <br />
-              如果你在墙内，帮助身边的人翻墙
-              <br />
-              自行搭建或分享动态IP网站到朋友圈 小红书等，传播国内发生的新闻
-              <br />
-              或者 注册域名指向 动态IP， 分享域名到朋友圈 小红书等
-            </dd>
-          </div>
-
-          <!-- More questions... -->
-        </dl>
       </div>
     </main>
-    <div id="footer"></div>
+    
+    <div id="footer" role="contentinfo"></div>
+    
+    <!-- Performance monitoring script -->
+    <script>
+      // Simple performance monitoring
+      window.addEventListener('load', function() {
+        // Log page load time
+        if ('performance' in window) {
+          const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+          console.log('Page load time:', loadTime + 'ms');
+        }
+        
+        // Add loading class to elements for fade-in effect
+        const elements = document.querySelectorAll('.loading');
+        elements.forEach(el => {
+          el.style.opacity = '1';
+        });
+      });
+      
+      // Lazy load images if any
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
+              }
+            }
+          });
+        });
+        
+        // Observe all images with data-src
+        document.querySelectorAll('img[data-src]').forEach(img => {
+          imageObserver.observe(img);
+        });
+      }
+    </script>
   </body>
 </html>

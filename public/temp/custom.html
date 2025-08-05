@@ -1,31 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./tailwindcss.js"></script>
-    <link rel="icon" type="image/x-icon" href="custom/image.png" />
-    <title>赞助商</title>
-    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- SEO Meta Tags -->
+    <title>高速代理服务 - 专业VPN翻墙解决方案 | 赞助商页面</title>
     <meta
       name="description"
-      content="推墙运动 墙倒众人推 大翻墙运动 拆除互联网防火墙 拆墙运动 声援乔鑫鑫 杨泽伟 编程随想 阮晓寰 "
+      content="提供高速稳定的VPN代理服务，支持V2Ray、Shadowsocks、Trojan等多种协议。月付低至2美元，速度高达100M/s，不限流量设备。专业翻墙解决方案，支持iOS、Android、Windows、Mac、Linux全平台。"
     />
     <meta
       name="keywords"
-      content="推墙运动 墙倒众人推 大翻墙运动 完全免费翻墙软件 梯子 机场 拆墙机场 回国机场 回国梯子 代理 Vmess Shadowsocks Trojan v2ray v2board Shadowrocket GFW 突破防火墙 VPN 防火墙 拆墙运动 拆墙 推墙 fanqiang 科学上网 自由上网 免费科学上网 免费翻墙 油管youtube 电脑、手机、iOS、安卓、windows、Mac、Linux 推特"
+      content="VPN, 代理服务, 翻墙, V2Ray, Shadowsocks, Trojan, 科学上网, 高速代理, 不限流量, 多平台支持, iOS VPN, Android VPN, Windows VPN, Mac VPN, Linux VPN"
     />
+    <meta name="author" content="End-GFW Proxy Services" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="高速代理服务 - 专业VPN翻墙解决方案" />
+    <meta property="og:description" content="提供高速稳定的VPN代理服务，月付低至2美元，速度高达100M/s，不限流量设备" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="custom/image.png" />
+    <meta property="og:url" content="/" />
+    <meta property="og:site_name" content="End-GFW Proxy Services" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="高速代理服务 - 专业VPN翻墙解决方案" />
+    <meta name="twitter:description" content="提供高速稳定的VPN代理服务，月付低至2美元，速度高达100M/s" />
+    <meta name="twitter:image" content="custom/image.png" />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="custom/image.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="custom/image.png" />
+    <link rel="apple-touch-icon" href="custom/image.png" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./tailwindcss.js" as="script" />
+    <link rel="preload" href="header.html" as="fetch" crossorigin />
+    <link rel="preload" href="footer.html" as="fetch" crossorigin />
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "高速代理服务赞助商页面",
+      "description": "提供高速稳定的VPN代理服务，支持多种协议和全平台",
+      "provider": {
+        "@type": "Organization",
+        "name": "End-GFW Proxy Services"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "基础套餐",
+          "price": "2",
+          "priceCurrency": "USD",
+          "description": "20M/s速度，不限流量不限设备"
+        },
+        {
+          "@type": "Offer", 
+          "name": "高级套餐",
+          "price": "5",
+          "priceCurrency": "USD",
+          "description": "50M/s速度，不限流量不限设备"
+        },
+        {
+          "@type": "Offer",
+          "name": "专业套餐", 
+          "price": "10",
+          "priceCurrency": "USD",
+          "description": "100M/s速度，不限流量不限设备"
+        }
+      ]
+    }
+    </script>
+    
+    <script src="./tailwindcss.js"></script>
+    
+    <!-- Custom styles for enhanced UI -->
+    <style>
+      /* Smooth transitions and animations */
+      * {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      /* Custom gradient backgrounds */
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      
+      /* Loading animation */
+      .loading {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: .5; }
+      }
+      
+      /* Copy button styles */
+      .copy-btn {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      
+      .copy-container:hover .copy-btn {
+        opacity: 1;
+      }
+      
+      /* Mobile optimizations */
+      @media (max-width: 640px) {
+        .responsive-text {
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+        }
+        
+        .responsive-padding {
+          padding: 1rem;
+        }
+      }
+      
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .auto-dark {
+          background-color: #1f2937;
+          color: #f9fafb;
+        }
+      }
+      
+      /* Focus styles for accessibility */
+      .focus-ring:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+      }
+    </style>
 
     <script>
-      fetch('header.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('header').innerHTML = text;
+      // Enhanced header and footer loading with error handling
+      async function loadComponent(url, elementId) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          
+          const text = await response.text();
+          const element = document.getElementById(elementId);
+          
+          if (element) {
+            element.innerHTML = text;
+            element.classList.remove('loading');
+            
+            // Initialize mobile menu if it's the header
+            if (elementId === 'header') {
+              initializeMobileMenu();
+            }
+            
+            // Initialize footer year if it's the footer
+            if (elementId === 'footer') {
+              updateCurrentYear();
+            }
+          }
+        } catch (error) {
+          console.error(`Failed to load ${url}:`, error);
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.innerHTML = `<div class="text-red-600 text-center p-4">Failed to load ${elementId}</div>`;
+            element.classList.remove('loading');
+          }
+        }
+      }
+      
+      function initializeMobileMenu() {
+        const mobileHeader = document.getElementById('mobile-header');
+        const closeMenu = document.getElementById('close-menu');
+        const openMenu = document.getElementById('open-menu');
 
-          const mobileHeader = document.getElementById('mobile-header');
-          const closeMenu = document.getElementById('close-menu');
-          const openMenu = document.getElementById('open-menu');
-
+        if (mobileHeader && closeMenu && openMenu) {
           mobileHeader.classList.add('hidden');
 
           closeMenu.onclick = () => {
@@ -35,140 +198,464 @@
           openMenu.onclick = () => {
             mobileHeader.classList.remove('hidden');
           };
-        });
-
-      fetch('footer.html')
-        .then((response) => response.text())
-        .then((text) => {
-          document.getElementById('footer').innerHTML = text;
-
-          const currentYearSpan = document.getElementById('currentYear');
+        }
+      }
+      
+      function updateCurrentYear() {
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) {
           const currentDate = new Date();
           const currentYear = currentDate.getFullYear();
           currentYearSpan.textContent = currentYear;
+        }
+      }
+      
+      // Copy to clipboard functionality
+      function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>';
+          button.classList.add('text-green-600');
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('text-green-600');
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy text: ', err);
         });
+      }
+      
+      // Enhanced loading with performance optimization
+      document.addEventListener('DOMContentLoaded', () => {
+        // Load components in parallel
+        Promise.all([
+          loadComponent('header.html', 'header'),
+          loadComponent('footer.html', 'footer')
+        ]);
+        
+        // Add intersection observer for animations
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fadeIn');
+              }
+            });
+          }, { threshold: 0.1 });
+          
+          document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+          });
+        }
+      });
     </script>
   </head>
-  <body>
-    <div id="header"></div>
-    <main class="mt-10">
-      <div
-        id="sponsor-list"
-        class="mx-auto max-w-2xl divide-y divide-gray-900/10 px-6 sm:pt-12 lg:max-w-7xl lg:px-8"
-      >
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            一次性赞助金额(USD 2-5)，长期获得(20-50M/s,至少3个月，最长1年)更快速度更加稳定更多线路,
-            30天到期后主页输入id签到即可（需3天签到一次），联系end-gfw,
-            免费获取10M/s（需3天签到一次）
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <a href="https://buy.stripe.com/4gM6oH2f27Qdgtv59BaVa01" target="_blank">
-              https://buy.stripe.com/4gM6oH2f27Qdgtv59BaVa01
-            </a>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            通过Ethereum或Base网络赞助USDC,
-            将获得更快代理/VPN/V2Ray/SS/Trojan线路/节点
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p>0x6d205853E0818Cd74d3D8D3426E30beAecAEf4F1</p>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            通过Solana网络赞助USDC, 将获得更快代理/VPN/V2Ray/SS/Trojan线路/节点
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p>HHB4DG2aLfAKAZZKaZPyK3h2BrnC2eoV5X32RhTJJ1pc</p>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            20 M/s,不限流量,不限设备, 2美元每月
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+  <body class="bg-gray-50 auto-dark">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50">
+      跳转到主要内容
+    </a>
+    
+    <div id="header" class="loading" aria-label="网站导航"></div>
+    
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16 sm:py-24" aria-labelledby="hero-title">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h1 id="hero-title" class="text-4xl font-bold tracking-tight sm:text-6xl">
+            高速稳定代理服务
+          </h1>
+          <p class="mt-6 text-lg leading-8 text-gray-100">
+            专业VPN解决方案，支持多种协议，全平台兼容，月付低至2美元起
+          </p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
             <a
-              href="https://commerce.coinbase.com/checkout/36d113e2-62f4-4bda-a641-9712769439d2"
-              target="_blank"
+              href="#pricing"
+              class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-ring"
             >
-              https://commerce.coinbase.com/checkout/36d113e2-62f4-4bda-a641-9712769439d2
+              查看套餐
             </a>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            50 M/s, 不限流量，不限设备, 5美元每月
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <a
-              href="https://commerce.coinbase.com/checkout/aae329d1-efa8-4f64-a0fa-befff13f5e45"
-              target="_blank"
+            <a 
+              href="#sponsors" 
+              class="text-sm font-semibold leading-6 text-white hover:text-gray-200 focus-ring"
             >
-              https://commerce.coinbase.com/checkout/aae329d1-efa8-4f64-a0fa-befff13f5e45
+              了解赞助商 <span aria-hidden="true">→</span>
             </a>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            100 M/s,不限流量,不限设备, 10美元每月
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <a
-              href="https://commerce.coinbase.com/checkout/1ae30298-02b8-48ad-8caa-4e66da0b9227"
-              target="_blank"
-            >
-              https://commerce.coinbase.com/checkout/1ae30298-02b8-48ad-8caa-4e66da0b9227
-            </a>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            黎晓龙
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p>
-              资深公民运动前辈
-              海外民主运动党团元老，赞助日期2024年5月份-2025年5月
-            </p>
-          </dd>
-        </div>
-
-        <div class="py-10 lg:grid lg:grid-cols-12">
-          <dt
-            class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5"
-          >
-            石清
-          </dt>
-          <dd class="mt-4 lg:col-span-7 lg:mt-0">
-            <p>异议者 现任加拿大参政华人代表，赞助日期2024年5月份-2025年5月</p>
-          </dd>
+          </div>
         </div>
       </div>
+    </section>
+
+    <main id="main-content" class="mt-10">
+      <!-- Sponsor Services Section -->
+      <section 
+        id="sponsor-services"
+        class="mx-auto max-w-2xl divide-y divide-gray-200 px-6 py-16 sm:pt-12 lg:max-w-7xl lg:px-8"
+        aria-labelledby="services-title"
+      >
+        <div class="text-center mb-16">
+          <h2 id="services-title" class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            赞助服务详情
+          </h2>
+          <p class="mt-4 text-lg text-gray-600">
+            通过赞助获得更优质的代理服务
+          </p>
+        </div>
+        
+        <!-- One-time Sponsorship -->
+        <div class="py-10 lg:grid lg:grid-cols-12 card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-on-scroll">
+          <dt class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5">
+            <div class="flex items-center mb-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-green-600">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12s-1.536.219-2.121.659c-1.172.879-1.172 2.303 0 3.182l.879.659z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-semibold">一次性赞助</h3>
+                <p class="text-sm text-gray-600">USD 2-5 获得长期高速服务</p>
+              </div>
+            </div>
+            <p class="responsive-text">
+              一次性赞助金额(USD 2-5)，长期获得(20-50M/s，至少3个月，最长1年)更快速度更加稳定更多线路，
+              30天到期后主页输入id签到即可（需3天签到一次），联系end-gfw，
+              免费获取10M/s（需3天签到一次）
+            </p>
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <div class="copy-container relative">
+              <a 
+                href="https://buy.stripe.com/4gM6oH2f27Qdgtv59BaVa01" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-ring"
+                aria-label="通过 Stripe 进行一次性赞助"
+              >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+                立即赞助
+              </a>
+              <button 
+                onclick="copyToClipboard('https://buy.stripe.com/4gM6oH2f27Qdgtv59BaVa01', this)"
+                class="copy-btn ml-2 rounded-md bg-gray-100 px-3 py-2 text-sm text-gray-600 hover:bg-gray-200 focus-ring"
+                aria-label="复制链接"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                </svg>
+              </button>
+            </div>
+          </dd>
+        </div>
+
+        <!-- Crypto Sponsorship - Ethereum/Base -->
+        <div class="py-10 lg:grid lg:grid-cols-12 card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-on-scroll">
+          <dt class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5">
+            <div class="flex items-center mb-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600">
+                <svg class="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-semibold">Ethereum/Base USDC</h3>
+                <p class="text-sm text-gray-600">加密货币赞助</p>
+              </div>
+            </div>
+            通过Ethereum或Base网络赞助USDC，将获得更快代理/VPN/V2Ray/SS/Trojan线路/节点
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <div class="copy-container relative bg-gray-50 rounded-lg p-4">
+              <code class="text-sm text-gray-800 break-all">0x6d205853E0818Cd74d3D8D3426E30beAecAEf4F1</code>
+              <button 
+                onclick="copyToClipboard('0x6d205853E0818Cd74d3D8D3426E30beAecAEf4F1', this)"
+                class="copy-btn absolute top-2 right-2 rounded-md bg-white px-2 py-1 text-xs text-gray-600 hover:bg-gray-100 focus-ring"
+                aria-label="复制以太坊地址"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                </svg>
+              </button>
+            </div>
+          </dd>
+        </div>
+
+        <!-- Crypto Sponsorship - Solana -->
+        <div class="py-10 lg:grid lg:grid-cols-12 card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 animate-on-scroll">
+          <dt class="text-base font-semibold leading-7 text-gray-900 lg:col-span-5">
+            <div class="flex items-center mb-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-r from-purple-400 to-pink-400">
+                <svg class="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M5.285 6.923l-.906 1.612c-.187.332-.133.748.133 1.023l12.007 12.425c.267.275.683.329 1.016.133l1.612-.906c.332-.187.587-.549.587-.929V5.93c0-.381-.255-.742-.587-.929L17.535 4.095c-.333-.186-.749-.142-1.016.133L4.512 16.653c-.266.275-.32.691-.133 1.023l.906 1.612c.187.332.549.587.929.587h12.351c.381 0 .742-.255.929-.587l.906-1.612c.187-.332.133-.748-.133-1.023L7.26 4.228c-.267-.275-.683-.329-1.016-.133L4.632 4.901c-.332.187-.587.549-.587.929v12.351c0 .381.255.742.587.929l1.612.906c.333.186.749.142 1.016-.133l12.007-12.425c.266-.275.32-.691.133-1.023l-.906-1.612c-.187-.332-.549-.587-.929-.587H5.214c-.381 0-.742.255-.929.587z"/>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-semibold">Solana USDC</h3>
+                <p class="text-sm text-gray-600">Solana网络加密货币赞助</p>
+              </div>
+            </div>
+            通过Solana网络赞助USDC，将获得更快代理/VPN/V2Ray/SS/Trojan线路/节点
+          </dt>
+          <dd class="mt-4 lg:col-span-7 lg:mt-0">
+            <div class="copy-container relative bg-gray-50 rounded-lg p-4">
+              <code class="text-sm text-gray-800 break-all">HHB4DG2aLfAKAZZKaZPyK3h2BrnC2eoV5X32RhTJJ1pc</code>
+              <button 
+                onclick="copyToClipboard('HHB4DG2aLfAKAZZKaZPyK3h2BrnC2eoV5X32RhTJJ1pc', this)"
+                class="copy-btn absolute top-2 right-2 rounded-md bg-white px-2 py-1 text-xs text-gray-600 hover:bg-gray-100 focus-ring"
+                aria-label="复制Solana地址"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                </svg>
+              </button>
+            </div>
+          </dd>
+        </div>
+
+        <!-- Pricing Tiers -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 py-10">
+          <!-- Basic Plan -->
+          <div class="card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-on-scroll">
+            <div class="text-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600 mx-auto mb-4">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">基础套餐</h3>
+              <div class="text-3xl font-bold text-gray-900 mb-1">$2<span class="text-lg font-normal text-gray-600">/月</span></div>
+              <p class="text-sm text-gray-600 mb-6">20 M/s，不限流量，不限设备</p>
+              <a
+                href="https://commerce.coinbase.com/checkout/36d113e2-62f4-4bda-a641-9712769439d2"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex justify-center items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-ring"
+                aria-label="购买基础套餐"
+              >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+                立即购买
+              </a>
+            </div>
+          </div>
+
+          <!-- Premium Plan -->
+          <div class="card-hover bg-white rounded-xl shadow-sm border-2 border-indigo-600 p-6 relative animate-on-scroll">
+            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+              <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs font-medium">推荐</span>
+            </div>
+            <div class="text-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-600 mx-auto mb-4">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.58-5.84a14.927 14.927 0 015.84 2.58M9.75 7.124a14.926 14.926 0 005.841-2.58M9.75 7.124a6.001 6.001 0 00-5.84 7.381v-4.8m5.84-2.581a6.001 6.001 0 015.84 7.381V9.25m-5.84-2.581V9.25" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">高级套餐</h3>
+              <div class="text-3xl font-bold text-gray-900 mb-1">$5<span class="text-lg font-normal text-gray-600">/月</span></div>
+              <p class="text-sm text-gray-600 mb-6">50 M/s，不限流量，不限设备</p>
+              <a
+                href="https://commerce.coinbase.com/checkout/aae329d1-efa8-4f64-a0fa-befff13f5e45"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex justify-center items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-ring"
+                aria-label="购买高级套餐"
+              >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+                立即购买
+              </a>
+            </div>
+          </div>
+
+          <!-- Professional Plan -->
+          <div class="card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-on-scroll">
+            <div class="text-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-600 mx-auto mb-4">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.228V2.721A48.133 48.133 0 0012 2.25c-2.291 0-4.545.16-6.75.47v1.516M7.73 9.728v-3.181c0-.621.504-1.125 1.125-1.125h6.29c.621 0 1.125.504 1.125 1.125v3.181M7.73 9.728a6.726 6.726 0 01-2.748 1.35" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">专业套餐</h3>
+              <div class="text-3xl font-bold text-gray-900 mb-1">$10<span class="text-lg font-normal text-gray-600">/月</span></div>
+              <p class="text-sm text-gray-600 mb-6">100 M/s，不限流量，不限设备</p>
+              <a
+                href="https://commerce.coinbase.com/checkout/1ae30298-02b8-48ad-8caa-4e66da0b9227"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex justify-center items-center gap-2 rounded-md bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-ring"
+                aria-label="购买专业套餐"
+              >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+                立即购买
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sponsors Section -->
+      <section id="sponsors" class="py-16 sm:py-24 bg-gray-50" aria-labelledby="sponsors-title">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="mx-auto max-w-2xl text-center mb-16">
+            <h2 id="sponsors-title" class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              赞助商名录
+            </h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">
+              感谢以下赞助商的支持，让我们能够提供更好的服务
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Sponsor 1 -->
+            <div class="card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-on-scroll">
+              <div class="flex items-start">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-lg">
+                  黎
+                </div>
+                <div class="ml-4 flex-1">
+                  <h3 class="text-lg font-semibold text-gray-900">黎晓龙</h3>
+                  <p class="text-sm text-gray-600 mt-1">资深公民运动前辈</p>
+                  <p class="text-sm text-gray-500 mt-2">
+                    海外民主运动党团元老，赞助日期2024年5月份-2025年5月
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sponsor 2 -->
+            <div class="card-hover bg-white rounded-xl shadow-sm border border-gray-200 p-6 animate-on-scroll">
+              <div class="flex items-start">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-600 text-white font-bold text-lg">
+                  石
+                </div>
+                <div class="ml-4 flex-1">
+                  <h3 class="text-lg font-semibold text-gray-900">石清</h3>
+                  <p class="text-sm text-gray-600 mt-1">异议者</p>
+                  <p class="text-sm text-gray-500 mt-2">
+                    现任加拿大参政华人代表，赞助日期2024年5月份-2025年5月
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-    <div id="footer"></div>
+    
+    <div id="footer" class="loading" aria-label="网站页脚"></div>
+
+    <!-- Back to top button -->
+    <button 
+      id="back-to-top"
+      class="fixed bottom-4 right-4 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-500 focus-ring opacity-0 translate-y-4 transition-all duration-300 z-50"
+      aria-label="回到顶部"
+      style="display: none;"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+      </svg>
+    </button>
+
+    <!-- Enhanced JavaScript -->
+    <script>
+      // Back to top functionality
+      window.addEventListener('scroll', () => {
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (window.pageYOffset > 300) {
+          backToTopBtn.style.display = 'block';
+          setTimeout(() => {
+            backToTopBtn.classList.remove('opacity-0', 'translate-y-4');
+          }, 10);
+        } else {
+          backToTopBtn.classList.add('opacity-0', 'translate-y-4');
+          setTimeout(() => {
+            if (backToTopBtn.classList.contains('opacity-0')) {
+              backToTopBtn.style.display = 'none';
+            }
+          }, 300);
+        }
+      });
+
+      document.getElementById('back-to-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Add fade-in animation CSS
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+          .hero-title { font-size: 2.5rem !important; }
+          .hero-subtitle { font-size: 1rem !important; }
+          .card-grid { grid-template-columns: 1fr !important; }
+          .responsive-padding { padding: 1rem !important; }
+        }
+        
+        /* Performance optimizations */
+        .card-hover {
+          will-change: transform;
+        }
+        
+        /* Loading states */
+        .loading::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+          animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Performance monitoring
+      if ('PerformanceObserver' in window) {
+        const observer = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (entry.entryType === 'largest-contentful-paint') {
+              console.log('LCP:', entry.startTime);
+            }
+          }
+        });
+        observer.observe({ entryTypes: ['largest-contentful-paint'] });
+      }
+    </script>
 
     <!-- <script>
       async function getSponsor() {

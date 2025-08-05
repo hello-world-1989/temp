@@ -1,50 +1,83 @@
 <header
-  class="top-2 w-full fixed lg:absolute lg:top-5 z-50 lg:pt-0 bg-white h-16 flex items-center"
+  class="top-0 w-full fixed z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md"
 >
   <div
-    class="mx-auto flex w-full max-w-7xl items-center justify-between px-2 lg:px-8"
+    class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 lg:px-8 h-16"
   >
-    <div class="flex flex-1 items-center gap-x-6 ml-6">
-      <button type="button" class="-m-3 p-3 md:hidden" id="open-menu">
+    <div class="flex flex-1 items-center gap-x-4">
+      <button 
+        type="button" 
+        class="relative -m-2 p-2 md:hidden rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" 
+        id="open-menu"
+        aria-label="Open navigation menu"
+      >
         <span class="sr-only">Open main menu</span>
         <svg
-          class="h-5 w-5 text-gray-900"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+          class="h-6 w-6 text-gray-700 transition-transform duration-200"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
           aria-hidden="true"
         >
-          <path
-            fill-rule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
-            clip-rule="evenodd"
-          />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <img class="h-8 w-auto" src="images/default.png" alt="Your Company" />
+      <div class="flex items-center gap-x-3">
+        <img class="h-10 w-auto rounded-lg shadow-sm" src="images/default.png" alt="End GFW" />
+        <div class="hidden sm:block">
+          <h1 class="text-sm text-gray-900 leading-tight">End GFW</h1>
+          <p class="text-xs text-gray-500">大翻墙运动</p>
+        </div>
+      </div>
     </div>
     <nav
-      class="hidden md:flex md:gap-x-8 md:text-sm md:font-semibold md:leading-8 md:text-gray-700"
+      class="hidden md:flex md:items-center md:gap-x-1 lg:gap-x-2 md:text-sm md:font-medium md:leading-6"
     >
-      <a href="https://end-gfw.com/">总站/主站</a>
-      <a href="./">分站首页</a>
-      <a href="./news.html" class="flex">新闻</a>
+      <a 
+        href="https://end-gfw.com/" 
+        class="px-3 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 font-medium"
+      >
+        总站/主站
+      </a>
+      <a 
+        href="./" 
+        class="px-3 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+      >
+        分站首页
+      </a>
+      <a 
+        href="./why.html" 
+        class="px-3 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+      >
+        李老师推文
+      </a>
+      <a 
+        href="./news.html" 
+        class="px-3 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+      >
+        新闻
+      </a>
+      
 
       <div class="relative inline-block text-left group">
         <div>
           <button
             type="button"
-            class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            class="inline-flex items-center justify-center gap-x-1.5 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 px-4 py-2 text-sm font-medium text-gray-800 shadow-sm border border-blue-200 hover:border-blue-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             id="menu-button"
             aria-expanded="false"
-            aria-haspopup="false"
+            aria-haspopup="true"
           >
+            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
             免费翻墙软件
             <svg
-              class="-mr-1 size-5 text-gray-400"
+              class="-mr-1 w-4 h-4 text-gray-500 transition-transform duration-200 group-hover:rotate-180"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              data-slot="icon"
             >
               <path
                 fill-rule="evenodd"
@@ -56,42 +89,35 @@
         </div>
 
         <div
-          class="hidden absolute group-hover:block right-0 z-10 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+          class="hidden absolute group-hover:block right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 border border-gray-100 focus:outline-none transition-all duration-200"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabindex="-1"
         >
-          <div class="py-1" role="none">
-            <!-- Active: "bg-gray-100 text-gray-900 outline-none", Not Active: "text-gray-700" -->
+          <div class="py-2" role="none">
             <a
               href="./vpn.html"
-              class="block px-4 py-2 text-sm text-gray-700"
+              class="flex items-center gap-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200 rounded-lg mx-2"
               role="menuitem"
               tabindex="-1"
-              id="menu-item-1"
-              >免费翻墙软件</a
             >
+              <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+              免费翻墙软件
+            </a>
 
             <a
               href="./gfw-free.html"
-              class="flex px-4 py-2 text-sm text-gray-700"
+              class="flex items-center gap-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200 rounded-lg mx-2"
               role="menuitem"
               tabindex="-1"
-              id="menu-item-2"
-              ><img src="images/youtube.svg" /> 免墙资源<img
-                src="images/wikipedia.svg"
-            /></a>
-
-            <!-- <a
-              href="https://www.youtube.com/@end_gfw/streams"
-              target="_blank"
-              class="block px-4 py-2 text-sm text-gray-700"
-              role="menuitem"
-              tabindex="-1"
-              id="menu-item-3"
-              >免费自建机场</a
-            > -->
+            >
+              <img src="images/youtube.svg" class="w-4 h-4" alt="YouTube" />
+              免墙资源
+              <img src="images/wikipedia.svg" class="w-4 h-4" alt="Wikipedia" />
+            </a>
           </div>
         </div>
       </div>
@@ -100,18 +126,20 @@
         <div>
           <button
             type="button"
-            class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            id="menu-button"
+            class="inline-flex items-center justify-center gap-x-1.5 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 px-4 py-2 text-sm font-medium text-gray-800 shadow-sm border border-amber-200 hover:border-amber-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+            id="menu-button-2"
             aria-expanded="false"
-            aria-haspopup="false"
+            aria-haspopup="true"
           >
+            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
             历史记忆
             <svg
-              class="-mr-1 size-5 text-gray-400"
+              class="-mr-1 w-4 h-4 text-gray-500 transition-transform duration-200 group-hover:rotate-180"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              data-slot="icon"
             >
               <path
                 fill-rule="evenodd"
@@ -123,84 +151,116 @@
         </div>
 
         <div
-          class="hidden absolute group-hover:block right-0 z-10 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+          class="hidden absolute group-hover:block right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 border border-gray-100 focus:outline-none transition-all duration-200"
           role="menu"
           aria-orientation="vertical"
-          aria-labelledby="menu-button"
+          aria-labelledby="menu-button-2"
           tabindex="-1"
         >
-          <div class="py-1" role="none">
+          <div class="py-2" role="none">
+            <div class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">
+              热点事件
+            </div>
             <a
               href="./events.html"
-              class="block px-4 py-2 text-sm text-gray-700"
+              class="flex items-center gap-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200 rounded-lg mx-2"
               role="menuitem"
               tabindex="-1"
-              id="menu-item-1"
-              >2025热点事件</a
             >
-
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-red-600 bg-red-100 rounded-full">25</span>
+              2025热点事件
+            </a>
             <a
               href="./events2024.html"
-              class="block px-4 py-2 text-sm text-gray-700"
+              class="flex items-center gap-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200 rounded-lg mx-2"
               role="menuitem"
               tabindex="-1"
-              id="menu-item-1"
-              >2024热点事件</a
             >
-
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-blue-600 bg-blue-100 rounded-full">24</span>
+              2024热点事件
+            </a>
             <a
               href="./events2023.html"
-              class="block px-4 py-2 text-sm text-gray-700"
+              class="flex items-center gap-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200 rounded-lg mx-2"
               role="menuitem"
               tabindex="-1"
-              id="menu-item-1"
-              >2023热点事件</a
             >
-
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-green-600 bg-green-100 rounded-full">23</span>
+              2023热点事件
+            </a>
             <a
               href="./events2022.html"
-              class="block px-4 py-2 text-sm text-gray-700"
+              class="flex items-center gap-x-2 px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200 rounded-lg mx-2"
               role="menuitem"
               tabindex="-1"
-              id="menu-item-1"
-              >2022热点事件</a
             >
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-purple-600 bg-purple-100 rounded-full">22</span>
+              2022热点事件
+            </a>
           </div>
         </div>
       </div>
 
-      <a href="./qa.html" class="flex">常见问题</a>
-      <a href="./custom.html" class="flex font-bold text-indigo-500"
-        >赞助/合作/推广</a
+      <a 
+        href="./qa.html" 
+        class="px-3 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
       >
+        常见问题
+      </a>
+      <a 
+        href="./custom.html" 
+        class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:from-indigo-600 hover:to-purple-700 shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+      >
+        赞助/合作/推广
+      </a>
       <a
         href="https://www.opentech.fund/projects-we-support/supported-projects/?sc=&filter1=&filter2=&order-by-selector=date-desc&pageno=1#"
         target="_blank"
-        >反审查前线</a
+        class="px-3 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 flex items-center gap-x-1"
       >
+        反审查前线
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+      </a>
     </nav>
-    <div class="flex flex-1 items-center justify-end md:text-xs lg:text-base">
-      <span class="lg:-m-2.5 lg:p-2.5 text-gray-600 hover:text-gray-500">
-        25年6月3日更新
-      </span>
+    <div class="flex items-center justify-end gap-x-3">
+      <div class="hidden lg:flex items-center gap-x-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-full">
+        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        <span class="text-xs font-medium text-green-700">25年6月3日更新</span>
+      </div>
+      <div class="lg:hidden flex items-center">
+        <span class="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-md">最新更新</span>
+      </div>
     </div>
   </div>
-  <!-- Mobile menu, show/hide based on menu open state. -->
+  <!-- Mobile menu overlay -->
   <div class="lg:hidden" role="dialog" aria-modal="true" id="mobile-header">
-    <!-- Background backdrop, show/hide based on slide-over state. -->
-    <div class="fixed inset-0 z-50"></div>
+    <!-- Background backdrop with blur effect -->
+    <div class="fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-sm transition-opacity duration-300"></div>
     <div
-      class="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-white px-4 pb-6 sm:max-w-sm sm:px-6 sm:ring-1 sm:ring-gray-900/10"
+      class="fixed h-[500px] inset-y-0 left-0 z-50 w-full overflow-y-auto bg-white px-4 pb-6 sm:max-w-sm sm:px-6 shadow-2xl transform transition-transform duration-300 ease-in-out"
       id="close-menu"
     >
-      <div class="-ml-0.5 flex h-16 items-center gap-x-6">
-        <button type="button" class="-m-2.5 p-2.5 text-gray-700">
+      <!-- Mobile header -->
+      <div class="flex h-16 items-center justify-between border-b border-gray-100">
+        <div class="flex items-center gap-x-3">
+          <img class="h-8 w-auto rounded-lg" src="images/default.png" alt="End GFW" />
+          <div>
+            <h2 class="text-sm font-bold text-gray-900">End GFW</h2>
+            <p class="text-xs text-gray-500">大翻墙运动</p>
+          </div>
+        </div>
+        <button 
+          type="button" 
+          class="-m-2 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+        >
           <span class="sr-only">Close menu</span>
           <svg
             class="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            stroke-width="2"
             stroke="currentColor"
             aria-hidden="true"
           >
@@ -211,90 +271,149 @@
             />
           </svg>
         </button>
-        <div class="-ml-0.5">
-          <a href="#" class="-m-1.5 block p-1.5">
-            <span class="sr-only">机场</span>
-            <img class="h-8 w-auto" src="images/default.png" alt="" />
+      </div>
+      
+      <!-- Mobile navigation links -->
+      <div class="mt-6 space-y-1">
+        <!-- Main links -->
+        <div class="pb-4 border-b border-gray-100">
+          <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">主要导航</h3>
+          <a
+            href="https://end-gfw.com/"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            总站/主站
+          </a>
+          <a
+            href="./"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            分站首页
+          </a>
+          <a
+            href="./why.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            李老师推文
+          </a>
+          <a
+            href="./news.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+            </svg>
+            新闻
           </a>
         </div>
-      </div>
-      <div class="mt-2 space-y-2">
-        <a
-          href="https://end-gfw.com/"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-          >总站/主站</a
-        >
-        <a
-          href="./"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-          >分站首页</a
-        >
-        <a
-          href="./news.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >新闻</a
-        >
 
-        <a
-          href="./vpn.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >免费翻墙软件
-        </a>
+        <!-- VPN Tools Section -->
+        <div class="pb-4 border-b border-gray-100">
+          <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">翻墙工具</h3>
+          <a
+            href="./vpn.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+            免费翻墙软件
+          </a>
+          <a
+            href="./gfw-free.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <img src="images/youtube.svg" class="w-5 h-5" alt="YouTube" />
+            免墙资源
+            <img src="images/wikipedia.svg" class="w-5 h-5 ml-auto" alt="Wikipedia" />
+          </a>
+        </div>
 
-        <a
-          href="./events.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >2025热点事件</a
-        >
+        <!-- Historical Events Section -->
+        <div class="pb-4 border-b border-gray-100">
+          <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">历史记忆</h3>
+          <a
+            href="./events.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200"
+          >
+            <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-red-600 bg-red-100 rounded-full">25</span>
+            2025热点事件
+          </a>
+          <a
+            href="./events2024.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200"
+          >
+            <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-blue-600 bg-blue-100 rounded-full">24</span>
+            2024热点事件
+          </a>
+          <a
+            href="./events2023.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200"
+          >
+            <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-green-600 bg-green-100 rounded-full">23</span>
+            2023热点事件
+          </a>
+          <a
+            href="./events2022.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-200"
+          >
+            <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-purple-600 bg-purple-100 rounded-full">22</span>
+            2022热点事件
+          </a>
+        </div>
 
-        <a
-          href="./events2024.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >2024热点事件</a
-        >
+        <!-- Support & Info Section -->
+        <div class="pb-4">
+          <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">支持与信息</h3>
+          <a
+            href="./qa.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            常见问题
+          </a>
+          <a
+            href="./custom.html"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-md"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+            赞助/合作/推广
+          </a>
+          <a
+            href="https://www.opentech.fund/projects-we-support/supported-projects/?sc=&filter1=&filter2=&order-by-selector=date-desc&pageno=1#"
+            target="_blank"
+            class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+            反审查前线
+            <svg class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
 
-        <a
-          href="./events2023.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >2023热点事件</a
-        >
-
-        <a
-          href="./events2022.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >2022热点事件</a
-        >
-
-        <a
-          href="./gfw-free.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          ><img src="images/youtube.svg" />免墙资源<img
-            src="images/wikipedia.svg"
-        /></a>
-
-        <a
-          href="./qa.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex"
-          >常见问题</a
-        >
-
-        <a
-          href="./custom.html"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-indigo-500 hover:bg-gray-50"
-          >赞助/合作/推广</a
-        >
-        <a
-          href="https://www.opentech.fund/projects-we-support/supported-projects/?sc=&filter1=&filter2=&order-by-selector=date-desc&pageno=1#"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-          target="_blank"
-          >反审查前线</a
-        >
-        <!-- <a
-          href="https://www.youtube.com/@end_gfw/streams"
-          class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-          target="_blank"
-          >免费自建机场</a
-        > -->
+        <!-- Update notification -->
+        <div class="mt-6 px-3">
+          <div class="flex items-center gap-x-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-sm font-medium text-green-700">25年6月3日更新</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
