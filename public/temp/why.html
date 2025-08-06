@@ -70,6 +70,7 @@
             animation: {
               'fade-in': 'fadeIn 0.5s ease-in-out',
               'slide-up': 'slideUp 0.3s ease-out',
+              'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
               fadeIn: {
@@ -80,11 +81,55 @@
                 '0%': { transform: 'translateY(10px)', opacity: '0' },
                 '100%': { transform: 'translateY(0)', opacity: '1' },
               },
+              pulse: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.5' },
+              },
             },
           },
         },
       };
     </script>
+
+    <style>
+      /* Lazy loading placeholder styles */
+      .lazy-image, .lazy-video {
+        background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* Smooth transitions for loaded content */
+      .lazy-image[data-loaded], .lazy-video[data-loaded] {
+        animation: none;
+        background: none;
+      }
+
+      /* Loading indicator animations */
+      @keyframes shimmer {
+        0% {
+          background-position: -468px 0;
+        }
+        100% {
+          background-position: 468px 0;
+        }
+      }
+
+      .shimmer {
+        background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+        background-size: 800px 104px;
+        animation: shimmer 1s linear infinite;
+      }
+    </style>
 
     <script>
       fetch('header.html')
@@ -644,8 +689,21 @@
         let temp = [];
 
         try {
-          const res = await fetch(`/search-tweet?keyword=${keyword}`);
+          // Show loading state
+          const pdfElement = document.getElementById('tweet');
+          pdfElement.innerHTML = `
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center animate-fade-in">
+              <div class="flex items-center justify-center">
+                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                正在搜索中...
+              </div>
+            </div>
+          `;
 
+          const res = await fetch(`/search-tweet?keyword=${keyword}`);
           temp = await res.json();
         } catch (err) {
           console.error('error searching data', keyword);
@@ -653,6 +711,20 @@
 
         composePage(temp, '1');
       }
+
+        // Global variables for lazy loading
+        let allTweetsData = [];
+        let currentlyDisplayedCount = 0;
+        const TWEETS_PER_BATCH = 5;
+        let isLoading = false;
+
+        // Cleanup function to disconnect observers
+        function cleanupObservers() {
+          if (window.tweetObserver) {
+            window.tweetObserver.disconnect();
+            window.tweetObserver = null;
+          }
+        }
 
         function composePage(tweetArray) {
           const sort = (a, b) => {
@@ -663,101 +735,16 @@
             }
           };
 
-          const data = tweetArray?.sort((a, b) => sort(a, b));
+          // Cleanup previous observers
+          cleanupObservers();
 
+          // Store all tweets data for lazy loading
+          allTweetsData = tweetArray?.sort((a, b) => sort(a, b)) || [];
+          currentlyDisplayedCount = 0;
+          
           const pdfElement = document.getElementById('tweet');
-
-          const elements = data.map((item) => {
-            const images = item?.images?.split(',');
-
-            if (item.videos) {
-              const videoImages = item.videos?.split(',');
-              images.push(...videoImages);
-            }
-
-            let imageElement = '';
-
-            if (images?.length > 0) {
-              const imagesArr = images
-                .filter((item) => item !== '')
-                .map(
-                  (item) =>
-                    `<li class='relative'>
-                <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:shadow-lg transition-shadow'>
-                  <img
-                    src='/resource${item}'
-                    alt='推文图片'
-                    class='object-cover hover:scale-105 transition-transform duration-300'
-                    loading='lazy'
-                  />
-                </div>
-              </li>`
-                );
-
-              imageElement = imagesArr.join('');
-            }
-
-            const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
-
-            const year = createdDate?.[0];
-            const month = createdDate?.[1];
-            const day = createdDate?.[2];
-
-            return `<article class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6 animate-fade-in">
-                <div class="p-6">
-                  <header class="flex items-center space-x-4 mb-4">
-                    <img
-                      class="h-12 w-12 rounded-full ring-2 ring-primary-100"
-                      src="images/whyyoutouzhele.jpg"
-                      alt="李老师头像"
-                      loading="lazy"
-                    />
-                    <div class="flex-1">
-                      <h3 class="text-lg font-bold text-gray-900">
-                        <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${
-              item.id
-            }" id="${item.id}" class="hover:text-primary-600 transition-colors">
-                          李老师不是你老师 @whyyoutouzhele
-                        </a>
-                      </h3>
-                      <time class="text-sm text-gray-600" datetime="${item.createdDate}">
-                        北京时间${item.createdDate}发布
-                      </time>
-                    </div>
-                    <button 
-                      onclick="copyTweet('${item.id}')" 
-                      class="px-3 py-1 text-sm text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
-                      title="复制分享链接"
-                    >
-                      <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                      分享
-                    </button>
-                  </header>
-                  
-                  <div class="prose prose-gray max-w-none mb-4">
-                    <p class="text-gray-700 leading-relaxed">
-                      ${item?.content
-                        ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
-                        ?.replace(/https:\/\/x\.com\/\S+/g, '')
-                        ?.trim()}
-                    </p>
-                  </div>
-                  
-                  ${imageElement ? `
-                  <div class="mt-4">
-                    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                      ${imageElement}
-                    </ul>
-                  </div>
-                  ` : ''}
-                </div>
-              </article>`;
-          });
-
-          if (elements.length === 0) {
+          
+          if (allTweetsData.length === 0) {
             pdfElement.innerHTML = `
               <div class="bg-white rounded-xl shadow-lg p-8 text-center animate-fade-in">
                 <div class="w-16 h-16 mx-auto mb-4 text-gray-400">
@@ -769,13 +756,325 @@
                 <p class="text-gray-600">请尝试其他搜索条件或查看其他日期的内容</p>
               </div>
             `;
-          } else {
-            pdfElement.innerHTML = elements.join('');
+            return;
           }
+
+          // Clear existing content
+          pdfElement.innerHTML = '';
+          
+          // Load initial batch of tweets
+          loadMoreTweets();
+          
+          // Setup intersection observer for lazy loading
+          setupLazyLoading();
+        }
+
+        function createTweetElement(item, index) {
+          const currentDomain = window.location.hostname;
+          const isLocalOrGfw = currentDomain.includes('localhost') || currentDomain.includes('gfw.com');
+          
+          // Domain-specific image selection
+          const images = isLocalOrGfw ? 
+            (item?.originImages?.split(',') || item?.images?.split(',')) : 
+            item?.images?.split(',');
+
+          // Add video images based on domain
+          if (!isLocalOrGfw && item.videos) {
+            const videoImages = item.videos?.split(',');
+            images.push(...videoImages);
+          }
+
+          let imageElement = '';
+          let videoElement = '';
+
+          // Handle videos for local/gfw domains
+          if (isLocalOrGfw && item.originVideos) {
+            const videos = item.originVideos.split(',').filter(video => video !== '');
+            if (videos.length > 0) {
+              const videosArr = videos.map(video => 
+                `<li class='relative'>
+                  <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:shadow-lg transition-shadow'>
+                    <video
+                      data-src='${video}'
+                      class='object-cover w-full h-full lazy-video'
+                      controls
+                      preload='none'
+                    >
+                      您的浏览器不支持视频播放
+                    </video>
+                  </div>
+                </li>`
+              );
+              videoElement = videosArr.join('');
+            }
+          }
+
+          if (images?.length > 0) {
+            const imagesArr = images
+              .filter((item) => item !== '')
+              .map(
+                (item) =>
+                  `<li class='relative'>
+              <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:shadow-lg transition-shadow'>
+                <img
+                  data-src='${item?.startsWith('http') ? item : `/resource${item}`}'
+                  alt='推文图片'
+                  class='object-cover hover:scale-105 transition-transform duration-300 lazy-image'
+                  src='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23f3f4f6"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%236b7280" font-family="sans-serif"%3E加载中...%3C/text%3E%3C/svg%3E'
+                />
+              </div>
+            </li>`
+              );
+
+            imageElement = imagesArr.join('');
+          }
+
+          const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
+          const year = createdDate?.[0];
+          const month = createdDate?.[1];
+          const day = createdDate?.[2];
+
+          return `<article class="tweet-item bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6 animate-fade-in" data-index="${index}">
+              <div class="p-6">
+                <header class="flex items-center space-x-4 mb-4">
+                  <img
+                    class="h-12 w-12 rounded-full ring-2 ring-primary-100"
+                    src="images/whyyoutouzhele.jpg"
+                    alt="李老师头像"
+                    loading="lazy"
+                  />
+                  <div class="flex-1">
+                    <h3 class="text-lg font-bold text-gray-900">
+                      <a href="/tweet-page?year=${year}&month=${month}&day=${day}&id=whyyoutouzhele#${
+            item.id
+          }" id="${item.id}" class="hover:text-primary-600 transition-colors">
+                        李老师不是你老师 @whyyoutouzhele
+                      </a>
+                    </h3>
+                    <time class="text-sm text-gray-600" datetime="${item.createdDate}">
+                      北京时间${item.createdDate}发布
+                    </time>
+                  </div>
+                  <button 
+                    onclick="copyTweet('${item.id}')" 
+                    class="px-3 py-1 text-sm text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
+                    title="复制分享链接"
+                  >
+                    <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                      <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+                    </svg>
+                    分享
+                  </button>
+                </header>
+                
+                <div class="prose prose-gray max-w-none mb-4">
+                  <p class="text-gray-700 leading-relaxed">
+                    ${item?.content
+                      ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
+                      ?.replace(/https:\/\/x\.com\/\S+/g, '')
+                      ?.trim()}
+                  </p>
+                </div>
+                
+                ${imageElement || videoElement ? `
+                <div class="mt-4">
+                  <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    ${imageElement}${videoElement}
+                  </ul>
+                </div>
+                ` : ''}
+              </div>
+            </article>`;
+        }
+
+        function loadMoreTweets() {
+          if (isLoading || currentlyDisplayedCount >= allTweetsData.length) {
+            return;
+          }
+
+          isLoading = true;
+          const pdfElement = document.getElementById('tweet');
+          
+          // Calculate how many tweets to load
+          const endIndex = Math.min(currentlyDisplayedCount + TWEETS_PER_BATCH, allTweetsData.length);
+          const tweetsToAdd = allTweetsData.slice(currentlyDisplayedCount, endIndex);
+          
+          // Create and append new tweet elements
+          tweetsToAdd.forEach((item, index) => {
+            const tweetElement = document.createElement('div');
+            tweetElement.innerHTML = createTweetElement(item, currentlyDisplayedCount + index);
+            pdfElement.appendChild(tweetElement.firstChild);
+          });
+
+          currentlyDisplayedCount = endIndex;
+          
+          // Load images and videos for the newly added tweets
+          lazyLoadMedia();
+          
+          // Add loading indicator if there are more tweets
+          if (currentlyDisplayedCount < allTweetsData.length) {
+            addLoadingIndicator();
+          } else {
+            removeLoadingIndicator();
+          }
+
+          isLoading = false;
+        }
+
+        function addLoadingIndicator() {
+          const pdfElement = document.getElementById('tweet');
+          const existingIndicator = document.getElementById('loading-indicator');
+          
+          if (!existingIndicator) {
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'loading-indicator';
+            loadingIndicator.className = 'bg-white rounded-xl shadow-lg p-6 text-center animate-fade-in';
+            loadingIndicator.innerHTML = `
+              <div class="flex flex-col items-center space-y-4">
+                <div class="flex items-center justify-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  正在加载更多内容...
+                </div>
+                <button 
+                  onclick="loadMoreTweets()" 
+                  class="px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 transition-colors"
+                >
+                  手动加载更多
+                </button>
+                <p class="text-sm text-gray-500">
+                  已显示 ${currentlyDisplayedCount} / ${allTweetsData.length} 条内容
+                </p>
+              </div>
+            `;
+            pdfElement.appendChild(loadingIndicator);
+          }
+        }
+
+        function removeLoadingIndicator() {
+          const loadingIndicator = document.getElementById('loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.remove();
+          }
+          
+          // Add completion message
+          if (currentlyDisplayedCount >= allTweetsData.length && allTweetsData.length > TWEETS_PER_BATCH) {
+            const pdfElement = document.getElementById('tweet');
+            const completionIndicator = document.createElement('div');
+            completionIndicator.className = 'bg-gray-50 rounded-xl p-6 text-center animate-fade-in mt-6';
+            completionIndicator.innerHTML = `
+              <div class="flex items-center justify-center text-gray-600">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                已加载全部 ${allTweetsData.length} 条内容
+              </div>
+            `;
+            pdfElement.appendChild(completionIndicator);
+          }
+        }
+
+        function setupLazyLoading() {
+          // Remove existing observer if any
+          if (window.tweetObserver) {
+            window.tweetObserver.disconnect();
+          }
+
+          // Create intersection observer to detect when user scrolls to 5th tweet
+          window.tweetObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const tweetIndex = parseInt(entry.target.dataset.index);
+                
+                // Load more tweets when user reaches the 5th tweet of current batch
+                if ((tweetIndex + 1) % TWEETS_PER_BATCH === 0 && tweetIndex === currentlyDisplayedCount - 1) {
+                  setTimeout(() => {
+                    loadMoreTweets();
+                  }, 100);
+                }
+              }
+            });
+          }, {
+            rootMargin: '100px 0px',
+            threshold: 0.1
+          });
+
+          // Observe all tweet items
+          setTimeout(() => {
+            const tweetItems = document.querySelectorAll('.tweet-item');
+            tweetItems.forEach(item => {
+              window.tweetObserver.observe(item);
+            });
+          }, 100);
+        }
+
+        function lazyLoadMedia() {
+          // Lazy load images
+          const lazyImages = document.querySelectorAll('.lazy-image:not([data-loaded])');
+          const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.getAttribute('data-src');
+                if (src) {
+                  img.src = src;
+                  img.setAttribute('data-loaded', 'true');
+                  img.classList.remove('lazy-image');
+                  imageObserver.unobserve(img);
+                }
+              }
+            });
+          }, {
+            rootMargin: '50px 0px'
+          });
+
+          lazyImages.forEach(img => {
+            imageObserver.observe(img);
+          });
+
+          // Lazy load videos
+          const lazyVideos = document.querySelectorAll('.lazy-video:not([data-loaded])');
+          const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const video = entry.target;
+                const src = video.getAttribute('data-src');
+                if (src) {
+                  video.src = src;
+                  video.setAttribute('data-loaded', 'true');
+                  video.classList.remove('lazy-video');
+                  videoObserver.unobserve(video);
+                }
+              }
+            });
+          }, {
+            rootMargin: '50px 0px'
+          });
+
+          lazyVideos.forEach(video => {
+            videoObserver.observe(video);
+          });
         }      async function getTweet(year, month, day, endDay = '') {
         let temp = [];
 
         try {
+          // Show loading state
+          const pdfElement = document.getElementById('tweet');
+          pdfElement.innerHTML = `
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center animate-fade-in">
+              <div class="flex items-center justify-center">
+                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                正在加载内容...
+              </div>
+            </div>
+          `;
+
           const res = await fetch(
             `/tweet?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=whyyoutouzhele`
           );
