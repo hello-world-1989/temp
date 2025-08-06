@@ -452,15 +452,28 @@
     <div id="content"></div>
 
     <!-- Back to top button -->
-    <button id="back-to-top" class="fixed bottom-20 right-6 md:bottom-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible transform translate-y-2 z-50" aria-label="返回顶部">
+    <button id="back-to-top" class="fixed bottom-32 right-6 md:bottom-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible transform translate-y-2 z-50" aria-label="返回顶部">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
       </svg>
     </button>
 
+    <!-- Manual Media Loading Button -->
+    <button id="load-media-btn" class="fixed bottom-20 right-6 md:bottom-20 bg-accent-500 text-white p-3 rounded-full shadow-lg hover:bg-accent-600 transition-all duration-300 opacity-0 invisible transform translate-y-2 z-50" aria-label="手动加载图片和视频" title="手动加载图片和视频">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+      </svg>
+      <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" id="media-indicator"></span>
+    </button>
+
     <!-- Notification for copy success -->
-    <div id="copy-notification" class="fixed bottom-32 right-4 md:bottom-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden z-50">
+    <div id="copy-notification" class="fixed bottom-44 right-4 md:bottom-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden z-50">
       复制成功！
+    </div>
+
+    <!-- Media loading notification -->
+    <div id="media-notification" class="fixed bottom-44 right-4 md:bottom-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden z-50">
+      正在加载图片和视频...
     </div>
 
     <script>
@@ -717,6 +730,7 @@
         let currentlyDisplayedCount = 0;
         const TWEETS_PER_BATCH = 5;
         let isLoading = false;
+        let mediaObservers = [];
 
         // Cleanup function to disconnect observers
         function cleanupObservers() {
@@ -724,6 +738,10 @@
             window.tweetObserver.disconnect();
             window.tweetObserver = null;
           }
+          
+          // Cleanup media observers
+          mediaObservers.forEach(observer => observer.disconnect());
+          mediaObservers = [];
         }
 
         function composePage(tweetArray) {
@@ -756,6 +774,7 @@
                 <p class="text-gray-600">请尝试其他搜索条件或查看其他日期的内容</p>
               </div>
             `;
+            hideMediaButton();
             return;
           }
 
@@ -767,6 +786,9 @@
           
           // Setup intersection observer for lazy loading
           setupLazyLoading();
+          
+          // Show media loading button
+          showMediaButton();
         }
 
         function createTweetElement(item, index) {
@@ -796,12 +818,18 @@
                   <div class='group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 hover:shadow-lg transition-shadow'>
                     <video
                       data-src='${video}'
-                      class='object-cover w-full h-full lazy-video'
+                      class='object-cover w-full h-full lazy-video shimmer'
                       controls
                       preload='none'
+                      poster='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23f3f4f6"/%3E%3Cg fill="%236b7280" stroke="%236b7280" stroke-width="1"%3E%3Ccircle cx="200" cy="150" r="30" fill="none"/%3E%3Cpolygon points="190,135 190,165 215,150"/%3E%3C/g%3E%3Ctext x="50%25" y="75%25" dominant-baseline="middle" text-anchor="middle" fill="%236b7280" font-family="sans-serif" font-size="14"%3E点击播放视频%3C/text%3E%3C/svg%3E'
                     >
                       您的浏览器不支持视频播放
                     </video>
+                    <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                      </svg>
+                    </div>
                   </div>
                 </li>`
               );
@@ -819,9 +847,14 @@
                 <img
                   data-src='${item?.startsWith('http') ? item : `/resource${item}`}'
                   alt='推文图片'
-                  class='object-cover hover:scale-105 transition-transform duration-300 lazy-image'
-                  src='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23f3f4f6"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%236b7280" font-family="sans-serif"%3E加载中...%3C/text%3E%3C/svg%3E'
+                  class='object-cover hover:scale-105 transition-transform duration-300 lazy-image shimmer w-full h-full'
+                  src='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23f3f4f6"/%3E%3Cg fill="%236b7280"%3E%3Crect x="170" y="120" width="60" height="40" rx="5"/%3E%3Ccircle cx="185" cy="135" r="8"/%3E%3Cpolygon points="190,145 210,130 210,150"/%3E%3C/g%3E%3Ctext x="50%25" y="75%25" dominant-baseline="middle" text-anchor="middle" fill="%236b7280" font-family="sans-serif" font-size="14"%3E点击加载图片%3C/text%3E%3C/svg%3E'
                 />
+                <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
               </div>
             </li>`
               );
@@ -900,6 +933,9 @@
           const endIndex = Math.min(currentlyDisplayedCount + TWEETS_PER_BATCH, allTweetsData.length);
           const tweetsToAdd = allTweetsData.slice(currentlyDisplayedCount, endIndex);
           
+          // Remove existing loading indicator before adding new tweets
+          removeLoadingIndicator();
+          
           // Create and append new tweet elements
           tweetsToAdd.forEach((item, index) => {
             const tweetElement = document.createElement('div');
@@ -912,11 +948,11 @@
           // Load images and videos for the newly added tweets
           lazyLoadMedia();
           
-          // Add loading indicator if there are more tweets
+          // Always add loading indicator/button at the bottom
           if (currentlyDisplayedCount < allTweetsData.length) {
             addLoadingIndicator();
           } else {
-            removeLoadingIndicator();
+            addCompletionIndicator();
           }
 
           isLoading = false;
@@ -929,19 +965,12 @@
           if (!existingIndicator) {
             const loadingIndicator = document.createElement('div');
             loadingIndicator.id = 'loading-indicator';
-            loadingIndicator.className = 'bg-white rounded-xl shadow-lg p-6 text-center animate-fade-in';
+            loadingIndicator.className = 'bg-white rounded-xl shadow-lg p-6 text-center animate-fade-in mt-6';
             loadingIndicator.innerHTML = `
               <div class="flex flex-col items-center space-y-4">
-                <div class="flex items-center justify-center">
-                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  正在加载更多内容...
-                </div>
                 <button 
                   onclick="loadMoreTweets()" 
-                  class="px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 transition-colors"
+                  class="px-8 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 transition-colors text-lg"
                 >
                   手动加载更多
                 </button>
@@ -951,6 +980,12 @@
               </div>
             `;
             pdfElement.appendChild(loadingIndicator);
+          } else {
+            // Update the existing indicator
+            const statusText = existingIndicator.querySelector('.text-gray-500');
+            if (statusText) {
+              statusText.textContent = `已显示 ${currentlyDisplayedCount} / ${allTweetsData.length} 条内容`;
+            }
           }
         }
 
@@ -959,18 +994,36 @@
           if (loadingIndicator) {
             loadingIndicator.remove();
           }
+        }
+
+        function addCompletionIndicator() {
+          const pdfElement = document.getElementById('tweet');
+          const existingIndicator = document.getElementById('loading-indicator');
           
-          // Add completion message
-          if (currentlyDisplayedCount >= allTweetsData.length && allTweetsData.length > TWEETS_PER_BATCH) {
-            const pdfElement = document.getElementById('tweet');
+          // Remove any existing indicator first
+          if (existingIndicator) {
+            existingIndicator.remove();
+          }
+          
+          // Add completion message with button still visible
+          if (allTweetsData.length > 0) {
             const completionIndicator = document.createElement('div');
+            completionIndicator.id = 'loading-indicator';
             completionIndicator.className = 'bg-gray-50 rounded-xl p-6 text-center animate-fade-in mt-6';
             completionIndicator.innerHTML = `
-              <div class="flex items-center justify-center text-gray-600">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                已加载全部 ${allTweetsData.length} 条内容
+              <div class="flex flex-col items-center space-y-4">
+                <div class="flex items-center justify-center text-gray-600 mb-2">
+                  <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  已加载全部 ${allTweetsData.length} 条内容
+                </div>
+                <button 
+                  onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                  class="px-8 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 transition-colors text-lg"
+                >
+                  返回顶部
+                </button>
               </div>
             `;
             pdfElement.appendChild(completionIndicator);
@@ -983,80 +1036,222 @@
             window.tweetObserver.disconnect();
           }
 
-          // Create intersection observer to detect when user scrolls to 5th tweet
+          // Create intersection observer for scroll-based loading (less aggressive)
           window.tweetObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
                 const tweetIndex = parseInt(entry.target.dataset.index);
                 
-                // Load more tweets when user reaches the 5th tweet of current batch
-                if ((tweetIndex + 1) % TWEETS_PER_BATCH === 0 && tweetIndex === currentlyDisplayedCount - 1) {
+                // Only auto-load when user reaches very close to the end
+                if (tweetIndex === currentlyDisplayedCount - 1 && currentlyDisplayedCount < allTweetsData.length) {
+                  // Add a delay to make it less aggressive
                   setTimeout(() => {
-                    loadMoreTweets();
-                  }, 100);
+                    if (tweetIndex === currentlyDisplayedCount - 1) {
+                      loadMoreTweets();
+                    }
+                  }, 500);
                 }
               }
             });
           }, {
-            rootMargin: '100px 0px',
-            threshold: 0.1
+            rootMargin: '200px 0px', // Increased margin
+            threshold: 0.5 // Higher threshold
           });
 
-          // Observe all tweet items
+          // Observe only the last few tweet items
           setTimeout(() => {
             const tweetItems = document.querySelectorAll('.tweet-item');
-            tweetItems.forEach(item => {
-              window.tweetObserver.observe(item);
-            });
+            // Only observe the last tweet for auto-loading
+            if (tweetItems.length > 0) {
+              const lastTweet = tweetItems[tweetItems.length - 1];
+              window.tweetObserver.observe(lastTweet);
+            }
           }, 100);
         }
 
         function lazyLoadMedia() {
+          // Clean up existing observers first
+          mediaObservers.forEach(observer => observer.disconnect());
+          mediaObservers = [];
+
           // Lazy load images
           const lazyImages = document.querySelectorAll('.lazy-image:not([data-loaded])');
-          const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                const img = entry.target;
-                const src = img.getAttribute('data-src');
-                if (src) {
-                  img.src = src;
-                  img.setAttribute('data-loaded', 'true');
-                  img.classList.remove('lazy-image');
-                  imageObserver.unobserve(img);
+          if (lazyImages.length > 0) {
+            const imageObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  const img = entry.target;
+                  const src = img.getAttribute('data-src');
+                  if (src) {
+                    // Create a new image to preload
+                    const tempImg = new Image();
+                    tempImg.onload = () => {
+                      img.src = src;
+                      img.setAttribute('data-loaded', 'true');
+                      img.classList.remove('lazy-image', 'shimmer');
+                      updateMediaIndicator();
+                    };
+                    tempImg.onerror = () => {
+                      img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23fee2e2"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23dc2626" font-family="sans-serif" font-size="14"%3E图片加载失败%3C/text%3E%3C/svg%3E';
+                      img.setAttribute('data-loaded', 'true');
+                      img.classList.remove('lazy-image', 'shimmer');
+                    };
+                    tempImg.src = src;
+                    imageObserver.unobserve(img);
+                  }
                 }
-              }
+              });
+            }, {
+              rootMargin: '50px 0px',
+              threshold: 0.1
             });
-          }, {
-            rootMargin: '50px 0px'
-          });
 
-          lazyImages.forEach(img => {
-            imageObserver.observe(img);
-          });
+            lazyImages.forEach(img => {
+              imageObserver.observe(img);
+            });
+            
+            mediaObservers.push(imageObserver);
+          }
 
           // Lazy load videos
           const lazyVideos = document.querySelectorAll('.lazy-video:not([data-loaded])');
-          const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                const video = entry.target;
-                const src = video.getAttribute('data-src');
-                if (src) {
-                  video.src = src;
-                  video.setAttribute('data-loaded', 'true');
-                  video.classList.remove('lazy-video');
-                  videoObserver.unobserve(video);
+          if (lazyVideos.length > 0) {
+            const videoObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  const video = entry.target;
+                  const src = video.getAttribute('data-src');
+                  if (src) {
+                    video.src = src;
+                    video.setAttribute('data-loaded', 'true');
+                    video.classList.remove('lazy-video', 'shimmer');
+                    updateMediaIndicator();
+                    videoObserver.unobserve(video);
+                  }
                 }
-              }
+              });
+            }, {
+              rootMargin: '50px 0px',
+              threshold: 0.1
             });
-          }, {
-            rootMargin: '50px 0px'
-          });
 
-          lazyVideos.forEach(video => {
-            videoObserver.observe(video);
+            lazyVideos.forEach(video => {
+              videoObserver.observe(video);
+            });
+            
+            mediaObservers.push(videoObserver);
+          }
+          
+          updateMediaIndicator();
+        }
+
+        // Function to load all media manually
+        function loadAllMedia() {
+          showMediaNotification('正在加载所有图片和视频...');
+          
+          let loadCount = 0;
+          let totalCount = 0;
+          
+          // Load all images
+          const lazyImages = document.querySelectorAll('.lazy-image:not([data-loaded])');
+          const lazyVideos = document.querySelectorAll('.lazy-video:not([data-loaded])');
+          
+          totalCount = lazyImages.length + lazyVideos.length;
+          
+          if (totalCount === 0) {
+            showMediaNotification('所有媒体已加载完成');
+            return;
+          }
+          
+          const checkComplete = () => {
+            loadCount++;
+            if (loadCount >= totalCount) {
+              showMediaNotification('所有媒体加载完成！');
+              updateMediaIndicator();
+            }
+          };
+          
+          // Load all images
+          lazyImages.forEach(img => {
+            const src = img.getAttribute('data-src');
+            if (src) {
+              const tempImg = new Image();
+              tempImg.onload = () => {
+                img.src = src;
+                img.setAttribute('data-loaded', 'true');
+                img.classList.remove('lazy-image', 'shimmer');
+                checkComplete();
+              };
+              tempImg.onerror = () => {
+                img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="100%25" height="100%25" fill="%23fee2e2"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23dc2626" font-family="sans-serif" font-size="14"%3E图片加载失败%3C/text%3E%3C/svg%3E';
+                img.setAttribute('data-loaded', 'true');
+                img.classList.remove('lazy-image', 'shimmer');
+                checkComplete();
+              };
+              tempImg.src = src;
+            }
           });
+          
+          // Load all videos
+          lazyVideos.forEach(video => {
+            const src = video.getAttribute('data-src');
+            if (src) {
+              video.src = src;
+              video.setAttribute('data-loaded', 'true');
+              video.classList.remove('lazy-video', 'shimmer');
+              checkComplete();
+            }
+          });
+        }
+
+        // Update media loading indicator
+        function updateMediaIndicator() {
+          const indicator = document.getElementById('media-indicator');
+          const lazyImages = document.querySelectorAll('.lazy-image:not([data-loaded])');
+          const lazyVideos = document.querySelectorAll('.lazy-video:not([data-loaded])');
+          
+          if (indicator) {
+            if (lazyImages.length === 0 && lazyVideos.length === 0) {
+              indicator.style.display = 'none';
+            } else {
+              indicator.style.display = 'block';
+            }
+          }
+        }
+
+        // Show/hide media loading button
+        function showMediaButton() {
+          const button = document.getElementById('load-media-btn');
+          if (button) {
+            button.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+            button.classList.add('opacity-100', 'visible', 'translate-y-0');
+          }
+        }
+
+        function hideMediaButton() {
+          const button = document.getElementById('load-media-btn');
+          if (button) {
+            button.classList.add('opacity-0', 'invisible', 'translate-y-2');
+            button.classList.remove('opacity-100', 'visible', 'translate-y-0');
+          }
+        }
+
+        // Show media loading notification
+        function showMediaNotification(message) {
+          const notification = document.getElementById('media-notification');
+          if (notification) {
+            notification.textContent = message;
+            notification.classList.remove('hidden', 'translate-y-full');
+            notification.classList.add('translate-y-0');
+            
+            setTimeout(() => {
+              notification.classList.remove('translate-y-0');
+              notification.classList.add('translate-y-full');
+              setTimeout(() => {
+                notification.classList.add('hidden');
+              }, 300);
+            }, 2000);
+          }
         }      async function getTweet(year, month, day, endDay = '') {
         let temp = [];
 
@@ -1434,6 +1629,7 @@
       // Back to top button functionality
       document.addEventListener('DOMContentLoaded', function() {
         const backToTopButton = document.getElementById('back-to-top');
+        const loadMediaButton = document.getElementById('load-media-btn');
         
         // Show/hide button based on scroll position
         function toggleBackToTopButton() {
@@ -1454,9 +1650,15 @@
           });
         }
 
+        // Manual media loading
+        function handleMediaLoading() {
+          loadAllMedia();
+        }
+
         // Event listeners
         window.addEventListener('scroll', toggleBackToTopButton);
         backToTopButton.addEventListener('click', scrollToTop);
+        loadMediaButton.addEventListener('click', handleMediaLoading);
 
         // Initial check
         toggleBackToTopButton();
