@@ -407,14 +407,14 @@
     <div id="content"></div>
 
     <!-- Back to top button -->
-    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible transform translate-y-2" aria-label="返回顶部">
+    <button id="back-to-top" class="fixed bottom-20 right-6 md:bottom-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible transform translate-y-2 z-50" aria-label="返回顶部">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
       </svg>
     </button>
 
     <!-- Notification for copy success -->
-    <div id="copy-notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden">
+    <div id="copy-notification" class="fixed bottom-32 right-4 md:bottom-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden z-50">
       复制成功！
     </div>
 
@@ -1009,6 +1009,9 @@
         try {
           // Now that we've selected the text, execute the copy command
           var successful = document.execCommand('copy');
+          if (successful) {
+            showCopyNotification();
+          }
           var msg = successful ? 'successful' : 'unsuccessful';
           console.log('Copy text command was ' + msg);
         } catch (err) {

@@ -376,7 +376,7 @@
             <div class="space-y-4">
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">🤖 安卓手机</h3>
-                <p class="text-gray-600 mb-3">使用Outline、V2Ray、NthLink</p>
+                <p class="text-gray-600 mb-3">使用Outline、V2Ray、Clash、NthLink</p>
                 <a
                   href="./vpn.html"
                   class="text-primary-600 hover:text-primary-700 font-semibold"
@@ -387,7 +387,7 @@
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">🍎 苹果设备</h3>
                 <p class="text-gray-600 mb-3">
-                  使用海外苹果账户下载Outline、V2Ray、NthLink
+                  使用海外苹果账户下载Outline、V2Ray、Clash、NthLink
                 </p>
                 <a
                   href="./qa.html#apple-account"
@@ -398,7 +398,7 @@
 
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">💻 Windows电脑</h3>
-                <p class="text-gray-600 mb-3">使用Outline、V2Ray、NthLink</p>
+                <p class="text-gray-600 mb-3">使用Outline、V2Ray、Clash、NthLink</p>
                 <a
                   href="./vpn.html"
                   class="text-primary-600 hover:text-primary-700 font-semibold"
@@ -496,7 +496,7 @@
     <!-- Notification for copy success -->
     <div
       id="copy-notification"
-      class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden"
+      class="fixed bottom-32 right-4 md:bottom-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden z-50"
     >
       复制成功！
     </div>
@@ -724,6 +724,9 @@
         try {
           // Now that we've selected the text, execute the copy command
           var successful = document.execCommand("copy");
+          if (successful) {
+            showCopyNotification();
+          }
           var msg = successful ? "successful" : "unsuccessful";
           console.log("Copy text command was " + msg);
         } catch (err) {
