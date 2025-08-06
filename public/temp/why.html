@@ -406,6 +406,13 @@
     <div id="footer"></div>
     <div id="content"></div>
 
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible transform translate-y-2" aria-label="返回顶部">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+
     <!-- Notification for copy success -->
     <div id="copy-notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden">
       复制成功！
@@ -1118,6 +1125,39 @@
       // Only call updateLink if the element exists
       document.addEventListener('DOMContentLoaded', function() {
         updateLink();
+      });
+    </script>
+
+    <script>
+      // Back to top button functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        // Show/hide button based on scroll position
+        function toggleBackToTopButton() {
+          if (window.pageYOffset > 300) {
+            backToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+            backToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+          } else {
+            backToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-2');
+            backToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+          }
+        }
+
+        // Smooth scroll to top
+        function scrollToTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', toggleBackToTopButton);
+        backToTopButton.addEventListener('click', scrollToTop);
+
+        // Initial check
+        toggleBackToTopButton();
       });
     </script>
   </body>

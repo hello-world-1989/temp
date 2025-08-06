@@ -60,7 +60,7 @@
       </a>
       
 
-      <div class="relative inline-block text-left group">
+      <div class="relative inline-block text-left group" onmouseenter="clearTimeout(this.hideTimeout)" onmouseleave="this.hideTimeout = setTimeout(() => this.classList.remove('show-dropdown'), 300)">
         <div>
           <button
             type="button"
@@ -68,10 +68,8 @@
             id="menu-button"
             aria-expanded="false"
             aria-haspopup="true"
+            onmouseenter="this.closest('.group').classList.add('show-dropdown')"
           >
-            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-            </svg>
             免费翻墙软件
             <svg
               class="-mr-1 w-4 h-4 text-gray-500 transition-transform duration-200 group-hover:rotate-180"
@@ -89,7 +87,7 @@
         </div>
 
         <div
-          class="hidden absolute group-hover:block right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 border border-gray-100 focus:outline-none transition-all duration-200"
+          class="hidden absolute group-hover:block group-[.show-dropdown]:block right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 border border-gray-100 focus:outline-none transition-all duration-200"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -102,9 +100,7 @@
               role="menuitem"
               tabindex="-1"
             >
-              <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-              </svg>
+              
               免费翻墙软件
             </a>
 
@@ -122,7 +118,7 @@
         </div>
       </div>
 
-      <div class="relative inline-block text-left group">
+      <div class="relative inline-block text-left group" onmouseenter="clearTimeout(this.hideTimeout)" onmouseleave="this.hideTimeout = setTimeout(() => this.classList.remove('show-dropdown'), 300)">
         <div>
           <button
             type="button"
@@ -130,6 +126,7 @@
             id="menu-button-2"
             aria-expanded="false"
             aria-haspopup="true"
+            onmouseenter="this.closest('.group').classList.add('show-dropdown')"
           >
             <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -151,7 +148,7 @@
         </div>
 
         <div
-          class="hidden absolute group-hover:block right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 border border-gray-100 focus:outline-none transition-all duration-200"
+          class="hidden absolute group-hover:block group-[.show-dropdown]:block right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-gray-200 border border-gray-100 focus:outline-none transition-all duration-200"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button-2"
@@ -323,9 +320,7 @@
             href="./vpn.html"
             class="flex items-center gap-x-3 -mx-3 rounded-xl px-3 py-3 text-base font-medium text-gray-900 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200"
           >
-            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-            </svg>
+            
             免费翻墙软件
           </a>
           <a
