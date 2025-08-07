@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 class Database {
   constructor() {
     this.db = null;
-    this.dbPath = path.join(__dirname, '../data/database.sqlite');
+    this.dbPath = path.join(__dirname, '../data/db.sqlite');
   }
 
   async initialize() {
