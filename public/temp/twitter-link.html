@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <main>
+            <!-- URL Input Form -->
+            <section class="url-input-section">
+                <h2>Add URL</h2>
+                <form id="urlForm">
+                    <div class="input-group">
+                        <input 
+                            type="url" 
+                            id="twitterUrl" 
+                            placeholder="https://twitter.com/username/status/1234567890" 
+                            required
+                        >
+                        <button type="submit" id="addButton">Add URL</button>
+                    </div>
+                    <small class="help-text">
+                        Enter a valid URL (e.g., https://twitter.com/user/status/123456)
+                    </small>
+                </form>
+            </section>
+
+            <!-- Status Messages -->
+            <div id="messageContainer" class="message-container hidden">
+                <div id="messageText"></div>
+            </div>
+
+            <!-- URL List -->
+            <section class="url-list-section">
+                <h2>Added URLs</h2>
+                <div id="urlList" class="url-list">
+                    <p class="empty-state">No URLs added yet. Add your first Twitter URL above!</p>
+                </div>
+            </section>
+
+            
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

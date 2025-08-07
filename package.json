@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "start:prod": "ts-node src/proxy.ts",
     "start": "node src/proxy.js"
   },
@@ -19,7 +19,18 @@
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "form-data": "^4.0.2",
+    "fs-extra": "^11.3.1",
     "octokit": "^4.0.2",
-    "serve-static": "^1.15.0"
+    "serve-static": "^1.15.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^6.0.3",
+    "babel-jest": "^30.0.5",
+    "jest": "^30.0.5",
+    "supertest": "^7.1.4"
   }
 }
