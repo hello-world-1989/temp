@@ -12,15 +12,18 @@ class TwitterUrlModel {
       const tweetId = this.extractTweetId(url);
       const username = this.extractUsername(url);
       
+      if (!tweetId) {
+        throw new Error('Could not extract tweet ID from URL');
+      }
+
       const result = await this.db.run(
-        `INSERT INTO twitter_urls (url, tweet_id, author_username) VALUES (?, ?, ?)`,
-        [url, tweetId, username]
+        `INSERT INTO twitter_urls (tweet_id, url, author_username) VALUES (?, ?, ?)`,
+        [tweetId, url, username]
       );
 
       return {
-        id: result.id,
-        url,
         tweet_id: tweetId,
+        url,
         author_username: username,
         created_at: new Date().toISOString()
       };
@@ -47,42 +50,47 @@ class TwitterUrlModel {
   }
 
   // Mark URL as processed
-  async markAsProcessed(id, status = 'completed') {
+  async markAsProcessed(tweetId, status = 'completed') {
     return await this.db.run(
-      `UPDATE twitter_urls SET processed = TRUE, last_processed = CURRENT_TIMESTAMP, status = ? WHERE id = ?`,
-      [status, id]
+      `UPDATE twitter_urls SET processed = TRUE, last_processed = CURRENT_TIMESTAMP, status = ? WHERE tweet_id = ?`,
+      [status, tweetId]
     );
   }
 
   // Update URL status
-  async updateStatus(id, status) {
+  async updateStatus(tweetId, status) {
     return await this.db.run(
-      `UPDATE twitter_urls SET status = ? WHERE id = ?`,
-      [status, id]
+      `UPDATE twitter_urls SET status = ? WHERE tweet_id = ?`,
+      [status, tweetId]
     );
   }
 
   // Update author information when tweet content is fetched
-  async updateAuthorInfo(id, username, name) {
+  async updateAuthorInfo(tweetId, username, name) {
     return await this.db.run(
-      `UPDATE twitter_urls SET author_username = ?, author_name = ? WHERE id = ?`,
-      [username, name, id]
+      `UPDATE twitter_urls SET author_username = ?, author_name = ? WHERE tweet_id = ?`,
+      [username, name, tweetId]
     );
   }
 
-  // Get URL by ID
-  async getById(id) {
+  // Get URL by tweet ID
+  async getByTweetId(tweetId) {
     return await this.db.get(
-      `SELECT * FROM twitter_urls WHERE id = ?`,
-      [id]
+      `SELECT * FROM twitter_urls WHERE tweet_id = ?`,
+      [tweetId]
     );
+  }
+
+  // Backward compatibility: Get URL by ID (now tweet_id)
+  async getById(tweetId) {
+    return this.getByTweetId(tweetId);
   }
 
   // Delete URL
-  async deleteUrl(id) {
+  async deleteUrl(tweetId) {
     return await this.db.run(
-      `DELETE FROM twitter_urls WHERE id = ?`,
-      [id]
+      `DELETE FROM twitter_urls WHERE tweet_id = ?`,
+      [tweetId]
     );
   }
 
@@ -132,15 +140,14 @@ class TweetContentModel {
   }
 
   // Save tweet content
-  async saveTweetContent(urlId, tweetData) {
+  async saveTweetContent(tweetData) {
     const result = await this.db.run(
       `INSERT INTO tweet_content (
-        url_id, tweet_id, author_id, author_username, author_name, 
-        author_profile_image, tweet_text, created_at, like_count, 
+        tweet_id, author_id, author_username, author_name, 
+        author_profile_image, tweet_text, tweet_created_at, like_count, 
         retweet_count, reply_count, quote_count, bookmark_count, impression_count
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        urlId,
         tweetData.id,
         tweetData.author_id,
         tweetData.username,
@@ -157,14 +164,14 @@ class TweetContentModel {
       ]
     );
 
-    return result.id;
+    return tweetData.id; // Return the tweet_id instead of auto-increment id
   }
 
-  // Get tweet content by URL ID
-  async getByUrlId(urlId) {
+  // Get tweet content by tweet ID
+  async getByTweetId(tweetId) {
     return await this.db.get(
-      `SELECT * FROM tweet_content WHERE url_id = ?`,
-      [urlId]
+      `SELECT * FROM tweet_content WHERE tweet_id = ?`,
+      [tweetId]
     );
   }
 
@@ -173,9 +180,9 @@ class TweetContentModel {
     return await this.db.all(
       `SELECT tc.*, tu.url 
        FROM tweet_content tc 
-       JOIN twitter_urls tu ON tc.url_id = tu.id 
+       JOIN twitter_urls tu ON tc.tweet_id = tu.tweet_id 
        WHERE tc.fetched_at BETWEEN ? AND ? 
-       ORDER BY tc.created_at DESC`,
+       ORDER BY tc.tweet_created_at DESC`,
       [startDate, endDate]
     );
   }
@@ -187,14 +194,14 @@ class MediaFileModel {
   }
 
   // Save media file info
-  async saveMediaFile(tweetContentId, mediaData) {
+  async saveMediaFile(tweetId, mediaData) {
     const result = await this.db.run(
       `INSERT INTO media_files (
-        tweet_content_id, media_key, media_type, media_url, 
+        tweet_id, media_key, media_type, media_url, 
         width, height, duration_ms
       ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
-        tweetContentId,
+        tweetId,
         mediaData.media_key,
         mediaData.type,
         mediaData.url,
@@ -223,11 +230,11 @@ class MediaFileModel {
     );
   }
 
-  // Get media files by tweet content ID
-  async getByTweetContentId(tweetContentId) {
+  // Get media files by tweet ID
+  async getByTweetId(tweetId) {
     return await this.db.all(
-      `SELECT * FROM media_files WHERE tweet_content_id = ?`,
-      [tweetContentId]
+      `SELECT * FROM media_files WHERE tweet_id = ?`,
+      [tweetId]
     );
   }
 }
@@ -238,22 +245,22 @@ class AISummaryModel {
   }
 
   // Save AI summary
-  async saveSummary(tweetContentId, summaryText, summaryType, tokensUsed, processingTime) {
+  async saveSummary(tweetId, summaryText, summaryType, tokensUsed, processingTime) {
     const result = await this.db.run(
       `INSERT INTO ai_summaries (
-        tweet_content_id, summary_text, summary_type, tokens_used, processing_time_ms
+        tweet_id, summary_text, summary_type, tokens_used, processing_time_ms
       ) VALUES (?, ?, ?, ?, ?)`,
-      [tweetContentId, summaryText, summaryType, tokensUsed, processingTime]
+      [tweetId, summaryText, summaryType, tokensUsed, processingTime]
     );
 
     return result.id;
   }
 
-  // Get summary by tweet content ID
-  async getByTweetContentId(tweetContentId) {
+  // Get summary by tweet ID
+  async getByTweetId(tweetId) {
     return await this.db.get(
-      `SELECT * FROM ai_summaries WHERE tweet_content_id = ? ORDER BY created_at DESC LIMIT 1`,
-      [tweetContentId]
+      `SELECT * FROM ai_summaries WHERE tweet_id = ? ORDER BY created_at DESC LIMIT 1`,
+      [tweetId]
     );
   }
 }

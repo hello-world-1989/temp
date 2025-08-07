@@ -1208,7 +1208,7 @@ app.get("/api/unprocessed-urls", async (req, res) => {
 });
 
 // API endpoint to process a specific Twitter URL (fetch content + AI summary)
-app.post("/api/process-url/:id", async (req, res) => {
+app.get("/api/process-url/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { token } = req.query;
@@ -1229,34 +1229,6 @@ app.post("/api/process-url/:id", async (req, res) => {
     }
 
     console.log(`🔄 Processing Twitter URL: ${urlRecord.url}`);
-
-    // Update status to processing
-    await twitterUrlModel.updateStatus(id, "processing");
-
-    // Here you would typically:
-    // 1. Fetch the actual tweet data from Twitter API
-    // 2. Extract additional user info (display name, etc.)
-    // 3. Save tweet content using TweetContentModel
-    // 4. Update author info in the twitter_urls table
-    
-    // Example of how to update author info when you get the actual tweet data:
-    // const tweetData = await fetchTweetData(urlRecord.tweet_id); // Your Twitter API call
-    // if (tweetData && tweetData.user) {
-    //   await twitterUrlModel.updateAuthorInfo(id, tweetData.user.screen_name, tweetData.user.name);
-    //   
-    //   // Save tweet content
-    //   const tweetContentModel = new TweetContentModel();
-    //   await tweetContentModel.saveTweetContent(id, {
-    //     id: tweetData.id_str,
-    //     author_id: tweetData.user.id_str,
-    //     username: tweetData.user.screen_name,
-    //     name: tweetData.user.name,
-    //     profile_image_url: tweetData.user.profile_image_url,
-    //     text: tweetData.full_text,
-    //     created_at: tweetData.created_at,
-    //     public_metrics: tweetData.public_metrics
-    //   });
-    // }
 
     // Mark as processed
     await twitterUrlModel.markAsProcessed(id, "completed");

@@ -48,9 +48,8 @@ class Database {
     const tables = [
       // Twitter URLs table
       `CREATE TABLE IF NOT EXISTS twitter_urls (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        tweet_id TEXT PRIMARY KEY,
         url TEXT UNIQUE NOT NULL,
-        tweet_id TEXT,
         author_username TEXT,
         author_name TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -61,15 +60,13 @@ class Database {
 
       // Tweet content table
       `CREATE TABLE IF NOT EXISTS tweet_content (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        url_id INTEGER NOT NULL,
-        tweet_id TEXT NOT NULL,
+        tweet_id TEXT PRIMARY KEY,
         author_id TEXT,
         author_username TEXT,
         author_name TEXT,
         author_profile_image TEXT,
         tweet_text TEXT,
-        created_at DATETIME,
+        tweet_created_at DATETIME,
         like_count INTEGER DEFAULT 0,
         retweet_count INTEGER DEFAULT 0,
         reply_count INTEGER DEFAULT 0,
@@ -77,13 +74,13 @@ class Database {
         bookmark_count INTEGER DEFAULT 0,
         impression_count INTEGER DEFAULT 0,
         fetched_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (url_id) REFERENCES twitter_urls (id) ON DELETE CASCADE
+        FOREIGN KEY (tweet_id) REFERENCES twitter_urls (tweet_id) ON DELETE CASCADE
       )`,
 
       // Media files table (videos, images)
       `CREATE TABLE IF NOT EXISTS media_files (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        tweet_content_id INTEGER NOT NULL,
+        tweet_id TEXT NOT NULL,
         media_key TEXT,
         media_type TEXT NOT NULL, -- 'video', 'image', 'gif'
         media_url TEXT,
@@ -95,19 +92,19 @@ class Database {
         downloaded BOOLEAN DEFAULT FALSE,
         download_error TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (tweet_content_id) REFERENCES tweet_content (id) ON DELETE CASCADE
+        FOREIGN KEY (tweet_id) REFERENCES tweet_content (tweet_id) ON DELETE CASCADE
       )`,
 
       // AI summaries table
       `CREATE TABLE IF NOT EXISTS ai_summaries (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        tweet_content_id INTEGER NOT NULL,
+        tweet_id TEXT NOT NULL,
         summary_text TEXT,
         summary_type TEXT DEFAULT 'gemini', -- 'gemini', 'openai', etc.
         tokens_used INTEGER,
         processing_time_ms INTEGER,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (tweet_content_id) REFERENCES tweet_content (id) ON DELETE CASCADE
+        FOREIGN KEY (tweet_id) REFERENCES tweet_content (tweet_id) ON DELETE CASCADE
       )`,
 
       // Video compilations table
@@ -130,13 +127,13 @@ class Database {
       `CREATE TABLE IF NOT EXISTS compilation_items (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         compilation_id INTEGER NOT NULL,
-        tweet_content_id INTEGER NOT NULL,
+        tweet_id TEXT NOT NULL,
         order_index INTEGER NOT NULL,
         start_time_seconds DECIMAL(10,2),
         end_time_seconds DECIMAL(10,2),
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (compilation_id) REFERENCES video_compilations (id) ON DELETE CASCADE,
-        FOREIGN KEY (tweet_content_id) REFERENCES tweet_content (id) ON DELETE CASCADE
+        FOREIGN KEY (tweet_id) REFERENCES tweet_content (tweet_id) ON DELETE CASCADE
       )`,
 
       // System settings table
@@ -164,12 +161,13 @@ class Database {
 
     // Create indexes for better performance
     const indexes = [
-      'CREATE INDEX IF NOT EXISTS idx_twitter_urls_tweet_id ON twitter_urls(tweet_id)',
       'CREATE INDEX IF NOT EXISTS idx_twitter_urls_processed ON twitter_urls(processed)',
-      'CREATE INDEX IF NOT EXISTS idx_tweet_content_url_id ON tweet_content(url_id)',
-      'CREATE INDEX IF NOT EXISTS idx_media_files_tweet_content_id ON media_files(tweet_content_id)',
-      'CREATE INDEX IF NOT EXISTS idx_ai_summaries_tweet_content_id ON ai_summaries(tweet_content_id)',
+      'CREATE INDEX IF NOT EXISTS idx_twitter_urls_status ON twitter_urls(status)',
+      'CREATE INDEX IF NOT EXISTS idx_tweet_content_author ON tweet_content(author_username)',
+      'CREATE INDEX IF NOT EXISTS idx_media_files_tweet_id ON media_files(tweet_id)',
+      'CREATE INDEX IF NOT EXISTS idx_ai_summaries_tweet_id ON ai_summaries(tweet_id)',
       'CREATE INDEX IF NOT EXISTS idx_compilation_items_compilation_id ON compilation_items(compilation_id)',
+      'CREATE INDEX IF NOT EXISTS idx_compilation_items_tweet_id ON compilation_items(tweet_id)',
       'CREATE INDEX IF NOT EXISTS idx_processing_logs_created_at ON processing_logs(created_at)'
     ];
 
