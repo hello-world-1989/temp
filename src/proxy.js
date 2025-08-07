@@ -1311,7 +1311,7 @@ process.on("SIGTERM", async () => {
 });
 
 const db = getDatabase();
-await db.initialize();
+db.initialize();
 
 // Start server
 const server = app.listen(CONFIG.NODE_PORT, () => {
