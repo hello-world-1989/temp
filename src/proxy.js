@@ -1254,6 +1254,47 @@ app.get("/api/process-url/:id", async (req, res) => {
   }
 });
 
+// API endpoint to delete a specific Twitter URL
+app.delete("/api/delete-url/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { token } = req.query;
+    if(token !== process.env.VIDEO_PROCESS_TOKEN) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
+    const twitterUrlModel = new TwitterUrlModel();
+
+    // Get URL from database to verify it exists
+    const urlRecord = await twitterUrlModel.getById(id);
+    if (!urlRecord) {
+      return res.status(404).json({ error: "URL not found" });
+    }
+
+    console.log(`🗑️ Deleting Twitter URL: ${urlRecord.url}`);
+
+    // Delete the URL from database
+    await twitterUrlModel.deleteUrl(id);
+
+    console.log(`✅ Successfully deleted URL with ID: ${id}`);
+
+    res.json({
+      success: true,
+      message: "URL deleted successfully",
+      data: {
+        id,
+        deleted_url: urlRecord.url
+      },
+    });
+  } catch (error) {
+    console.error("❌ Error in delete-url endpoint:", error);
+    res.status(500).json({
+      error: "Deletion failed",
+      details: error.message,
+    });
+  }
+});
+
 // 404 handler
 app.use((req, res) => {
   APIResponse.sendError(res, "Endpoint not found", "Not Found", 404);
