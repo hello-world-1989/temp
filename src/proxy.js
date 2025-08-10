@@ -1301,12 +1301,13 @@ app.use((req, res) => {
 });
 
 report();
+setInterval(report, 600000);
 
 // Periodic tasks
 if (!CONFIG.IS_DEV) {
   // setInterval(periodicCheckConnection, 600000); // 10 minutes
   setInterval(periodicCheckReachable, 3600000); // 1 hour
-  setInterval(report, 600000); // 10 minutes
+   // 10 minutes
   setInterval(getEndGFWMirror, 3600000); // 1 hour
 
   // Initial setup
