@@ -1300,6 +1300,8 @@ app.use((req, res) => {
   APIResponse.sendError(res, "Endpoint not found", "Not Found", 404);
 });
 
+report();
+
 // Periodic tasks
 if (!CONFIG.IS_DEV) {
   // setInterval(periodicCheckConnection, 600000); // 10 minutes
@@ -1309,7 +1311,6 @@ if (!CONFIG.IS_DEV) {
 
   // Initial setup
   getEndGFWMirror();
-  report();
 }
 
 // Graceful shutdown
