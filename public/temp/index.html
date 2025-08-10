@@ -19,31 +19,31 @@
 
     <!-- Structured Data for Website and Organization -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "免费翻墙软件 - 完全免费VPN代理服务",
-      "url": "https://end-gfw.com",
-      "description": "提供完全免费的翻墙软件和VPN代理服务，支持V2Ray、Shadowsocks等多种协议。每日更新节点，支持安卓、iOS、Windows、Mac等全平台。",
-      "datePublished": "2024-01-01T00:00:00+08:00",
-      "dateModified": "2025-08-07T00:00:00+08:00",
-      "inLanguage": "zh-CN",
-      "author": {
-        "@type": "Organization",
-        "name": "End GFW Together",
-        "url": "https://end-gfw.com"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "End GFW Together",
-        "url": "https://end-gfw.com"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://end-gfw.com?search={search_term_string}",
-        "query-input": "required name=search_term_string"
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "免费翻墙软件 - 完全免费VPN代理服务",
+        "url": "https://end-gfw.com",
+        "description": "提供完全免费的翻墙软件和VPN代理服务，支持V2Ray、Shadowsocks等多种协议。每日更新节点，支持安卓、iOS、Windows、Mac等全平台。",
+        "datePublished": "2024-01-01T00:00:00+08:00",
+        "dateModified": "2025-08-07T00:00:00+08:00",
+        "inLanguage": "zh-CN",
+        "author": {
+          "@type": "Organization",
+          "name": "End GFW Together",
+          "url": "https://end-gfw.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "End GFW Together",
+          "url": "https://end-gfw.com"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://end-gfw.com?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
-    }
     </script>
 
     <!-- Open Graph Meta Tags -->
@@ -89,36 +89,36 @@
         theme: {
           extend: {
             gridTemplateColumns: {
-              14: "repeat(14, minmax(0, 1fr))",
+              14: 'repeat(14, minmax(0, 1fr))',
             },
             colors: {
               primary: {
-                50: "#eff6ff",
-                100: "#dbeafe",
-                500: "#3b82f6",
-                600: "#2563eb",
-                700: "#1d4ed8",
+                50: '#eff6ff',
+                100: '#dbeafe',
+                500: '#3b82f6',
+                600: '#2563eb',
+                700: '#1d4ed8',
               },
               accent: {
-                500: "#10b981",
-                600: "#059669",
+                500: '#10b981',
+                600: '#059669',
               },
             },
             fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
             },
             animation: {
-              "fade-in": "fadeIn 0.5s ease-in-out",
-              "slide-up": "slideUp 0.3s ease-out",
+              'fade-in': 'fadeIn 0.5s ease-in-out',
+              'slide-up': 'slideUp 0.3s ease-out',
             },
             keyframes: {
               fadeIn: {
-                "0%": { opacity: "0" },
-                "100%": { opacity: "1" },
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
               },
               slideUp: {
-                "0%": { transform: "translateY(10px)", opacity: "0" },
-                "100%": { transform: "translateY(0)", opacity: "1" },
+                '0%': { transform: 'translateY(10px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
               },
             },
           },
@@ -127,37 +127,37 @@
     </script>
 
     <script>
-      fetch("header.html")
+      fetch('header.html')
         .then((response) => response.text())
         .then((text) => {
-          document.getElementById("header").innerHTML = text;
+          document.getElementById('header').innerHTML = text;
 
-          const mobileHeader = document.getElementById("mobile-header");
-          const closeMenu = document.getElementById("close-menu");
-          const openMenu = document.getElementById("open-menu");
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
 
-          mobileHeader.classList.add("hidden");
+          mobileHeader.classList.add('hidden');
 
           closeMenu.onclick = () => {
-            mobileHeader.classList.add("hidden");
+            mobileHeader.classList.add('hidden');
           };
 
           openMenu.onclick = () => {
-            mobileHeader.classList.remove("hidden");
+            mobileHeader.classList.remove('hidden');
           };
         });
 
-      fetch("footer.html")
+      fetch('footer.html')
         .then((response) => response.text())
         .then((text) => {
-          document.getElementById("footer").innerHTML = text;
+          document.getElementById('footer').innerHTML = text;
 
-          const currentYearSpan = document.getElementById("currentYear");
+          const currentYearSpan = document.getElementById('currentYear');
           const currentDate = new Date();
           const currentYear = currentDate.getFullYear();
           currentYearSpan.textContent = currentYear;
 
-          document.getElementById("year").value = currentYear;
+          document.getElementById('year').value = currentYear;
         });
     </script>
 
@@ -166,15 +166,15 @@
 
       // Check the domain and conditionally add the script
       if (
-        currentDomain === "end-gfw.com" ||
-        currentDomain === "vpn.ban-gfw.com"
+        currentDomain === 'end-gfw.com' ||
+        currentDomain === 'vpn.ban-gfw.com'
       ) {
-        const script = document.createElement("script");
+        const script = document.createElement('script');
         script.src =
-          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308"; // Replace with your script URL
-        script.type = "text/javascript";
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308'; // Replace with your script URL
+        script.type = 'text/javascript';
         script.async = true;
-        script.crossorigin = "anonymous";
+        script.crossorigin = 'anonymous';
 
         // Append the script to the document head or body
         document.head.appendChild(script);
@@ -199,29 +199,61 @@
           <!-- Enhanced Navigation Links Section -->
           <div class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
             <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <svg class="w-5 h-5 mr-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+              <svg
+                class="w-5 h-5 mr-2 text-primary-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                ></path>
               </svg>
               快速导航
             </h2>
-            
+
             <!-- Mobile-first responsive grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3"
+            >
               <a
                 href="./why.html"
                 class="group flex items-center p-4 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 border border-blue-200 rounded-lg transition-all duration-200 hover:shadow-md transform hover:-translate-y-0.5"
               >
-                <div class="flex-shrink-0 w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
-                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
+                      clip-rule="evenodd"
+                    ></path>
                   </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-sm font-semibold text-gray-900 group-hover:text-blue-700">李老师推文</h3>
+                  <h3
+                    class="text-sm font-semibold text-gray-900 group-hover:text-blue-700"
+                  >
+                    李老师推文
+                  </h3>
                   <p class="text-xs text-gray-600 mt-0.5">最新国内新闻</p>
                 </div>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                <svg
+                  class="w-4 h-4 text-gray-400 group-hover:text-blue-600 transform group-hover:translate-x-1 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
               </a>
 
@@ -229,17 +261,41 @@
                 href="./vpn.html"
                 class="group flex items-center p-4 bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 border border-green-200 rounded-lg transition-all duration-200 hover:shadow-md transform hover:-translate-y-0.5"
               >
-                <div class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3">
-                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
                   </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-sm font-semibold text-gray-900 group-hover:text-green-700">下载翻墙软件</h3>
-                  <p class="text-xs text-gray-600 mt-0.5">免费翻墙/代理/VPN工具</p>
+                  <h3
+                    class="text-sm font-semibold text-gray-900 group-hover:text-green-700"
+                  >
+                    下载翻墙软件
+                  </h3>
+                  <p class="text-xs text-gray-600 mt-0.5">
+                    免费翻墙/代理/VPN工具
+                  </p>
                 </div>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-green-600 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                <svg
+                  class="w-4 h-4 text-gray-400 group-hover:text-green-600 transform group-hover:translate-x-1 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
               </a>
 
@@ -247,17 +303,39 @@
                 href="./events.html"
                 class="group flex items-center p-4 bg-gradient-to-r from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 border border-orange-200 rounded-lg transition-all duration-200 hover:shadow-md transform hover:-translate-y-0.5"
               >
-                <div class="flex-shrink-0 w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
-                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                      clip-rule="evenodd"
+                    ></path>
                   </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-700">热点事件</h3>
+                  <h3
+                    class="text-sm font-semibold text-gray-900 group-hover:text-orange-700"
+                  >
+                    热点事件
+                  </h3>
                   <p class="text-xs text-gray-600 mt-0.5">年度/月度热点追踪</p>
                 </div>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-orange-600 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                <svg
+                  class="w-4 h-4 text-gray-400 group-hover:text-orange-600 transform group-hover:translate-x-1 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
               </a>
 
@@ -265,17 +343,39 @@
                 href="./news.html"
                 class="group flex items-center p-4 bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 border border-purple-200 rounded-lg transition-all duration-200 hover:shadow-md transform hover:-translate-y-0.5"
               >
-                <div class="flex-shrink-0 w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
-                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
+                      clip-rule="evenodd"
+                    ></path>
                   </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-sm font-semibold text-gray-900 group-hover:text-purple-700">国际新闻</h3>
+                  <h3
+                    class="text-sm font-semibold text-gray-900 group-hover:text-purple-700"
+                  >
+                    国际新闻
+                  </h3>
                   <p class="text-xs text-gray-600 mt-0.5">全球资讯速览</p>
                 </div>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-purple-600 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                <svg
+                  class="w-4 h-4 text-gray-400 group-hover:text-purple-600 transform group-hover:translate-x-1 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
                 </svg>
               </a>
             </div>
@@ -404,7 +504,9 @@
             <div class="space-y-4">
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">🤖 安卓手机</h3>
-                <p class="text-gray-600 mb-3">使用Outline、V2Ray、Clash、NthLink</p>
+                <p class="text-gray-600 mb-3">
+                  使用Outline、V2Ray、Clash、NthLink
+                </p>
                 <a
                   href="./vpn.html"
                   class="text-primary-600 hover:text-primary-700 font-semibold"
@@ -426,7 +528,9 @@
 
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">💻 Windows电脑</h3>
-                <p class="text-gray-600 mb-3">使用Outline、V2Ray、Clash、NthLink</p>
+                <p class="text-gray-600 mb-3">
+                  使用Outline、V2Ray、Clash、NthLink
+                </p>
                 <a
                   href="./vpn.html"
                   class="text-primary-600 hover:text-primary-700 font-semibold"
@@ -531,48 +635,48 @@
 
     <script>
       async function renewPlan() {
-        const tokenElement = document.getElementById("token");
-        const tokenStatusElement = document.getElementById("token-status");
+        const tokenElement = document.getElementById('token');
+        const tokenStatusElement = document.getElementById('token-status');
         // const tokenErrorElement = document.getElementById('token-error');
 
         const token = tokenElement.value;
 
-        console.log("token: ", token);
+        console.log('token: ', token);
 
         if (!token) {
           return;
         }
 
-        tokenStatusElement.classList.remove("hidden");
+        tokenStatusElement.classList.remove('hidden');
 
-        tokenStatusElement.textContent = "签到中...";
+        tokenStatusElement.textContent = '签到中...';
 
         let temp = [];
 
         try {
           await fetch(`/renew-plan?token=${token}`);
-          tokenStatusElement.textContent = "签到成功!";
+          tokenStatusElement.textContent = '签到成功!';
         } catch (err) {
-          tokenStatusElement.textContent = "签到失败!";
-          console.error("error token renew", token);
+          tokenStatusElement.textContent = '签到失败!';
+          console.error('error token renew', token);
         }
       }
     </script>
 
     <script>
       async function getSS() {
-        const res = await fetch("/ss-key");
+        const res = await fetch('/ss-key');
 
         const ssKeyBase64 = await res.text();
 
-        const ssKeys = ssKeyBase64?.split("\r\n");
+        const ssKeys = ssKeyBase64?.split('\r\n');
 
         //const ssKey1 = ssKeys?.[0];
         //const ssKey2 = ssKeys?.[1];
 
         ssKeys.forEach((key, i) => {
           const element = document.getElementById(`outline${i + 1}`);
-          element.parentElement.classList.remove("hidden");
+          element.parentElement.classList.remove('hidden');
           element.innerText = key;
         });
 
@@ -590,7 +694,7 @@
       }
 
       // Call when DOM is ready
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener('DOMContentLoaded', function () {
         getSS();
       });
     </script>
@@ -598,18 +702,42 @@
     <script>
       async function getMirrorHosts() {
         try {
-          const res = await fetch("/host");
-          const dataArr = await res.json();
+          const res = await fetch('/ss-key');
+          const ssKeyRaw = await res.text();
+          // Split into lines safely and remove empties
+          const ssKeys = (ssKeyRaw || '').split(/\r?\n/).filter(Boolean);
 
-          const whyElement = document.getElementById("mirror-list");
+          console.log("ssKeys: ", ssKeys)
+
+          // Extract IP and port from Shadowsocks keys
+          const dataArr = ssKeys.map(ssKey => {
+            try {
+              // Parse ss:// format: ss://base64@ip:port#comment
+              const match = ssKey.match(/ss:\/\/[^@]+@([^:]+):(\d+)/);
+              if (match) {
+                return {
+                  ip: match[1],
+                  port: parseInt(match[2], 10)
+                };
+              }
+              return null;
+            } catch (error) {
+              console.error('Error parsing SS key:', ssKey, error);
+              return null;
+            }
+          }).filter(Boolean); // Remove null entries
+
+          console.log("dataArr: ", dataArr)
+
+          const whyElement = document.getElementById('mirror-list');
 
           if (!whyElement) {
-            console.error("Mirror list element not found");
+            console.error('Mirror list element not found');
             return;
           }
 
           // Clear existing content
-          whyElement.innerHTML = "";
+          whyElement.innerHTML = '';
 
           if (!dataArr || dataArr.length === 0) {
             whyElement.innerHTML = `
@@ -624,14 +752,14 @@
           }
 
           dataArr.forEach((item) => {
-            const linkContainer = document.createElement("div");
+            const linkContainer = document.createElement('div');
             linkContainer.className =
-              "flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors mb-2";
+              'flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors mb-2';
 
-            const linkElement = document.createElement("a");
+            const linkElement = document.createElement('a');
             linkElement.className =
-              "text-primary-600 hover:text-primary-700 font-medium break-all";
-            linkElement.target = "_blank";
+              'text-primary-600 hover:text-primary-700 font-medium break-all';
+            linkElement.target = '_blank';
 
             if (item.port == 80) {
               linkElement.href = `http://${item.ip}`;
@@ -641,9 +769,9 @@
               linkElement.innerText = `http://${item.ip}:${item.port}/`;
             }
 
-            const statusIndicator = document.createElement("div");
+            const statusIndicator = document.createElement('div');
             statusIndicator.className =
-              "flex items-center text-sm text-gray-600 flex-shrink-0 ml-2";
+              'flex items-center text-sm text-gray-600 flex-shrink-0 ml-2';
             statusIndicator.innerHTML = `
                 <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
                 可用
@@ -654,8 +782,8 @@
             whyElement.appendChild(linkContainer);
           });
         } catch (error) {
-          console.error("Error fetching mirror hosts:", error);
-          const whyElement = document.getElementById("mirror-list");
+          console.error('Error fetching mirror hosts:', error);
+          const whyElement = document.getElementById('mirror-list');
           if (whyElement) {
             whyElement.innerHTML = `
                 <div class="text-center p-4 text-red-500">
@@ -670,7 +798,7 @@
       }
 
       // Call when DOM is ready
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener('DOMContentLoaded', function () {
         getMirrorHosts();
       });
     </script>
@@ -705,16 +833,16 @@
 
         try {
           // Now that we've selected the text, execute the copy command
-          var successful = document.execCommand("copy");
+          var successful = document.execCommand('copy');
           if (successful) {
             showCopyNotification();
           }
           console.log(
-            "Copy text command was " +
-              (successful ? "successful" : "unsuccessful")
+            'Copy text command was ' +
+              (successful ? 'successful' : 'unsuccessful')
           );
         } catch (err) {
-          console.log("Oops, unable to copy", err);
+          console.log('Oops, unable to copy', err);
         }
 
         // Remove the selections - NOTE: Might not be necessary in some cases
@@ -722,15 +850,15 @@
       }
 
       function showCopyNotification() {
-        const notification = document.getElementById("copy-notification");
-        notification.classList.remove("hidden", "translate-y-full");
-        notification.classList.add("translate-y-0");
+        const notification = document.getElementById('copy-notification');
+        notification.classList.remove('hidden', 'translate-y-full');
+        notification.classList.add('translate-y-0');
 
         setTimeout(() => {
-          notification.classList.remove("translate-y-0");
-          notification.classList.add("translate-y-full");
+          notification.classList.remove('translate-y-0');
+          notification.classList.add('translate-y-full');
           setTimeout(() => {
-            notification.classList.add("hidden");
+            notification.classList.add('hidden');
           }, 300);
         }, 2000);
       }
@@ -742,7 +870,7 @@
         const linkElement = document.getElementById(elementId);
 
         // Create a temporary input element to hold the link text
-        var tempInput = document.createElement("input");
+        var tempInput = document.createElement('input');
         tempInput.value = linkElement.href;
         document.body.appendChild(tempInput);
 
@@ -751,14 +879,14 @@
 
         try {
           // Now that we've selected the text, execute the copy command
-          var successful = document.execCommand("copy");
+          var successful = document.execCommand('copy');
           if (successful) {
             showCopyNotification();
           }
-          var msg = successful ? "successful" : "unsuccessful";
-          console.log("Copy text command was " + msg);
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copy text command was ' + msg);
         } catch (err) {
-          console.log("Oops, unable to copy", err);
+          console.log('Oops, unable to copy', err);
         }
 
         // Remove the selections - NOTE: Might not be necessary in some cases
@@ -778,7 +906,7 @@
 
       const hashWeek = () => {
         const weekNumber = getWeekNumber();
-        const hash = CryptoJS.SHA1(weekNumber + "").toString();
+        const hash = CryptoJS.SHA1(weekNumber + '').toString();
 
         return hash.slice(0, 6);
       };
