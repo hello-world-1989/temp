@@ -680,54 +680,26 @@
           element.innerText = key;
         });
 
-        //const ssElement1 = document.getElementById('outline1');
-        //const ssElement2 = document.getElementById('outline2');
-        //const ssElement3 = document.getElementById('outline3');
-        //const ssElement4 = document.getElementById('outline4');
-        //const ssElement5 = document.getElementById('outline5');
-
-        //ssElement1.href = ssKey1;
-        //ssElement1.innerText = ssKey1;
-
-        //ssElement2.href = ssKey2;
-        //ssElement2.innerText = ssKey2;
-      }
-
-      // Call when DOM is ready
-      document.addEventListener('DOMContentLoaded', function () {
-        getSS();
-      });
-    </script>
-
-    <script>
-      async function getMirrorHosts() {
         try {
-          const res = await fetch('/ss-key');
-          const ssKeyRaw = await res.text();
-          // Split into lines safely and remove empties
-          const ssKeys = (ssKeyRaw || '').split(/\r?\n/).filter(Boolean);
-
-          console.log("ssKeys: ", ssKeys)
-
           // Extract IP and port from Shadowsocks keys
-          const dataArr = ssKeys.map(ssKey => {
-            try {
-              // Parse ss:// format: ss://base64@ip:port#comment
-              const match = ssKey.match(/ss:\/\/[^@]+@([^:]+):(\d+)/);
-              if (match) {
-                return {
-                  ip: match[1],
-                  port: parseInt(match[2], 10)
-                };
+          const dataArr = ssKeys.filter(key => !key.includes('@us'))
+            .map((ssKey) => {
+              try {
+                // Parse ss:// format: ss://base64@ip:port#comment
+                const match = ssKey.match(/ss:\/\/[^@]+@([^:]+):(\d+)/);
+                if (match) {
+                  return {
+                    ip: match[1],
+                    port: parseInt(match[2], 10),
+                  };
+                }
+                return null;
+              } catch (error) {
+                console.error('Error parsing SS key:', ssKey, error);
+                return null;
               }
-              return null;
-            } catch (error) {
-              console.error('Error parsing SS key:', ssKey, error);
-              return null;
-            }
-          }).filter(Boolean); // Remove null entries
-
-          console.log("dataArr: ", dataArr)
+            })
+            .filter(Boolean); // Remove null entries
 
           const whyElement = document.getElementById('mirror-list');
 
@@ -799,7 +771,7 @@
 
       // Call when DOM is ready
       document.addEventListener('DOMContentLoaded', function () {
-        getMirrorHosts();
+        getSS();
       });
     </script>
 
