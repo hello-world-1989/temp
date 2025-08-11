@@ -1,15 +1,15 @@
-import axios from "axios";
-import express from "express";
-import * as path from "path";
-import * as net from "net";
-import { create } from "express-handlebars";
-import url from "url";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-import { getAppleId } from "./get-apple-id.js";
+import axios from 'axios';
+import express from 'express';
+import * as path from 'path';
+import * as net from 'net';
+import { create } from 'express-handlebars';
+import url from 'url';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { getAppleId } from './get-apple-id.js';
 
-import { getDatabase } from "./database/db.js";
-import { TwitterUrlModel, TweetContentModel } from "./database/models.js";
+import { getDatabase } from './database/db.js';
+import { TwitterUrlModel, TweetContentModel } from './database/models.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,8 +18,8 @@ const __dirname = dirname(__filename);
 const CONFIG = {
   //DO NOT EDIT NODE_PORT LINE
   NODE_PORT: 80, // Do not change this line
-  MASTER_NODE: process.env.MASTER_NODE === "true",
-  PRIVATE_NODE: process.env.PRIVATE_NODE === "true",
+  MASTER_NODE: process.env.MASTER_NODE === 'true',
+  PRIVATE_NODE: process.env.PRIVATE_NODE === 'true',
   IP_CHECK_HOST: process.env.IP_CHECK_HOST,
   IP_CHECK_REFERER: process.env.IP_CHECK_REFERER,
   IP_CHECK_URL: process.env.IP_CHECK_URL,
@@ -27,8 +27,8 @@ const CONFIG = {
   SUB_URL: process.env.SUB_URL,
   RENEW_PLAN_URL: process.env.RENEW_PLAN_URL,
   IS_DEV:
-    process.env.NODE_ENV?.includes("dev") ||
-    process.env.NODE_ENV !== "production",
+    process.env.NODE_ENV?.includes('dev') ||
+    process.env.NODE_ENV !== 'production',
   CONNECTION_TIMEOUT: 3000,
   REQUEST_TIMEOUT: 10000,
 };
@@ -42,28 +42,28 @@ const AppState = {
 
 // Axios Configuration
 axios.defaults.timeout = CONFIG.REQUEST_TIMEOUT;
-axios.defaults.headers.common["Accept-Language"] =
-  "zh-CN,zh;q=0.9,en-US;q=0.8,en;";
-axios.defaults.headers.common["User-Agent"] =
-  "Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0";
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+axios.defaults.headers.common['Accept-Language'] =
+  'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
+axios.defaults.headers.common['User-Agent'] =
+  'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 // Express App Setup
 const app = express();
 
 // Add JSON body parser middleware
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // CORS middleware for frontend requests
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     res.sendStatus(200);
   } else {
     next();
@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 const hbs = create({
   helpers: {
     foo() {
-      return "FOO!";
+      return 'FOO!';
     },
     mod(a, b) {
       return a % b;
@@ -90,26 +90,26 @@ const hbs = create({
   },
 });
 
-app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "./views"));
-app.use("/", express.static(path.join(__dirname, "../public/temp")));
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, './views'));
+app.use('/', express.static(path.join(__dirname, '../public/temp')));
 
 // Utility Functions
 class APIResponse {
-  static success(data, message = "Success") {
+  static success(data, message = 'Success') {
     return { success: true, data, message };
   }
 
-  static error(error, message = "Error occurred") {
+  static error(error, message = 'Error occurred') {
     return { success: false, error: error.message || error, message };
   }
 
-  static sendSuccess(res, data, message = "Success") {
+  static sendSuccess(res, data, message = 'Success') {
     res.json(this.success(data, message));
   }
 
-  static sendError(res, error, message = "Error occurred", statusCode = 500) {
+  static sendError(res, error, message = 'Error occurred', statusCode = 500) {
     console.error(`API Error: ${message}`, error);
     res.status(statusCode).json(this.error(error, message));
   }
@@ -122,8 +122,8 @@ const validateQueryParams = (requiredParams = []) => {
     if (missing.length > 0) {
       return APIResponse.sendError(
         res,
-        `Missing required parameters: ${missing.join(", ")}`,
-        "Validation Error",
+        `Missing required parameters: ${missing.join(', ')}`,
+        'Validation Error',
         400
       );
     }
@@ -148,17 +148,17 @@ function isPortReachable(host, port, timeout = CONFIG.CONNECTION_TIMEOUT) {
     const socket = new net.Socket();
     socket.setTimeout(timeout);
 
-    socket.on("connect", () => {
+    socket.on('connect', () => {
       socket.end();
       resolve(true);
     });
 
-    socket.on("timeout", () => {
+    socket.on('timeout', () => {
       socket.destroy();
       resolve(false);
     });
 
-    socket.on("error", () => {
+    socket.on('error', () => {
       socket.destroy();
       resolve(false);
     });
@@ -181,67 +181,67 @@ async function makeRequest(url, options = {}) {
 }
 
 async function ipCheck(ipAddress, port) {
-  if (CONFIG.IS_DEV) return "success";
+  if (CONFIG.IS_DEV) return 'success';
 
   const headers = {
     Host: CONFIG.IP_CHECK_HOST,
-    "User-Agent":
-      "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:115.0esr) Gecko/20010101 Firefox/115.0esr/9S8eMFpqfT",
-    Accept: "application/json, text/javascript, */*; q=0.01",
-    "Accept-Encoding": "gzip, deflate, br",
-    Connection: "keep-alive",
-    Cookie: "",
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:115.0esr) Gecko/20010101 Firefox/115.0esr/9S8eMFpqfT',
+    Accept: 'application/json, text/javascript, */*; q=0.01',
+    'Accept-Encoding': 'gzip, deflate, br',
+    Connection: 'keep-alive',
+    Cookie: '',
     Referer: CONFIG.IP_CHECK_REFERER,
   };
 
   try {
     const url = `${CONFIG.IP_CHECK_URL}/${ipAddress}/${port}`;
     const res = await makeRequest(url, { headers });
-    return res?.data?.tcp ?? "fail";
+    return res?.data?.tcp ?? 'fail';
   } catch (error) {
-    console.error("IP check failed:", error.message);
-    return "fail";
+    console.error('IP check failed:', error.message);
+    return 'fail';
   }
 }
 
 // Enhanced API Endpoints
 
 app.get(
-  "/download-pdf/*",
+  '/download-pdf/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
     const url = `https://github.com/hello-world-1989/whyyoutouzhele/releases/download/${rawPath}`;
 
     try {
-      const response = await makeRequest(url, { responseType: "stream" });
-      res.setHeader("Content-Type", "application/zip");
+      const response = await makeRequest(url, { responseType: 'stream' });
+      res.setHeader('Content-Type', 'application/zip');
       response.data.pipe(res);
     } catch (error) {
-      console.error("PDF download error:", error.message);
-      res.status(500).send("Download failed");
+      console.error('PDF download error:', error.message);
+      res.status(500).send('Download failed');
     }
   })
 );
 
 app.get(
-  "/download-app/*",
+  '/download-app/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
     const url = `https://github.com/hello-world-1989/temp/releases/download/${rawPath}`;
 
     try {
-      const response = await makeRequest(url, { responseType: "stream" });
+      const response = await makeRequest(url, { responseType: 'stream' });
       response.data.pipe(res);
     } catch (error) {
-      console.error("App download error:", error.message);
-      res.status(500).send("Download failed");
+      console.error('App download error:', error.message);
+      res.status(500).send('Download failed');
     }
   })
 );
 
 // 2. Page rendering endpoints
 app.get(
-  "/tweet-page-7",
+  '/tweet-page-7',
   asyncHandler(async (req, res) => {
     try {
       const result = [];
@@ -252,8 +252,8 @@ app.get(
         dayTemp.setDate(dayTemp.getDate() - i);
 
         const year = dayTemp.getFullYear().toString();
-        const month = (dayTemp.getMonth() + 1).toString().padStart(2, "0");
-        const day = dayTemp.getDate().toString().padStart(2, "0");
+        const month = (dayTemp.getMonth() + 1).toString().padStart(2, '0');
+        const day = dayTemp.getDate().toString().padStart(2, '0');
 
         try {
           const url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${day}/whyyoutouzhele.json`;
@@ -270,21 +270,21 @@ app.get(
         ?.sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
         .map(processTweetItem);
 
-      res.render("tweet", { tweets });
+      res.render('tweet', { tweets });
     } catch (error) {
-      console.error("Tweet page error:", error.message);
-      res.render("tweet", { tweets: [] });
+      console.error('Tweet page error:', error.message);
+      res.render('tweet', { tweets: [] });
     }
   })
 );
 
 app.get(
-  "/tweet-page",
+  '/tweet-page',
   asyncHandler(async (req, res) => {
     const { year, month, day, endDay, id } = req.query;
 
     if (!year || !id) {
-      return res.render("tweet", { tweets: [] });
+      return res.render('tweet', { tweets: [] });
     }
 
     try {
@@ -299,7 +299,7 @@ app.get(
         const response = await makeRequest(url);
         result = response?.data ?? [];
       } catch (error) {
-        console.error("Tweet page error:", error.message);
+        console.error('Tweet page error:', error.message);
       }
 
       // Handle date range
@@ -308,7 +308,7 @@ app.get(
         const endDayNumber = parseInt(endDay);
 
         for (let i = startDayNumber + 1; i <= endDayNumber; i++) {
-          const endDayStr = i.toString().padStart(2, "0");
+          const endDayStr = i.toString().padStart(2, '0');
           try {
             const endDayURL = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}/${month}/${endDayStr}/${id}.json`;
             const currentResponse = await makeRequest(endDayURL, {
@@ -326,21 +326,21 @@ app.get(
         : (a, b) => (a.views < b.views ? 1 : -1);
 
       const tweets = result.sort(sortFn).map(processTweetItem);
-      res.render("tweet", { tweets });
+      res.render('tweet', { tweets });
     } catch (error) {
-      console.error("Tweet page error:", error.message);
-      res.render("tweet", { tweets: [] });
+      console.error('Tweet page error:', error.message);
+      res.render('tweet', { tweets: [] });
     }
   })
 );
 
 app.get(
-  "/search-tweet-page",
+  '/search-tweet-page',
   asyncHandler(async (req, res) => {
     const { keyword } = req.query;
 
     if (!keyword) {
-      return res.render("tweet", { tweets: [] });
+      return res.render('tweet', { tweets: [] });
     }
 
     try {
@@ -353,7 +353,7 @@ app.get(
 
       const promises =
         searchResponse?.data?.items
-          ?.filter((item) => item.name === "whyyoutouzhele.json")
+          ?.filter((item) => item.name === 'whyyoutouzhele.json')
           .map((item) => {
             const url = `https://raw.githubusercontent.com/hello-world-1989/json/main/${item.path}`;
             return makeRequest(url);
@@ -369,21 +369,21 @@ app.get(
         .sort((a, b) => (a.createdDate > b.createdDate ? -1 : 1))
         .map(processTweetItem);
 
-      res.render("tweet", { tweets });
+      res.render('tweet', { tweets });
     } catch (error) {
-      console.error("Search tweets error:", error.message);
-      res.render("tweet", { tweets: [] });
+      console.error('Search tweets error:', error.message);
+      res.render('tweet', { tweets: [] });
     }
   })
 );
 
 app.get(
-  "/news-page",
+  '/news-page',
   asyncHandler(async (req, res) => {
     const { year, month, day, sourceId, newsId } = req.query;
 
     if (!year || !month || !day || !sourceId || !newsId) {
-      return res.render("news", { news: [] });
+      return res.render('news', { news: [] });
     }
 
     try {
@@ -391,49 +391,49 @@ app.get(
       const response = await makeRequest(url);
       const news = response?.data?.filter((item) => item.id == newsId) ?? [];
 
-      res.render("news", { news });
+      res.render('news', { news });
     } catch (error) {
-      console.error("News page error:", error.message);
-      res.render("news", { news: [] });
+      console.error('News page error:', error.message);
+      res.render('news', { news: [] });
     }
   })
 );
 
 // 3. Data API endpoints
 app.get(
-  "/github",
+  '/github',
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        "https://raw.githubusercontent.com/hello-world-1989/cn-news/main/server.txt"
+        'https://raw.githubusercontent.com/hello-world-1989/cn-news/main/server.txt'
       );
-      res.send(response?.data || "");
+      res.send(response?.data || '');
     } catch (error) {
-      res.send("");
+      res.send('');
     }
   })
 );
 
 app.get(
-  "/ss-key",
+  '/ss-key',
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(CONFIG.SUB_URL);
       const base64String = response?.data;
 
       if (!base64String) {
-        return res.send("");
+        return res.send('');
       }
 
-      const decodedBuffer = Buffer.from(base64String, "base64");
-      const decodedString = decodedBuffer.toString("utf-8");
-      const array = decodedString.split("\r\n");
-      const ssArray = array.filter((item) => item.startsWith("ss://"));
+      const decodedBuffer = Buffer.from(base64String, 'base64');
+      const decodedString = decodedBuffer.toString('utf-8');
+      const array = decodedString.split('\r\n');
+      const ssArray = array.filter((item) => item.startsWith('ss://'));
 
-      res.send(ssArray?.slice(0, 3)?.join("\r\n") || "");
+      res.send(ssArray?.slice(0, 3)?.join('\r\n') || '');
     } catch (error) {
-      console.error("SS-Key error:", error.message);
-      res.send("");
+      console.error('SS-Key error:', error.message);
+      res.send('');
     }
   })
 );
@@ -446,95 +446,95 @@ const createResourceEndpoint = (baseUrl, endpoint) => {
       res.send(response?.data);
     } catch (error) {
       console.error(`${endpoint} error:`, error.message);
-      res.send("");
+      res.send('');
     }
   });
 };
 
 app.get(
-  "/youtube",
+  '/youtube',
   createResourceEndpoint(
-    "https://raw.githubusercontent.com/hello-world-1989/accessible/main",
-    "youtube"
+    'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
+    'youtube'
   )
 );
 app.get(
-  "/obfs4",
+  '/obfs4',
   createResourceEndpoint(
-    "https://raw.githubusercontent.com/hello-world-1989/cn-news/main",
-    "obfs4"
+    'https://raw.githubusercontent.com/hello-world-1989/cn-news/main',
+    'obfs4'
   )
 );
 app.get(
-  "/wiki",
+  '/wiki',
   createResourceEndpoint(
-    "https://raw.githubusercontent.com/hello-world-1989/accessible/main",
-    "wiki"
+    'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
+    'wiki'
   )
 );
 app.get(
-  "/nitter",
+  '/nitter',
   createResourceEndpoint(
-    "https://raw.githubusercontent.com/hello-world-1989/accessible/main",
-    "nitter"
+    'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
+    'nitter'
   )
 );
 app.get(
-  "/searchx",
+  '/searchx',
   createResourceEndpoint(
-    "https://raw.githubusercontent.com/hello-world-1989/accessible/main",
-    "searchx"
+    'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
+    'searchx'
   )
 );
 app.get(
-  "/pdf",
+  '/pdf',
   createResourceEndpoint(
-    "https://raw.githubusercontent.com/hello-world-1989/whyyoutouzhele/main",
-    "pdf"
+    'https://raw.githubusercontent.com/hello-world-1989/whyyoutouzhele/main',
+    'pdf'
   )
 );
 
 app.get(
-  "/host",
+  '/host',
   asyncHandler(async (req, res) => {
     try {
       res.send(AppState.endGFWHosts.slice(0, 3));
     } catch (error) {
-      console.error("Host error:", error.message);
-      res.send("");
+      console.error('Host error:', error.message);
+      res.send('');
     }
   })
 );
 
 app.get(
-  "/apple-account",
+  '/apple-account',
   asyncHandler(async (req, res) => {
     try {
       let account;
 
-      if (AppState.appleAccount.has("appleId")) {
-        account = AppState.appleAccount.get("appleId");
+      if (AppState.appleAccount.has('appleId')) {
+        account = AppState.appleAccount.get('appleId');
       } else {
         const [password, expireDate] = await getAppleId();
         account = {
-          username: "i-eyurbrt@aneeo.cc",
+          username: 'i-eyurbrt@aneeo.cc',
           password,
           expireDate,
         };
-        AppState.appleAccount.set("appleId", account);
+        AppState.appleAccount.set('appleId', account);
       }
 
       res.send(account);
     } catch (error) {
-      console.error("Apple account error:", error.message);
-      res.send("");
+      console.error('Apple account error:', error.message);
+      res.send('');
     }
   })
 );
 
 // Enhanced news data endpoint
 app.get(
-  "/news-data",
+  '/news-data',
   asyncHandler(async (req, res) => {
     const { year, month, day } = req.query;
 
@@ -544,7 +544,7 @@ app.get(
 
     try {
       const result = [];
-      const newsSource = ["bbc", "dw", "rfa", "rfi", "voa"];
+      const newsSource = ['bbc', 'dw', 'rfa', 'rfi', 'voa'];
 
       const promises = newsSource.map(async (id) => {
         try {
@@ -566,7 +566,7 @@ app.get(
 
       res.send(result);
     } catch (error) {
-      console.error("News data error:", error.message);
+      console.error('News data error:', error.message);
       res.send([]);
     }
   })
@@ -574,12 +574,12 @@ app.get(
 
 // Tweet data endpoint with improved error handling
 app.get(
-  "/tweet",
+  '/tweet',
   asyncHandler(async (req, res) => {
     const { year, month, day, endDay, id } = req.query;
 
     if (!year || !id) {
-      return res.send({ error: "Missing required parameters: year, id" });
+      return res.send({ error: 'Missing required parameters: year, id' });
     }
 
     try {
@@ -597,11 +597,11 @@ app.get(
 
         const rawResult = response?.data?.content;
         if (rawResult) {
-          const resultStr = Buffer.from(rawResult, "base64").toString("utf-8");
+          const resultStr = Buffer.from(rawResult, 'base64').toString('utf-8');
           result = JSON.parse(resultStr);
         }
       } catch (error) {
-        console.error("Tweet fetch error:", error.message);
+        console.error('Tweet fetch error:', error.message);
       }
 
       // Handle date range
@@ -610,7 +610,7 @@ app.get(
         const endDayNumber = parseInt(endDay);
 
         for (let i = startDayNumber + 1; i <= endDayNumber; i++) {
-          const endDayStr = i.toString().padStart(2, "0");
+          const endDayStr = i.toString().padStart(2, '0');
           try {
             const endDayURL = `https://api.github.com/repos/hello-world-1989/json/contents/tweet/${year}/${month}/${endDayStr}/${id}.json`;
             const currentResponse = await makeRequest(endDayURL, {
@@ -619,8 +619,8 @@ app.get(
 
             const rawCurrentData = currentResponse?.data?.content;
             if (rawCurrentData) {
-              const resultStr = Buffer.from(rawCurrentData, "base64").toString(
-                "utf-8"
+              const resultStr = Buffer.from(rawCurrentData, 'base64').toString(
+                'utf-8'
               );
               const temp = JSON.parse(resultStr);
               result.push(...temp);
@@ -633,7 +633,7 @@ app.get(
 
       res.send(result);
     } catch (error) {
-      console.error("Tweet data error:", error.message);
+      console.error('Tweet data error:', error.message);
       res.send([]);
     }
   })
@@ -641,8 +641,8 @@ app.get(
 
 // Enhanced event endpoint
 app.get(
-  "/event",
-  validateQueryParams(["year"]),
+  '/event',
+  validateQueryParams(['year']),
   asyncHandler(async (req, res) => {
     const { year } = req.query;
 
@@ -667,7 +667,7 @@ app.get(
 
       res.send(events);
     } catch (error) {
-      console.error("Event data error:", error.message);
+      console.error('Event data error:', error.message);
       res.send([]);
     }
   })
@@ -675,8 +675,8 @@ app.get(
 
 // Enhanced search tweet endpoint
 app.get(
-  "/search-tweet",
-  validateQueryParams(["keyword"]),
+  '/search-tweet',
+  validateQueryParams(['keyword']),
   asyncHandler(async (req, res) => {
     const { keyword } = req.query;
 
@@ -690,7 +690,7 @@ app.get(
 
       const promises =
         response?.data?.items
-          ?.filter((item) => item.name === "whyyoutouzhele.json")
+          ?.filter((item) => item.name === 'whyyoutouzhele.json')
           .map((item) => {
             const url = `https://api.github.com/repos/hello-world-1989/json/contents/${item.path}`;
             return makeRequest(url, {
@@ -704,8 +704,8 @@ app.get(
           const base64String = item?.data?.content;
           if (!base64String) return [];
 
-          const decodedBuffer = Buffer.from(base64String, "base64");
-          const decodedString = decodedBuffer.toString("utf-8");
+          const decodedBuffer = Buffer.from(base64String, 'base64');
+          const decodedString = decodedBuffer.toString('utf-8');
           return JSON.parse(decodedString);
         })
         .flat();
@@ -716,7 +716,7 @@ app.get(
 
       res.send(filteredTweets);
     } catch (error) {
-      console.error("Search tweet error:", error.message);
+      console.error('Search tweet error:', error.message);
       res.send([]);
     }
   })
@@ -724,7 +724,7 @@ app.get(
 
 // Enhanced resource endpoints
 app.get(
-  "/resource/*",
+  '/resource/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
 
@@ -737,33 +737,33 @@ app.get(
       const base64String = response?.data?.content;
       if (!base64String) {
         console.error(`Resource not found: ${rawPath}`);
-        return res.status(404).send("Resource not found");
+        return res.status(404).send('Resource not found');
       }
 
-      const decodedBuffer = Buffer.from(base64String, "base64");
-      res.writeHead(200, { "Content-Type": "image/jpeg" });
+      const decodedBuffer = Buffer.from(base64String, 'base64');
+      res.writeHead(200, { 'Content-Type': 'image/jpeg' });
       res.end(decodedBuffer);
     } catch (error) {
-      console.error("Resource fetch error:", error.message);
-      res.status(500).send("Failed to fetch resource");
+      console.error('Resource fetch error:', error.message);
+      res.status(500).send('Failed to fetch resource');
     }
   })
 );
 
 app.get(
-  "/news-resource/*",
+  '/news-resource/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
 
     try {
       const url = `https://raw.githubusercontent.com/hello-world-1989/resource/main/${rawPath}`;
-      const response = await makeRequest(url, { responseType: "arraybuffer" });
+      const response = await makeRequest(url, { responseType: 'arraybuffer' });
 
-      res.writeHead(200, { "Content-Type": "image/jpeg" });
-      res.end(Buffer.from(response.data, "binary"));
+      res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+      res.end(Buffer.from(response.data, 'binary'));
     } catch (error) {
-      console.error("News resource fetch error:", error.message);
-      res.status(500).send("Failed to fetch news resource");
+      console.error('News resource fetch error:', error.message);
+      res.status(500).send('Failed to fetch news resource');
     }
   })
 );
@@ -780,29 +780,29 @@ const createGitHubDataEndpoint = (filePath) => {
       const base64String = response?.data?.content;
       if (!base64String) {
         console.error(`Data not found for ${filePath}`);
-        return res.send("");
+        return res.send('');
       }
 
-      const decodedBuffer = Buffer.from(base64String, "base64");
-      const decodedString = decodedBuffer.toString("utf-8");
+      const decodedBuffer = Buffer.from(base64String, 'base64');
+      const decodedString = decodedBuffer.toString('utf-8');
       const result = JSON.parse(decodedString);
 
       res.send(result);
     } catch (error) {
       console.error(`Failed to fetch ${filePath}:`, error.message);
-      res.send("");
+      res.send('');
     }
   });
 };
 
-app.get("/vpn-data", createGitHubDataEndpoint("public/temp/vpn.json"));
-app.get("/ee-data", createGitHubDataEndpoint("ee.json"));
+app.get('/vpn-data', createGitHubDataEndpoint('public/temp/vpn.json'));
+app.get('/ee-data', createGitHubDataEndpoint('ee.json'));
 
 // System endpoints with enhanced functionality
 app.get(
-  "/report",
+  '/report',
   asyncHandler(async (req, res) => {
-    console.log("Master node:", CONFIG.MASTER_NODE);
+    console.log('Master node:', CONFIG.MASTER_NODE);
 
     if (CONFIG.MASTER_NODE) {
       return res.send({ reported: false });
@@ -812,34 +812,34 @@ app.get(
       await report();
       res.send({ reported: true });
     } catch (error) {
-      console.error("Report error:", error.message);
+      console.error('Report error:', error.message);
       res.send({ reported: false });
     }
   })
 );
 
 app.get(
-  "/node",
+  '/node',
   asyncHandler(async (req, res) => {
     const { ip, port } = req.query;
 
     if (!ip || !port) {
-      return res.send({ error: "Missing required parameters: ip, port" });
+      return res.send({ error: 'Missing required parameters: ip, port' });
     }
 
     try {
       await saveMirrorInMemory(ip, port, 0, false);
       res.send({ ip, port });
     } catch (error) {
-      console.error("Node registration error:", error.message);
-      res.send({ error: "Failed to register node" });
+      console.error('Node registration error:', error.message);
+      res.send({ error: 'Failed to register node' });
     }
   })
 );
 
 app.get(
-  "/renew-plan",
-  validateQueryParams(["token"]),
+  '/renew-plan',
+  validateQueryParams(['token']),
   asyncHandler(async (req, res) => {
     const { token } = req.query;
 
@@ -847,32 +847,32 @@ app.get(
       await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
       res.send({ renewed: true });
     } catch (error) {
-      console.error("Renew plan error:", error.message);
-      res.send({ error: "Failed to renew plan" });
+      console.error('Renew plan error:', error.message);
+      res.send({ error: 'Failed to renew plan' });
     }
   })
 );
 
 app.get(
-  "/check-status",
+  '/check-status',
   asyncHandler(async (req, res) => {
     try {
-      const result = await isPortReachable("baidu.com", 80, 3000);
+      const result = await isPortReachable('baidu.com', 80, 3000);
       res.send({ status: result, timestamp: new Date().toISOString() });
     } catch (error) {
-      console.error("Status check error:", error.message);
+      console.error('Status check error:', error.message);
       res.send({ status: false, timestamp: new Date().toISOString() });
     }
   })
 );
 
 app.get(
-  "/ip-check",
+  '/ip-check',
   asyncHandler(async (req, res) => {
     const { ip, port = 80 } = req.query;
 
     if (!ip) {
-      return res.send({ error: "Missing required parameter: ip" });
+      return res.send({ error: 'Missing required parameter: ip' });
     }
 
     try {
@@ -885,7 +885,7 @@ app.get(
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      console.error("IP check error:", error.message);
+      console.error('IP check error:', error.message);
       res.send({
         ip,
         port,
@@ -897,18 +897,18 @@ app.get(
 );
 
 app.get(
-  "/url-check/*",
+  '/url-check/*',
   asyncHandler(async (req, res) => {
     const rawURL = req.params[0];
 
     if (!rawURL) {
-      return res.send({ error: "URL is required" });
+      return res.send({ error: 'URL is required' });
     }
 
     try {
       const parsedUrl = new URL(rawURL);
       const hostname = parsedUrl.hostname;
-      let port = parsedUrl.port || (rawURL.startsWith("http://") ? 80 : 443);
+      let port = parsedUrl.port || (rawURL.startsWith('http://') ? 80 : 443);
 
       const result = await ipCheck(hostname, port);
       console.log(`URL Check: ${rawURL} is ${result}`);
@@ -921,7 +921,7 @@ app.get(
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      console.error("URL check error:", error.message);
+      console.error('URL check error:', error.message);
       res.send({
         url: rawURL,
         status: false,
@@ -933,9 +933,9 @@ app.get(
 
 // Helper functions
 function processTweetItem(item) {
-  const images = item?.images?.split(",") ?? [];
+  const images = item?.images?.split(',') ?? [];
   if (item?.videos) {
-    const videoImages = item.videos?.split(",");
+    const videoImages = item.videos?.split(',');
     images.push(...videoImages);
   }
   const nonEmpty = images?.filter((img) => img);
@@ -951,7 +951,7 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
     const host = AppState.hostsMap.get(ip);
     host.updatedTime = new Date().getTime() + extraExpiry;
     AppState.hostsMap.set(ip, host);
-    return "updated";
+    return 'updated';
   }
 
   let confirmedPort = port;
@@ -963,13 +963,13 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
       confirmedPort = 80;
     } else {
       console.log(`${ip} is not reachable`);
-      return "fail";
+      return 'fail';
     }
   }
 
   console.log(`${ip}:${confirmedPort} is reachable`);
 
-  let ipCheckResult = "unknown";
+  let ipCheckResult = 'unknown';
   if (extraExpiry === 0 && !isReboot) {
     try {
       // ipCheckResult = await ipCheck(ip, confirmedPort);
@@ -978,9 +978,9 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
     }
   }
 
-  if (ipCheckResult === "fail") {
-    console.log("Not able to connect from China");
-    return "fail";
+  if (ipCheckResult === 'fail') {
+    console.log('Not able to connect from China');
+    return 'fail';
   }
 
   console.log(`${ip}:${confirmedPort} is accessible from China`);
@@ -993,7 +993,7 @@ async function saveMirrorInMemory(ip, port, extraExpiry = 0, isReboot = false) {
 
   AppState.hostsMap.set(ip, host);
   AppState.endGFWHosts.push(host);
-  return "success";
+  return 'success';
 }
 
 async function report() {
@@ -1002,13 +1002,13 @@ async function report() {
   }
 
   try {
-    const ipAddressRes = await makeRequest("https://api.ipify.org?format=json");
+    const ipAddressRes = await makeRequest('https://api.ipify.org?format=json');
     const ip = ipAddressRes?.data?.ip;
 
-    console.log("Reporting IP:", ip);
+    console.log('Reporting IP:', ip);
 
     if (net.isIPv6(ip)) {
-      throw new Error("IPv6 is not supported");
+      throw new Error('IPv6 is not supported');
     }
 
     await makeRequest(
@@ -1020,7 +1020,7 @@ async function report() {
       AppState.endGFWHosts.push(item);
     }
   } catch (error) {
-    console.error("Report failed:", error.message);
+    console.error('Report failed:', error.message);
     throw error;
   }
 }
@@ -1053,7 +1053,7 @@ async function periodicCheckReachable() {
 
   for (const host of hosts) {
     const result = await ipCheck(host.ip, host.port);
-    if (result === "success") {
+    if (result === 'success') {
       reachableHosts.push(host);
     } else {
       AppState.hostsMap.delete(host.ip);
@@ -1072,7 +1072,7 @@ async function fetchAPI() {
 
   try {
     const url =
-      "https://api.github.com/repos/hello-world-1989/cn-news/contents/end-gfw-together-ss";
+      'https://api.github.com/repos/hello-world-1989/cn-news/contents/end-gfw-together-ss';
     const response = await makeRequest(url, {
       headers: { Authorization: `token ${CONFIG.GITHUB_TOKEN}` },
     });
@@ -1080,28 +1080,28 @@ async function fetchAPI() {
     const base64String = response?.data?.content;
     if (!base64String) return [];
 
-    console.log("Fetched API data");
-    const decodedBuffer = Buffer.from(base64String, "base64");
-    const decodedString = decodedBuffer.toString("utf-8");
-    return decodedString.split("\r\n");
+    console.log('Fetched API data');
+    const decodedBuffer = Buffer.from(base64String, 'base64');
+    const decodedString = decodedBuffer.toString('utf-8');
+    return decodedString.split('\r\n');
   } catch (error) {
-    console.error("fetchAPI error:", error.message);
+    console.error('fetchAPI error:', error.message);
     return [];
   }
 }
 
 async function getEndGFWMirror() {
   const keyArray = await fetchAPI();
-  console.log("Key array length:", keyArray.length);
+  console.log('Key array length:', keyArray.length);
 
   const ssKeyArray = keyArray?.filter(
-    (item) => item.startsWith("ss://") && item.includes("end-gfw")
+    (item) => item.startsWith('ss://') && item.includes('end-gfw')
   );
 
   if (ssKeyArray.length > 0) {
     const ssKey1 = ssKeyArray[ssKeyArray.length - 1];
-    const temp1 = ssKey1?.split("@")?.[1];
-    const ip1 = temp1?.split(":")?.[0];
+    const temp1 = ssKey1?.split('@')?.[1];
+    const ip1 = temp1?.split(':')?.[0];
     const extraExpiry = new Date().getTime();
 
     if (!CONFIG.IS_DEV && ip1) {
@@ -1112,60 +1112,59 @@ async function getEndGFWMirror() {
 
 // Global error handler
 app.use((error, req, res, next) => {
-  console.error("Unhandled error:", error);
-  APIResponse.sendError(res, error, "Internal server error", 500);
+  console.error('Unhandled error:', error);
+  APIResponse.sendError(res, error, 'Internal server error', 500);
 });
 
 // API endpoint to add Twitter URL
-app.post("/api/add-url", async (req, res) => {
+app.post('/api/add-url', async (req, res) => {
   try {
     const { url } = req.body;
     const { token } = req.query;
 
-    if(token !== process.env.VIDEO_PROCESS_TOKEN) {
-      return res.status(403).json({ error: "Forbidden" });
+    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+      return res.status(403).json({ error: 'Forbidden' });
     }
 
     if (!url) {
-      return res.status(400).json({ error: "Twitter URL is required" });
+      return res.status(400).json({ error: 'Twitter URL is required' });
     }
 
     // Basic Twitter URL validation
     const twitterUrlRegex =
       /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/\w+\/status\/\d+/;
     if (!twitterUrlRegex.test(url)) {
-      return res.status(400).json({ error: "Invalid Twitter URL format" });
+      return res.status(400).json({ error: 'Invalid Twitter URL format' });
     }
 
     // Save to database
     const twitterUrlModel = new TwitterUrlModel();
     const savedUrl = await twitterUrlModel.addUrl(url);
 
-    console.log("✅ Twitter URL saved to database:", url);
+    console.log('✅ Twitter URL saved to database:', url);
 
     res.json({
       success: true,
-      message: "Twitter URL added successfully",
+      message: 'Twitter URL added successfully',
       data: savedUrl,
     });
   } catch (error) {
-    console.error("❌ Error adding URL:", error);
+    console.error('❌ Error adding URL:', error);
 
-    if (error.message.includes("already been added")) {
+    if (error.message.includes('already been added')) {
       return res.status(409).json({ error: error.message });
     }
 
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // API endpoint to get all URLs
-app.get("/api/urls", async (req, res) => {
+app.get('/api/urls', async (req, res) => {
   try {
-
     const { token } = req.query;
-    if(token !== process.env.VIDEO_PROCESS_TOKEN) {
-      return res.status(403).json({ error: "Forbidden" });
+    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+      return res.status(403).json({ error: 'Forbidden' });
     }
 
     const twitterUrlModel = new TwitterUrlModel();
@@ -1178,18 +1177,17 @@ app.get("/api/urls", async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error("❌ Error fetching URLs:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('❌ Error fetching URLs:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // API endpoint to get all URLs
-app.get("/api/unprocessed-urls", async (req, res) => {
+app.get('/api/unprocessed-urls', async (req, res) => {
   try {
-
     const { token } = req.query;
-    if(token !== process.env.VIDEO_PROCESS_TOKEN) {
-      return res.status(403).json({ error: "Forbidden" });
+    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+      return res.status(403).json({ error: 'Forbidden' });
     }
 
     const twitterUrlModel = new TwitterUrlModel();
@@ -1202,18 +1200,18 @@ app.get("/api/unprocessed-urls", async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error("❌ Error fetching URLs:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('❌ Error fetching URLs:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // API endpoint to process a specific Twitter URL (fetch content + AI summary)
-app.get("/api/process-url/:id", async (req, res) => {
+app.get('/api/process-url/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { token } = req.query;
-    if(token !== process.env.VIDEO_PROCESS_TOKEN) {
-      return res.status(403).json({ error: "Forbidden" });
+    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+      return res.status(403).json({ error: 'Forbidden' });
     }
 
     const twitterUrlModel = new TwitterUrlModel();
@@ -1221,46 +1219,50 @@ app.get("/api/process-url/:id", async (req, res) => {
     // Get URL from database
     const urlRecord = await twitterUrlModel.getById(id);
     if (!urlRecord) {
-      return res.status(404).json({ error: "URL not found" });
+      return res.status(404).json({ error: 'URL not found' });
     }
 
     if (urlRecord.processed) {
-      return res.status(400).json({ error: "URL already processed" });
+      return res.status(400).json({ error: 'URL already processed' });
     }
 
     console.log(`🔄 Processing Twitter URL: ${urlRecord.url}`);
 
     // Mark as processed
-    await twitterUrlModel.markAsProcessed(id, "completed");
+    await twitterUrlModel.markAsProcessed(id, 'completed');
 
-    console.log(`✅ Successfully processed tweet ID: ${urlRecord.tweet_id}, Username: ${urlRecord.author_username || 'extracted from URL'}`);
+    console.log(
+      `✅ Successfully processed tweet ID: ${urlRecord.tweet_id}, Username: ${
+        urlRecord.author_username || 'extracted from URL'
+      }`
+    );
 
     res.json({
       success: true,
-      message: "URL processed successfully",
+      message: 'URL processed successfully',
       data: {
         id,
         tweet_id: urlRecord.tweet_id,
         author_username: urlRecord.author_username,
-        url: urlRecord.url
+        url: urlRecord.url,
       },
     });
   } catch (error) {
-    console.error("❌ Error in process-url endpoint:", error);
+    console.error('❌ Error in process-url endpoint:', error);
     res.status(500).json({
-      error: "Processing failed",
+      error: 'Processing failed',
       details: error.message,
     });
   }
 });
 
 // API endpoint to delete a specific Twitter URL
-app.delete("/api/delete-url/:id", async (req, res) => {
+app.delete('/api/delete-url/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { token } = req.query;
-    if(token !== process.env.VIDEO_PROCESS_TOKEN) {
-      return res.status(403).json({ error: "Forbidden" });
+    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+      return res.status(403).json({ error: 'Forbidden' });
     }
 
     const twitterUrlModel = new TwitterUrlModel();
@@ -1268,7 +1270,7 @@ app.delete("/api/delete-url/:id", async (req, res) => {
     // Get URL from database to verify it exists
     const urlRecord = await twitterUrlModel.getById(id);
     if (!urlRecord) {
-      return res.status(404).json({ error: "URL not found" });
+      return res.status(404).json({ error: 'URL not found' });
     }
 
     console.log(`🗑️ Deleting Twitter URL: ${urlRecord.url}`);
@@ -1280,16 +1282,16 @@ app.delete("/api/delete-url/:id", async (req, res) => {
 
     res.json({
       success: true,
-      message: "URL deleted successfully",
+      message: 'URL deleted successfully',
       data: {
         id,
-        deleted_url: urlRecord.url
+        deleted_url: urlRecord.url,
       },
     });
   } catch (error) {
-    console.error("❌ Error in delete-url endpoint:", error);
+    console.error('❌ Error in delete-url endpoint:', error);
     res.status(500).json({
-      error: "Deletion failed",
+      error: 'Deletion failed',
       details: error.message,
     });
   }
@@ -1297,17 +1299,17 @@ app.delete("/api/delete-url/:id", async (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-  APIResponse.sendError(res, "Endpoint not found", "Not Found", 404);
+  APIResponse.sendError(res, 'Endpoint not found', 'Not Found', 404);
 });
 
 report();
-setInterval(report, 600000);
+setInterval(report, 600000); // 10 minutes
 
 // Periodic tasks
 if (!CONFIG.IS_DEV) {
   // setInterval(periodicCheckConnection, 600000); // 10 minutes
   setInterval(periodicCheckReachable, 3600000); // 1 hour
-   // 10 minutes
+
   setInterval(getEndGFWMirror, 3600000); // 1 hour
 
   // Initial setup
@@ -1315,23 +1317,24 @@ if (!CONFIG.IS_DEV) {
 }
 
 // Graceful shutdown
-process.on("SIGINT", async () => {
-  console.log("Shutting down gracefully...");
+process.on('SIGINT', async () => {
+  console.log('Shutting down gracefully...');
   process.exit(0);
 });
 
-process.on("SIGTERM", async () => {
-  console.log("Shutting down gracefully...");
+process.on('SIGTERM', async () => {
+  console.log('Shutting down gracefully...');
   process.exit(0);
 });
-
-const db = getDatabase();
-db.initialize();
+if (CONFIG.MASTER_NODE) {
+  const db = getDatabase();
+  db.initialize();
+}
 
 // Start server
 const server = app.listen(CONFIG.NODE_PORT, () => {
   console.log(`Enhanced proxy server listening on port ${CONFIG.NODE_PORT}`);
-  console.log(`Environment: ${CONFIG.IS_DEV ? "Development" : "Production"}`);
+  console.log(`Environment: ${CONFIG.IS_DEV ? 'Development' : 'Production'}`);
   console.log(`Master node: ${CONFIG.MASTER_NODE}`);
 });
 
