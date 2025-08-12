@@ -447,6 +447,11 @@ app.get(
         return res.send('');
       }
 
+      if(!CONFIG.MASTER_NODE) {
+        res.send(base64String);
+        return;
+      }
+
       const decodedBuffer = Buffer.from(base64String, 'base64');
       const decodedString = decodedBuffer.toString('utf-8');
       const array = decodedString.split('\r\n');
