@@ -287,6 +287,15 @@ app.get(
       return res.render('tweet', { tweets: [] });
     }
 
+    if (!CONFIG.MASTER_NODE) {
+      let url = `https://end-gfw.com/tweet-page?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=${id}`;
+      const response = await makeRequest(url);
+
+      res.send(response);
+
+      return;
+    }
+
     try {
       let url = `https://raw.githubusercontent.com/hello-world-1989/json/main/tweet/${year}`;
       if (month) url += `/${month}`;
@@ -296,7 +305,9 @@ app.get(
       let result = [];
 
       try {
-        const response = await makeRequest(url);
+        const response = await makeRequest(url, {
+          headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` },
+        });
         result = response?.data ?? [];
       } catch (error) {
         console.error('Tweet page error:', error.message);
@@ -341,6 +352,15 @@ app.get(
 
     if (!keyword) {
       return res.render('tweet', { tweets: [] });
+    }
+
+    if (!CONFIG.MASTER_NODE) {
+      let url = `https://end-gfw.com/search-tweet-page?keyword=${keyword}`;
+      const response = await makeRequest(url);
+
+      res.send(response);
+
+      return;
     }
 
     try {
@@ -418,7 +438,9 @@ app.get(
   '/ss-key',
   asyncHandler(async (req, res) => {
     try {
-      const response = await makeRequest(CONFIG.SUB_URL);
+      const response = await makeRequest(
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key'
+      );
       const base64String = response?.data;
 
       if (!base64String) {
@@ -588,12 +610,20 @@ app.get(
       if (day) url += `/${day}`;
       url += `/${id}.json`;
 
+      let urlHost = `https://end-gfw.com/tweet?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=${id}`;
+
       let result = [];
 
       try {
-        const response = await makeRequest(url, {
+        const response = await makeRequest(CONFIG.MASTER_NODE ? url : urlHost, {
           headers: { Authorization: `token ${CONFIG.GITHUB_TOKEN}` },
         });
+
+        if (!CONFIG.MASTER_NODE) {
+          result = response?.data;
+          res.send(result);
+          return;
+        }
 
         const rawResult = response?.data?.content;
         if (rawResult) {
@@ -684,37 +714,48 @@ app.get(
       const searchUrl = `https://api.github.com/search/code?q=${encodeURIComponent(
         keyword
       )} in:file repo:hello-world-1989/json`;
-      const response = await makeRequest(searchUrl, {
-        headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` },
-      });
 
-      const promises =
-        response?.data?.items
-          ?.filter((item) => item.name === 'whyyoutouzhele.json')
-          .map((item) => {
-            const url = `https://api.github.com/repos/hello-world-1989/json/contents/${item.path}`;
-            return makeRequest(url, {
-              headers: { Authorization: `token ${CONFIG.GITHUB_TOKEN}` },
-            });
-          }) ?? [];
-
-      const results = await Promise.all(promises);
-      const allTweets = results
-        .map((item) => {
-          const base64String = item?.data?.content;
-          if (!base64String) return [];
-
-          const decodedBuffer = Buffer.from(base64String, 'base64');
-          const decodedString = decodedBuffer.toString('utf-8');
-          return JSON.parse(decodedString);
-        })
-        .flat();
-
-      const filteredTweets = allTweets.filter((item) =>
-        item?.content?.includes(keyword)
+      const searchUrlHost = `https://end-gfw.com/search-tweet?keyword=${encodeURIComponent(
+        keyword
+      )}`;
+      const response = await makeRequest(
+        CONFIG.MASTER_NODE ? searchUrl : searchUrlHost,
+        {
+          headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` },
+        }
       );
 
-      res.send(filteredTweets);
+      if (CONFIG.MASTER_NODE) {
+        const promises =
+          response?.data?.items
+            ?.filter((item) => item.name === 'whyyoutouzhele.json')
+            .map((item) => {
+              const url = `https://api.github.com/repos/hello-world-1989/json/contents/${item.path}`;
+              return makeRequest(url, {
+                headers: { Authorization: `token ${CONFIG.GITHUB_TOKEN}` },
+              });
+            }) ?? [];
+
+        const results = await Promise.all(promises);
+        const allTweets = results
+          .map((item) => {
+            const base64String = item?.data?.content;
+            if (!base64String) return [];
+
+            const decodedBuffer = Buffer.from(base64String, 'base64');
+            const decodedString = decodedBuffer.toString('utf-8');
+            return JSON.parse(decodedString);
+          })
+          .flat();
+
+        const filteredTweets = allTweets.filter((item) =>
+          item?.content?.includes(keyword)
+        );
+
+        res.send(filteredTweets);
+      } else {
+        res.send(response.data);
+      }
     } catch (error) {
       console.error('Search tweet error:', error.message);
       res.send([]);
@@ -844,7 +885,11 @@ app.get(
     const { token } = req.query;
 
     try {
-      await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
+      await makeRequest(
+        CONFIG.MASTER_NODE
+          ? `${CONFIG.RENEW_PLAN_URL}?token=${token}`
+          : `https://end-gfw.com/renew-plan?token=${token}`
+      );
       res.send({ renewed: true });
     } catch (error) {
       console.error('Renew plan error:', error.message);
