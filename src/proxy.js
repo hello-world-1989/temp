@@ -358,7 +358,7 @@ app.get(
       let url = `https://end-gfw.com/search-tweet-page?keyword=${keyword}`;
       const response = await makeRequest(url);
 
-      res.send(response);
+      res.send(response.data);
 
       return;
     }
