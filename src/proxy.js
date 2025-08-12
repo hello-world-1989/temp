@@ -291,7 +291,7 @@ app.get(
       let url = `https://end-gfw.com/tweet-page?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=${id}`;
       const response = await makeRequest(url);
 
-      res.send(response);
+      res.send(response.data);
 
       return;
     }
