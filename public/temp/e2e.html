@@ -180,15 +180,14 @@
                 class="text-base leading-7 font-semibold text-indigo-600 space-x-10 space-y-10"
               >
                 海外苹果账户由<a
-                  href="https://twitter.com/ziyoufujian"
+                  href="https://ios.aneeo.com/"
                   target="_blank"
-                  >推特用户自由福建提供</a
+                  >Aneeo提供, 无合作关系</a
                 >
               </p>
-              <p>用户名 i-eurfkwn@aneeo.cc 密码 Aneeo-1P4bhALUEK</p>
+              <p>用户名 i-ertrbk@aneeo.cc 密码 Aneeo-1P4bhALUEK, 到期时间2025-09-08 10:36:25</p>
               <p>
                 登陆海外苹果应用商店下载 或 用电脑下载本站安装包
-                使用爱思助手安装
               </p>
               <p
                 class="text-base leading-7 font-semibold text-indigo-600 space-x-10 space-y-10"
@@ -236,10 +235,10 @@
                 >
                 <br />
                 镜像地址 + 要下载的应用id, 例如
-                <br />
-                <p class="overflow-x-auto">
-                https://mirror.fcix.net/fdroid/repo/org.fdroid.fdroid_1019050.apk
               </p>
+
+              <p class="overflow-x-auto">
+                https://mirror.fcix.net/fdroid/repo/org.fdroid.fdroid_1019050.apk
               </p>
             </dd>
           </div>
@@ -698,7 +697,9 @@
         const youtubeElement = document.getElementById('youtube');
         const updateElement = document.getElementById('youtube-update');
 
-        updateElement.innerText = data.updateTime;
+        const dateTime = new Date(data.updateTime);
+
+        updateElement.innerText = dateTime.toISOString().split('T')[0];
 
         data?.resources?.map((item, i) => {
           const linkElement = document.createElement('a');
@@ -727,7 +728,9 @@
         const instanceElement = document.getElementById('wiki');
         const updateElement = document.getElementById('wiki-update');
 
-        updateElement.innerText = data.updateTime;
+        const dateTime = new Date(data.updateTime);
+
+        updateElement.innerText = dateTime.toISOString().split('T')[0];
 
         data?.resources?.map((item, i) => {
           const linkElement = document.createElement('a');
@@ -756,7 +759,9 @@
         const instanceElement = document.getElementById('nitter');
         const updateElement = document.getElementById('nitter-update');
 
-        updateElement.innerText = data.updateTime;
+        const dateTime = new Date(data.updateTime);
+
+        updateElement.innerText = dateTime.toISOString().split('T')[0];
 
         data?.resources?.map((item, i) => {
           const linkElement = document.createElement('a');
@@ -785,7 +790,9 @@
         const instanceElement = document.getElementById('searchx');
         const updateElement = document.getElementById('searchx-update');
 
-        updateElement.innerText = data.updateTime;
+        const dateTime = new Date(data.updateTime);
+
+        updateElement.innerText = dateTime.toISOString().split('T')[0];
 
         data?.resources?.map((item, i) => {
           const linkElement = document.createElement('a');
@@ -814,7 +821,9 @@
         const instanceElement = document.getElementById('obfs4');
         const updateElement = document.getElementById('obfs4-update');
 
-        updateElement.innerText = data.updateTime;
+        const dateTime = new Date(data.updateTime);
+
+        updateElement.innerText = dateTime.toISOString().split('T')[0];
 
         data?.resources?.map((item, i) => {
           const linkElement = document.createElement('code');

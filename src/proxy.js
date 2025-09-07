@@ -31,6 +31,7 @@ const CONFIG = {
     process.env.NODE_ENV !== 'production',
   CONNECTION_TIMEOUT: 3000,
   REQUEST_TIMEOUT: 10000,
+  APPLE_USERNAME: process.env.APPLE_USERNAME ?? 'i-ertrbk@aneeo.cc',
 };
 
 // Application State
@@ -544,14 +545,14 @@ app.get(
       } else {
         const [password, expireDate] = await getAppleId();
         account = {
-          username: 'i-eyurbrt@aneeo.cc',
+          username: CONFIG.APPLE_USERNAME,
           password,
           expireDate,
         };
         AppState.appleAccount.set('appleId', account);
       }
 
-      res.send(account);
+      res.json(account);
     } catch (error) {
       console.error('Apple account error:', error.message);
       res.send('');
