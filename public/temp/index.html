@@ -144,6 +144,10 @@
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         transition: transform 0.2s ease;
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
       }
       
       .qr-container img:hover, .qr-container canvas:hover {
@@ -192,7 +196,44 @@
           opacity: 0.7;
         }
       }
+      
+      /* General mobile touch optimization */
+      @media (max-width: 768px) {
+        button, a, [onclick], [role="button"] {
+          touch-action: manipulation;
+          -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+          min-height: 44px; /* Minimum touch target size */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Improve button press feedback */
+        button:active, a:active, [onclick]:active {
+          transform: scale(0.98);
+          opacity: 0.8;
+        }
+      }
     </style>
+
+    <script>
+      // Mobile touch debug helper
+      if (window.location.search.includes('debug=touch')) {
+        document.addEventListener('DOMContentLoaded', function() {
+          console.log('Touch debug mode enabled');
+          console.log('Touch support:', 'ontouchstart' in window);
+          
+          // Add visual feedback for touch events
+          document.addEventListener('touchstart', function(e) {
+            console.log('Touch start detected on:', e.target.tagName, e.target.className);
+          });
+          
+          document.addEventListener('touchend', function(e) {
+            console.log('Touch end detected on:', e.target.tagName, e.target.className);
+          });
+        });
+      }
+    </script>
 
     <script>
       fetch('header.html')
@@ -873,27 +914,66 @@
           function addImageEventListeners(imgElement, index) {
             // Add right-click context menu for desktop
             imgElement.addEventListener('contextmenu', (e) => {
+              e.preventDefault();
               e.stopPropagation();
             });
             
             // Add long press for mobile
             let pressTimer;
+            let touchStarted = false;
+            
             imgElement.addEventListener('touchstart', (e) => {
+              e.preventDefault(); // Prevent default touch behavior
+              touchStarted = true;
+              
               pressTimer = setTimeout(() => {
-                // Create download link for mobile
+                if (touchStarted) {
+                  // Provide haptic feedback if available
+                  if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                  }
+                  
+                  // Create download link for mobile
+                  const link = document.createElement('a');
+                  link.download = `qr-code-${index + 1}.png`;
+                  link.href = imgElement.src;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  
+                  // Show visual feedback
+                  showCopyNotification();
+                }
+              }, 500);
+            }, { passive: false });
+            
+            imgElement.addEventListener('touchend', (e) => {
+              touchStarted = false;
+              clearTimeout(pressTimer);
+            });
+            
+            imgElement.addEventListener('touchmove', (e) => {
+              touchStarted = false;
+              clearTimeout(pressTimer);
+            });
+            
+            imgElement.addEventListener('touchcancel', (e) => {
+              touchStarted = false;
+              clearTimeout(pressTimer);
+            });
+            
+            // Add click handler for desktop
+            imgElement.addEventListener('click', (e) => {
+              // Only handle click if not on mobile (no touch events)
+              if (!('ontouchstart' in window)) {
                 const link = document.createElement('a');
                 link.download = `qr-code-${index + 1}.png`;
                 link.href = imgElement.src;
+                document.body.appendChild(link);
                 link.click();
-              }, 500);
-            });
-            
-            imgElement.addEventListener('touchend', () => {
-              clearTimeout(pressTimer);
-            });
-            
-            imgElement.addEventListener('touchmove', () => {
-              clearTimeout(pressTimer);
+                document.body.removeChild(link);
+                showCopyNotification();
+              }
             });
           }
         });
