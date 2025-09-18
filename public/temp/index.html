@@ -127,6 +127,73 @@
       };
     </script>
 
+    <style>
+      /* QR Code mobile optimization */
+      .qr-container {
+        text-align: center;
+        padding: 10px;
+        margin: 5px 0;
+        position: relative;
+      }
+      
+      .qr-container img, .qr-container canvas {
+        max-width: 150px;
+        height: auto;
+        margin: 0 auto;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .qr-container img:hover, .qr-container canvas:hover {
+        transform: scale(1.05);
+      }
+      
+      .qr-container img:active, .qr-container canvas:active {
+        transform: scale(0.95);
+      }
+      
+      /* Mobile-specific QR code styling */
+      @media (max-width: 768px) {
+        .qr-container {
+          display: block !important;
+          padding: 15px;
+          margin: 10px 0;
+        }
+        
+        .qr-container::after {
+          content: "长按保存图片";
+          display: block;
+          font-size: 12px;
+          color: #666;
+          margin-top: 8px;
+          opacity: 0.7;
+        }
+        
+        .qr-container img, .qr-container canvas {
+          max-width: 150px;
+          height: auto;
+          margin: 0 auto;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+      }
+      
+      /* Desktop hint */
+      @media (min-width: 769px) {
+        .qr-container::after {
+          content: "右键保存图片";
+          display: block;
+          font-size: 12px;
+          color: #666;
+          margin-top: 8px;
+          opacity: 0.7;
+        }
+      }
+    </style>
+
     <script>
       fetch('header.html')
         .then((response) => response.text())
@@ -630,25 +697,25 @@
                 </span>
               </p>
 
-              <p
+              <div
                 class="cursor-pointer p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
               >
-                <img
+                <div
                   id="qrcode1"
-                  class="text-sm font-mono inline-block hidden"
+                  class="text-sm font-mono inline-block hidden qr-container"
                 >
-                </img>
-                <img
+                </div>
+                <div
                   id="qrcode2"
-                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden qr-container"
                 >
-                </img>
-                <img
+                </div>
+                <div
                   id="qrcode3"
-                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden qr-container"
                 >
-                </img>
-              </p>
+                </div>
+              </div>
 
               <p
                 class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
@@ -743,11 +810,92 @@
           const qrCodeElement = document.getElementById(`qrcode${i + 1}`);
           qrCodeElement.classList.remove('hidden');
 
-          new QRCode(qrCodeElement, {
+          // Clear any existing content
+          qrCodeElement.innerHTML = '';
+
+          const qr = new QRCode(qrCodeElement, {
             text: key,
             width: 150,
             height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M,
+            useSVG: false
           });
+
+          // Add mobile-friendly functionality after QR code is generated
+          setTimeout(() => {
+            // Clear all existing elements and start fresh
+            const allElements = qrCodeElement.querySelectorAll('*');
+            allElements.forEach(el => el.remove());
+            
+            // Find the canvas that was created
+            const canvas = qrCodeElement.querySelector('canvas');
+            
+            if (canvas) {
+              // Convert canvas to image for better mobile compatibility
+              const imgElement = document.createElement('img');
+              imgElement.src = canvas.toDataURL('image/png');
+              imgElement.alt = `QR Code for connection ${i + 1}`;
+              imgElement.style.width = '150px';
+              imgElement.style.height = '150px';
+              imgElement.style.display = 'block';
+              imgElement.style.margin = '0 auto';
+              imgElement.setAttribute('data-qr-text', key);
+              
+              // Remove everything and add only our image
+              qrCodeElement.innerHTML = '';
+              qrCodeElement.appendChild(imgElement);
+              
+              // Add event listeners to the new image
+              addImageEventListeners(imgElement, i);
+            } else {
+              // Fallback: recreate QR code as image-only
+              qrCodeElement.innerHTML = '';
+              const newQr = new QRCode(qrCodeElement, {
+                text: key,
+                width: 150,
+                height: 150,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+              });
+              
+              setTimeout(() => {
+                const img = qrCodeElement.querySelector('img');
+                if (img) {
+                  addImageEventListeners(img, i);
+                }
+              }, 100);
+            }
+          }, 300);
+          
+          function addImageEventListeners(imgElement, index) {
+            // Add right-click context menu for desktop
+            imgElement.addEventListener('contextmenu', (e) => {
+              e.stopPropagation();
+            });
+            
+            // Add long press for mobile
+            let pressTimer;
+            imgElement.addEventListener('touchstart', (e) => {
+              pressTimer = setTimeout(() => {
+                // Create download link for mobile
+                const link = document.createElement('a');
+                link.download = `qr-code-${index + 1}.png`;
+                link.href = imgElement.src;
+                link.click();
+              }, 500);
+            });
+            
+            imgElement.addEventListener('touchend', () => {
+              clearTimeout(pressTimer);
+            });
+            
+            imgElement.addEventListener('touchmove', () => {
+              clearTimeout(pressTimer);
+            });
+          }
         });
 
         try {
