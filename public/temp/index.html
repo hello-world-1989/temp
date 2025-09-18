@@ -127,124 +127,6 @@
       };
     </script>
 
-    <style>
-      /* QR Code mobile optimization */
-      .qr-container {
-        text-align: center;
-        padding: 10px;
-        margin: 5px 0;
-        position: relative;
-      }
-      
-      .qr-container img, .qr-container canvas {
-        max-width: 150px;
-        height: auto;
-        margin: 0 auto;
-        cursor: pointer;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: transform 0.2s ease;
-        touch-action: manipulation;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-      
-      .qr-container img:hover, .qr-container canvas:hover {
-        transform: scale(1.05);
-      }
-      
-      .qr-container img:active, .qr-container canvas:active {
-        transform: scale(0.95);
-      }
-      
-      /* Mobile-specific QR code styling */
-      @media (max-width: 768px) {
-        .qr-container {
-          display: block !important;
-          padding: 15px;
-          margin: 10px 0;
-        }
-        
-        .qr-container::after {
-          content: "双击保存图片";
-          display: block;
-          font-size: 12px;
-          color: #666;
-          margin-top: 8px;
-          opacity: 0.7;
-        }
-        
-        .qr-container img, .qr-container canvas {
-          max-width: 150px;
-          height: auto;
-          margin: 0 auto;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-      }
-      
-      /* Desktop hint */
-      @media (min-width: 769px) {
-        .qr-container::after {
-          content: "右键保存图片";
-          display: block;
-          font-size: 12px;
-          color: #666;
-          margin-top: 8px;
-          opacity: 0.7;
-        }
-      }
-      
-      /* General mobile touch optimization */
-      @media (max-width: 768px) {
-        button, a, [onclick], [role="button"] {
-          touch-action: manipulation;
-          -webkit-tap-highlight-color: rgba(0,0,0,0.1);
-          min-height: 44px; /* Minimum touch target size */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        /* Improve button press feedback */
-        button:active, a:active, [onclick]:active {
-          transform: scale(0.98);
-          opacity: 0.8;
-        }
-      }
-    </style>
-
-    <script>
-      // Mobile touch debug helper
-      if (window.location.search.includes('debug=touch')) {
-        document.addEventListener('DOMContentLoaded', function() {
-          console.log('Touch debug mode enabled');
-          console.log('Touch support:', 'ontouchstart' in window);
-          
-          let touchCount = 0;
-          
-          // Add visual feedback for touch events
-          document.addEventListener('touchstart', function(e) {
-            touchCount++;
-            console.log(`Touch start #${touchCount} detected on:`, e.target.tagName, e.target.className);
-          });
-          
-          document.addEventListener('touchend', function(e) {
-            console.log('Touch end detected on:', e.target.tagName, e.target.className);
-          });
-          
-          // Log double tap detection
-          document.addEventListener('touchstart', function(e) {
-            if (e.target.tagName === 'IMG' && e.target.closest('.qr-container')) {
-              console.log('QR code touch detected - checking for double tap...');
-            }
-          });
-        });
-      }
-    </script>
-
     <script>
       fetch('header.html')
         .then((response) => response.text())
@@ -748,29 +630,27 @@
                 </span>
               </p>
 
-              <div
+              <p
                 class="cursor-pointer p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
               >
-                <div
+              <span class="lg:hidden">手机截图保存图片</span>
+              <span class="hidden lg:flex">右键保存图片</span>
+                <span
                   id="qrcode1"
-                  class="text-sm font-mono inline-block hidden qr-container"
+                  class="text-sm font-mono inline-block hidden"
                 >
-                </div>
-                <div
+                </span>
+                <span
                   id="qrcode2"
-                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden qr-container"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
                 >
-                </div>
-                <div
+                </span>
+                <span
                   id="qrcode3"
-                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden qr-container"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
                 >
-                </div>
-              </div>
-
-              <p
-                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
-              ></p>
+                </span>
+              </p>
             </div>
           </section>
 
@@ -861,167 +741,11 @@
           const qrCodeElement = document.getElementById(`qrcode${i + 1}`);
           qrCodeElement.classList.remove('hidden');
 
-          // Clear any existing content
-          qrCodeElement.innerHTML = '';
-
-          const qr = new QRCode(qrCodeElement, {
+          new QRCode(qrCodeElement, {
             text: key,
             width: 150,
             height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.M,
-            useSVG: false
           });
-
-          // Add mobile-friendly functionality after QR code is generated
-          setTimeout(() => {
-            // Clear all existing elements and start fresh
-            const allElements = qrCodeElement.querySelectorAll('*');
-            allElements.forEach(el => el.remove());
-            
-            // Find the canvas that was created
-            const canvas = qrCodeElement.querySelector('canvas');
-            
-            if (canvas) {
-              // Convert canvas to image for better mobile compatibility
-              const imgElement = document.createElement('img');
-              imgElement.src = canvas.toDataURL('image/png');
-              imgElement.alt = `QR Code for connection ${i + 1}`;
-              imgElement.style.width = '150px';
-              imgElement.style.height = '150px';
-              imgElement.style.display = 'block';
-              imgElement.style.margin = '0 auto';
-              imgElement.setAttribute('data-qr-text', key);
-              
-              // Remove everything and add only our image
-              qrCodeElement.innerHTML = '';
-              qrCodeElement.appendChild(imgElement);
-              
-              // Add event listeners to the new image
-              addImageEventListeners(imgElement, i);
-            } else {
-              // Fallback: recreate QR code as image-only
-              qrCodeElement.innerHTML = '';
-              const newQr = new QRCode(qrCodeElement, {
-                text: key,
-                width: 150,
-                height: 150,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.M
-              });
-              
-              setTimeout(() => {
-                const img = qrCodeElement.querySelector('img');
-                if (img) {
-                  addImageEventListeners(img, i);
-                }
-              }, 100);
-            }
-          }, 300);
-          
-          function addImageEventListeners(imgElement, index) {
-            // Add right-click context menu for desktop
-            imgElement.addEventListener('contextmenu', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            });
-            
-            // Double tap detection variables
-            let lastTapTime = 0;
-            let tapCount = 0;
-            const doubleTapDelay = 300; // milliseconds
-            
-            // Add long press for mobile
-            let pressTimer;
-            let touchStarted = false;
-            
-            function downloadImage() {
-              // Provide haptic feedback if available
-              if (navigator.vibrate) {
-                navigator.vibrate(50);
-              }
-              
-              // Create download link
-              const link = document.createElement('a');
-              link.download = `qr-code-${index + 1}.png`;
-              link.href = imgElement.src;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              
-              // Show visual feedback
-              showCopyNotification();
-            }
-            
-            imgElement.addEventListener('touchstart', (e) => {
-              e.preventDefault(); // Prevent default touch behavior
-              touchStarted = true;
-              
-              // Handle double tap detection
-              const currentTime = new Date().getTime();
-              const timeSinceLastTap = currentTime - lastTapTime;
-              
-              if (timeSinceLastTap < doubleTapDelay && timeSinceLastTap > 0) {
-                tapCount++;
-                if (tapCount === 2) {
-                  // Double tap detected - download immediately
-                  clearTimeout(pressTimer);
-                  downloadImage();
-                  tapCount = 0;
-                  touchStarted = false;
-                  return;
-                }
-              } else {
-                tapCount = 1;
-              }
-              
-              lastTapTime = currentTime;
-              
-              // Start long press timer (only if not double tapping)
-              pressTimer = setTimeout(() => {
-                if (touchStarted && tapCount === 1) {
-                  downloadImage();
-                }
-              }, 500);
-            }, { passive: false });
-            
-            imgElement.addEventListener('touchend', (e) => {
-              touchStarted = false;
-              
-              // Clear long press timer if touch ends quickly (single tap)
-              if (tapCount === 1) {
-                setTimeout(() => {
-                  if (tapCount === 1) {
-                    // Single tap completed without double tap
-                    clearTimeout(pressTimer);
-                    tapCount = 0;
-                  }
-                }, doubleTapDelay);
-              }
-            });
-            
-            imgElement.addEventListener('touchmove', (e) => {
-              touchStarted = false;
-              clearTimeout(pressTimer);
-              tapCount = 0; // Reset tap count on move
-            });
-            
-            imgElement.addEventListener('touchcancel', (e) => {
-              touchStarted = false;
-              clearTimeout(pressTimer);
-              tapCount = 0; // Reset tap count on cancel
-            });
-            
-            // Add click handler for desktop
-            imgElement.addEventListener('click', (e) => {
-              // Only handle click if not on mobile (no touch events)
-              if (!('ontouchstart' in window)) {
-                downloadImage();
-              }
-            });
-          }
         });
 
         try {
