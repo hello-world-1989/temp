@@ -167,7 +167,7 @@
         }
         
         .qr-container::after {
-          content: "长按保存图片";
+          content: "双击保存图片";
           display: block;
           font-size: 12px;
           color: #666;
@@ -223,13 +223,23 @@
           console.log('Touch debug mode enabled');
           console.log('Touch support:', 'ontouchstart' in window);
           
+          let touchCount = 0;
+          
           // Add visual feedback for touch events
           document.addEventListener('touchstart', function(e) {
-            console.log('Touch start detected on:', e.target.tagName, e.target.className);
+            touchCount++;
+            console.log(`Touch start #${touchCount} detected on:`, e.target.tagName, e.target.className);
           });
           
           document.addEventListener('touchend', function(e) {
             console.log('Touch end detected on:', e.target.tagName, e.target.className);
+          });
+          
+          // Log double tap detection
+          document.addEventListener('touchstart', function(e) {
+            if (e.target.tagName === 'IMG' && e.target.closest('.qr-container')) {
+              console.log('QR code touch detected - checking for double tap...');
+            }
           });
         });
       }
@@ -918,61 +928,97 @@
               e.stopPropagation();
             });
             
+            // Double tap detection variables
+            let lastTapTime = 0;
+            let tapCount = 0;
+            const doubleTapDelay = 300; // milliseconds
+            
             // Add long press for mobile
             let pressTimer;
             let touchStarted = false;
+            
+            function downloadImage() {
+              // Provide haptic feedback if available
+              if (navigator.vibrate) {
+                navigator.vibrate(50);
+              }
+              
+              // Create download link
+              const link = document.createElement('a');
+              link.download = `qr-code-${index + 1}.png`;
+              link.href = imgElement.src;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              
+              // Show visual feedback
+              showCopyNotification();
+            }
             
             imgElement.addEventListener('touchstart', (e) => {
               e.preventDefault(); // Prevent default touch behavior
               touchStarted = true;
               
+              // Handle double tap detection
+              const currentTime = new Date().getTime();
+              const timeSinceLastTap = currentTime - lastTapTime;
+              
+              if (timeSinceLastTap < doubleTapDelay && timeSinceLastTap > 0) {
+                tapCount++;
+                if (tapCount === 2) {
+                  // Double tap detected - download immediately
+                  clearTimeout(pressTimer);
+                  downloadImage();
+                  tapCount = 0;
+                  touchStarted = false;
+                  return;
+                }
+              } else {
+                tapCount = 1;
+              }
+              
+              lastTapTime = currentTime;
+              
+              // Start long press timer (only if not double tapping)
               pressTimer = setTimeout(() => {
-                if (touchStarted) {
-                  // Provide haptic feedback if available
-                  if (navigator.vibrate) {
-                    navigator.vibrate(50);
-                  }
-                  
-                  // Create download link for mobile
-                  const link = document.createElement('a');
-                  link.download = `qr-code-${index + 1}.png`;
-                  link.href = imgElement.src;
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                  
-                  // Show visual feedback
-                  showCopyNotification();
+                if (touchStarted && tapCount === 1) {
+                  downloadImage();
                 }
               }, 500);
             }, { passive: false });
             
             imgElement.addEventListener('touchend', (e) => {
               touchStarted = false;
-              clearTimeout(pressTimer);
+              
+              // Clear long press timer if touch ends quickly (single tap)
+              if (tapCount === 1) {
+                setTimeout(() => {
+                  if (tapCount === 1) {
+                    // Single tap completed without double tap
+                    clearTimeout(pressTimer);
+                    tapCount = 0;
+                  }
+                }, doubleTapDelay);
+              }
             });
             
             imgElement.addEventListener('touchmove', (e) => {
               touchStarted = false;
               clearTimeout(pressTimer);
+              tapCount = 0; // Reset tap count on move
             });
             
             imgElement.addEventListener('touchcancel', (e) => {
               touchStarted = false;
               clearTimeout(pressTimer);
+              tapCount = 0; // Reset tap count on cancel
             });
             
             // Add click handler for desktop
             imgElement.addEventListener('click', (e) => {
               // Only handle click if not on mobile (no touch events)
               if (!('ontouchstart' in window)) {
-                const link = document.createElement('a');
-                link.download = `qr-code-${index + 1}.png`;
-                link.href = imgElement.src;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                showCopyNotification();
+                downloadImage();
               }
             });
           }
