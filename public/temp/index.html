@@ -84,6 +84,7 @@
     ></script>
 
     <script src="./hmac-sha1.min.js"></script>
+    <script src="./js/qrcode.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -425,6 +426,42 @@
                   </span>
                 </button>
               </div>
+
+              <div>
+                <div class="inline-block">
+                  <img
+                    class="w-40 h-40 inline-block"
+                    src="./images/v2ray_sub.png"
+                    alt="V2Ray订阅链接"
+                  />
+                  <p class="pl-5">V2Ray订阅链接</p>
+                </div>
+                <div class="inline-block">
+                  <img
+                    class="w-40 h-40 inline-block"
+                    src="./images/clash_sub.png"
+                    alt="Clash订阅链接"
+                  />
+                  <p class="pl-5">Clash订阅链接</p>
+                </div>
+              </div>
+
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">订阅链接</h3>
+                <p
+                  onclick="copyText('clash')"
+                  class="w-full text-left p-3 bg-white border rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <span class="text-sm text-gray-600 break-all">
+                    免费获取10M/s活动, 请发送邮件到 end.gfw@hotmail.com
+                  </span>
+                  <br />
+                  <span class="text-sm text-gray-600 break-all">
+                    如果是第一次翻墙， 发送邮件到end.gfw01@gmail.com,
+                    欢迎分享给身边朋友
+                  </span>
+                </p>
+              </div>
             </div>
           </section>
 
@@ -592,6 +629,42 @@
                   https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
                 </span>
               </p>
+
+              <p
+                class="cursor-pointer p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <span
+                  id="qrcode1"
+                  class="text-sm font-mono inline-block hidden"
+                >
+                </span>
+                <span
+                  id="qrcode2"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
+                >
+                </span>
+                <span
+                  id="qrcode3"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
+                >
+                </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+              ></p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+              >
+                <span id="qrcode4" class="text-sm font-mono break-all"> </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+              >
+                <span id="qrcode5" class="text-sm font-mono break-all"> </span>
+              </p>
             </div>
           </section>
 
@@ -678,11 +751,21 @@
           const element = document.getElementById(`outline${i + 1}`);
           element.parentElement.classList.remove('hidden');
           element.innerText = key;
+
+          const qrCodeElement = document.getElementById(`qrcode${i + 1}`);
+          qrCodeElement.classList.remove('hidden');
+
+          new QRCode(qrCodeElement, {
+            text: key,
+            width: 150,
+            height: 150,
+          });
         });
 
         try {
           // Extract IP and port from Shadowsocks keys
-          const dataArr = ssKeys.filter(key => !key.includes('@us'))
+          const dataArr = ssKeys
+            .filter((key) => !key.includes('@us'))
             .map((ssKey) => {
               try {
                 // Parse ss:// format: ss://base64@ip:port#comment
