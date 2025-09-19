@@ -228,7 +228,7 @@
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              SS密钥
+              SS密钥, 第三方提供密钥未测试是否可用，不能保证安全，请谨慎使用
             </h2>
             <p class="text-gray-600 mb-4">
               点击下方链接复制，导入到Outline/V2Ray等客户端
@@ -325,54 +325,7 @@
                 </span>
               </p>
 
-              <div class="p-4 bg-gray-50 rounded-lg">
-                <p class="text-sm text-gray-600 mb-2">
-                  <span class="lg:hidden">手机截图保存图片</span>
-                  <span class="hidden lg:flex">右键保存图片</span>
-                </p>
-                <div class="flex flex-wrap gap-4">
-                  <span
-                    id="qrcode1"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode2"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode3"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode4"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode5"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode6"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode7"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode8"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode9"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                  <span
-                    id="qrcode10"
-                    class="text-sm font-mono inline-block hidden"
-                  ></span>
-                </div>
-              </div>
+              
             </div>
           </section>
         </div>
@@ -441,6 +394,55 @@
                 </div>
               </a>
             </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <p class="text-sm text-gray-600 mb-2">
+                  <span class="lg:hidden">手机截图保存图片</span>
+                  <span class="hidden lg:flex">右键保存图片</span>
+                </p>
+                <div class="flex flex-wrap gap-4">
+                  <span
+                    id="qrcode1"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode2"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode3"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode4"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode5"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode6"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode7"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode8"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode9"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode10"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                </div>
+              </div>
           </section>
         </div>
       </div>
@@ -468,10 +470,10 @@
             .filter((key) => key.trim());
 
           ssKeys.forEach((key, i) => {
-            //const element = document.getElementById(`outline${i + 1}`);
-            //if (element) {
-            //element.parentElement.classList.remove('hidden');
-            //element.innerText = key;
+            const element = document.getElementById(`outline${i + 1}`);
+            if (element) {
+            element.parentElement.classList.remove('hidden');
+            element.innerText = key;
 
             const qrCodeElement = document.getElementById(`qrcode${i + 1}`);
             if (qrCodeElement) {
@@ -484,7 +486,7 @@
                 });
               } catch (err) {}
             }
-            //}
+            }
           });
         } catch (error) {
           console.error('Error fetching SS keys:', error);
