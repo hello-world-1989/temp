@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- SEO Meta Tags -->
+    <title>SS密钥节点 - 免费翻墙软件 | 大翻墙运动</title>
+    <meta
+      name="description"
+      content="提供免费的SS密钥节点，支持Outline、V2Ray等多种客户端。实时更新，高速稳定的代理服务。"
+    />
+    <meta
+      name="keywords"
+      content="SS密钥,Shadowsocks,免费节点,翻墙节点,代理服务器,V2Ray,Outline"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="SS密钥节点 - 免费翻墙软件" />
+    <meta
+      property="og:description"
+      content="提供免费的SS密钥节点，支持Outline、V2Ray等多种客户端。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://end-gfw.com/nodes.html" />
+    <meta property="og:image" content="images/default.png" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SS密钥节点 - 免费翻墙软件" />
+    <meta
+      name="twitter:description"
+      content="提供免费的SS密钥节点，支持Outline、V2Ray等多种客户端。"
+    />
+    <meta name="twitter:image" content="images/default.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://end-gfw.com/nodes.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/default.png" />
+    <link rel="apple-touch-icon" href="images/default.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="./tailwindcss.js"></script>
+
+    <script
+      src="./crypto-js.min.js"
+      integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="./hmac-sha1.min.js"></script>
+    <script src="./js/qrcode.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            gridTemplateColumns: {
+              14: 'repeat(14, minmax(0, 1fr))',
+            },
+            colors: {
+              primary: {
+                50: '#eff6ff',
+                100: '#dbeafe',
+                500: '#3b82f6',
+                600: '#2563eb',
+                700: '#1d4ed8',
+              },
+              accent: {
+                500: '#10b981',
+                600: '#059669',
+              },
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-in-out',
+              'slide-up': 'slideUp 0.3s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(10px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <script>
+      fetch('header.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('header').innerHTML = text;
+
+          const mobileHeader = document.getElementById('mobile-header');
+          const closeMenu = document.getElementById('close-menu');
+          const openMenu = document.getElementById('open-menu');
+
+          if (mobileHeader) {
+            mobileHeader.classList.add('hidden');
+          }
+
+          if (closeMenu) {
+            closeMenu.onclick = () => {
+              mobileHeader.classList.add('hidden');
+            };
+          }
+
+          if (openMenu) {
+            openMenu.onclick = () => {
+              mobileHeader.classList.remove('hidden');
+            };
+          }
+        });
+
+      fetch('footer.html')
+        .then((response) => response.text())
+        .then((text) => {
+          document.getElementById('footer').innerHTML = text;
+
+          const currentYearSpan = document.getElementById('currentYear');
+          if (currentYearSpan) {
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            currentYearSpan.textContent = currentYear;
+          }
+
+          const yearInput = document.getElementById('year');
+          if (yearInput) {
+            yearInput.value = new Date().getFullYear();
+          }
+        });
+    </script>
+
+    <script>
+      const currentDomain = window.location.hostname;
+
+      // Check the domain and conditionally add the script
+      if (
+        currentDomain === 'end-gfw.com' ||
+        currentDomain === 'vpn.ban-gfw.com'
+      ) {
+        const script = document.createElement('script');
+        script.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7165471280882308';
+        script.type = 'text/javascript';
+        script.async = true;
+        script.crossorigin = 'anonymous';
+
+        // Append the script to the document head or body
+        document.head.appendChild(script);
+      }
+    </script>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md"
+    >
+      跳转到主要内容
+    </a>
+
+    <div id="header"></div>
+
+    <main id="main-content" class="container mx-auto px-4 pt-20">
+      <!-- Navigation Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-4">
+          <li>
+            <a
+              href="./index.html"
+              class="text-primary-600 hover:text-primary-700"
+            >
+              首页
+            </a>
+          </li>
+          <li>
+            <svg
+              class="w-4 h-4 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </li>
+          <li class="text-gray-500">SS密钥节点</li>
+        </ol>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">SS密钥节点</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          免费提供高质量的Shadowsocks节点，支持Outline、V2Ray等多种客户端。实时更新，稳定可靠。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Left Column - SS Keys Section -->
+        <div class="space-y-6">
+          <!-- SS Keys Section -->
+          <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <svg
+                class="w-6 h-6 mr-2 text-primary-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              SS密钥
+            </h2>
+            <p class="text-gray-600 mb-4">
+              点击下方链接复制，导入到Outline/V2Ray等客户端
+            </p>
+
+            <div id="outline" class="space-y-3">
+              <!-- <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                onclick="copyText('outline1')"
+              >
+                <span id="outline1" class="text-sm font-mono break-all">
+                  正在加载SS密钥...
+                </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                onclick="copyText('outline2')"
+              >
+                <span id="outline2" class="text-sm font-mono break-all">
+                  正在加载SS密钥...
+                </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+                onclick="copyText('outline3')"
+              >
+                <span id="outline3" class="text-sm font-mono break-all">
+                  正在加载SS密钥...
+                </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+                onclick="copyText('outline4')"
+              >
+                <span id="outline4" class="text-sm font-mono break-all">
+                  正在加载SS密钥...
+                </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+                onclick="copyText('outline5')"
+              >
+                <span id="outline5" class="text-sm font-mono break-all">
+                  正在加载SS密钥...
+                </span>
+              </p> -->
+
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <p class="text-sm text-gray-600 mb-2">
+                  <span class="lg:hidden">手机截图保存图片</span>
+                  <span class="hidden lg:flex">右键保存图片</span>
+                </p>
+                <div class="flex flex-wrap gap-4">
+                  <span
+                    id="qrcode1"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode2"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode3"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode4"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode5"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode6"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode7"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode8"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode9"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                  <span
+                    id="qrcode10"
+                    class="text-sm font-mono inline-block hidden"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column - Additional Information -->
+        <div class="space-y-6">
+          <!-- Quick Links -->
+          <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">快速链接</h2>
+            <div class="grid grid-cols-1 gap-3">
+              <a
+                href="./index.html"
+                class="group flex items-center p-4 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 border border-blue-200 rounded-lg transition-all duration-200 hover:shadow-md transform hover:-translate-y-0.5"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3
+                    class="text-sm font-semibold text-gray-900 group-hover:text-blue-700"
+                  >
+                    返回首页
+                  </h3>
+                  <p class="text-xs text-gray-600 mt-0.5">
+                    回到主页获取更多资源
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href="./vpn.html"
+                class="group flex items-center p-4 bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 border border-green-200 rounded-lg transition-all duration-200 hover:shadow-md transform hover:-translate-y-0.5"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3
+                    class="text-sm font-semibold text-gray-900 group-hover:text-green-700"
+                  >
+                    下载软件
+                  </h3>
+                  <p class="text-xs text-gray-600 mt-0.5">获取各平台客户端</p>
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- Notification for copy success -->
+    <div
+      id="copy-notification"
+      class="fixed bottom-32 right-4 md:bottom-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform hidden z-50"
+    >
+      复制成功！
+    </div>
+
+    <!-- JavaScript Functions -->
+    <script>
+      async function getSS() {
+        try {
+          const res = await fetch('/ss-key1');
+          const ssKeyBase64 = await res.text();
+          const ssKeys = ssKeyBase64
+            ?.split('\r\n')
+            //.slice(0, 2)
+            .filter((key) => key.trim());
+
+          ssKeys.forEach((key, i) => {
+            //const element = document.getElementById(`outline${i + 1}`);
+            //if (element) {
+            //element.parentElement.classList.remove('hidden');
+            //element.innerText = key;
+
+            const qrCodeElement = document.getElementById(`qrcode${i + 1}`);
+            if (qrCodeElement) {
+              try {
+                qrCodeElement.classList.remove('hidden');
+                new QRCode(qrCodeElement, {
+                  text: key,
+                  width: 150,
+                  height: 150,
+                });
+              } catch (err) {}
+            }
+            //}
+          });
+        } catch (error) {
+          console.error('Error fetching SS keys:', error);
+        }
+      }
+
+      // Call when DOM is ready
+      document.addEventListener('DOMContentLoaded', function () {
+        getSS();
+      });
+    </script>
+
+    <script>
+      function copyText(elementId) {
+        // Get the text field
+        var textToCopy = document.getElementById(elementId);
+
+        // Select the text
+        var range = document.createRange();
+        range.selectNode(textToCopy);
+        window.getSelection().removeAllRanges(); // clear current selection
+        window.getSelection().addRange(range); // to select text
+
+        try {
+          // Now that we've selected the text, execute the copy command
+          var successful = document.execCommand('copy');
+          if (successful) {
+            showCopyNotification();
+          }
+          console.log(
+            'Copy text command was ' +
+              (successful ? 'successful' : 'unsuccessful')
+          );
+        } catch (err) {
+          console.log('Oops, unable to copy', err);
+        }
+
+        // Remove the selections - NOTE: Might not be necessary in some cases
+        window.getSelection().removeAllRanges();
+      }
+
+      function showCopyNotification() {
+        const notification = document.getElementById('copy-notification');
+        notification.classList.remove('hidden', 'translate-y-full');
+        notification.classList.add('translate-y-0');
+
+        setTimeout(() => {
+          notification.classList.remove('translate-y-0');
+          notification.classList.add('translate-y-full');
+          setTimeout(() => {
+            notification.classList.add('hidden');
+          }, 300);
+        }, 2000);
+      }
+    </script>
+
+    <script>
+      const getWeekNumber = () => {
+        const date = new Date();
+        const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+        const pastDaysOfYear =
+          (date.getTime() - firstDayOfYear.getTime()) / 86400000; // Milliseconds per day
+        return Math.ceil(pastDaysOfYear / 3);
+      };
+
+      const hashWeek = () => {
+        const weekNumber = getWeekNumber();
+        const hash = CryptoJS.SHA1(weekNumber + '').toString();
+        return hash.slice(0, 6);
+      };
+    </script>
+  </body>
+</html>

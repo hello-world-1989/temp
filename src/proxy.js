@@ -25,6 +25,8 @@ const CONFIG = {
   IP_CHECK_URL: process.env.IP_CHECK_URL,
   GITHUB_TOKEN: process.env.GITHUB_TOKEN,
   SUB_URL: process.env.SUB_URL,
+  SUB_URL1: process.env.SUB_URL1,
+  SUB_URL2: process.env.SUB_URL2,
   RENEW_PLAN_URL: process.env.RENEW_PLAN_URL,
   IS_DEV:
     process.env.NODE_ENV?.includes('dev') ||
@@ -448,7 +450,7 @@ app.get(
         return res.send('');
       }
 
-      if(!CONFIG.MASTER_NODE) {
+      if (!CONFIG.MASTER_NODE) {
         res.send(base64String);
         return;
       }
@@ -461,6 +463,54 @@ app.get(
       res.send(ssArray?.slice(0, 3)?.join('\r\n') || '');
     } catch (error) {
       console.error('SS-Key error:', error.message);
+      res.send('');
+    }
+  })
+);
+
+app.get(
+  '/ss-key1',
+  asyncHandler(async (req, res) => {
+    try {
+      const response = await makeRequest(
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1'
+      );
+
+      const base64String = response?.data;
+
+      if (!base64String) {
+        return res.send('');
+      }
+
+      if (!CONFIG.MASTER_NODE) {
+        res.send(base64String);
+        return;
+      }
+
+      let array2 = [];
+
+      if (CONFIG.SUB_URL2) {
+        const response2 = await makeRequest(CONFIG.SUB_URL2);
+        const base64String = response2?.data;
+
+        const decodedBuffer = Buffer.from(base64String, 'base64');
+        const decodedString = decodedBuffer.toString('utf-8');
+        array2 = decodedString
+          .split('\n')
+          .map((item) => item.replace('\\r', ''))
+          .filter((item) => !item.startsWith('ss://'));
+      }
+
+      const decodedBuffer = Buffer.from(base64String, 'base64');
+      const decodedString = decodedBuffer.toString('utf-8');
+      const array = decodedString.split('\n');
+      const trojanArray = array
+        .map((item) => item.replace('\\r', ''))
+        .filter((item) => !item.startsWith('ss://'));
+
+      res.send(trojanArray.concat(array2)?.join('\r\n') || '');
+    } catch (error) {
+      console.error('SS-Key1 error:', error.message);
       res.send('');
     }
   })
