@@ -27,6 +27,7 @@ export async function getAppleId() {
       'sec-fetch-user': '?1',
       'Cache-Control': 'max-age=0',
       'Cookie': 'last_visited_page=404.html',
+      ':authority': 'idshare001.me',
     },
   };
 
