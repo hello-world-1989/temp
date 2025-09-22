@@ -593,9 +593,9 @@ app.get(
       if (AppState.appleAccount.has('appleId')) {
         account = AppState.appleAccount.get('appleId');
       } else {
-        const [password, expireDate] = await getAppleId();
+        const [username, password, expireDate] = await getAppleId();
         account = {
-          username: CONFIG.APPLE_USERNAME,
+          username: username,
           password,
           expireDate,
         };
