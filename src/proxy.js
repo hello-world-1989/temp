@@ -1433,10 +1433,23 @@ if (CONFIG.MASTER_NODE) {
 }
 
 // Start server
-const server = app.listen(CONFIG.NODE_PORT, () => {
-  console.log(`Enhanced proxy server listening on port ${CONFIG.NODE_PORT}`);
+const server = app.listen(CONFIG.NODE_PORT, '0.0.0.0', () => {
+  console.log(`Enhanced proxy server listening on 0.0.0.0:${CONFIG.NODE_PORT}`);
   console.log(`Environment: ${CONFIG.IS_DEV ? 'Development' : 'Production'}`);
   console.log(`Master node: ${CONFIG.MASTER_NODE}`);
+  console.log(`Server started at: ${new Date().toISOString()}`);
+});
+
+// Add error handling for server startup
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`Port ${CONFIG.NODE_PORT} is already in use`);
+  } else if (error.code === 'EACCES') {
+    console.error(`Permission denied - cannot bind to port ${CONFIG.NODE_PORT}. Try running as root or use a port > 1024`);
+  } else {
+    console.error('Server error:', error);
+  }
+  process.exit(1);
 });
 
 // Export for testing
