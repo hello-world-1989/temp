@@ -447,20 +447,26 @@
               </div>
 
               <div class="p-4 bg-gray-50 rounded-lg">
-                <h3 class="font-semibold text-gray-900 mb-2">订阅链接</h3>
+                <h3 class="font-semibold text-gray-900 mb-2">邮件获取SS密钥</h3>
                 <p
-                  onclick="copyText('clash')"
+                  onclick="copyText('email')"
                   class="w-full text-left p-3 bg-white border rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <span class="text-sm text-gray-600 break-all">
-                    免费获取10M/s活动, 请发送邮件到 end.gfw@hotmail.com
-                  </span>
-                  <br />
-                  <span class="text-sm text-gray-600 break-all">
-                    如果是第一次翻墙， 发送邮件到end.gfw01@gmail.com,
+                    如果是第一次翻墙， 发送邮件到<span id="email">end.gfw01@gmail.com</span>,
                     欢迎分享给身边朋友
                   </span>
+
                 </p>
+
+                <p
+                  onclick="copyText('email1')"
+                  class="w-full text-left p-3 bg-white border rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                <span class="text-sm text-gray-600 break-all">
+                    免费获取10M/s订阅链接（需3天签到一次，并反馈使用效果）, 请发送邮件到 <span id="email1">end.gfw@hotmail.com</span>
+                  </span>
+              </p>
               </div>
             </div>
           </section>
