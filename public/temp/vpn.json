@@ -191,7 +191,7 @@
   },
   {
     "os": "ios",
-    "id": "v2ray",
+    "id": "shadowrocket",
     "name": "Shadowrocket",
     "link1": "#",
     "link2": "#",
@@ -200,6 +200,20 @@
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
     "comment": "获取海外苹果账户见主页或常见问题;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接",
+    "image": "images/shadowrocket.webp",
+    "star": 10
+  },
+  {
+    "os": "mac",
+    "id": "shadowrocket",
+    "name": "Shadowrocket",
+    "link1": "#",
+    "link2": "#",
+    "mainLink": "/index.html#apple-account",
+    "mainText": "获取苹果账户",
+    "helpLink": "/index.html#v2ray_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开->右上角+ ->扫描二维码或者类型->粘贴订阅链接URL",
     "image": "images/shadowrocket.webp",
     "star": 10
   },
@@ -215,7 +229,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "获取海外苹果账户见主页或常见问题; 谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接",
     "image": "images/v2ray.webp",
-    "star": 10
+    "star": 9
   },
   {
     "os": "android",
