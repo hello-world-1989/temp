@@ -460,7 +460,30 @@ app.get(
       const array = decodedString.split('\r\n');
       const ssArray = array.filter((item) => item.startsWith('ss://'));
 
-      res.send(ssArray?.slice(0, 2)?.join('\r\n') || '');
+      // Get client IP and day of month for seeded randomness
+      const clientIp = req.ip || req.connection.remoteAddress || '';
+      const dayOfMonth = new Date().getDate();
+      
+      // Create a simple hash from IP and day for consistent randomness
+      const seed = clientIp.split('').reduce((acc, char, i) => acc + char.charCodeAt(0) * (i + 1), dayOfMonth);
+      
+      // Seeded random selection
+      const getRandomItems = (arr, count, seed) => {
+        if (arr.length <= count) return arr;
+        const shuffled = [...arr];
+        let currentSeed = seed;
+        
+        // Simple seeded shuffle (partial, only shuffle enough for our needs)
+        for (let i = 0; i < count; i++) {
+          currentSeed = (currentSeed * 9301 + 49297) % 233280;
+          const randomIndex = i + (currentSeed % (shuffled.length - i));
+          [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+        }
+        
+        return shuffled.slice(0, count);
+      };
+
+      res.send(getRandomItems(ssArray, 2, seed)?.join('\r\n') || '');
     } catch (error) {
       console.error('SS-Key error:', error.message);
       res.send('');
