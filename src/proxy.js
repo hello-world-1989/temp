@@ -460,7 +460,7 @@ app.get(
       const array = decodedString.split('\r\n');
       const ssArray = array.filter((item) => item.startsWith('ss://'));
 
-      res.send(ssArray?.slice(0, 3)?.join('\r\n') || '');
+      res.send(ssArray?.slice(0, 2)?.join('\r\n') || '');
     } catch (error) {
       console.error('SS-Key error:', error.message);
       res.send('');
@@ -576,7 +576,7 @@ app.get(
   '/host',
   asyncHandler(async (req, res) => {
     try {
-      res.send(AppState.endGFWHosts.slice(0, 3));
+      res.send(AppState.endGFWHosts.slice(0, 2));
     } catch (error) {
       console.error('Host error:', error.message);
       res.send('');
@@ -1433,23 +1433,10 @@ if (CONFIG.MASTER_NODE) {
 }
 
 // Start server
-const server = app.listen(CONFIG.NODE_PORT, '0.0.0.0', () => {
-  console.log(`Enhanced proxy server listening on 0.0.0.0:${CONFIG.NODE_PORT}`);
+const server = app.listen(CONFIG.NODE_PORT, () => {
+  console.log(`Enhanced proxy server listening on port ${CONFIG.NODE_PORT}`);
   console.log(`Environment: ${CONFIG.IS_DEV ? 'Development' : 'Production'}`);
   console.log(`Master node: ${CONFIG.MASTER_NODE}`);
-  console.log(`Server started at: ${new Date().toISOString()}`);
-});
-
-// Add error handling for server startup
-server.on('error', (error) => {
-  if (error.code === 'EADDRINUSE') {
-    console.error(`Port ${CONFIG.NODE_PORT} is already in use`);
-  } else if (error.code === 'EACCES') {
-    console.error(`Permission denied - cannot bind to port ${CONFIG.NODE_PORT}. Try running as root or use a port > 1024`);
-  } else {
-    console.error('Server error:', error);
-  }
-  process.exit(1);
 });
 
 // Export for testing
