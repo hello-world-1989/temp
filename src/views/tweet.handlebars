@@ -338,13 +338,19 @@
   
   /* Better font rendering for PDF */
   #pdf-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "STHeiti", "SimHei", "SimSun", "WenQuanYi Micro Hei", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   
   /* Print styles for PDF generation */
   @media print {
+    * {
+      font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "STHeiti", "SimHei", "SimSun", "WenQuanYi Micro Hei", sans-serif !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
     header, footer, button {
       display: none !important;
     }
