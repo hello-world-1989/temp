@@ -7,7 +7,7 @@
  1. 一步搭建， 安装 Docker, Docker-compose, 下载 xrayr 和 web 运行文件
 
 ```
-wget -O install.sh https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/install.sh && chmod +x install.sh && sudo sh install.sh
+wget -O install.sh https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/install.sh && chmod +x install.sh && sudo sh install.sh
 
 ```
 
