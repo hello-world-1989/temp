@@ -14,6 +14,11 @@ wget -O install.sh https://github.com/hello-world-1989/temp/raw/main/docker-xray
 自定义 赞助商菜单， 请参考
 
 https://github.com/hello-world-1989/temp/blob/main/Custom.md
+
+get docker compose file
+
+#echo YOUR_GITHUB_TOKEN | sudo docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+
    
 2. `cd ~/end-gfw && sudo dc up -d && sudo dc ps` 应该能看到 Up 状态, 如果不能， `sudo dc logs` 查看日志发送到[电报群](https://t.me/end_gfw1)
 
@@ -35,7 +40,7 @@ https://github.com/hello-world-1989/temp/blob/main/Custom.md
 ```
 cd end-gfw
 
-wget -O docker-compose.yml https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/docker-compose.yml
+wget -O docker-compose.yml https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/docker-compose.yml
 
 sudo dc pull
 sudo dc down
