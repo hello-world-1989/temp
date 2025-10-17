@@ -16,7 +16,18 @@
     />
 
     <style>
-      body { font-family: "Microsoft YaHei", sans-serif; }
+      body { 
+        font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "STHeiti", "SimHei", "SimSun", "WenQuanYi Micro Hei", sans-serif; 
+      }
+      
+      /* Ensure Chinese fonts work in print mode */
+      @media print {
+        * {
+          font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "STHeiti", "SimHei", "SimSun", "WenQuanYi Micro Hei", sans-serif !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
     </style>
   </head>
   <body>
