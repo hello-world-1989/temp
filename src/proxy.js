@@ -1234,6 +1234,15 @@ async function getEndGFWMirror() {
   }
 }
 
+// Explicit routes for header and footer HTML files
+app.get('/header.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/temp/header.html'));
+});
+
+app.get('/footer.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/temp/footer.html'));
+});
+
 // Global error handler
 app.use((error, req, res, next) => {
   console.error('Unhandled error:', error);
