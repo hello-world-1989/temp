@@ -21,7 +21,7 @@ sudo systemctl enable docker
 
 # 安装Docker-compose
 
-sudo curl -L "https://github.com/docker/compose/releases/download/1.26.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/dc
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/dc
 sudo chmod +x /usr/local/bin/dc
 
 # 下载 xrayr 和 web 运行文件
@@ -35,7 +35,7 @@ wget https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/config.zip
 wget https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/docker-compose.yml
 wget https://github.com/hello-world-1989/temp/raw/main/docker-web-v2/custom.zip
 
-wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/end-gfw.com
+wget https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/end-gfw.com
 
 sudo ln -s end-gfw.com /etc/nginx/sites-enabled/
 sudo cp end-gfw.com /etc/nginx/sites-enabled/
