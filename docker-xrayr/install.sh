@@ -31,9 +31,9 @@ cd end-gfw
 
 sudo apt install unzip -y
 sudo apt install nginx -y
-wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/config.zip
-wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/docker-compose.yml
-wget https://github.com/hello-world-1989/temp/raw/stable/docker-web-v2/custom.zip
+wget https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/config.zip
+wget https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/docker-compose.yml
+wget https://github.com/hello-world-1989/temp/raw/main/docker-web-v2/custom.zip
 
 wget https://github.com/hello-world-1989/temp/raw/stable/docker-xrayr/end-gfw.com
 
