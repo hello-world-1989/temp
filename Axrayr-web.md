@@ -9,6 +9,8 @@
 ```
 wget -O install.sh https://github.com/hello-world-1989/temp/raw/main/docker-xrayr/install.sh && chmod +x install.sh && sudo sh install.sh
 
+sudo apt-get install cron -y
+sudo systemctl enable cron
 ```
 
 自定义 赞助商菜单， 请参考
