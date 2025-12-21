@@ -21,18 +21,6 @@ services:
       - ./custom:/app/temp/public/temp/custom/
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: end-gfw-web
-  subconverter:
-    image: tindy2013/subconverter:latest
-    container_name: subconverter
-    ports:
-      - "8888:25500"
-    restart: always
   docker-cron:
     image: ghcr.io/end-gfw/docker-cron:stable
     container_name: docker-cron
@@ -50,7 +38,7 @@ services:
       - ENABLE_RETRIEVE_TWEET=Y
       - ENABLE_POST_TWEET=Y
       - ENABLE_RETWEET=N
-      - GOOGLE_TRANSLATE_PROJECT_ID=avian-cogency-426402-f8
+      - GOOGLE_TRANSLATE_PROJECT_ID=fe-fe-426402-f8
       - GOOGLE_APPLICATION_CREDENTIALS=/app/docker-cron/src/application_default_credentials_end_gfw.json
       - TRANSLATE_LANG=en
       - ENABLE_TEST=N
