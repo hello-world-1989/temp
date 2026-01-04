@@ -791,7 +791,7 @@
         try {
           // Extract IP and port from Shadowsocks keys
           const dataArr = ssKeys
-            .filter((key) => key.includes('@us'))
+            .filter((key) => !key.includes('@us'))
             .map((ssKey) => {
               try {
                 // Parse ss:// format: ss://base64@ip:port#comment
