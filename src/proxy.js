@@ -464,23 +464,31 @@ app.get(
       // Get client IP and day of month for seeded randomness
       const clientIp = req.ip || req.connection.remoteAddress || '';
       const dayOfMonth = new Date().getDate();
-      
+
       // Create a simple hash from IP and day for consistent randomness
-      const seed = clientIp.split('').reduce((acc, char, i) => acc + char.charCodeAt(0) * (i + 1), dayOfMonth);
-      
+      const seed = clientIp
+        .split('')
+        .reduce(
+          (acc, char, i) => acc + char.charCodeAt(0) * (i + 1),
+          dayOfMonth
+        );
+
       // Seeded random selection
       const getRandomItems = (arr, count, seed) => {
         if (arr.length <= count) return arr;
         const shuffled = [...arr];
         let currentSeed = seed;
-        
+
         // Simple seeded shuffle (partial, only shuffle enough for our needs)
         for (let i = 0; i < count; i++) {
           currentSeed = (currentSeed * 9301 + 49297) % 233280;
           const randomIndex = i + (currentSeed % (shuffled.length - i));
-          [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+          [shuffled[i], shuffled[randomIndex]] = [
+            shuffled[randomIndex],
+            shuffled[i],
+          ];
         }
-        
+
         return shuffled.slice(0, count);
       };
 
@@ -965,11 +973,13 @@ app.get(
     const { token } = req.query;
 
     try {
-      await makeRequest(
-        CONFIG.MASTER_NODE
-          ? `${CONFIG.RENEW_PLAN_URL}?token=${token}`
-          : `https://end-gfw.com/renew-plan?token=${token}`
-      );
+      // await makeRequest(
+      //   CONFIG.MASTER_NODE
+      //     ? `${CONFIG.RENEW_PLAN_URL}?token=${token}`
+      //     : `https://end-gfw.com/renew-plan?token=${token}`
+      // );
+
+      await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
       res.send({ renewed: true });
     } catch (error) {
       console.error('Renew plan error:', error.message);
@@ -987,14 +997,16 @@ app.get(
     try {
       // Find and update MongoDB document with address=email, set expiryDate=currentDate + 4 days
       const currentDate = new Date();
-      const expiryDate = new Date(currentDate.getTime() + 4 * 24 * 60 * 60 * 1000);
-      
+      const expiryDate = new Date(
+        currentDate.getTime() + 4 * 24 * 60 * 60 * 1000
+      );
+
       const result = await updateEmailExpiry(email, expiryDate.toISOString());
-      
+
       if (result.matchedCount === 0) {
         return res.send({ renewed: false, error: 'Email not found' });
       }
-      
+
       res.send({ renewed: true, expiryDate: expiryDate.toISOString() });
     } catch (error) {
       console.error('Renew plan error:', error.message);
