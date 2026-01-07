@@ -20,6 +20,7 @@
     "express-handlebars": "^7.1.2",
     "form-data": "^4.0.2",
     "fs-extra": "^11.3.1",
+    "mongodb": "^7.0.0",
     "octokit": "^4.0.2",
     "serve-static": "^1.15.0",
     "sqlite3": "^5.1.7"

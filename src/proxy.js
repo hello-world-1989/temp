@@ -7,6 +7,7 @@ import url from 'url';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { getAppleId } from './get-apple-id.js';
+import { updateEmailExpiry } from './mongodb.js';
 
 import { getDatabase } from './database/db.js';
 import { TwitterUrlModel, TweetContentModel } from './database/models.js';
@@ -970,6 +971,31 @@ app.get(
           : `https://end-gfw.com/renew-plan?token=${token}`
       );
       res.send({ renewed: true });
+    } catch (error) {
+      console.error('Renew plan error:', error.message);
+      res.send({ error: 'Failed to renew plan' });
+    }
+  })
+);
+
+app.get(
+  '/renew-email',
+  validateQueryParams(['email']),
+  asyncHandler(async (req, res) => {
+    const { email } = req.query;
+
+    try {
+      // Find and update MongoDB document with address=email, set expiryDate=currentDate + 4 days
+      const currentDate = new Date();
+      const expiryDate = new Date(currentDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+      
+      const result = await updateEmailExpiry(email, expiryDate.toISOString());
+      
+      if (result.matchedCount === 0) {
+        return res.send({ renewed: false, error: 'Email not found' });
+      }
+      
+      res.send({ renewed: true, expiryDate: expiryDate.toISOString() });
     } catch (error) {
       console.error('Renew plan error:', error.message);
       res.send({ error: 'Failed to renew plan' });
