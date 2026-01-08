@@ -44,6 +44,7 @@ export async function updateEmailExpiry(emailAddress, expiryDate) {
       {
         $set: {
           expiryDate: expiryDate,
+          lastSignDate: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
       }
