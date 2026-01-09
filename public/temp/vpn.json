@@ -11,7 +11,7 @@
     "image": "images/nthlink.webp",
     "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9,
-    "date": "24年10月10日更新"
+    "date": "26年1月10日更新"
   },
   {
     "os": "windows",
@@ -24,7 +24,8 @@
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。美国之音推荐,需要设置静态IP，DNS设置为8.8.4.4",
     "image": "images/nthlink.webp",
     "mainLink": "https://www.downloadnth.com/download.html",
-    "star": 9
+    "star": 9,
+    "date": "26年1月10日更新"
   },
   {
     "os": "ios",
@@ -38,7 +39,8 @@
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,获取海外苹果账户见主页或常见问题;美国之音推荐",
     "image": "images/nthlink.webp",
-    "star": 9
+    "star": 9,
+    "date": "26年1月10日更新"
   },
   {
     "os": "mac",
@@ -52,7 +54,8 @@
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,获取海外苹果账户见主页或常见问题; 美国之音推荐",
     "image": "images/nthlink.webp",
-    "star": 9
+    "star": 9,
+    "date": "26年1月10日更新"
   },
   {
     "os": "android",
@@ -65,7 +68,8 @@
     "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/outline.webp",
     "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 11
+    "star": 11,
+    "date": "26年1月10日更新"
   },
   {
     "os": "windows",
@@ -78,7 +82,8 @@
     "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/outline.webp",
     "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
-    "star": 11
+    "star": 11,
+    "date": "26年1月10日更新"
   },
   {
     "os": "ios",
@@ -92,7 +97,8 @@
     "helpText": "获取SS密钥",
     "comment": "获取海外苹果账户见主页或常见问题;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/outline.webp",
-    "star": 11
+    "star": 11,
+    "date": "26年1月10日更新"
   },
   {
     "os": "mac",
@@ -106,7 +112,8 @@
     "helpText": "获取SS密钥",
     "comment": "获取海外苹果账户见主页或常见问题; 谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/outline.webp",
-    "star": 11
+    "star": 11,
+    "date": "26年1月10日更新"
   },
   {
     "os": "android",
@@ -116,10 +123,11 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-v2ray.zip",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
+    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
     "mainLink": "https://www.v2ray.com/awesome/tools.html",
-    "star": 10
+    "star": 10,
+    "date": "26年1月10日更新"
   },
   {
     "os": "android",
@@ -129,10 +137,11 @@
     "link2": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.13/cmfa-2.11.13-meta-universal-release.apk",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取订阅链接",
-    "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开clash->配置 右上角+ ->从URL导入主页Clash订阅链接",
+    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开clash->配置 右上角+ ->从URL导入主页Clash订阅链接",
     "image": "images/clash.png",
     "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
-    "star": 10
+    "star": 10,
+    "date": "26年1月10日更新"
   },
   {
     "os": "windows",
@@ -142,10 +151,11 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-v2ray.zip",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
+    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
     "mainLink": "https://www.v2ray.com/awesome/tools.html",
-    "star": 10
+    "star": 10,
+    "date": "26年1月10日更新"
   },
   {
     "os": "ios",
@@ -157,9 +167,10 @@
     "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "免费，获取海外苹果账户主页或见常见问题;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入",
+    "comment": "免费，获取海外苹果账户主页或见常见问题;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入",
     "image": "images/v2ray.webp",
-    "star": 10
+    "star": 10,
+    "date": "26年1月10日更新"
   },
   {
     "os": "ios",
@@ -171,9 +182,10 @@
     "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "免费，仅支持英文,获取海外苹果账户见主页或常见问题;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入",
+    "comment": "免费，仅支持英文,获取海外苹果账户见主页或常见问题;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入",
     "image": "images/v2ray.webp",
-    "star": 10
+    "star": 10,
+    "date": "26年1月10日更新"
   },
   {
     "os": "mac",
@@ -185,9 +197,10 @@
     "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "获取海外苹果账户见主页或常见问题; 谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "comment": "获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/v2ray.webp",
-    "star": 10
+    "star": 10,
+    "date": "26年1月10日更新"
   },
   {
     "os": "ios",
@@ -199,7 +212,7 @@
     "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "获取海外苹果账户见主页或常见问题;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
+    "comment": "获取海外苹果账户见主页或常见问题;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/shadowrocket.webp",
     "star": 10
   },
@@ -227,9 +240,10 @@
     "mainText": "获取苹果账户",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "获取海外苹果账户见主页或常见问题; 谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
+    "comment": "获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
-    "star": 9
+    "star": 9,
+    "date": "26年1月10日更新"
   },
   {
     "os": "android",
