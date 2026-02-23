@@ -18,7 +18,7 @@ export async function connectMongoDB() {
     db = client.db(DB_NAME);
 
     console.log(
-      `${new Date().toISOString()}-Successfully connected to MongoDB: ${DB_NAME}`
+      `${new Date().toISOString()}-Successfully connected to MongoDB: ${DB_NAME}`,
     );
 
     // Create index on email address for faster lookups
@@ -28,7 +28,7 @@ export async function connectMongoDB() {
   } catch (error) {
     console.error(
       `${new Date().toISOString()}-Error connecting to MongoDB:`,
-      error.message
+      error.message,
     );
     throw error;
   }
@@ -46,18 +46,19 @@ export async function updateEmailExpiry(emailAddress, expiryDate) {
           expiryDate: expiryDate,
           lastSignDate: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
+          urgency: 0,
         },
-      }
+      },
     );
 
     console.log(
-      `${new Date().toISOString()}-Updated expiry date for email: ${emailAddress}`
+      `${new Date().toISOString()}-Updated expiry date for email: ${emailAddress}`,
     );
     return result;
   } catch (error) {
     console.error(
       `${new Date().toISOString()}-Error updating email expiry:`,
-      error.message
+      error.message,
     );
     throw error;
   }
