@@ -380,6 +380,7 @@
             />
             <h3 class="mt-4 text-lg font-semibold text-gray-900">${sanitizedName}</h3>
             <dl class="mt-2 flex flex-grow flex-col justify-between">
+              ${item.date ? `<dd class="text-xs text-gray-400 mb-1">${sanitizeText(item.date)}</dd>` : ''}
               <dd class="text-sm text-gray-600 leading-relaxed">${sanitizedComment}</dd>
               <dd class="mt-4 space-y-2">
                 ${item.mainLink ? `
