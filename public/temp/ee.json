@@ -282,51 +282,6 @@
 
   {
     "os": "android",
-    "id": "chrome",
-    "name": "Google Chrome浏览器",
-    "link1": "/download-app/android/android-chrome.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-chrome.zip",
-    "comment": "浏览器",
-    "image": "images/chrome.webp",
-    "web": "https://www.google.com/chrome/",
-    "star": 10
-  },
-  {
-    "os": "windows",
-    "id": "chrome",
-    "name": "Google Chrome浏览器",
-    "link1": "/download-app/windows/windows-chrome.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-chrome.zip",
-    "comment": "浏览器",
-    "image": "images/chrome.webp",
-    "web": "https://www.google.com/chrome/",
-    "star": 10
-  },
-  {
-    "os": "ios",
-    "id": "chrome",
-    "name": "Google Chrome浏览器",
-    "link1": "#",
-    "link2": "#",
-    "comment": "浏览器",
-    "image": "images/chrome.webp",
-    "web": "https://www.google.com/chrome/",
-    "star": 10
-  },
-  {
-    "os": "mac",
-    "id": "chrome",
-    "name": "Google Chrome浏览器",
-    "link1": "/download-app/mac/mac-chrome.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-chrome.zip",
-    "comment": "点对点文件同步软件",
-    "image": "images/chrome.webp",
-    "web": "https://www.google.com/chrome/",
-    "star": 10
-  },
-
-  {
-    "os": "android",
     "id": "resilio",
     "name": "Resilio Sync",
     "link1": "/download-app/android/android-resilio.zip",
