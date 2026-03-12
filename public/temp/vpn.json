@@ -407,7 +407,8 @@
     "comment": "",
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
   {
     "os": "windows",
@@ -418,7 +419,8 @@
     "comment": "",
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
   {
     "os": "ios",
@@ -430,7 +432,8 @@
     "mainText": "获取苹果账户",
     "comment": "获取海外苹果账户见主页或常见问题",
     "image": "images/psiphon.png",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
   {
     "os": "mac",
@@ -442,7 +445,8 @@
     "mainText": "获取苹果账户",
     "comment": "仅苹果芯片版本",
     "image": "images/psiphon.png",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
   {
     "os": "android",
@@ -569,7 +573,8 @@
     "comment": "",
     "image": "images/freebrowser.webp",
     "mainLink": "https://freebrowser.org/#stepSection",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
   {
     "os": "windows",
@@ -580,7 +585,8 @@
     "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
     "image": "images/freebrowser.webp",
     "mainLink": "https://freebrowser.org/#stepSection",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
 
   {
@@ -593,7 +599,8 @@
     "mainText": "获取苹果账户",
     "comment": "浏览器下载可能误报病毒，改用其它浏览器下载",
     "image": "images/freebrowser.webp",
-    "star": 6
+    "star": 6,
+    "date": "26年3月13日更新"
   },
 
   {
@@ -605,7 +612,8 @@
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
     "mainLink": "https://ooni.org/install/",
-    "star": 8.8
+    "star": 8.8,
+    "date": "26年3月13日更新"
   },
   {
     "os": "windows",
@@ -616,7 +624,8 @@
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
     "mainLink": "https://ooni.org/install/",
-    "star": 8.8
+    "star": 8.8,
+    "date": "26年3月13日更新"
   },
   {
     "os": "ios",
@@ -628,7 +637,8 @@
     "mainText": "获取苹果账户",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "star": 8.8
+    "star": 8.8,
+    "date": "26年3月13日更新"
   },
   {
     "os": "mac",
@@ -640,6 +650,7 @@
     "mainText": "获取苹果账户",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "star": 8.8
+    "star": 8.8,
+    "date": "26年3月13日更新"
   }
 ]
