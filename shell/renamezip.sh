@@ -12,11 +12,26 @@ zip windows-nthlink.zip nthlink*.exe
 ###windows-nthlink too big, uploaded to gitlab instead###
 #------------------------------------------------------
 
+#clash
+#https://github.com/MetaCubeX/ClashMetaForAndroid/releases
+
+##ooni##
+##https://ooni.org/install/all
+
+##orbot vpn
+##https://github.com/guardianproject/orbot/releases
+
+#https://github.com/guardianproject/orbot-apple/releases
 
 ##outline
-##https://getoutline.org/zh-CN/get-started/#step-3
+##https://github.com/OutlineFoundation/outline-releases?tab=readme-ov-file
+
+
+
+
 
 ##tor browser
+##https://www.torproject.org/download/
 
 ##v2ray
 #https://www.v2ray.com/awesome/tools.html
@@ -214,3 +229,24 @@ mac
 zip mac-resilio.zip Resilio-Sync.dmg
 
 
+
+
+chrome
+
+ignore android chrome update because there is only xapk
+
+https://www.google.com/intl/en/chrome/?standalone=1
+
+Open Chrome
+
+Press F12
+
+Press Cmd + Shift + P
+
+Type Network Conditions
+
+Disable Use browser default
+
+Paste the Windows UA
+
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
