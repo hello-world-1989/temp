@@ -39,8 +39,7 @@
     "helpText": "使用说明",
     "comment": "面临审查!通过 nthLink VPN，您可以绕过限制，随时随地访问免费网络。免费、安全且 快如闪电。今天就保护你的隐私。,需要设置静态IP，DNS设置为8.8.4.4,获取海外苹果账户见主页或常见问题;美国之音推荐",
     "image": "images/nthlink.webp",
-    "star": 9,
-    "date": "26年3月13日更新"
+    "star": 9
   },
   {
     "os": "mac",
@@ -97,8 +96,7 @@
     "helpText": "获取SS密钥",
     "comment": "获取海外苹果账户见主页或常见问题;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/outline.webp",
-    "star": 11,
-    "date": "26年3月13日更新"
+    "star": 11
   },
   {
     "os": "mac",
@@ -169,8 +167,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "免费，获取海外苹果账户主页或见常见问题;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入",
     "image": "images/v2ray.webp",
-    "star": 10,
-    "date": "26年3月13日更新"
+    "star": 10
   },
   {
     "os": "ios",
@@ -184,8 +181,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "免费，仅支持英文,获取海外苹果账户见主页或常见问题;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入",
     "image": "images/v2ray.webp",
-    "star": 10,
-    "date": "26年3月13日更新"
+    "star": 10
   },
   {
     "os": "mac",
@@ -199,8 +195,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/v2ray.webp",
-    "star": 10,
-    "date": "26年3月13日更新"
+    "star": 8
   },
   {
     "os": "ios",
@@ -233,7 +228,7 @@
   {
     "os": "mac",
     "id": "v2ray",
-    "name": "V2rayU",
+    "name": "V2ray",
     "link1": "/download-app/mac/mac-v2ray.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-v2ray.zip",
     "mainLink": "/index.html#apple-account",
@@ -242,7 +237,7 @@
     "helpText": "获取SS密钥或订阅链接",
     "comment": "获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray->右上角+ ->从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
-    "star": 9,
+    "star": 10,
     "date": "26年3月13日更新"
   },
 
@@ -279,8 +274,7 @@
     "comment": "浏览器",
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
-    "star": 9,
-    "date": "26年1月10日更新"
+    "star": 9
   },
   {
     "os": "mac",
@@ -432,8 +426,7 @@
     "mainText": "获取苹果账户",
     "comment": "获取海外苹果账户见主页或常见问题",
     "image": "images/psiphon.png",
-    "star": 6,
-    "date": "26年3月13日更新"
+    "star": 6
   },
   {
     "os": "mac",
@@ -637,8 +630,7 @@
     "mainText": "获取苹果账户",
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
-    "star": 8.8,
-    "date": "26年3月13日更新"
+    "star": 8.8
   },
   {
     "os": "mac",
