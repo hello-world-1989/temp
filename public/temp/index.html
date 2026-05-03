@@ -420,12 +420,12 @@
                   <br />
                   <br />
                   <span class="text-sm text-gray-600 break-all">
-                    2. 新手使用 Outline, 简洁易用, 欢迎分享给身边朋友
+                    2. 新手使用 Outline(仅支持ss://协议), 简洁易用, 欢迎分享给身边朋友
                   </span>
                   <br />
                   <br />
                   <span class="text-sm text-gray-600 break-all">
-                    3. 高阶用户，使用V2Ray订阅链接，第一次更新订阅需要使用Outline/或其它方式翻墙才能更新订阅链接
+                    3. 高阶用户，使用Karing/V2Ray 单个节点或订阅链接，第一次更新订阅需要使用Outline/或其它方式翻墙才能更新订阅链接
                   </span>
                   <br />
                   <br />
@@ -436,7 +436,7 @@
               </div>
 
               <div class="p-4 bg-gray-50 rounded-lg">
-                <h3 class="font-semibold text-gray-900 mb-2">V2Ray订阅链接</h3>
+                <h3 class="font-semibold text-gray-900 mb-2">Karing/V2Ray订阅链接</h3>
                 <button
                   onclick="copyText('v2ray')"
                   class="w-full text-left p-3 bg-white border rounded-lg hover:bg-gray-50 transition-colors"
@@ -569,7 +569,7 @@
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">🤖 安卓手机</h3>
                 <p class="text-gray-600 mb-3">
-                  使用Outline、V2Ray、Clash、NthLink
+                  使用Karing、Outline、V2Ray、Clash、NthLink
                 </p>
                 <a
                   href="./vpn.html"
@@ -581,7 +581,7 @@
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">🍎 苹果设备</h3>
                 <p class="text-gray-600 mb-3">
-                  使用海外苹果账户下载Outline、V2Ray、Clash、NthLink
+                  使用海外苹果账户下载Karing、Outline、V2Ray、Clash、NthLink
                 </p>
                 <a
                   href="./qa.html#apple-account"
@@ -593,7 +593,7 @@
               <div class="p-4 border border-gray-200 rounded-lg">
                 <h3 class="font-semibold text-gray-900 mb-2">💻 Windows电脑</h3>
                 <p class="text-gray-600 mb-3">
-                  使用Outline、V2Ray、Clash、NthLink
+                  使用Karing、Outline、V2Ray、Clash、NthLink
                 </p>
                 <a
                   href="./vpn.html"
@@ -606,7 +606,7 @@
 
           <!-- SS Keys Section -->
           <section class="bg-white rounded-xl shadow-lg p-6 animate-fade-in">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">SS密钥, 被防火墙屏蔽后(每天或2-3天)会自动更新, 默认屏蔽视频 游戏等网站,US美国节点无限制
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Vless(Karing)/SS(Outline) 密钥, 被防火墙屏蔽后(每天或2-3天)会自动更新, 默认屏蔽视频 游戏等网站,US美国节点无限制
             </h2>
             <h2><a href="./nodes.html" class="text-indigo-600">点击获得更多密钥(包含第三方密钥)</a></h2>
             <p class="text-gray-600 mb-4">
@@ -614,6 +614,24 @@
             </p>
 
             <div id="outline" class="space-y-3">
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+                onclick="copyText('outline3')"
+              >
+                <span id="outline3" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+
+              <p
+                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
+                onclick="copyText('outline4')"
+              >
+                <span id="outline4" class="text-sm font-mono break-all">
+                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
+                </span>
+              </p>
+              
               <p
                 class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 onclick="copyText('outline1')"
@@ -632,23 +650,7 @@
                 </span>
               </p>
 
-              <p
-                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
-                onclick="copyText('outline3')"
-              >
-                <span id="outline3" class="text-sm font-mono break-all">
-                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
-                </span>
-              </p>
-
-              <p
-                class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
-                onclick="copyText('outline4')"
-              >
-                <span id="outline4" class="text-sm font-mono break-all">
-                  https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together-ss
-                </span>
-              </p>
+              
 
               <p
                 class="cursor-pointer p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors hidden"
@@ -664,7 +666,21 @@
               >
               <span class="lg:hidden">手机截图保存图片</span>
               <span class="hidden lg:flex">右键保存图片</span>
+              
+              <span
+                  id="qrcode3"
+                  class="text-sm font-mono inline-block pt-5 lg:pt-0 hidden"
+                >
+                </span>
                 <span
+                  id="qrcode4"
+                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
+                >
+                </span>
+
+              <p></p>
+              
+              <span
                   id="qrcode1"
                   class="text-sm font-mono inline-block hidden"
                 >
@@ -674,11 +690,8 @@
                   class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
                 >
                 </span>
-                <span
-                  id="qrcode3"
-                  class="text-sm font-mono inline-block lg:pl-10 pt-5 lg:pt-0 hidden"
-                >
-                </span>
+                
+                
               </p>
             </div>
           </section>
@@ -772,8 +785,9 @@
 
           new QRCode(qrCodeElement, {
             text: key,
-            width: 150,
-            height: 150,
+            width: 200,
+            height: 200,
+            correctLevel: QRCode.CorrectLevel.L
           });
         });
 
