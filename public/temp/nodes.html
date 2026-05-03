@@ -483,10 +483,13 @@
                 qrCodeElement.classList.remove('hidden');
                 new QRCode(qrCodeElement, {
                   text: key,
-                  width: 150,
-                  height: 150,
+                  width: 200,
+                  height: 200,
+                  correctLevel: QRCode.CorrectLevel.L,
                 });
-              } catch (err) {}
+              } catch (err) {
+                console.error('QR code generation failed for key', i + 1, err);
+              }
             }
             }
           });
