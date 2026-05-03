@@ -65,7 +65,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
@@ -128,7 +128,7 @@ const validateQueryParams = (requiredParams = []) => {
         res,
         `Missing required parameters: ${missing.join(', ')}`,
         'Validation Error',
-        400,
+        400
       );
     }
     next();
@@ -224,7 +224,7 @@ app.get(
       console.error('PDF download error:', error.message);
       res.status(500).send('Download failed');
     }
-  }),
+  })
 );
 
 app.get(
@@ -240,7 +240,7 @@ app.get(
       console.error('App download error:', error.message);
       res.status(500).send('Download failed');
     }
-  }),
+  })
 );
 
 // 2. Page rendering endpoints
@@ -279,7 +279,7 @@ app.get(
       console.error('Tweet page error:', error.message);
       res.render('tweet', { tweets: [] });
     }
-  }),
+  })
 );
 
 app.get(
@@ -346,7 +346,7 @@ app.get(
       console.error('Tweet page error:', error.message);
       res.render('tweet', { tweets: [] });
     }
-  }),
+  })
 );
 
 app.get(
@@ -369,7 +369,7 @@ app.get(
 
     try {
       const searchUrl = `https://api.github.com/search/code?q=${encodeURIComponent(
-        keyword,
+        keyword
       )} in:file repo:hello-world-1989/json`;
       const searchResponse = await makeRequest(searchUrl, {
         headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` },
@@ -386,7 +386,7 @@ app.get(
       const results = await Promise.all(promises);
       const allTweets = results.map((item) => item.data).flat();
       const filteredTweets = allTweets.filter((item) =>
-        item?.content?.includes(keyword),
+        item?.content?.includes(keyword)
       );
 
       const tweets = filteredTweets
@@ -398,7 +398,7 @@ app.get(
       console.error('Search tweets error:', error.message);
       res.render('tweet', { tweets: [] });
     }
-  }),
+  })
 );
 
 app.get(
@@ -420,7 +420,7 @@ app.get(
       console.error('News page error:', error.message);
       res.render('news', { news: [] });
     }
-  }),
+  })
 );
 
 // 3. Data API endpoints
@@ -429,13 +429,13 @@ app.get(
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        'https://raw.githubusercontent.com/hello-world-1989/cn-news/main/server.txt',
+        'https://raw.githubusercontent.com/hello-world-1989/cn-news/main/server.txt'
       );
       res.send(response?.data || '');
     } catch (error) {
       res.send('');
     }
-  }),
+  })
 );
 
 app.get(
@@ -443,7 +443,7 @@ app.get(
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key',
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key'
       );
       const base64String = response?.data;
 
@@ -459,7 +459,8 @@ app.get(
       const decodedBuffer = Buffer.from(base64String, 'base64');
       const decodedString = decodedBuffer.toString('utf-8');
       const array = decodedString.split('\r\n');
-      const ssArray = array.filter((item) => item.startsWith('ss://'));
+      // const ssArray = array.filter((item) => item.startsWith('ss://'));
+      const ssArray = array;
 
       // Get client IP and day of month for seeded randomness
       const clientIp = req.ip || req.connection.remoteAddress || '';
@@ -470,7 +471,7 @@ app.get(
         .split('')
         .reduce(
           (acc, char, i) => acc + char.charCodeAt(0) * (i + 1),
-          dayOfMonth,
+          dayOfMonth
         );
 
       // Seeded random selection
@@ -492,12 +493,12 @@ app.get(
         return shuffled.slice(0, count);
       };
 
-      res.send(getRandomItems(ssArray, 2, seed)?.join('\r\n') || '');
+      res.send(getRandomItems(ssArray, 4, seed)?.join('\r\n') || '');
     } catch (error) {
       console.error('SS-Key error:', error.message);
       res.send('');
     }
-  }),
+  })
 );
 
 app.get(
@@ -505,7 +506,7 @@ app.get(
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1',
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1'
       );
 
       const base64String = response?.data;
@@ -545,7 +546,7 @@ app.get(
       console.error('SS-Key1 error:', error.message);
       res.send('');
     }
-  }),
+  })
 );
 
 // Enhanced resource endpoints with better error handling
@@ -565,43 +566,43 @@ app.get(
   '/youtube',
   createResourceEndpoint(
     'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
-    'youtube',
-  ),
+    'youtube'
+  )
 );
 app.get(
   '/obfs4',
   createResourceEndpoint(
     'https://raw.githubusercontent.com/hello-world-1989/cn-news/main',
-    'obfs4',
-  ),
+    'obfs4'
+  )
 );
 app.get(
   '/wiki',
   createResourceEndpoint(
     'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
-    'wiki',
-  ),
+    'wiki'
+  )
 );
 app.get(
   '/nitter',
   createResourceEndpoint(
     'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
-    'nitter',
-  ),
+    'nitter'
+  )
 );
 app.get(
   '/searchx',
   createResourceEndpoint(
     'https://raw.githubusercontent.com/hello-world-1989/accessible/main',
-    'searchx',
-  ),
+    'searchx'
+  )
 );
 app.get(
   '/pdf',
   createResourceEndpoint(
     'https://raw.githubusercontent.com/hello-world-1989/whyyoutouzhele/main',
-    'pdf',
-  ),
+    'pdf'
+  )
 );
 
 app.get(
@@ -613,7 +614,7 @@ app.get(
       console.error('Host error:', error.message);
       res.send('');
     }
-  }),
+  })
 );
 
 app.get(
@@ -639,7 +640,7 @@ app.get(
       console.error('Apple account error:', error.message);
       res.send('');
     }
-  }),
+  })
 );
 
 // Enhanced news data endpoint
@@ -679,7 +680,7 @@ app.get(
       console.error('News data error:', error.message);
       res.send([]);
     }
-  }),
+  })
 );
 
 // Tweet data endpoint with improved error handling
@@ -738,7 +739,7 @@ app.get(
             const rawCurrentData = currentResponse?.data?.content;
             if (rawCurrentData) {
               const resultStr = Buffer.from(rawCurrentData, 'base64').toString(
-                'utf-8',
+                'utf-8'
               );
               const temp = JSON.parse(resultStr);
               result.push(...temp);
@@ -754,7 +755,7 @@ app.get(
       console.error('Tweet data error:', error.message);
       res.send([]);
     }
-  }),
+  })
 );
 
 // Enhanced event endpoint
@@ -788,7 +789,7 @@ app.get(
       console.error('Event data error:', error.message);
       res.send([]);
     }
-  }),
+  })
 );
 
 // Enhanced search tweet endpoint
@@ -800,17 +801,17 @@ app.get(
 
     try {
       const searchUrl = `https://api.github.com/search/code?q=${encodeURIComponent(
-        keyword,
+        keyword
       )} in:file repo:hello-world-1989/json`;
 
       const searchUrlHost = `https://end-gfw.com/search-tweet?keyword=${encodeURIComponent(
-        keyword,
+        keyword
       )}`;
       const response = await makeRequest(
         CONFIG.MASTER_NODE ? searchUrl : searchUrlHost,
         {
           headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` },
-        },
+        }
       );
 
       if (CONFIG.MASTER_NODE) {
@@ -837,7 +838,7 @@ app.get(
           .flat();
 
         const filteredTweets = allTweets.filter((item) =>
-          item?.content?.includes(keyword),
+          item?.content?.includes(keyword)
         );
 
         res.send(filteredTweets);
@@ -848,7 +849,7 @@ app.get(
       console.error('Search tweet error:', error.message);
       res.send([]);
     }
-  }),
+  })
 );
 
 // Enhanced resource endpoints
@@ -876,7 +877,7 @@ app.get(
       console.error('Resource fetch error:', error.message);
       res.status(500).send('Failed to fetch resource');
     }
-  }),
+  })
 );
 
 app.get(
@@ -894,7 +895,7 @@ app.get(
       console.error('News resource fetch error:', error.message);
       res.status(500).send('Failed to fetch news resource');
     }
-  }),
+  })
 );
 
 // VPN and EE data endpoints with GitHub API
@@ -944,7 +945,7 @@ app.get(
       console.error('Report error:', error.message);
       res.send({ reported: false });
     }
-  }),
+  })
 );
 
 app.get(
@@ -963,10 +964,9 @@ app.get(
       console.error('Node registration error:', error.message);
       res.send({ error: 'Failed to register node' });
     }
-  }),
+  })
 );
 
-//renew plan is for index uuid token
 app.get(
   '/renew-plan',
   validateQueryParams(['token']),
@@ -980,14 +980,13 @@ app.get(
       //     : `https://end-gfw.com/renew-plan?token=${token}`
       // );
 
-      //renew plan is for index uuid token
       await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
       res.send({ renewed: true });
     } catch (error) {
       console.error('Renew plan error:', error.message);
       res.send({ error: 'Failed to renew plan' });
     }
-  }),
+  })
 );
 
 app.get(
@@ -1000,7 +999,7 @@ app.get(
       // Find and update MongoDB document with address=email, set expiryDate=currentDate + 4 days
       const currentDate = new Date();
       const expiryDate = new Date(
-        currentDate.getTime() + 4 * 24 * 60 * 60 * 1000,
+        currentDate.getTime() + 4 * 24 * 60 * 60 * 1000
       );
 
       const result = await updateEmailExpiry(email, expiryDate.toISOString());
@@ -1009,15 +1008,12 @@ app.get(
         return res.send({ renewed: false, error: 'Email not found' });
       }
 
-      res.send({
-        renewed: true,
-        expiryDate: expiryDate.toISOString(),
-      });
+      res.send({ renewed: true, expiryDate: expiryDate.toISOString() });
     } catch (error) {
       console.error('Renew plan error:', error.message);
       res.send({ error: 'Failed to renew plan' });
     }
-  }),
+  })
 );
 
 app.get(
@@ -1030,7 +1026,7 @@ app.get(
       console.error('Status check error:', error.message);
       res.send({ status: false, timestamp: new Date().toISOString() });
     }
-  }),
+  })
 );
 
 app.get(
@@ -1060,7 +1056,7 @@ app.get(
         timestamp: new Date().toISOString(),
       });
     }
-  }),
+  })
 );
 
 app.get(
@@ -1095,7 +1091,7 @@ app.get(
         timestamp: new Date().toISOString(),
       });
     }
-  }),
+  })
 );
 
 // Helper functions
@@ -1179,7 +1175,7 @@ async function report() {
     }
 
     await makeRequest(
-      `https://end-gfw.com/node?ip=${ip}&port=${CONFIG.NODE_PORT}`,
+      `https://end-gfw.com/node?ip=${ip}&port=${CONFIG.NODE_PORT}`
     );
 
     if (!JSON.stringify(AppState.endGFWHosts).includes(ip)) {
@@ -1197,7 +1193,7 @@ async function periodicCheckConnection() {
   const activeHosts = [];
 
   const sortedHosts = hosts.sort((a, b) =>
-    a.updatedTime > b.updatedTime ? -1 : 1,
+    a.updatedTime > b.updatedTime ? -1 : 1
   );
 
   for (const host of sortedHosts) {
@@ -1262,7 +1258,7 @@ async function getEndGFWMirror() {
   console.log('Key array length:', keyArray.length);
 
   const ssKeyArray = keyArray?.filter(
-    (item) => item.startsWith('ss://') && item.includes('end-gfw'),
+    (item) => item.startsWith('ss://') && item.includes('end-gfw')
   );
 
   if (ssKeyArray.length > 0) {
@@ -1410,7 +1406,7 @@ app.get('/api/process-url/:id', async (req, res) => {
     console.log(
       `✅ Successfully processed tweet ID: ${urlRecord.tweet_id}, Username: ${
         urlRecord.author_username || 'extracted from URL'
-      }`,
+      }`
     );
 
     res.json({
