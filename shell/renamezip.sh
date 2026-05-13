@@ -1,5 +1,9 @@
 cd Downloads
 
+Hiddify
+
+https://github.com/hiddify/hiddify-app/releases/
+
 #1 Nthlink
 #https://s3.us-west-1.amazonaws.com/dwo-jar-kmf-883/download.html
 
