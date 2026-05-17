@@ -165,7 +165,7 @@
     "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-hiddify.zip",
     "helpLink": "/index.html#hiddify_sub",
     "helpText": "获取SS密钥或订阅链接",
-    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Hiddify->中间 点击链接(非订阅链接) ->扫描二维码或从剪贴板导入 -> 返回->再次 点击连接;如果有多个,点击节点，选择一个节点;进阶用法: 订阅链接",
+    "comment": "由于安装包没有签名，会提示应用已损坏；安装后需要运行：xattr -cr /Applications/Hiddify.app;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Hiddify->中间 点击链接(非订阅链接) ->扫描二维码或从剪贴板导入 -> 返回->再次 点击连接;如果有多个,点击节点，选择一个节点;进阶用法: 订阅链接",
     "image": "https://hiddify.com/assets/hiddify-logo.svg",
     "mainLink": "https://hiddify.com/",
     "star": 13,
