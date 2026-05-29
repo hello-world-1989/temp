@@ -29,6 +29,7 @@ const CONFIG = {
   SUB_URL1: process.env.SUB_URL1,
   SUB_URL2: process.env.SUB_URL2,
   RENEW_PLAN_URL: process.env.RENEW_PLAN_URL,
+  INTERNAL_TOKEN: process.env.INTERNAL_TOKEN,
   IS_DEV:
     process.env.NODE_ENV?.includes('dev') ||
     process.env.NODE_ENV !== 'production',
@@ -118,6 +119,26 @@ class APIResponse {
     res.status(statusCode).json(this.error(error, message));
   }
 }
+
+// Origin guard — only allow requests from end-gfw.com or internal token
+const originGuard = (req, res, next) => {
+  const origin = req.headers['origin'] || '';
+  const referer = req.headers['referer'] || '';
+  const internalToken = req.headers['x-internal-token'];
+
+  const isTrustedOrigin =
+    origin.includes('end-gfw.com') || referer.includes('end-gfw.com');
+
+  const isInternalRequest =
+    CONFIG.INTERNAL_TOKEN && internalToken === CONFIG.INTERNAL_TOKEN;
+
+  // In dev mode, bypass the guard
+  if (CONFIG.IS_DEV || isTrustedOrigin || isInternalRequest) {
+    return next();
+  }
+
+  res.status(403).json({ error: 'Forbidden' });
+};
 
 // Enhanced validation middleware
 const validateQueryParams = (requiredParams = []) => {
@@ -440,10 +461,16 @@ app.get(
 
 app.get(
   '/ss-key',
+  originGuard,
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key'
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key',
+        CONFIG.MASTER_NODE
+          ? {}
+          : CONFIG.INTERNAL_TOKEN
+          ? { headers: { 'X-Internal-Token': CONFIG.INTERNAL_TOKEN } }
+          : {}
       );
       const base64String = response?.data;
 
@@ -503,10 +530,16 @@ app.get(
 
 app.get(
   '/ss-key1',
+  originGuard,
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1'
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1',
+        CONFIG.MASTER_NODE
+          ? {}
+          : CONFIG.INTERNAL_TOKEN
+          ? { headers: { 'X-Internal-Token': CONFIG.INTERNAL_TOKEN } }
+          : {}
       );
 
       const base64String = response?.data;
