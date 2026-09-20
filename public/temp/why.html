@@ -866,6 +866,10 @@
             .replace(/https:\/\/x\.com\/\S+/g, '')
             .trim()
             .replace(
+              /查看引用原文/g,
+              `<a href="${tweetUrl}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 underline">查看引用原文</a>`
+            )
+            .replace(
               /查看原文/g,
               `<a href="${tweetUrl}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 underline">查看原文</a>`
             );
