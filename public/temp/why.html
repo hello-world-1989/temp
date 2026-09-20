@@ -855,6 +855,21 @@
             imageElement = imagesArr.join('');
           }
 
+          // X (Twitter) 原推文链接
+          const tweetUrl =
+            item?.link ||
+            `https://x.com/${item?.accountId || 'whyyoutouzhele'}/status/${item?.id}`;
+
+          // 正文：清理图片/推文链接后，把「查看原文」还原为链接形式
+          const contentHtml = (item?.content || '')
+            .replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
+            .replace(/https:\/\/x\.com\/\S+/g, '')
+            .trim()
+            .replace(
+              /查看原文/g,
+              `<a href="${tweetUrl}" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 underline">查看原文</a>`
+            );
+
           const createdDate = item?.createdDate?.split(' ')?.[0]?.split('-');
           const year = createdDate?.[0];
           const month = createdDate?.[1];
@@ -890,16 +905,25 @@
                       <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
                       <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
                     </svg>
-                    分享
+                    免墙分享
                   </button>
+                  <a
+                    href="${tweetUrl}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="px-3 py-1 text-sm text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors whitespace-nowrap"
+                    title="在 X 上查看原推文"
+                  >
+                    <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                    查看X推文
+                  </a>
                 </header>
                 
                 <div class="prose prose-gray max-w-none mb-4">
                   <p class="text-gray-700 leading-relaxed">
-                    ${item?.content
-                      ?.replace(/https:\/\/pbs\.twimg\.com\/\S+/g, '')
-                      ?.replace(/https:\/\/x\.com\/\S+/g, '')
-                      ?.trim()}
+                    ${contentHtml}
                   </p>
                 </div>
                 
