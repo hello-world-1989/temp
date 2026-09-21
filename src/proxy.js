@@ -29,7 +29,6 @@ const CONFIG = {
   SUB_URL1: process.env.SUB_URL1,
   SUB_URL2: process.env.SUB_URL2,
   RENEW_PLAN_URL: process.env.RENEW_PLAN_URL,
-  INTERNAL_TOKEN: process.env.INTERNAL_TOKEN,
   IS_DEV:
     process.env.NODE_ENV?.includes('dev') ||
     process.env.NODE_ENV !== 'production',
@@ -77,6 +76,20 @@ app.use((req, res, next) => {
 
 const hbs = create({
   helpers: {
+    // 推文正文：转义 HTML 后，把「查看引用原文」「查看原文」渲染为指向 X 原推文的链接
+    tweetContent(content, link, id) {
+      const H = hbs.handlebars;
+      const url =
+        (typeof link === 'string' && link) ||
+        `https://x.com/whyyoutouzhele/status/${id}`;
+      const safeUrl = H.escapeExpression(url);
+      const a = (text) =>
+        `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 underline">${text}</a>`;
+      const html = H.escapeExpression(content ?? '')
+        .replace(/查看引用原文/g, a('查看引用原文'))
+        .replace(/查看原文/g, a('查看原文'));
+      return new H.SafeString(html);
+    },
     foo() {
       return 'FOO!';
     },
@@ -119,26 +132,6 @@ class APIResponse {
     res.status(statusCode).json(this.error(error, message));
   }
 }
-
-// Origin guard — only allow requests from end-gfw.com or internal token
-const originGuard = (req, res, next) => {
-  const origin = req.headers['origin'] || '';
-  const referer = req.headers['referer'] || '';
-  const internalToken = req.headers['x-internal-token'];
-
-  const isTrustedOrigin =
-    origin.includes('end-gfw.com') || referer.includes('end-gfw.com');
-
-  const isInternalRequest =
-    CONFIG.INTERNAL_TOKEN && internalToken === CONFIG.INTERNAL_TOKEN;
-
-  // In dev mode, bypass the guard
-  if (CONFIG.IS_DEV || isTrustedOrigin || isInternalRequest) {
-    return next();
-  }
-
-  res.status(403).json({ error: 'Forbidden' });
-};
 
 // Enhanced validation middleware
 const validateQueryParams = (requiredParams = []) => {
@@ -461,16 +454,10 @@ app.get(
 
 app.get(
   '/ss-key',
-  originGuard,
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key',
-        CONFIG.MASTER_NODE
-          ? {}
-          : CONFIG.INTERNAL_TOKEN
-          ? { headers: { 'X-Internal-Token': CONFIG.INTERNAL_TOKEN } }
-          : {}
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL : 'https://end-gfw.com/ss-key'
       );
       const base64String = response?.data;
 
@@ -530,16 +517,10 @@ app.get(
 
 app.get(
   '/ss-key1',
-  originGuard,
   asyncHandler(async (req, res) => {
     try {
       const response = await makeRequest(
-        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1',
-        CONFIG.MASTER_NODE
-          ? {}
-          : CONFIG.INTERNAL_TOKEN
-          ? { headers: { 'X-Internal-Token': CONFIG.INTERNAL_TOKEN } }
-          : {}
+        CONFIG.MASTER_NODE ? CONFIG.SUB_URL1 : 'https://end-gfw.com/ss-key1'
       );
 
       const base64String = response?.data;
