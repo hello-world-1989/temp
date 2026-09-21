@@ -87,13 +87,25 @@
                   🕒 北京时间 {{this.createdDate}} 发布
                 </time>
               </div>
+              <a
+                href='{{#if this.link}}{{this.link}}{{else}}https://x.com/whyyoutouzhele/status/{{this.id}}{{/if}}'
+                target='_blank'
+                rel='noopener noreferrer'
+                class='flex-shrink-0 inline-flex items-center px-3 py-1 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors whitespace-nowrap'
+                title='在 X 上查看原推文'
+              >
+                <svg class='w-4 h-4 mr-1' fill='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
+                  <path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'></path>
+                </svg>
+                查看X推文
+              </a>
             </div>
           </header>
           
           <!-- Tweet content with better typography -->
           <div class='px-4 py-5 sm:px-6'>
             <div class='prose prose-lg max-w-none' itemprop='text'>
-              <p class='text-gray-800 leading-relaxed whitespace-pre-wrap'>{{this.content}}</p>
+              <p class='text-gray-800 leading-relaxed whitespace-pre-wrap'>{{tweetContent this.content this.link this.id}}</p>
             </div>
           </div>
           
