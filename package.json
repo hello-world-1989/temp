@@ -7,7 +7,8 @@
   "scripts": {
     "test": "NODE_ENV=test jest",
     "start:prod": "ts-node src/proxy.ts",
-    "start": "node src/proxy.js"
+    "start": "node src/proxy.js",
+    "build:css": "npx tailwindcss@3.4 -c tailwind.config.cjs -i tailwind.input.css -o public/temp/tailwind.css --minify && npx tailwindcss@3.4 -c tailwind.vpn.config.cjs -i tailwind.input.css -o public/temp/tailwind-vpn.css --minify"
   },
   "keywords": [
     "proxy"
