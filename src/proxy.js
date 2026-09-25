@@ -185,6 +185,55 @@ function isPortReachable(host, port, timeout = CONFIG.CONNECTION_TIMEOUT) {
   });
 }
 
+// Cache headers so Cloudflare can serve repeat downloads/images from its edge
+// instead of pulling them through this server (and from GitHub) every time.
+const CACHE = {
+  // GitHub release files: "latest" tags can be replaced, so keep edge TTL moderate
+  download: 'public, max-age=3600, s-maxage=21600',
+  // News images are never changed once published
+  image: 'public, max-age=86400, s-maxage=604800, immutable',
+};
+
+const MIME_BY_EXT = {
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  gif: 'image/gif',
+  webp: 'image/webp',
+  svg: 'image/svg+xml',
+  mp4: 'video/mp4',
+  pdf: 'application/pdf',
+  zip: 'application/zip',
+  apk: 'application/vnd.android.package-archive',
+};
+
+function mimeFromPath(filePath, fallback = 'application/octet-stream') {
+  const ext = path.extname(filePath || '').slice(1).toLowerCase();
+  return MIME_BY_EXT[ext] || fallback;
+}
+
+// Stream a GitHub release asset to the client with cacheable headers
+async function proxyReleaseAsset(url, res, fallbackType) {
+  const response = await makeRequest(url, { responseType: 'stream' });
+  const headers = {
+    'Content-Type':
+      response.headers['content-type'] &&
+      response.headers['content-type'] !== 'application/octet-stream'
+        ? response.headers['content-type']
+        : mimeFromPath(url, fallbackType),
+    'Cache-Control': CACHE.download,
+  };
+  if (response.headers['content-length']) {
+    headers['Content-Length'] = response.headers['content-length'];
+  }
+  res.writeHead(200, headers);
+  response.data.on('error', (err) => {
+    console.error('Release asset stream error:', err.message);
+    res.destroy(err);
+  });
+  response.data.pipe(res);
+}
+
 async function makeRequest(url, options = {}) {
   try {
     const response = await axios.get(url, {
@@ -231,12 +280,12 @@ app.get(
     const url = `https://github.com/hello-world-1989/whyyoutouzhele/releases/download/${rawPath}`;
 
     try {
-      const response = await makeRequest(url, { responseType: 'stream' });
-      res.setHeader('Content-Type', 'application/zip');
-      response.data.pipe(res);
+      await proxyReleaseAsset(url, res, 'application/zip');
     } catch (error) {
       console.error('PDF download error:', error.message);
-      res.status(500).send('Download failed');
+      if (!res.headersSent) {
+        res.set('Cache-Control', 'no-store').status(500).send('Download failed');
+      }
     }
   })
 );
@@ -248,11 +297,12 @@ app.get(
     const url = `https://github.com/hello-world-1989/temp/releases/download/${rawPath}`;
 
     try {
-      const response = await makeRequest(url, { responseType: 'stream' });
-      response.data.pipe(res);
+      await proxyReleaseAsset(url, res);
     } catch (error) {
       console.error('App download error:', error.message);
-      res.status(500).send('Download failed');
+      if (!res.headersSent) {
+        res.set('Cache-Control', 'no-store').status(500).send('Download failed');
+      }
     }
   })
 );
@@ -885,11 +935,14 @@ app.get(
       }
 
       const decodedBuffer = Buffer.from(base64String, 'base64');
-      res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+      res.writeHead(200, {
+        'Content-Type': mimeFromPath(rawPath, 'image/jpeg'),
+        'Cache-Control': CACHE.image,
+      });
       res.end(decodedBuffer);
     } catch (error) {
       console.error('Resource fetch error:', error.message);
-      res.status(500).send('Failed to fetch resource');
+      res.set('Cache-Control', 'no-store').status(500).send('Failed to fetch resource');
     }
   })
 );
@@ -903,11 +956,14 @@ app.get(
       const url = `https://raw.githubusercontent.com/hello-world-1989/resource/main/${rawPath}`;
       const response = await makeRequest(url, { responseType: 'arraybuffer' });
 
-      res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+      res.writeHead(200, {
+        'Content-Type': mimeFromPath(rawPath, 'image/jpeg'),
+        'Cache-Control': CACHE.image,
+      });
       res.end(Buffer.from(response.data, 'binary'));
     } catch (error) {
       console.error('News resource fetch error:', error.message);
-      res.status(500).send('Failed to fetch news resource');
+      res.set('Cache-Control', 'no-store').status(500).send('Failed to fetch news resource');
     }
   })
 );
