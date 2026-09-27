@@ -163,6 +163,7 @@
 
       if (
         currentDomain === 'end-gfw.com' ||
+        currentDomain.endsWith('.end-gfw.com') ||
         currentDomain === 'vpn.ban-gfw.com'
       ) {
         const script = document.createElement('script');

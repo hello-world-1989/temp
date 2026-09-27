@@ -249,6 +249,7 @@
       // Check the domain and conditionally add the script
       if (
         currentDomain === 'end-gfw.com' ||
+        currentDomain.endsWith('.end-gfw.com') ||
         currentDomain === 'vpn.ban-gfw.com'
       ) {
         // Use requestIdleCallback for better performance
