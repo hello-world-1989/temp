@@ -12,6 +12,16 @@ workers_dev = false
 pattern = "v1.end-gfw.com"
 custom_domain = true
 
+# end-gfw.com itself (2026-09-27). Takes over from the Cloudflare Tunnel without
+# touching DNS; delete these two routes and deploy to send traffic back (rollback).
+[[routes]]
+pattern = "end-gfw.com/*"
+zone_name = "end-gfw.com"
+
+[[routes]]
+pattern = "www.end-gfw.com/*"
+zone_name = "end-gfw.com"
+
 [vars]
 # Lambda end-gfw-legacy-api: the routes that need secrets or MongoDB
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
