@@ -30,4 +30,15 @@
     document.body.appendChild(f);
   }
   signalGooglefcPresent();
+
+  // Manual display units (partials/ad.html). Inline scripts are blocked by the CSP,
+  // so each unit is requested here instead of with the usual inline push.
+  function fillUnits() {
+    var units = document.querySelectorAll('ins.adsbygoogle[data-ad-slot]:not([data-adsbygoogle-status])');
+    for (var i = 0; i < units.length; i++) {
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fillUnits);
+  else fillUnits();
 })();

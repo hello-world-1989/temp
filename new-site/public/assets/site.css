@@ -272,3 +272,8 @@ p { margin: 0 0 1em; }
 .support > div:first-child { flex: 1 1 420px; }
 .support h2 { margin: 6px 0 8px; }
 .support-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Manual AdSense unit; collapses when Google leaves it unfilled */
+.ad-section { padding: 12px 0; }
+.ad-unit { min-height: 0; }
+ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }

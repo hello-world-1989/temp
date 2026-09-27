@@ -6,6 +6,7 @@
 //   nav: plans
 //   -->
 // and may use {{> header}} / {{> footer}}; both are inserted automatically when absent.
+// {{> ad}} inserts the manual AdSense display unit (partials/ad.html).
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -42,7 +43,7 @@ for (const file of readdirSync(join(root, 'pages')).filter((f) => f.endsWith('.h
     head,
     `<body class="page-${file.replace('.html', '')}">`,
     body.includes('{{> header}}') ? '' : header,
-    body.replace('{{> header}}', header).replace('{{> footer}}', partial('footer')),
+    body.replace('{{> header}}', header).replace('{{> footer}}', partial('footer')).replaceAll('{{> ad}}', partial('ad')),
     body.includes('{{> footer}}') ? '' : partial('footer'),
     '</body>',
     '</html>',
