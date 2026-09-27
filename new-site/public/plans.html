@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>高速套餐 | 大翻墙运动</title>
+<meta name="description" content="20–50 Mbps 高速订阅，30 天一次性付款，不自动续费。VLESS REALITY、Hysteria2、Shadowsocks 全部节点。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b5cff">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/site.js"></script>
+<script type="module" src="/assets/plans.js"></script>
+</head>
+
+<body class="page-plans">
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/" aria-label="大翻墙运动 首页">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="3"/><path d="M3 13h26M3 19h26M11 7v6M21 13v6M11 19v6"/><path class="crack" d="M18 4l-3 9 4 3-3 12"/></svg>
+      <span>大翻墙运动</span>
+    </a>
+    <nav class="nav nav-desktop" aria-label="主导航">
+        <a href="/" data-nav="home">首页</a>
+        <a href="/download" data-nav="download">软件下载</a>
+        <a href="/plans" data-nav="plans" aria-current="page">高速套餐</a>
+        <a href="/my" data-nav="my">我的订阅</a>
+        <a href="/news" data-nav="news">新闻</a>
+        <a href="/tweets" data-nav="tweets">推文</a>
+        <a href="/faq" data-nav="faq">常见问题</a>
+    </nav>
+    <details class="menu">
+      <summary aria-label="菜单"><span></span><span></span><span></span></summary>
+      <nav class="nav nav-mobile" aria-label="主导航（手机）">
+        <a href="/" data-nav="home">首页</a>
+        <a href="/download" data-nav="download">软件下载</a>
+        <a href="/plans" data-nav="plans" aria-current="page">高速套餐</a>
+        <a href="/my" data-nav="my">我的订阅</a>
+        <a href="/news" data-nav="news">新闻</a>
+        <a href="/tweets" data-nav="tweets">推文</a>
+        <a href="/faq" data-nav="faq">常见问题</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">高速套餐</span>
+    <h1>稳定、快速、一个链接全设备可用</h1>
+    <p>每个套餐包含全部节点和协议，区别只在速度。一次性付款 30 天，不会自动扣费；到期前再买会在原到期时间上顺延。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div id="plans" class="grid grid-4">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="buy">
+  <div class="wrap grid grid-2">
+    <form id="buy-form" class="card feature" novalidate>
+      <h2>开通或续费</h2>
+      <div class="field mt">
+        <label for="plan">套餐</label>
+        <select id="plan" class="input" required></select>
+      </div>
+      <div class="field mt">
+        <label for="mode">我是</label>
+        <div class="row" role="radiogroup" id="mode">
+          <label class="btn btn-ghost btn-sm"><input type="radio" name="mode" value="new" checked> 第一次购买</label>
+          <label class="btn btn-ghost btn-sm"><input type="radio" name="mode" value="renew"> 续费已有订阅</label>
+        </div>
+      </div>
+      <div class="field mt" id="email-field">
+        <label for="email">邮箱（可选）</label>
+        <input id="email" class="input" type="email" autocomplete="email" placeholder="用于接收订阅链接；不填则在付款页填写">
+      </div>
+      <div class="field mt hidden" id="token-field">
+        <label for="token">订阅 token</label>
+        <input id="token" class="input" autocomplete="off" placeholder="订阅链接里 token= 后面的那一串">
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="pay">前往付款</button>
+      <p class="notice mt" id="buy-msg" role="alert"></p>
+      <p class="muted mt">付款由 Stripe 处理，可用银行卡等方式（以付款页显示为准）。付款完成后页面直接显示你的订阅链接，同时发送到邮箱。</p>
+    </form>
+
+    <div class="card feature">
+      <h2>付款之后</h2>
+      <ol class="steps mt">
+        <li><div><b>保存订阅链接</b><br><span class="muted">付款成功页会显示主链接和备用链接，也会发到你的邮箱。</span></div></li>
+        <li><div><b>导入客户端</b><br><span class="muted">在 <a href="/download">软件下载</a> 选择适合你设备的客户端，粘贴订阅链接即可。</span></div></li>
+        <li><div><b>随时查看</b><br><span class="muted">在 <a href="/my">我的订阅</a> 用 token 查看到期时间、流量和链接。</span></div></li>
+      </ol>
+      <h3 class="mt-lg">续费规则</h3>
+      <ul class="muted">
+        <li>到期前续费：在原到期时间基础上加 30 天。</li>
+        <li>到期前买了更低的套餐：保持原来较高的速度。</li>
+        <li>主域名被封时，老订阅请使用备用链接，或到“我的订阅”重新获取。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">大翻墙运动</p>
+      <p class="muted">免费翻墙软件、实时新闻，以及稳定的高速订阅。墙倒众人推。</p>
+    </div>
+    <div>
+      <p class="footer-title">常用</p>
+      <a href="/download">软件下载</a>
+      <a href="/plans">高速套餐</a>
+      <a href="/my">我的订阅 / 签到</a>
+      <a href="/faq">常见问题</a>
+    </div>
+    <div>
+      <p class="footer-title">更多内容</p>
+      <a href="https://end-gfw.com/why.html">为什么要翻墙</a>
+      <a href="https://end-gfw.com/events.html">重要事件时间线</a>
+      <a href="https://end-gfw.com/qa.html">完整版常见问题</a>
+      <a href="https://www.youtube.com/@end_gfw/streams" rel="noopener">YouTube 直播</a>
+    </div>
+    <div>
+      <p class="footer-title">支持我们</p>
+      <a href="https://buy.stripe.com/4gM6oH2f27Qdgtv59BaVa01" rel="noopener">捐赠</a>
+      <a href="https://end-gfw.com/">旧版网站</a>
+      <a href="/privacy">隐私政策</a>
+    </div>
+  </div>
+  <div class="wrap footer-note muted">本站不记录访问日志。付款由 Stripe 处理，本站看不到你的卡号。</div>
+</footer>
+
+</body>
+</html>

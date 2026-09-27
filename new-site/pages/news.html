@@ -1,0 +1,29 @@
+<!--
+title: 新闻
+description: BBC、德国之声、自由亚洲电台、法广、美国之音中文新闻每日汇总。
+nav: news
+script: news.js
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">每日新闻</span>
+    <h1>新闻汇总</h1>
+    <p>每天汇总 BBC、德国之声、自由亚洲电台、法广、美国之音的中文新闻，本站直接打开，不需要翻墙。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="pager">
+        <button class="btn btn-ghost btn-sm" id="prev" type="button">← 前一天</button>
+        <input class="input input-sm" type="date" id="date">
+        <button class="btn btn-ghost btn-sm" id="next" type="button">后一天 →</button>
+      </div>
+      <div class="tabs tabs-inline" id="sources" role="tablist" aria-label="按来源筛选"></div>
+    </div>
+    <div id="feed" class="feed">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+  </div>
+</section>

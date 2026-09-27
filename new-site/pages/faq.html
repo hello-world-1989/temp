@@ -1,0 +1,83 @@
+<!--
+title: 常见问题
+description: 订阅怎么导入、付款与续费、节点被封怎么办、各客户端使用方法。
+nav: faq
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">常见问题</span>
+    <h1>常见问题</h1>
+    <p>下面是订阅和客户端最常见的问题。免费软件的详细教程见 <a href="https://end-gfw.com/qa.html">完整版常见问题</a>。</p>
+  </div>
+</section>
+
+<section class="section-tight faq">
+  <div class="wrap">
+    <h2>订阅与付款</h2>
+    <details class="card" id="what">
+      <summary>高速订阅和免费软件有什么区别？</summary>
+      <div>免费软件由第三方提供，速度和稳定性不固定。高速订阅是我们自己的节点，支持 VLESS REALITY、Hysteria2 和 Shadowsocks，按套餐限速，节点被封会自动换 IP。一个订阅链接可以同时在手机和电脑上使用。</div>
+    </details>
+    <details class="card" id="pay">
+      <summary>怎么付款？会自动扣费吗？</summary>
+      <div>在 <a href="/plans">高速套餐</a> 选择速度后跳转到 Stripe 付款页，可用银行卡等方式付款（以付款页显示为准）。每次付款 30 天，<b>不会自动续费</b>。本站看不到你的卡号。</div>
+    </details>
+    <details class="card" id="token">
+      <summary>订阅 token 是什么？丢了怎么办？</summary>
+      <div>订阅链接里 <code>token=</code> 后面的那一串就是 token，等同于你的账号，请不要分享给别人。付款成功页和邮件里都有完整的订阅链接；在 <a href="/my">我的订阅</a> 粘贴链接或 token 就能查看。如果都找不到了，请用付款时的邮箱联系我们。</div>
+    </details>
+    <details class="card" id="renew">
+      <summary>怎么续费？提前续费会不会浪费？</summary>
+      <div>在 <a href="/my">我的订阅</a> 点“续费 / 升级”，或在套餐页选择“续费已有订阅”并填 token。到期前续费会在原到期时间上加 30 天，不会浪费；到期前买了更低的套餐会保持原来较高的速度。</div>
+    </details>
+    <details class="card" id="checkin">
+      <summary>“签到”是做什么的？</summary>
+      <div>签到可以把快到期的订阅延长几天（最多延长到签到之日起 4 天）。付费用户剩余时间充足时签到不会改变到期时间。</div>
+    </details>
+    <details class="card" id="blocked">
+      <summary>连不上了 / 订阅更新失败怎么办？</summary>
+      <div>
+        <p>1. 先在客户端里“更新订阅”，节点换 IP 后需要更新才能拿到新地址。</p>
+        <p>2. 订阅本身打不开时，用 <a href="/my">我的订阅</a> 里的“备用链接”重新导入。</p>
+        <p>3. 换一种协议试试：Hysteria2 在丢包多的网络更快，VLESS REALITY 更不容易被识别。</p>
+        <p>4. 仍然不行，请用付款邮箱联系我们，附上 token 和客户端名称。</p>
+      </div>
+    </details>
+
+    <h2 class="mt-lg">客户端导入订阅</h2>
+    <details class="card" id="hiddify">
+      <summary>Hiddify（Android / iOS / Windows / Mac）</summary>
+      <div><ol class="steps mt"><li>复制“V2Ray / Hiddify”订阅链接。</li><li>打开 Hiddify，点右上角“+”（新建配置）。</li><li>选择“从剪贴板添加”，然后点中间的连接按钮。</li><li>切换节点：在“代理”页选择；以后点“更新”即可刷新节点。</li></ol></div>
+    </details>
+    <details class="card" id="v2ray">
+      <summary>v2rayN（Windows）/ v2rayNG（Android）</summary>
+      <div><ol class="steps mt"><li>复制“V2Ray”订阅链接。</li><li>v2rayN：订阅分组 → 订阅分组设置 → 添加，粘贴链接后确定；v2rayNG：右上角菜单 → 订阅分组设置 → “+”，粘贴链接后保存。</li><li>回到主界面选择“更新订阅”，选一个节点后开启代理。</li></ol></div>
+    </details>
+    <details class="card" id="clash">
+      <summary>Clash Verge / Clash Meta（Windows / Mac / Linux）</summary>
+      <div><ol class="steps mt"><li>复制“Clash”订阅链接（注意不是 V2Ray 链接）。</li><li>打开“订阅”页，粘贴链接后点“导入”。</li><li>选中这个订阅，在“代理”页选择节点，打开“系统代理”。</li></ol></div>
+    </details>
+    <details class="card" id="karing">
+      <summary>Karing（Android / iOS / Windows / Mac）</summary>
+      <div><ol class="steps mt"><li>复制“V2Ray”订阅链接。</li><li>打开 Karing：我的配置 → “+” → 添加配置链接，粘贴后保存。</li><li>回到首页点连接。</li></ol></div>
+    </details>
+    <details class="card" id="shadowrocket">
+      <summary>Shadowrocket（iPhone / iPad）</summary>
+      <div><ol class="steps mt"><li>需要非中国大陆区的 Apple ID 才能下载，见 <a href="/download#ios">软件下载</a>。</li><li>复制“V2Ray”订阅链接，打开 Shadowrocket 通常会自动识别并提示添加；没有提示就点右上角“+”，类型选 Subscribe，粘贴链接。</li><li>选择节点后打开顶部开关。</li></ol></div>
+    </details>
+    <details class="card" id="outline">
+      <summary>Outline（所有平台）</summary>
+      <div><ol class="steps mt"><li>复制“Outline”链接（以 <code>ssconf://</code> 开头）。</li><li>打开 Outline，点“+”添加服务器，粘贴访问密钥。</li><li>Outline 会自动跟随节点换 IP，不需要手动更新。</li></ol></div>
+    </details>
+
+    <h2 class="mt-lg">安全</h2>
+    <details class="card" id="privacy">
+      <summary>你们会记录我访问了什么吗？</summary>
+      <div>网站不保存访问日志。节点只按用户统计流量总量，用于限速和套餐管理，不记录你访问的网站。付款信息由 Stripe 处理。详见 <a href="/privacy">隐私政策</a>。</div>
+    </details>
+    <details class="card" id="email">
+      <summary>用国内邮箱安全吗？</summary>
+      <div>国内邮箱可能被监控，建议使用 Gmail、Outlook、Proton 等海外邮箱接收订阅链接。</div>
+    </details>
+  </div>
+</section>
