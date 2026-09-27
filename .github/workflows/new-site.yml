@@ -1,12 +1,12 @@
 name: new-site
 
-# Deploys new-site/ (new.end-gfw.com) to Cloudflare Workers.
+# Deploys new-site/ (v2.end-gfw.com) to Cloudflare Workers.
 # Needs repository secrets CLOUDFLARE_API_TOKEN (Workers Scripts: Edit, plus
 # Workers Routes / DNS edit on the end-gfw.com zone) and CLOUDFLARE_ACCOUNT_ID.
 # Without them the job only builds and tests.
 on:
   push:
-    branches: [main]
+    branches: [v2]
     paths: ['new-site/**', '.github/workflows/new-site.yml']
   workflow_dispatch:
 

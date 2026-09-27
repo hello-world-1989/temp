@@ -1,4 +1,4 @@
-# new.end-gfw.com
+# v2.end-gfw.com
 
 Cloudflare Worker + static pages. No server, no secrets in the Worker.
 
@@ -13,13 +13,13 @@ Cloudflare Worker + static pages. No server, no secrets in the Worker.
 
     cd new-site && npm install && npm run deploy        # needs `wrangler login` or CLOUDFLARE_API_TOKEN
 
-or push to main with the `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repository
+or push to the `v2` branch with the `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repository
 secrets set (`.github/workflows/new-site.yml`). The end-gfw.com zone must be in the
-same Cloudflare account; `new.end-gfw.com` is attached as a Worker custom domain.
+same Cloudflare account; `v2.end-gfw.com` is attached as a Worker custom domain.
 
 ## xrayr-next side
 
-- `SITE_ORIGINS=https://new.end-gfw.com` lets checkout return buyers to this site
+- `SITE_ORIGINS=https://v2.end-gfw.com` lets checkout return buyers to this site
 - once live, `SITE_URL` / `PAY_CANCEL_URL` can point here
 
 ## Local

@@ -1,4 +1,4 @@
-// new.end-gfw.com — Cloudflare Worker
+// v2.end-gfw.com — Cloudflare Worker
 // Static pages come from ./public (Workers Static Assets). This file serves the
 // dynamic parts:
 //   /api/plans, /api/user, /api/renew, /api/checkout  -> xrayr-next (subscription system)

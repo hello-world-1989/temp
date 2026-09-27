@@ -11,7 +11,7 @@ not_found_handling = "404-page"
 run_worker_first = ["/api/*", "/pay/*", "/download-app/*", "/download-pdf/*", "/news-resource/*"]
 
 [[routes]]
-pattern = "new.end-gfw.com"
+pattern = "v2.end-gfw.com"
 custom_domain = true
 
 [vars]
