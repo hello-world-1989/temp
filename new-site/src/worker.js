@@ -51,6 +51,13 @@ async function route(request, url, env, ctx) {
     if (!isToken(token)) return json({ error: '订阅 token 格式不正确' }, 400, 'no-store');
     return noStore(await xn(env, `/plan/renew?${qs({ token })}`));
   }
+  // Google site verification (same files as the old site; answered here because
+  // the asset server redirects *.html to clean URLs)
+  const verify = { '/google3265592cabe77d27.html': 'google3265592cabe77d27.html', '/googlebe5a4faac22676fb.html': 'googlebe5a4faac22676fb.html' }[p];
+  if (verify) {
+    return new Response(`google-site-verification: ${verify}`, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+  }
+
   // --- check-in (签到). ID: new-system tokens first, unknown ones go to the previous
   // system (same order as the old site). Email: keeps the address on the mail list
   // that the auto-reply answers. Both extend to at most 4 days from today.
