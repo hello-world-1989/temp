@@ -27,7 +27,7 @@ export async function getAppleId() {
       'sec-fetch-user': '?1',
       'Cache-Control': 'max-age=0',
       'Cookie': 'last_visited_page=404.html',
-      ':authority': 'idshare001.me',
+      // (no ':authority': HTTP/2 pseudo-headers are invalid here and made every request throw)
     },
   };
 
@@ -47,13 +47,12 @@ export async function getAppleId() {
 
     const resData = res.data;
 
-    console.log('resData: ', resData);
     //   const passwordRegex = /密码：(.*?)</;
     let username = resData?.[0]?.username;
     let password = resData?.[0]?.password;
     let expireDate = resData?.[0]?.time;
 
-    console.log('Success:', username, password, expireDate);
+    console.log('Apple ID fetched:', username, password ? 'password ok' : 'no password', expireDate);
 
     return [username, password, expireDate];
     //   console.log('Success:', htmlString);
@@ -68,9 +67,6 @@ export async function getAppleId() {
       console.error('Target URL:', APPLE_ID_URL);
     } else if (error.response) {
       console.error(`HTTP ${error.response.status}: ${error.response.statusText}`);
-      if (error.response.data) {
-        console.error('Response data:', error.response.data);
-      }
     } else if (error.code === 'ECONNREFUSED') {
       console.error('Connection refused - server may be down or unreachable');
     } else if (error.code === 'ENOTFOUND') {

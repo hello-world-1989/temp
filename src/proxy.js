@@ -2,6 +2,7 @@ import axios from 'axios';
 import express from 'express';
 import * as path from 'path';
 import * as net from 'net';
+import crypto from 'crypto';
 import { create } from 'express-handlebars';
 import url from 'url';
 import { fileURLToPath } from 'url';
@@ -254,6 +255,45 @@ async function makeRequest(url, options = {}) {
   }
 }
 
+// Paths and query values below are spliced into GitHub URLs, some sent with our
+// token. Reject ".." segments so a request cannot walk into other repos.
+function isSafeSubPath(p) {
+  return (
+    typeof p === 'string' &&
+    p.length > 0 &&
+    p.length < 512 &&
+    !/[\\\u0000-\u001f]/.test(p) &&
+    !p.split('/').some((seg) => seg === '..' || seg === '.')
+  );
+}
+
+const DATE_RE = { year: /^\d{4}$/, part: /^\d{1,2}$/ };
+const NAME_RE = /^[\w.-]{1,80}$/;
+
+// year required; month/day/endDay optional; names (id, sourceId) as plain file names
+function validTweetQuery({ year, month, day, endDay }, names = []) {
+  if (!DATE_RE.year.test(year ?? '')) return false;
+  for (const v of [month, day, endDay]) {
+    if (v !== undefined && v !== '' && v !== 'undefined' && !DATE_RE.part.test(v)) return false;
+  }
+  return names.every((n) => NAME_RE.test(n ?? '') && n !== '.' && n !== '..');
+}
+
+// Query string for forwarding a request to the master node
+const qs = (obj) =>
+  Object.entries(obj)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v ?? '')}`)
+    .join('&');
+
+// Token-protected API: refuses everything when the token is not configured
+function hasApiToken(token) {
+  const expected = process.env.VIDEO_PROCESS_TOKEN;
+  if (!expected || typeof token !== 'string') return false;
+  const a = Buffer.from(token);
+  const b = Buffer.from(expected);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
 async function ipCheck(ipAddress, port) {
   if (CONFIG.IS_DEV) return 'success';
 
@@ -284,6 +324,7 @@ app.get(
   '/download-pdf/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
+    if (!isSafeSubPath(rawPath)) return res.status(400).send('Bad path');
     const url = `https://github.com/hello-world-1989/whyyoutouzhele/releases/download/${rawPath}`;
 
     try {
@@ -301,6 +342,7 @@ app.get(
   '/download-app/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
+    if (!isSafeSubPath(rawPath)) return res.status(400).send('Bad path');
     const url = `https://github.com/hello-world-1989/temp/releases/download/${rawPath}`;
 
     try {
@@ -358,12 +400,12 @@ app.get(
   asyncHandler(async (req, res) => {
     const { year, month, day, endDay, id } = req.query;
 
-    if (!year || !id) {
+    if (!year || !id || !validTweetQuery(req.query, [id])) {
       return res.render('tweet', { tweets: [] });
     }
 
     if (!CONFIG.MASTER_NODE) {
-      let url = `https://end-gfw.com/tweet-page?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=${id}`;
+      let url = `https://end-gfw.com/tweet-page?${qs({ year, month, day, endDay, id })}`;
       const response = await makeRequest(url);
 
       res.send(response.data);
@@ -430,7 +472,7 @@ app.get(
     }
 
     if (!CONFIG.MASTER_NODE) {
-      let url = `https://end-gfw.com/search-tweet-page?keyword=${keyword}`;
+      let url = `https://end-gfw.com/search-tweet-page?${qs({ keyword })}`;
       const response = await makeRequest(url);
 
       res.send(response.data);
@@ -477,7 +519,7 @@ app.get(
   asyncHandler(async (req, res) => {
     const { year, month, day, sourceId, newsId } = req.query;
 
-    if (!year || !month || !day || !sourceId || !newsId) {
+    if (!year || !month || !day || !sourceId || !newsId || !validTweetQuery(req.query, [sourceId])) {
       return res.render('news', { news: [] });
     }
 
@@ -694,8 +736,10 @@ app.get(
     try {
       let account;
 
-      if (AppState.appleAccount.has('appleId')) {
-        account = AppState.appleAccount.get('appleId');
+      // Cached for an hour; the shared account's password changes regularly
+      const cached = AppState.appleAccount.get('appleId');
+      if (cached && Date.now() - cached.fetchedAt < 3600 * 1000) {
+        account = cached.account;
       } else {
         const [username, password, expireDate] = await getAppleId();
         account = {
@@ -703,7 +747,7 @@ app.get(
           password,
           expireDate,
         };
-        AppState.appleAccount.set('appleId', account);
+        if (password) AppState.appleAccount.set('appleId', { account, fetchedAt: Date.now() });
       }
 
       res.json(account);
@@ -720,7 +764,7 @@ app.get(
   asyncHandler(async (req, res) => {
     const { year, month, day } = req.query;
 
-    if (!year || !month || !day) {
+    if (!year || !month || !day || !validTweetQuery(req.query)) {
       return res.send([]);
     }
 
@@ -763,6 +807,9 @@ app.get(
     if (!year || !id) {
       return res.send({ error: 'Missing required parameters: year, id' });
     }
+    if (!validTweetQuery(req.query, [id])) {
+      return res.status(400).send({ error: 'Invalid parameters' });
+    }
 
     try {
       let url = `https://api.github.com/repos/hello-world-1989/json/contents/tweet/${year}`;
@@ -770,14 +817,16 @@ app.get(
       if (day) url += `/${day}`;
       url += `/${id}.json`;
 
-      let urlHost = `https://end-gfw.com/tweet?year=${year}&month=${month}&day=${day}&endDay=${endDay}&id=${id}`;
+      let urlHost = `https://end-gfw.com/tweet?${qs({ year, month, day, endDay, id })}`;
 
       let result = [];
 
       try {
-        const response = await makeRequest(CONFIG.MASTER_NODE ? url : urlHost, {
-          headers: { Authorization: `token ${CONFIG.GITHUB_TOKEN}` },
-        });
+        // The token only goes to GitHub, never to the master node
+        const response = await makeRequest(
+          CONFIG.MASTER_NODE ? url : urlHost,
+          CONFIG.MASTER_NODE ? { headers: { Authorization: `token ${CONFIG.GITHUB_TOKEN}` } } : {}
+        );
 
         if (!CONFIG.MASTER_NODE) {
           result = response?.data;
@@ -880,9 +929,7 @@ app.get(
       )}`;
       const response = await makeRequest(
         CONFIG.MASTER_NODE ? searchUrl : searchUrlHost,
-        {
-          headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` },
-        }
+        CONFIG.MASTER_NODE ? { headers: { Authorization: `Bearer ${CONFIG.GITHUB_TOKEN}` } } : {}
       );
 
       if (CONFIG.MASTER_NODE) {
@@ -928,6 +975,7 @@ app.get(
   '/resource/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
+    if (!isSafeSubPath(rawPath)) return res.status(400).send('Bad path');
 
     try {
       const url = `https://api.github.com/repos/hello-world-1989/resource/contents/${rawPath}`;
@@ -958,6 +1006,7 @@ app.get(
   '/news-resource/*',
   asyncHandler(async (req, res) => {
     const rawPath = req.params[0];
+    if (!isSafeSubPath(rawPath)) return res.status(400).send('Bad path');
 
     try {
       const url = `https://raw.githubusercontent.com/hello-world-1989/resource/main/${rawPath}`;
@@ -1034,6 +1083,15 @@ app.get(
       return res.send({ error: 'Missing required parameters: ip, port' });
     }
 
+    // Registered hosts are handed to visitors as mirrors (/host), so only accept a
+    // node registering its own address: through Cloudflare the caller's IP is in
+    // CF-Connecting-IP. Without this anyone could list their own server as a mirror.
+    const callerIp = req.headers['cf-connecting-ip'];
+    if (!net.isIPv4(ip) || !/^\d{1,5}$/.test(String(port)) || (callerIp && callerIp !== ip)) {
+      console.log(`Rejected node registration ip=${ip} port=${port} caller=${callerIp}`);
+      return res.status(403).send({ error: 'Forbidden' });
+    }
+
     try {
       await saveMirrorInMemory(ip, port, 0, false);
       res.send({ ip, port });
@@ -1067,7 +1125,7 @@ app.get(
           if (err?.response?.status !== 404 || !CONFIG.RENEW_PLAN_URL) throw err;
         }
       }
-      if (!renewed) await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
+      if (!renewed) await makeRequest(`${CONFIG.RENEW_PLAN_URL}?${qs({ token })}`);
       res.send({ renewed: true });
     } catch (error) {
       console.error('Renew plan error:', error.message);
@@ -1273,9 +1331,10 @@ async function report() {
       throw new Error('IPv6 is not supported');
     }
 
-    await makeRequest(
-      `https://end-gfw.com/node?ip=${ip}&port=${CONFIG.NODE_PORT}`
-    );
+    // IPv4 so the address Cloudflare sees matches the one reported
+    await makeRequest(`https://end-gfw.com/node?${qs({ ip, port: CONFIG.NODE_PORT })}`, {
+      family: 4,
+    });
 
     if (!JSON.stringify(AppState.endGFWHosts).includes(ip)) {
       const item = { ip, port: CONFIG.NODE_PORT };
@@ -1393,7 +1452,7 @@ app.post('/api/add-url', async (req, res) => {
     const { url } = req.body;
     const { token } = req.query;
 
-    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+    if (!hasApiToken(token)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
@@ -1434,7 +1493,7 @@ app.post('/api/add-url', async (req, res) => {
 app.get('/api/urls', async (req, res) => {
   try {
     const { token } = req.query;
-    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+    if (!hasApiToken(token)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
@@ -1457,7 +1516,7 @@ app.get('/api/urls', async (req, res) => {
 app.get('/api/unprocessed-urls', async (req, res) => {
   try {
     const { token } = req.query;
-    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+    if (!hasApiToken(token)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
@@ -1481,7 +1540,7 @@ app.get('/api/process-url/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { token } = req.query;
-    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+    if (!hasApiToken(token)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
@@ -1532,7 +1591,7 @@ app.delete('/api/delete-url/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { token } = req.query;
-    if (token !== process.env.VIDEO_PROCESS_TOKEN) {
+    if (!hasApiToken(token)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
@@ -1573,8 +1632,10 @@ app.use((req, res) => {
   APIResponse.sendError(res, 'Endpoint not found', 'Not Found', 404);
 });
 
-report();
-setInterval(report, 600000); // 10 minutes
+// report() rethrows; without a catch a failed report was an unhandled rejection
+const reportSafely = () => report().catch(() => {});
+reportSafely();
+setInterval(reportSafely, 600000); // 10 minutes
 
 // Periodic tasks
 if (!CONFIG.IS_DEV) {
