@@ -29,6 +29,13 @@ const CONFIG = {
   SUB_URL1: process.env.SUB_URL1,
   SUB_URL2: process.env.SUB_URL2,
   RENEW_PLAN_URL: process.env.RENEW_PLAN_URL,
+  // xrayr-next (new node system). Unset = previous behaviour only.
+  // XN_RENEW_PLAN_URL: e.g. https://<subscription domain>/renew-plan, tried before RENEW_PLAN_URL
+  XN_RENEW_PLAN_URL: process.env.XN_RENEW_PLAN_URL,
+  // XN_API + XN_BUY_SECRET: the email check-in also extends the address's xrayr-next free user
+  XN_API: (process.env.XN_API ?? '').replace(/\/+$/, ''),
+  XN_BUY_SECRET: process.env.XN_BUY_SECRET,
+  XN_FREE_DAYS: Number(process.env.XN_FREE_DAYS ?? 4),
   IS_DEV:
     process.env.NODE_ENV?.includes('dev') ||
     process.env.NODE_ENV !== 'production',
@@ -1050,7 +1057,17 @@ app.get(
       //     : `https://end-gfw.com/renew-plan?token=${token}`
       // );
 
-      await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
+      // New-system tokens first; tokens it does not know (404) go to the previous system
+      let renewed = false;
+      if (CONFIG.XN_RENEW_PLAN_URL) {
+        try {
+          await axios.get(CONFIG.XN_RENEW_PLAN_URL, { params: { token }, timeout: 10000 });
+          renewed = true;
+        } catch (err) {
+          if (err?.response?.status !== 404 || !CONFIG.RENEW_PLAN_URL) throw err;
+        }
+      }
+      if (!renewed) await makeRequest(`${CONFIG.RENEW_PLAN_URL}?token=${token}`);
       res.send({ renewed: true });
     } catch (error) {
       console.error('Renew plan error:', error.message);
@@ -1076,6 +1093,18 @@ app.get(
 
       if (result.matchedCount === 0) {
         return res.send({ renewed: false, error: 'Email not found' });
+      }
+
+      // Keep the address's xrayr-next access in step with the check-in (best effort)
+      if (CONFIG.XN_API && CONFIG.XN_BUY_SECRET) {
+        try {
+          await axios.get(`${CONFIG.XN_API}/plan/free`, {
+            params: { email, days: CONFIG.XN_FREE_DAYS, secret: CONFIG.XN_BUY_SECRET },
+            timeout: 10000,
+          });
+        } catch (err) {
+          console.error('xrayr-next check-in error:', err?.response?.status ?? err.message);
+        }
       }
 
       res.send({ renewed: true, expiryDate: expiryDate.toISOString() });
