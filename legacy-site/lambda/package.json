@@ -1,0 +1,11 @@
+{
+  "name": "end-gfw-legacy-api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mongodb": "^7.0.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-ssm": "^3.1141.0"
+  }
+}

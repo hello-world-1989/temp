@@ -1,0 +1,17 @@
+{
+  "name": "end-gfw-legacy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-templates.mjs",
+    "test": "node scripts/build-templates.mjs && node --test test/*.test.mjs",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "wrangler": "^4.40.0"
+  }
+}

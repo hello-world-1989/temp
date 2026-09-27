@@ -1,0 +1,29 @@
+name = "end-gfw-legacy"
+main = "src/worker.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+
+# Old end-gfw.com without a server. Static pages are read from the temp repo's
+# main branch (public/temp) at request time, so edits to main go live without a
+# deploy, like the old container's git pull. Test domain first; end-gfw.com is
+# switched over by adding a route (see README.md).
+[[routes]]
+pattern = "v1.end-gfw.com"
+custom_domain = true
+
+[vars]
+# Lambda end-gfw-legacy-api: the routes that need secrets or MongoDB
+LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
+
+# Mirror servers registered through /node (was in the server's memory)
+[[kv_namespaces]]
+binding = "MIRRORS"
+id = "f0d9869496634b4782c5a60572b7797d"
+
+# Hourly mirror check (was a setInterval in the server)
+[triggers]
+crons = ["0 * * * *"]
+
+[observability]
+enabled = false

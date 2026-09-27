@@ -1,0 +1,33 @@
+name: legacy-site
+
+# Deploys legacy-site/ (old end-gfw.com as a Cloudflare Worker) from the v1 branch.
+# Static pages are read from main at request time, so edits on main need no deploy;
+# only Worker code or src/views changes do.
+on:
+  push:
+    branches: [v1]
+    paths: ['legacy-site/**', 'src/views/**', '.github/workflows/legacy-site.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: legacy-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN not set, skipping deploy"; exit 0; fi
+          npx wrangler deploy
