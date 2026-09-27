@@ -24,7 +24,7 @@
     <nav class="nav nav-desktop" aria-label="主导航">
         <a href="/" data-nav="home">首页</a>
         <a href="/download" data-nav="download">软件下载</a>
-        <a href="/plans" data-nav="plans">高速套餐</a>
+        <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/tweets" data-nav="tweets">推文</a>
@@ -35,7 +35,7 @@
       <nav class="nav nav-mobile" aria-label="主导航（手机）">
         <a href="/" data-nav="home">首页</a>
         <a href="/download" data-nav="download">软件下载</a>
-        <a href="/plans" data-nav="plans">高速套餐</a>
+        <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/tweets" data-nav="tweets">推文</a>
@@ -56,18 +56,22 @@
 
 <section class="section-tight faq">
   <div class="wrap">
-    <h2>订阅与付款</h2>
+    <h2>免费节点与赞助</h2>
+    <details class="card" id="free">
+      <summary>免费节点怎么用？</summary>
+      <div>在 <a href="/#free">首页</a> 复制免费订阅链接导入客户端，或复制单个 VLESS / ss:// 节点，也可以用客户端扫二维码。节点换 IP 后订阅会自动更新，在客户端里点“更新订阅”即可。免费节点多人共用，速度有限；每一份赞助都会用来增加更多免费节点。</div>
+    </details>
     <details class="card" id="what">
-      <summary>高速订阅和免费软件有什么区别？</summary>
-      <div>免费软件由第三方提供，速度和稳定性不固定。高速订阅是我们自己的节点，支持 VLESS REALITY、Hysteria2 和 Shadowsocks，按套餐限速，节点被封会自动换 IP。一个订阅链接可以同时在手机和电脑上使用。</div>
+      <summary>免费节点、赞助线路和免费软件有什么区别？</summary>
+      <div>免费软件由第三方提供，速度和稳定性不固定。免费节点和赞助线路都是我们自己的节点，免费节点多人共享带宽，赞助线路按赞助档位提供更高的速度，支持 VLESS REALITY、Hysteria2 和 Shadowsocks，节点被封会自动换 IP。一个订阅链接可以同时在手机和电脑上使用。</div>
     </details>
     <details class="card" id="pay">
       <summary>怎么付款？会自动扣费吗？</summary>
-      <div>在 <a href="/plans">高速套餐</a> 选择速度后跳转到 Stripe 付款页，可用银行卡等方式付款（以付款页显示为准）。每次付款 30 天，<b>不会自动续费</b>。本站看不到你的卡号。</div>
+      <div>在 <a href="/plans">赞助支持</a> 选择档位后跳转到 Stripe 付款页，可用银行卡等方式付款（以付款页显示为准）。每次付款 30 天，<b>不会自动续费</b>。本站看不到你的卡号。</div>
     </details>
     <details class="card" id="token">
       <summary>订阅 token 是什么？丢了怎么办？</summary>
-      <div>订阅链接里 <code>token=</code> 后面的那一串就是 token，等同于你的账号，请不要分享给别人。付款成功页和邮件里都有完整的订阅链接；在 <a href="/my">我的订阅</a> 粘贴链接或 token 就能查看。如果都找不到了，请用付款时的邮箱联系我们。</div>
+      <div>订阅链接里 <code>token=</code> 后面的那一串就是 token，等同于你的账号，请不要分享给别人。付款成功页和邮件里都有完整的订阅链接；在 <a href="/my">我的订阅</a> 粘贴链接或 token 就能查看。如果都找不到了，请用付款时的邮箱发邮件到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>。</div>
     </details>
     <details class="card" id="renew">
       <summary>怎么续费？提前续费会不会浪费？</summary>
@@ -83,7 +87,7 @@
         <p>1. 先在客户端里“更新订阅”，节点换 IP 后需要更新才能拿到新地址。</p>
         <p>2. 订阅本身打不开时，用 <a href="/my">我的订阅</a> 里的“备用链接”重新导入。</p>
         <p>3. 换一种协议试试：Hysteria2 在丢包多的网络更快，VLESS REALITY 更不容易被识别。</p>
-        <p>4. 仍然不行，请用付款邮箱联系我们，附上 token 和客户端名称。</p>
+        <p>4. 仍然不行，请发邮件到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>，附上 token（免费节点不用）和客户端名称。</p>
       </div>
     </details>
 
@@ -130,12 +134,13 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-brand">大翻墙运动</p>
-      <p class="muted">免费翻墙软件、实时新闻，以及稳定的高速订阅。墙倒众人推。</p>
+      <p class="muted">公益项目：免费翻墙节点、翻墙软件和每日新闻。墙倒众人推。</p>
     </div>
     <div>
       <p class="footer-title">常用</p>
       <a href="/download">软件下载</a>
-      <a href="/plans">高速套餐</a>
+      <a href="/#free">免费节点</a>
+      <a href="/plans">赞助支持</a>
       <a href="/my">我的订阅 / 签到</a>
       <a href="/faq">常见问题</a>
     </div>
@@ -151,6 +156,7 @@
       <a href="https://buy.stripe.com/4gM6oH2f27Qdgtv59BaVa01" rel="noopener">捐赠</a>
       <a href="https://end-gfw.com/">旧版网站</a>
       <a href="/privacy">隐私政策</a>
+      <a href="mailto:end.gfw@hotmail.com">联系：end.gfw@hotmail.com</a>
     </div>
   </div>
   <div class="wrap footer-note muted">本站不记录访问日志。付款由 Stripe 处理，本站看不到你的卡号。</div>

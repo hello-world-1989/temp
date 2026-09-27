@@ -4,6 +4,7 @@
 //   /api/plans, /api/user, /api/renew, /api/checkout  -> xrayr-next (subscription system)
 //   /pay/success, /pay/cancel                          -> xrayr-next pages after Stripe
 //   /api/apps, /api/news, /api/tweets                  -> public JSON on GitHub
+//   /api/free                                          -> free nodes (cn-news/end-gfw-free)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
 //
 // xrayr-next is reached through its public subscription domains (XN_BASES), the
@@ -71,6 +72,13 @@ async function route(request, url, env, ctx) {
   }
 
   // --- content from GitHub
+  if (p === '/api/free') {
+    return cached(request, ctx, 300, async () => {
+      const res = await fetch(`${GITHUB_RAW}/cn-news/main/end-gfw-free`);
+      if (!res.ok) return json({ error: '免费节点暂时无法加载' }, 502, 'no-store');
+      return json({ nodes: parseFreeNodes(await res.text()) }, 200, 'public, max-age=300');
+    });
+  }
   if (p === '/api/apps') {
     return cached(request, ctx, 1800, async () => {
       const res = await fetch(`${GITHUB_RAW}/temp/main/public/temp/vpn.json`);
@@ -112,6 +120,31 @@ async function route(request, url, env, ctx) {
 
   // --- everything else is a static page (404.html for unknown paths)
   return env.ASSETS.fetch(request);
+}
+
+// The free subscription is base64 of one share link per line; keep the
+// protocols the home page lists and give each a readable name
+const FREE_PROTOCOLS = { 'vless://': 'VLESS', 'ss://': 'Shadowsocks', 'hysteria2://': 'Hysteria2' };
+function parseFreeNodes(b64) {
+  let text = '';
+  try {
+    text = atob(b64.replace(/\s+/g, ''));
+  } catch {
+    return [];
+  }
+  const nodes = [];
+  for (const line of text.split(/\r?\n/)) {
+    const uri = line.trim();
+    const prefix = Object.keys(FREE_PROTOCOLS).find((k) => uri.startsWith(k));
+    if (!prefix || uri.length > 2048) continue;
+    const hash = uri.indexOf('#');
+    let name = '';
+    try {
+      name = hash >= 0 ? decodeURIComponent(uri.slice(hash + 1)) : '';
+    } catch {}
+    nodes.push({ protocol: FREE_PROTOCOLS[prefix], name: name.slice(0, 80), uri });
+  }
+  return nodes;
 }
 
 const FILES = [
@@ -236,4 +269,4 @@ const qs = (obj) =>
     .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
     .join('&');
 
-export { isSafeSubPath, isToken };
+export { parseFreeNodes, isSafeSubPath, isToken };

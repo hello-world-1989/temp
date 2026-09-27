@@ -1,14 +1,42 @@
 import { $, api, esc, ymd, addDays } from './site.js';
-import { planCard } from './plans-common.js';
+import qrcode from './vendor/qrcode.js';
 
-async function loadPlans() {
-  const box = $('#plans');
-  try {
-    const plans = await api('/api/plans');
-    box.innerHTML = plans.map((p, i) => planCard(p, { featured: i === 1, compact: true })).join('');
-  } catch {
-    box.innerHTML = `<div class="notice warn">套餐信息暂时无法加载，请稍后刷新，或直接前往 <a href="/plans">高速套餐</a>。</div>`;
+// SVG QR code for a link; type 0 picks the smallest size that fits
+function qrSvg(text) {
+  const qr = qrcode(0, 'M');
+  qr.addData(text);
+  qr.make();
+  return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+}
+
+function renderQrs(root = document) {
+  for (const el of root.querySelectorAll('[data-qr]')) {
+    if (!el.firstChild) el.innerHTML = qrSvg(el.getAttribute('data-qr'));
   }
+}
+
+// Free VLESS / Shadowsocks nodes from the published free subscription
+async function loadFreeNodes() {
+  const box = $('#free-nodes');
+  let nodes = [];
+  try {
+    nodes = (await api('/api/free')).nodes.filter((n) => n.protocol === 'VLESS' || n.protocol === 'Shadowsocks');
+  } catch {}
+  if (!nodes.length) {
+    box.innerHTML = '<div class="notice warn">免费节点暂时无法加载，请稍后刷新，或使用上面的订阅链接。</div>';
+    return;
+  }
+  box.innerHTML = nodes
+    .map(
+      (n) => `<article class="card feature node-card">
+        <div class="item-meta"><span class="badge soft">${esc(n.protocol)}</span><span>${esc(n.name)}</span></div>
+        <button class="copy-box" type="button" data-copy="${esc(n.uri)}"><code>${esc(n.uri)}</code><span class="copy-hint">点击复制</span></button>
+        <details class="qr-toggle"><summary>显示二维码</summary><div class="qr" data-qr="${esc(n.uri)}" aria-label="${esc(n.name)} 二维码"></div></details>
+      </article>`,
+    )
+    .join('');
+  // Node QR codes are drawn when opened; long links make dense codes
+  box.addEventListener('toggle', (e) => e.target.open && renderQrs(e.target), true);
 }
 
 async function loadNews() {
@@ -40,5 +68,6 @@ async function loadNews() {
     .join('');
 }
 
-loadPlans();
+renderQrs();
+loadFreeNodes();
 loadNews();

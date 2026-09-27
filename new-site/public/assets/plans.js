@@ -21,7 +21,7 @@ async function init() {
   try {
     plans = await api('/api/plans');
   } catch {
-    $('#plans').innerHTML = '<div class="notice warn">套餐信息暂时无法加载，请稍后刷新。</div>';
+    $('#plans').innerHTML = '<div class="notice warn">赞助档位暂时无法加载，请稍后刷新。</div>';
     return;
   }
   $('#plans').innerHTML = plans.map((p, i) => planCard(p, { featured: i === 1 })).join('');

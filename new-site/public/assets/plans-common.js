@@ -17,6 +17,6 @@ export function planCard(p, { featured = false, compact = false } = {}) {
       <li>一次性付款，不自动扣费</li>
     </ul>`
     }
-    <a class="btn ${featured ? 'btn-primary' : 'btn-ghost'}" href="/plans?plan=${esc(p.plan)}#buy">选择 ${esc(p.mbit)}M</a>
+    <a class="btn ${featured ? 'btn-primary' : 'btn-ghost'}" href="/plans?plan=${esc(p.plan)}#buy">赞助 ${esc(p.mbit)}M</a>
   </article>`;
 }

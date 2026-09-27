@@ -28,13 +28,13 @@ for (const file of readdirSync(join(root, 'pages')).filter((f) => f.endsWith('.h
     if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim();
   }
   const body = m ? src.slice(m[0].length) : src;
-  const title = meta.title ? `${meta.title} | 大翻墙运动` : '大翻墙运动 · 免费翻墙与高速订阅';
+  const title = meta.title ? `${meta.title} | 大翻墙运动` : '大翻墙运动 · 免费翻墙节点与订阅';
   let header = partial('header');
   // Mark the current section in the navigation
   if (meta.nav) header = header.replaceAll(`data-nav="${meta.nav}"`, `data-nav="${meta.nav}" aria-current="page"`);
   const head = partial('head')
     .replace('{{title}}', esc(title))
-    .replace('{{description}}', esc(meta.description || '免费翻墙软件下载、实时新闻与高速稳定的付费订阅。'))
+    .replace('{{description}}', esc(meta.description || '公益项目：免费翻墙节点与订阅、翻墙软件下载和每日新闻。'))
     .replace('{{extraHead}}', meta.script ? `<script type="module" src="/assets/${meta.script}"></script>` : '');
   const html = [
     '<!doctype html>',

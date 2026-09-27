@@ -1,39 +1,78 @@
 <!--
-title: 免费翻墙与高速订阅
-description: 免费翻墙软件下载、每日新闻，以及稳定的高速订阅（VLESS REALITY / Hysteria2），付款后立即可用。
+title: 免费翻墙节点与订阅
+description: 公益项目：免费翻墙订阅链接和 VLESS / Shadowsocks 节点，复制导入即可使用；另有免费翻墙软件下载和每日新闻。
 nav: home
 script: home.js
 -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">墙倒众人推</span>
-      <h1>自由上网，从这里开始</h1>
-      <p class="lead">免费翻墙软件随时下载；需要更快更稳，可以开通高速订阅，一个链接导入所有设备，付款后立即可用。</p>
+      <span class="eyebrow">公益项目 · 墙倒众人推</span>
+      <h1>免费翻墙，人人可用</h1>
+      <p class="lead">下面的免费订阅链接和节点，复制到客户端就能用，不用注册，不收费。本站是公益项目，收到的每一份赞助都用来增加更多免费节点。</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="/plans">开通高速订阅</a>
-        <a class="btn btn-ghost" href="/download">免费软件下载</a>
+        <a class="btn btn-primary" href="#free">获取免费节点</a>
+        <a class="btn btn-ghost" href="/download">下载翻墙软件</a>
       </div>
-      <p class="muted mt">已经开通？到 <a href="/my">我的订阅</a> 查看链接、到期时间和签到。</p>
     </div>
     <div class="card hero-card">
       <ul>
-        <li><span class="dot">1</span><div><b>多种协议</b><span class="muted">VLESS REALITY、Hysteria2、Shadowsocks，节点被封自动换 IP</span></div></li>
-        <li><span class="dot">2</span><div><b>一个链接</b><span class="muted">v2rayN / v2rayNG / Hiddify / Shadowrocket / Clash 全部支持</span></div></li>
-        <li><span class="dot">3</span><div><b>隐私优先</b><span class="muted">不记录访问日志；付款由 Stripe 处理，本站看不到卡号</span></div></li>
+        <li><span class="dot">1</span><div><b>下载客户端</b><span class="muted">新手推荐 Hiddify；Outline 只支持 ss:// 节点。<a href="/download">软件下载</a></span></div></li>
+        <li><span class="dot">2</span><div><b>复制订阅链接或节点</b><span class="muted">点一下即可复制，也可以用客户端扫二维码</span></div></li>
+        <li><span class="dot">3</span><div><b>导入客户端并连接</b><span class="muted">各客户端导入方法见 <a href="/faq#hiddify">常见问题</a></span></div></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight" id="free">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">免费订阅</span><h2>订阅链接</h2></div>
+      <span class="muted">节点换 IP 后自动更新，客户端里点“更新订阅”即可</span>
+    </div>
+    <div class="grid grid-2">
+      <article class="card feature sub-card">
+        <h3>Hiddify / v2rayN / v2rayNG / Karing / Shadowrocket</h3>
+        <button class="copy-box" type="button" data-copy="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-free"><code>https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-free</code><span class="copy-hint">点击复制</span></button>
+        <div class="qr" data-qr="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-free" aria-label="订阅链接二维码"></div>
+      </article>
+      <article class="card feature sub-card">
+        <h3>Clash Verge / Clash Meta（mihomo）</h3>
+        <button class="copy-box" type="button" data-copy="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/clash-free.yaml"><code>https://raw.githubusercontent.com/hello-world-1989/cn-news/main/clash-free.yaml</code><span class="copy-hint">点击复制</span></button>
+        <div class="qr" data-qr="https://raw.githubusercontent.com/hello-world-1989/cn-news/main/clash-free.yaml" aria-label="Clash 订阅链接二维码"></div>
+      </article>
+    </div>
+    <div class="notice mt">
+      第一次导入订阅需要能打开 GitHub。如果打不开，先复制下面的单个节点连上，再更新订阅；还是不行，请发邮件到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>。
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight" id="nodes">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">免费节点</span><h2>单个节点</h2></div>
+      <span class="muted">VLESS 适合 Hiddify / v2rayN / Shadowrocket；ss:// 也能用于 Outline</span>
+    </div>
+    <div id="free-nodes" class="grid grid-2">
+      <div class="skeleton"></div><div class="skeleton"></div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head">
-      <div><span class="eyebrow">高速套餐</span><h2>按需选择速度</h2></div>
-      <a href="/plans">查看全部套餐 →</a>
-    </div>
-    <div id="plans" class="grid grid-4">
-      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    <div class="card support">
+      <div>
+        <span class="eyebrow">支持我们</span>
+        <h2>你的赞助，就是更多的免费节点</h2>
+        <p class="muted">免费节点的服务器和流量都要花钱。赞助任意档位即可获得一条更快的线路（按速度分档，30 天，不自动扣费），同时赞助金额会用来增加更多免费节点，让更多人能翻墙。</p>
+      </div>
+      <div class="support-actions">
+        <a class="btn btn-primary" href="/plans">赞助并获得高速线路</a>
+        <a class="btn btn-ghost" href="/my">我已赞助，查看订阅</a>
+      </div>
     </div>
   </div>
 </section>
