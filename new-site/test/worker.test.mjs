@@ -30,3 +30,11 @@ test('free nodes are parsed from the base64 subscription', () => {
   assert.equal(nodes[2].name, '免费');
   assert.deepEqual(parseFreeNodes('%%%not base64'), []);
 });
+
+test('check-in accepts a token or a whole subscription link', async () => {
+  const { extractToken } = await import('../src/worker.js');
+  assert.equal(extractToken('2db985f6-1234-4abc-8def-0123456789ab'), '2db985f6-1234-4abc-8def-0123456789ab');
+  assert.equal(extractToken('https://sub2.example.net/sub?token=2db985f6-1234-4abc-8def-0123456789ab'), '2db985f6-1234-4abc-8def-0123456789ab');
+  assert.equal(extractToken('https://x/api/v1/client/subscribe?foo=1&token=abcdefgh12'), 'abcdefgh12');
+  assert.equal(extractToken('not a token!'), '');
+});

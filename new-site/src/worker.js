@@ -51,6 +51,32 @@ async function route(request, url, env, ctx) {
     if (!isToken(token)) return json({ error: '订阅 token 格式不正确' }, 400, 'no-store');
     return noStore(await xn(env, `/plan/renew?${qs({ token })}`));
   }
+  // --- check-in (签到). ID: new-system tokens first, unknown ones go to the previous
+  // system (same order as the old site). Email: keeps the address on the mail list
+  // that the auto-reply answers. Both extend to at most 4 days from today.
+  if (p === '/api/checkin/id') {
+    const token = extractToken(url.searchParams.get('token'));
+    if (!token) return json({ error: '请填写订阅链接或 token' }, 400, 'no-store');
+    const res = await xn(env, `/plan/renew?${qs({ token })}`);
+    if (res.ok) {
+      const user = await res.json().catch(() => ({}));
+      return json({ renewed: true, system: 'v2', expiresAt: user.expiresAt ?? null }, 200, 'no-store');
+    }
+    if (res.status !== 404) return json({ error: '签到失败，请稍后再试' }, 502, 'no-store');
+    const old = await legacy(env, `/renew-plan?${qs({ token })}`);
+    if (old?.renewed) return json({ renewed: true, system: 'v1', expiresAt: null }, 200, 'no-store');
+    return json({ error: '没有找到这个订阅，请检查 token 是否完整' }, 404, 'no-store');
+  }
+  if (p === '/api/checkin/email') {
+    const email = (url.searchParams.get('email') || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 200) return json({ error: '邮箱格式不正确' }, 400, 'no-store');
+    const data = await legacy(env, `/renew-email?${qs({ email })}`);
+    if (data?.renewed) return json({ renewed: true, expiresAt: data.expiryDate ?? null }, 200, 'no-store');
+    if (data?.error === 'Email not found') {
+      return json({ error: '这个邮箱还没有领取过节点。请先发邮件领取节点（见常见问题“怎么通过邮件领取节点”），之后再来签到' }, 404, 'no-store');
+    }
+    return json({ error: '签到失败，请稍后再试' }, 502, 'no-store');
+  }
   if (p === '/api/checkout') {
     const plan = url.searchParams.get('plan') || '';
     const email = (url.searchParams.get('email') || '').trim();
@@ -262,6 +288,24 @@ function json(data, status = 200, cacheControl = 'no-store') {
   });
 }
 
+// The old site's routes that need secrets or MongoDB (Lambda end-gfw-legacy-api)
+async function legacy(env, pathAndQuery) {
+  try {
+    const res = await fetch(`${String(env.LEGACY_API || '').replace(/\/+$/, '')}${pathAndQuery}`, { signal: AbortSignal.timeout(15000) });
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+// A bare token, or any subscription link that carries ?token=
+function extractToken(input) {
+  const v = String(input || '').trim();
+  if (isToken(v)) return v;
+  const m = v.match(/[?&]token=([A-Za-z0-9-]{8,64})/);
+  return m ? m[1] : '';
+}
+
 const isToken = (t) => /^[A-Za-z0-9-]{8,64}$/.test(t);
 
 const qs = (obj) =>
@@ -269,4 +313,4 @@ const qs = (obj) =>
     .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
     .join('&');
 
-export { parseFreeNodes, isSafeSubPath, isToken };
+export { parseFreeNodes, isSafeSubPath, isToken, extractToken };

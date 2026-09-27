@@ -17,6 +17,9 @@ custom_domain = true
 [vars]
 # xrayr-next public subscription domains, tried in order (swap here when one is blocked)
 XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
+# Lambda end-gfw-legacy-api (old site's secret/MongoDB routes): previous-system
+# check-in and the mail list's email check-in
+LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
 
 # No request logging: the footer tells visitors the site keeps no access logs
 [observability]
