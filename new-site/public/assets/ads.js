@@ -3,6 +3,8 @@
 (function () {
   var host = location.hostname;
   if (host === 'localhost' || host === '127.0.0.1') return;
+  // Old-site pages served here load AdSense themselves on end-gfw.com
+  if (document.querySelector('script[src*="adsbygoogle.js"]')) return;
 
   function add(src) {
     var s = document.createElement('script');

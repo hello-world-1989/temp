@@ -11,7 +11,7 @@ const HELP = {
   '/index.html#karing_sub': '/faq#karing',
   '/index.html#outline': '/faq#outline',
 };
-const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `https://end-gfw.com/${h.replace(/^\//, '')}` : h);
+const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `/${h.replace(/^\//, '')}` : h);
 
 const icon = (img) => (img && !/^https?:/.test(img) ? `/${img.replace(/^\//, '')}` : '/favicon.svg');
 

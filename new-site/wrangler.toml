@@ -7,8 +7,14 @@ workers_dev = false
 [assets]
 directory = "./public"
 binding = "ASSETS"
-not_found_handling = "404-page"
+# Paths without a page here go to the Worker, which hands them to the old site
+not_found_handling = "none"
 run_worker_first = ["/api/*", "/pay/*", "/download-app/*", "/download-pdf/*", "/news-resource/*", "/google3265592cabe77d27.html", "/googlebe5a4faac22676fb.html"]
+
+# The old site (temp v1 branch, legacy-site/) for everything this site does not have
+[[services]]
+binding = "LEGACY"
+service = "end-gfw-legacy"
 
 [[routes]]
 pattern = "v2.end-gfw.com"

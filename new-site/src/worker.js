@@ -36,6 +36,8 @@ export default {
 async function route(request, url, env, ctx) {
   const p = url.pathname;
   if (request.method !== 'GET' && request.method !== 'HEAD') {
+    // CORS preflight and the like for the old site's APIs
+    if (!p.startsWith('/api/') && !p.startsWith('/pay/')) return oldSite(request, env, url);
     return json({ error: 'method not allowed' }, 405, 'no-store');
   }
 
@@ -151,8 +153,28 @@ async function route(request, url, env, ctx) {
     return fetchFile(request, ctx, `${file.base}/${file.rest}`, file.ttl);
   }
 
-  // --- everything else is a static page (404.html for unknown paths)
-  return env.ASSETS.fetch(request);
+  // --- everything the new site does not have: the old site (end-gfw-legacy Worker)
+  return oldSite(request, env, url);
+}
+
+// Old pages and APIs (why.html, events, /tweet-page, /ss-key, /renew-plan, /node, ...)
+// keep working on this domain. Only paths without a new-site page or route get here.
+async function oldSite(request, env, url) {
+  if (env.LEGACY) {
+    const res = await env.LEGACY.fetch(request);
+    if (res.status !== 404) {
+      // Ads on every page: the old pages only load AdSense on end-gfw.com itself;
+      // ads.js skips loading when a page already did
+      if ((res.headers.get('content-type') || '').startsWith('text/html')) {
+        return new HTMLRewriter()
+          .on('head', { element: (el) => el.append('<script src="/assets/ads.js" async></script>', { html: true }) })
+          .transform(res);
+      }
+      return res;
+    }
+  }
+  const page = await env.ASSETS.fetch(new Request(new URL('/404', url), request));
+  return new Response(page.body, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
 }
 
 // The free subscription is base64 of one share link per line; keep the
