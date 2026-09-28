@@ -191,5 +191,12 @@
       "psiphon3.exe"
     ],
     "updated": "2026-09-28T05:34:39.020Z"
+  },
+  "windows-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_windows_x64.zip"
+    ],
+    "updated": "2026-09-28T05:35:42.016Z"
   }
 }
