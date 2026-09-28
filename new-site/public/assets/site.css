@@ -325,5 +325,4 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .page-share #howto { grid-column: 1 / -1; }
 .page-share input[type="file"].input { padding: 10px; }
 .page-share-get #get-form { max-width: 640px; }
-.page-share-get #save { display: inline-flex; }
-.page-share-get #save[hidden] { display: none; }
+.page-share [hidden], .page-share-get [hidden] { display: none !important; }
