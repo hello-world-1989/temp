@@ -1,0 +1,64 @@
+<!--
+title: 加密分享
+description: 在浏览器里加密文件后分享，服务器看不到文件内容。下载一次后删除，最长保存 7 天。
+ads: off
+script: share.js
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">加密分享 · 预览版</span>
+    <h1>加密分享文件</h1>
+    <p>文件在你的浏览器里加密后才上传，密钥只在分享链接里，服务器看不到文件内容。对方下载并解密一次后文件就从服务器删除；没人下载的文件 7 天后自动删除。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap grid grid-2">
+    <form id="up-form" class="card feature" novalidate>
+      <h2>1. 选择文件</h2>
+      <div class="field mt">
+        <label for="file">文件（最大 50 MB）</label>
+        <input id="file" class="input" type="file">
+        <span class="muted" id="file-info"></span>
+      </div>
+      <div class="field mt">
+        <label for="password">密码（可选，推荐）</label>
+        <input id="password" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="不填则只凭链接就能下载">
+        <span class="muted">设置密码后，对方需要链接和密码两样才能打开。请用不同的方式发送链接和密码。</span>
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="up-submit">加密并上传</button>
+      <p class="notice mt" id="up-msg" role="status"></p>
+    </form>
+
+    <div class="card feature" id="result" hidden>
+      <h2>2. 发送给对方</h2>
+      <p class="muted">这个链接只显示一次，关闭页面后无法找回。</p>
+      <button class="copy-box mt" type="button" id="link-box"><code id="link"></code><span class="copy-hint">点击复制链接</span></button>
+      <div class="qr" id="link-qr"></div>
+      <p class="notice warn mt" id="pw-note" hidden>记得把密码另外发给对方，不要和链接放在同一条消息里。</p>
+      <dl class="kv mt" id="meta"></dl>
+      <div class="row mt">
+        <button class="btn btn-ghost btn-sm" type="button" id="del-btn">立即删除这个文件</button>
+      </div>
+      <p class="notice mt" id="del-msg" role="status"></p>
+    </div>
+
+    <div class="card feature" id="howto">
+      <h2>怎么用最安全</h2>
+      <ul>
+        <li>链接里 <code>#</code> 后面是密钥，服务器收不到；但微信、QQ 能看到你发出的整条消息。<strong>设置密码，并把密码用另一种方式告诉对方</strong>（当面、电话、另一个聊天软件）。</li>
+        <li>对方用手机<strong>系统浏览器</strong>打开链接（微信里点右上角“···”，选“在浏览器打开”）。微信内置浏览器不能保存文件。</li>
+        <li>文件只能成功下载一次；对方输错密码不会删除文件。</li>
+        <li>解密后的文件保存在对方手机上，之后是否安全取决于对方的手机，例如相册是否同步到国内网盘。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="notice">
+      禁止分享违法内容。发现滥用请把链接发到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>，我们会删除文件。本页面不加载广告或任何第三方代码。
+    </div>
+  </div>
+</section>

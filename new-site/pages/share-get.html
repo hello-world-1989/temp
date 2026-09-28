@@ -1,0 +1,37 @@
+<!--
+title: 接收加密文件
+description: 下载并在浏览器里解密分享给你的文件。
+ads: off
+script: share-get.js
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">加密分享</span>
+    <h1>接收文件</h1>
+    <p>文件在你的浏览器里解密，服务器看不到内容。解密成功后文件立即从服务器删除，只能下载一次，请马上保存。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <p class="notice warn" id="inapp" hidden>你正在微信 / QQ 里打开。这里无法保存文件：请点右上角“···”，选择“在浏览器打开”。</p>
+    <form id="get-form" class="card feature mt" novalidate>
+      <dl class="kv" id="meta"><div><dt>状态</dt><dd>正在读取文件信息…</dd></div></dl>
+      <div class="field mt" id="pw-field" hidden>
+        <label for="password">密码</label>
+        <input id="password" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="分享人另外告诉你的密码">
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="get-submit" disabled>下载并解密</button>
+      <a class="btn btn-primary mt" id="save" hidden>保存文件</a>
+      <p class="notice mt" id="get-msg" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="notice">
+      想给别人发文件？<a href="/share">加密分享</a>。发现滥用请把链接发到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>。
+    </div>
+  </div>
+</section>

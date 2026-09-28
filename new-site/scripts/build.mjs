@@ -6,6 +6,7 @@
 //   nav: plans
 //   -->
 // and may use {{> header}} / {{> footer}}; both are inserted automatically when absent.
+// "ads: off" in the front matter leaves out ads.js (and marks the page noindex).
 // {{> ad}} inserts the manual AdSense display unit (partials/ad.html).
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -33,10 +34,12 @@ for (const file of readdirSync(join(root, 'pages')).filter((f) => f.endsWith('.h
   let header = partial('header');
   // Mark the current section in the navigation
   if (meta.nav) header = header.replaceAll(`data-nav="${meta.nav}"`, `data-nav="${meta.nav}" aria-current="page"`);
-  const head = partial('head')
+  let head = partial('head')
     .replace('{{title}}', esc(title))
     .replace('{{description}}', esc(meta.description || '公益项目：免费翻墙节点与订阅、翻墙软件下载和每日新闻。'))
     .replace('{{extraHead}}', meta.script ? `<script type="module" src="/assets/${meta.script}"></script>` : '');
+  // "ads: off" — no AdSense or any other third-party script (pages with secrets in the URL)
+  if (meta.ads === 'off') head = head.replace('<script src="/assets/ads.js" async></script>\n', '<meta name="robots" content="noindex, nofollow">\n');
   const html = [
     '<!doctype html>',
     '<html lang="zh-CN">',

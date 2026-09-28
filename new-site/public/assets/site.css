@@ -318,3 +318,12 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .event-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
 .event-head h3 { margin: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* --- 加密分享 (/share, /s/:id) */
+.page-share .feature ul { margin: 12px 0 0; padding-left: 1.1em; display: grid; gap: 8px; color: var(--muted); font-size: .95rem; }
+.page-share .feature ul strong { color: var(--text); }
+.page-share #howto { grid-column: 1 / -1; }
+.page-share input[type="file"].input { padding: 10px; }
+.page-share-get #get-form { max-width: 640px; }
+.page-share-get #save { display: inline-flex; }
+.page-share-get #save[hidden] { display: none; }

@@ -1,4 +1,5 @@
 import { ghFetch, setGitHubToken } from './github.js';
+import { handleShare, sweep } from './share.js';
 // v2.end-gfw.com — Cloudflare Worker
 // Static pages come from ./public (Workers Static Assets). This file serves the
 // dynamic parts:
@@ -33,10 +34,18 @@ export default {
       return withSecurityHeaders(json({ error: '服务暂时不可用，请稍后再试' }, 502, 'no-store'));
     }
   },
+  // Cron (preview only for now): delete shared files older than 7 days
+  async scheduled(_event, env, ctx) {
+    ctx.waitUntil(sweep(env));
+  },
 };
 
 async function route(request, url, env, ctx) {
   const p = url.pathname;
+  // 加密分享 (src/share.js); 'disabled' where the Worker has no SHARE bucket
+  const share = await handleShare(request, url, env);
+  if (share === 'disabled') return notFound(request, env, url);
+  if (share) return share;
   if (request.method !== 'GET' && request.method !== 'HEAD') {
     // CORS preflight and the like for the old site's APIs
     if (!p.startsWith('/api/') && !p.startsWith('/pay/')) return oldSite(request, env, url);
@@ -217,6 +226,10 @@ async function oldSite(request, env, url) {
       return res;
     }
   }
+  return notFound(request, env, url);
+}
+
+async function notFound(request, env, url) {
   const page = await env.ASSETS.fetch(new Request(new URL('/404', url), request));
   return new Response(page.body, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
 }

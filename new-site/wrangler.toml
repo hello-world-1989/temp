@@ -9,7 +9,7 @@ directory = "./public"
 binding = "ASSETS"
 # Paths without a page here go to the Worker, which hands them to the old site
 not_found_handling = "none"
-run_worker_first = ["/api/*", "/pay/*", "/download-app/*", "/download-pdf/*", "/news-resource/*", "/google3265592cabe77d27.html", "/googlebe5a4faac22676fb.html"]
+run_worker_first = ["/share", "/share-get", "/s/*", "/api/*", "/pay/*", "/download-app/*", "/download-pdf/*", "/news-resource/*", "/google3265592cabe77d27.html", "/googlebe5a4faac22676fb.html"]
 
 # The old site (temp v1 branch, legacy-site/) for everything this site does not have
 [[services]]
@@ -43,3 +43,47 @@ LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.a
 # No request logging: the footer tells visitors the site keeps no access logs
 [observability]
 enabled = false
+
+# ---------------------------------------------------------------------------
+# Preview of 加密分享 (/share): `wrangler deploy --env preview`, from the share-preview
+# branch (.github/workflows/share-preview.yml). Production (above) has no SHARE bucket,
+# so /share and /api/share are 404 there until this is merged.
+# routes, vars, services and observability are not inherited by environments.
+[env.preview]
+name = "end-gfw-share-preview"
+workers_dev = false
+routes = [{ pattern = "share-preview.end-gfw.com", custom_domain = true }]
+
+[env.preview.vars]
+WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
+XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
+LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
+
+[[env.preview.services]]
+binding = "LEGACY"
+service = "end-gfw-legacy"
+
+# Ciphertext only (encrypted in the browser); deleted after download or 7 days
+[[env.preview.r2_buckets]]
+binding = "SHARE"
+bucket_name = "end-gfw-share-preview"
+
+# Per-IP limits: uploads, and reads of file info / ciphertext / delete
+[[env.preview.ratelimits]]
+name = "SHARE_UPLOAD_LIMIT"
+namespace_id = "7101"
+simple = { limit = 10, period = 60 }
+
+[[env.preview.ratelimits]]
+name = "SHARE_READ_LIMIT"
+namespace_id = "7102"
+simple = { limit = 60, period = 60 }
+
+# Hourly sweep of files older than 7 days
+[env.preview.triggers]
+crons = ["17 * * * *"]
+
+# Worker logs on for the preview (requested). The share code logs no IPs, links or keys;
+# the #key part of a link never reaches the server.
+[env.preview.observability]
+enabled = true

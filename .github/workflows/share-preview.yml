@@ -1,0 +1,35 @@
+name: share-preview
+
+# Preview of 加密分享: deploys new-site/ with `--env preview` to the Worker
+# end-gfw-share-preview (share-preview.end-gfw.com). Does not touch end-gfw-new
+# (v2.end-gfw.com / end-gfw.com). Needs the R2 bucket end-gfw-share-preview.
+on:
+  push:
+    branches: [share-preview]
+    paths: ['new-site/**', '.github/workflows/share-preview.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: new-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci || npm install --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - name: Deploy preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN not set, skipping deploy"; exit 0; fi
+          npx wrangler r2 bucket create end-gfw-share-preview 2>&1 | tail -3 || true
+          npx wrangler deploy --env preview
