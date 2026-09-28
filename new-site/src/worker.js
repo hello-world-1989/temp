@@ -1,3 +1,4 @@
+import { ghFetch, setGitHubToken } from './github.js';
 // v2.end-gfw.com — Cloudflare Worker
 // Static pages come from ./public (Workers Static Assets). This file serves the
 // dynamic parts:
@@ -22,6 +23,7 @@ const SECURITY_HEADERS = {
 
 export default {
   async fetch(request, env, ctx) {
+    setGitHubToken(env.GH_TOKEN);
     const url = new URL(request.url);
     try {
       const res = await route(request, url, env, ctx);
@@ -156,7 +158,7 @@ async function route(request, url, env, ctx) {
   }
   if (p === '/api/apps') {
     return cached(request, ctx, 1800, async () => {
-      const res = await fetch(`${GITHUB_RAW}/temp/main/public/temp/vpn.json`);
+      const res = await ghFetch(`${GITHUB_RAW}/temp/main/public/temp/vpn.json`);
       if (!res.ok) return json([], 502, 'no-store');
       return json(await res.json(), 200, 'public, max-age=600');
     });
@@ -168,7 +170,7 @@ async function route(request, url, env, ctx) {
     return cached(request, ctx, 600, async () => {
       const lists = await Promise.all(
         NEWS_SOURCES.map(async (id) => {
-          const res = await fetch(`${GITHUB_RAW}/json/main/news/${path}/${id}.json`);
+          const res = await ghFetch(`${GITHUB_RAW}/json/main/news/${path}/${id}.json`);
           return res.ok ? res.json().catch(() => []) : [];
         }),
       );
@@ -180,7 +182,7 @@ async function route(request, url, env, ctx) {
     const date = url.searchParams.get('date') || '';
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return json({ error: 'date=YYYY-MM-DD' }, 400, 'no-store');
     return cached(request, ctx, 600, async () => {
-      const res = await fetch(`${GITHUB_RAW}/json/main/tweet/${date.replaceAll('-', '/')}/whyyoutouzhele.json`);
+      const res = await ghFetch(`${GITHUB_RAW}/json/main/tweet/${date.replaceAll('-', '/')}/whyyoutouzhele.json`);
       const items = res.ok ? await res.json().catch(() => []) : [];
       return json(Array.isArray(items) ? items : [], 200, 'public, max-age=300');
     });
@@ -299,7 +301,7 @@ async function fetchFile(request, ctx, target, ttl) {
   if (range) fwd.set('Range', range);
   const ifRange = request.headers.get('if-range');
   if (range && ifRange) fwd.set('If-Range', ifRange);
-  const upstream = await fetch(target, { headers: fwd, redirect: 'follow', cf: { cacheTtl: ttl, cacheEverything: true } });
+  const upstream = await ghFetch(target, { headers: fwd, redirect: 'follow', cf: { cacheTtl: ttl, cacheEverything: true } });
   if (upstream.status === 416) {
     upstream.body?.cancel();
     const headers = { 'Cache-Control': 'no-store', 'Accept-Ranges': 'bytes' };
