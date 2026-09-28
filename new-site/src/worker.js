@@ -300,8 +300,12 @@ async function fetchFile(request, ctx, target, ttl) {
   if (len) headers.set('Content-Length', len);
   headers.set('Cache-Control', `public, max-age=3600, s-maxage=${ttl}`);
   const res = new Response(upstream.body, { status: 200, headers });
-  // Cache API ignores responses over its size limit; downloads still stream through
-  ctx.waitUntil(cache.put(key, res.clone()).catch(() => {}));
+  // Only small files go through the Cache API. clone() tees the body: with a slow client the
+  // cache side runs ahead and the gap is buffered in the Worker's 128 MB memory, which large
+  // downloads would blow. Large files are still edge-cached by the fetch() above (cacheEverything).
+  if (len && Number(len) <= 20 * 1024 * 1024) {
+    ctx.waitUntil(cache.put(key, res.clone()).catch(() => {}));
+  }
   return res;
 }
 
