@@ -32,4 +32,15 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN not set, skipping deploy"; exit 0; fi
+          # wrangler never removes routes from another Worker, so hand the end-gfw.com
+          # routes over from the old site's Worker (end-gfw-legacy) right before deploying
+          api=https://api.cloudflare.com/client/v4
+          auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          zone=$(curl -fsS -H "$auth" "$api/zones?name=end-gfw.com" | jq -r '.result[0].id')
+          curl -fsS -H "$auth" "$api/zones/$zone/workers/routes" \
+            | jq -r '.result[] | select(.script != "end-gfw-new" and (.pattern == "end-gfw.com/*" or .pattern == "www.end-gfw.com/*")) | "\(.id) \(.pattern) \(.script)"' \
+            | while read -r id pattern script; do
+                echo "removing route $pattern from $script"
+                curl -fsS -X DELETE -H "$auth" "$api/zones/$zone/workers/routes/$id" >/dev/null
+              done
           npx wrangler deploy
