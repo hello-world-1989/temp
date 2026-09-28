@@ -107,6 +107,19 @@ async function route(request, url, env, ctx) {
   }
 
   // --- content from GitHub
+  // The old tweet page's links open the new tweets page for the same day
+  if (p === '/tweet-page') {
+    const q = url.searchParams;
+    const id = q.get('id');
+    const [y, m, d] = [q.get('year'), q.get('month'), q.get('day')];
+    if ((!id || id === 'whyyoutouzhele') && !q.get('endDay')) {
+      const date = /^\d{4}$/.test(y || '') && /^\d{1,2}$/.test(m || '') && /^\d{1,2}$/.test(d || '')
+        ? `?date=${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
+        : '';
+      return Response.redirect(`${url.origin}/tweets${date}`, 302);
+    }
+  }
+
   // "分站首页": one of the mirrors (https://<ip>/ on the website account's servers), at random
   if (p === '/mirror') {
     const token = encodeURIComponent(String(env.WEB_TOKEN || ''));

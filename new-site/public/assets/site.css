@@ -288,3 +288,13 @@ p { margin: 0 0 1em; }
 .ad-section { padding: 12px 0; }
 .ad-unit { min-height: 0; }
 ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
+
+/* Printing (tweets page "save as PDF"): content only, light theme */
+@media print {
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f3f5f9; --text: #000; --muted: #444; --line: #ccc; --accent: #0b5cff; }
+  body { background: #fff; color: #000; }
+  .site-notice, .site-header, .site-footer, .ad-section, .adsbygoogle, .skip, .pager, .search, #pdf, .row .btn { display: none !important; }
+  .card { box-shadow: none; break-inside: avoid; }
+  .thumbs img { max-height: 240px; }
+  a[href^="http"]::after { content: none; }
+}
