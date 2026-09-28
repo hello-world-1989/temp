@@ -32,6 +32,8 @@ pattern = "www.end-gfw.com/*"
 zone_name = "end-gfw.com"
 
 [vars]
+# xrayr-next shared account for the website and YouTube (sg3, sg33, kr3, 30 Mbit)
+WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
 # xrayr-next public subscription domains, tried in order (swap here when one is blocked)
 XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 # Lambda end-gfw-legacy-api (old site's secret/MongoDB routes): previous-system

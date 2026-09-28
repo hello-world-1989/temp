@@ -4,7 +4,7 @@
 //   /api/plans, /api/user, /api/renew, /api/checkout  -> xrayr-next (subscription system)
 //   /pay/success, /pay/cancel                          -> xrayr-next pages after Stripe
 //   /api/apps, /api/news, /api/tweets                  -> public JSON on GitHub
-//   /api/free                                          -> free nodes (cn-news/end-gfw-free)
+//   /api/free                                          -> the website account's nodes and links (WEB_TOKEN)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
 //
 // xrayr-next is reached through its public subscription domains (XN_BASES), the
@@ -107,11 +107,16 @@ async function route(request, url, env, ctx) {
   }
 
   // --- content from GitHub
+  // The website's own shared account (WEB_TOKEN): its nodes and subscription links
   if (p === '/api/free') {
     return cached(request, ctx, 300, async () => {
-      const res = await fetch(`${GITHUB_RAW}/cn-news/main/end-gfw-free`);
+      const token = encodeURIComponent(String(env.WEB_TOKEN || ''));
+      if (!token) return json({ error: '免费节点暂时无法加载' }, 502, 'no-store');
+      const res = await xn(env, `/sub?token=${token}`);
       if (!res.ok) return json({ error: '免费节点暂时无法加载' }, 502, 'no-store');
-      return json({ nodes: parseFreeNodes(await res.text()) }, 200, 'public, max-age=300');
+      const bases = String(env.XN_BASES || '').split(',').map((b) => b.trim().replace(/\/+$/, '')).filter(Boolean);
+      const links = bases.map((b) => ({ v2ray: `${b}/sub?token=${token}`, clash: `${b}/clash?token=${token}` }));
+      return json({ nodes: parseFreeNodes(await res.text()), links }, 200, 'public, max-age=300');
     });
   }
   if (p === '/api/apps') {
