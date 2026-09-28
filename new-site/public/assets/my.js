@@ -1,4 +1,19 @@
 import { $, api, esc, fmtDate, fmtBytes, tokenStore } from './site.js';
+import qrcode from './vendor/qrcode.js';
+
+// SVG QR code for a link; type 0 picks the smallest size that fits
+function qrSvg(text) {
+  const qr = qrcode(0, 'M');
+  qr.addData(text);
+  qr.make();
+  return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+}
+
+function renderQrs(root) {
+  for (const el of root.querySelectorAll('[data-qr]')) {
+    if (!el.firstChild) el.innerHTML = qrSvg(el.getAttribute('data-qr'));
+  }
+}
 
 const TOKEN_RE = /^[A-Za-z0-9-]{8,64}$/;
 
@@ -18,7 +33,8 @@ function msg(el, text, kind = '') {
 const TIER_NAMES = { free: '免费', youtube: 'YouTube' };
 const tierName = (t) => TIER_NAMES[t] || (/^p\d$/.test(t) ? `套餐${t.slice(1)}` : t);
 
-function linkRows(label, links) {
+// The first link (main V2Ray subscription) shows its QR code open; others on demand
+function linkRows(label, links, openFirst = false) {
   const rows = [
     ['V2Ray / Hiddify / Shadowrocket', links.v2ray],
     ['Clash / Clash Verge', links.clash],
@@ -26,10 +42,11 @@ function linkRows(label, links) {
   ].filter(([, url]) => url);
   return rows
     .map(
-      ([name, url]) => `<div class="link-row">
+      ([name, url], i) => `<div class="link-row">
         <div class="label"><b>${esc(name)}</b>${label ? `<br><span class="muted">${esc(label)}</span>` : ''}</div>
         <code>${esc(url)}</code>
         <button class="btn btn-ghost btn-sm" type="button" data-copy="${esc(url)}">复制</button>
+        <details class="qr-toggle"${openFirst && i === 0 ? ' open' : ''}><summary>二维码</summary><div class="qr" data-qr="${esc(url)}" aria-label="${esc(name)} 订阅二维码"></div></details>
       </div>`,
     )
     .join('');
@@ -51,7 +68,8 @@ function render(user) {
 
   const links = user.links || {};
   $('#links').innerHTML =
-    linkRows('', links) + (links.backups || []).map((b, i) => linkRows(`备用链接 ${i + 1}`, b)).join('');
+    linkRows('', links, true) + (links.backups || []).map((b, i) => linkRows(`备用链接 ${i + 1}`, b)).join('');
+  for (const d of $('#links').querySelectorAll('details[open]')) renderQrs(d);
 
   const months = Object.entries(user.traffic || {}).sort(([a], [b]) => b.localeCompare(a)).slice(0, 3);
   $('#traffic').innerHTML = months.length
@@ -103,6 +121,9 @@ $('#renew').addEventListener('click', async () => {
     $('#renew').disabled = false;
   }
 });
+
+// QR codes for collapsed rows are drawn when opened
+$('#links').addEventListener('toggle', (e) => e.target.open && renderQrs(e.target), true);
 
 $('#forget').addEventListener('click', () => {
   tokenStore.set('');

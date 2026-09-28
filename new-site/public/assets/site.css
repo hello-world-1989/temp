@@ -203,6 +203,7 @@ p { margin: 0 0 1em; }
 .kv dd { margin: 2px 0 0; font-weight: 700; font-size: 1.05rem; word-break: break-all; }
 .link-row { display: grid; grid-template-columns: 140px 1fr auto; gap: 10px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
 .link-row:first-child { border-top: 0; }
+.link-row .qr-toggle { grid-column: 1 / -1; margin-top: 0; }
 .link-row code { font-size: .85rem; word-break: break-all; background: var(--surface-2); padding: 6px 10px; border-radius: 8px; }
 @media (max-width: 620px) { .link-row { grid-template-columns: 1fr auto; } .link-row .label { grid-column: 1 / -1; } }
 
