@@ -11,3 +11,28 @@
 
 /images/*
   Cache-Control: public, max-age=604800
+
+# 事件墙: pages where people write, submit or review have no third-party scripts at all,
+# no referrer, and are kept out of search engines
+/board-submit
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex
+
+/board-status
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex
+
+/board-admin
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow
+
+/board-post
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Referrer-Policy: no-referrer

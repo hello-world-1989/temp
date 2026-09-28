@@ -1,0 +1,32 @@
+<!--
+title: 事件墙审核
+description: 事件墙管理员审核后台。
+nav: board
+script: board-admin.js
+style: board.css
+ads: off
+-->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="row-between">
+      <h1>事件墙审核</h1>
+      <span id="who" class="muted"></span>
+    </div>
+
+    <form id="login" class="card feature board-narrow" novalidate>
+      <div class="field">
+        <label for="token">管理员口令</label>
+        <input id="token" class="input" type="password" autocomplete="off">
+      </div>
+      <button class="btn btn-primary mt" type="submit">登录</button>
+      <p class="muted mt">口令只保存在这个标签页里，关闭标签页就会退出。</p>
+      <p class="notice mt" id="login-msg" role="status"></p>
+    </form>
+
+    <div id="panel" class="hidden">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <p class="notice" id="msg" role="status"></p>
+      <div id="items" class="board-admin-list"></div>
+    </div>
+  </div>
+</section>

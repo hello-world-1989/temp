@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我的订阅 | 大翻墙运动</title>
-<meta name="description" content="用订阅 token 查看到期时间、流量和订阅链接，签到或续费。">
+<title>投稿 | 大翻墙运动</title>
+<meta name="description" content="匿名投稿到事件墙：记录身边发生的事，管理员审核后发布。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b5cff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="module" src="/assets/site.js"></script>
-<script src="/assets/ads.js" async></script>
-<script type="module" src="/assets/my.js"></script>
+<link rel="stylesheet" href="/assets/board.css">
+<script type="module" src="/assets/board-submit.js"></script>
 </head>
 
-<body class="page-my">
+<body class="page-board-submit">
 <a class="skip" href="#main">跳到正文</a>
 <div class="site-notice" role="status">
   <div class="wrap">新版网站上线，有问题请<a href="mailto:end.gfw@hotmail.com">反馈</a>。旧版网站入口 <a href="https://v1.end-gfw.com/">v1.end-gfw.com</a>，将于 2026 年 10 月 15 日关闭。</div>
@@ -29,10 +29,10 @@
         <a href="/" data-nav="home">首页</a>
         <a href="/download" data-nav="download">软件下载</a>
         <a href="/tweets" data-nav="tweets">推文</a>
-        <a href="/board" data-nav="board">事件墙</a>
+        <a href="/board" data-nav="board" aria-current="page">事件墙</a>
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
-        <a href="/my" data-nav="my" aria-current="page">我的订阅</a>
+        <a href="/my" data-nav="my">我的订阅</a>
         <a href="/checkin" data-nav="checkin">签到</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/faq" data-nav="faq">常见问题</a>
@@ -43,10 +43,10 @@
         <a href="/" data-nav="home">首页</a>
         <a href="/download" data-nav="download">软件下载</a>
         <a href="/tweets" data-nav="tweets">推文</a>
-        <a href="/board" data-nav="board">事件墙</a>
+        <a href="/board" data-nav="board" aria-current="page">事件墙</a>
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
-        <a href="/my" data-nav="my" aria-current="page">我的订阅</a>
+        <a href="/my" data-nav="my">我的订阅</a>
         <a href="/checkin" data-nav="checkin">签到</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/faq" data-nav="faq">常见问题</a>
@@ -57,54 +57,64 @@
 <main id="main">
 
 <section class="page-head">
-  <div class="wrap">
-    <span class="eyebrow">我的订阅</span>
-    <h1>查看订阅、签到、续费</h1>
-    <p>输入订阅 token，或直接粘贴整条订阅链接。token 只保存在你自己的浏览器里。</p>
+  <div class="wrap board-narrow">
+    <span class="eyebrow">事件墙</span>
+    <h1>匿名投稿</h1>
+    <p>不用注册，不需要手机号和邮箱。本站不记录访问者的 IP 地址。投稿经管理员审核后发布；审核时可能删掉能认出你的细节。</p>
   </div>
 </section>
 
 <section class="section-tight">
-  <div class="wrap">
-    <form id="lookup" class="card feature" novalidate>
+  <div class="wrap board-narrow">
+    <div class="notice warn">
+      <strong>发之前请先保护好自己：</strong>
+      <ul class="board-tips">
+        <li>用浏览器的无痕模式（隐私模式）投稿，投完关掉窗口。</li>
+        <li>不要写你的真实姓名、电话、住址、单位，也不要写只有你才知道的细节。</li>
+        <li>照片里的拍摄地点、时间、手机型号等隐藏信息会自动删除；但画面本身（人脸、车牌、门牌、窗外景物）仍可能认出你或别人，必要时先打码或裁剪。</li>
+        <li>投稿后会给你一个回执码，用它查审核结果或撤回投稿。</li>
+      </ul>
+    </div>
+
+    <form id="form" class="card feature mt" novalidate>
       <div class="field">
-        <label for="token">订阅 token 或订阅链接</label>
-        <div class="row">
-          <input id="token" class="input" autocomplete="off" spellcheck="false" placeholder="例如 https://…/sub?token=xxxx 或 xxxx">
-          <button class="btn btn-primary" type="submit">查看</button>
+        <label for="title">标题</label>
+        <input id="title" class="input" maxlength="80" autocomplete="off" required placeholder="一句话说明发生了什么">
+      </div>
+      <div class="grid grid-2 mt">
+        <div class="field">
+          <label for="category">分类</label>
+          <select id="category" class="input"></select>
+        </div>
+        <div class="field">
+          <label for="date">发生日期（可不填）</label>
+          <input id="date" class="input" type="date">
         </div>
       </div>
-      <p class="notice mt" id="lookup-msg" role="alert"></p>
+      <div class="field mt">
+        <label for="place">地点（可不填，写到城市或区县即可）</label>
+        <input id="place" class="input" maxlength="60" autocomplete="off" placeholder="例如：某省某市">
+      </div>
+      <div class="field mt">
+        <label for="body">经过</label>
+        <textarea id="body" class="input board-textarea" maxlength="5000" rows="10" required placeholder="发生了什么、什么时候、有多少人、结果怎样。只写你亲眼看到或能确认的。"></textarea>
+        <span class="muted board-count" id="body-count"></span>
+      </div>
+      <div class="field mt">
+        <label for="images">图片（可不选，JPEG / PNG / WebP）</label>
+        <input id="images" class="input" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+        <div id="thumbs" class="board-thumbs"></div>
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="submit">提交投稿</button>
+      <p class="notice mt" id="msg" role="status"></p>
     </form>
-  </div>
-</section>
 
-<section class="section-tight hidden" id="result">
-  <div class="wrap grid">
-    <div class="card feature">
-      <div class="section-head">
-        <h2>订阅状态</h2>
-        <div class="row">
-          <button class="btn btn-ghost btn-sm" id="renew" type="button">签到</button>
-          <a class="btn btn-primary btn-sm" id="extend" href="/plans">续费 / 升级</a>
-        </div>
-      </div>
-      <dl class="kv" id="status"></dl>
-      <p class="notice mt" id="renew-msg" role="status"></p>
+    <div id="done" class="card feature mt hidden">
+      <h2>投稿已提交</h2>
+      <p>管理员审核通过后会出现在事件墙上。请保存下面的回执码，用它查询审核结果或撤回投稿。<strong>回执码只显示这一次</strong>，丢了就查不到了。</p>
+      <div class="board-receipt"><code id="receipt"></code><button class="btn btn-ghost btn-sm" type="button" id="copy-receipt">复制</button></div>
+      <p class="mt"><a href="/board-status">查询投稿状态</a> · <a href="/board">返回事件墙</a> · <a href="/board-submit">再投一篇</a></p>
     </div>
-
-    <div class="card feature">
-      <h2>订阅链接</h2>
-      <p class="muted">复制后在客户端里“从剪贴板导入”或“添加订阅”。主链接打不开时用备用链接。</p>
-      <div id="links"></div>
-    </div>
-
-    <div class="card feature">
-      <h2>本月以来的流量</h2>
-      <dl class="kv" id="traffic"></dl>
-    </div>
-
-    <p class="center"><button class="btn btn-ghost btn-sm" id="forget" type="button">在这台设备上忘记 token</button></p>
   </div>
 </section>
 

@@ -1,4 +1,5 @@
 import { ghFetch, setGitHubToken } from './github.js';
+import { handleBoard } from './board.js';
 // v2.end-gfw.com — Cloudflare Worker
 // Static pages come from ./public (Workers Static Assets). This file serves the
 // dynamic parts:
@@ -37,6 +38,9 @@ export default {
 
 async function route(request, url, env, ctx) {
   const p = url.pathname;
+  // 事件墙 (src/board.js); off unless BOARD_URL and the BOARD_KEY secret are set
+  const board = await handleBoard(request, url, env);
+  if (board) return board;
   if (request.method !== 'GET' && request.method !== 'HEAD') {
     // CORS preflight and the like for the old site's APIs
     if (!p.startsWith('/api/') && !p.startsWith('/pay/')) return oldSite(request, env, url);

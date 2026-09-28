@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我的订阅 | 大翻墙运动</title>
-<meta name="description" content="用订阅 token 查看到期时间、流量和订阅链接，签到或续费。">
+<title>事件详情 | 大翻墙运动</title>
+<meta name="description" content="事件墙：网友投稿、管理员审核后发布的事件记录。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b5cff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="module" src="/assets/site.js"></script>
-<script src="/assets/ads.js" async></script>
-<script type="module" src="/assets/my.js"></script>
+<link rel="stylesheet" href="/assets/board.css">
+<script type="module" src="/assets/board-post.js"></script>
 </head>
 
-<body class="page-my">
+<body class="page-board-post">
 <a class="skip" href="#main">跳到正文</a>
 <div class="site-notice" role="status">
   <div class="wrap">新版网站上线，有问题请<a href="mailto:end.gfw@hotmail.com">反馈</a>。旧版网站入口 <a href="https://v1.end-gfw.com/">v1.end-gfw.com</a>，将于 2026 年 10 月 15 日关闭。</div>
@@ -29,10 +29,10 @@
         <a href="/" data-nav="home">首页</a>
         <a href="/download" data-nav="download">软件下载</a>
         <a href="/tweets" data-nav="tweets">推文</a>
-        <a href="/board" data-nav="board">事件墙</a>
+        <a href="/board" data-nav="board" aria-current="page">事件墙</a>
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
-        <a href="/my" data-nav="my" aria-current="page">我的订阅</a>
+        <a href="/my" data-nav="my">我的订阅</a>
         <a href="/checkin" data-nav="checkin">签到</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/faq" data-nav="faq">常见问题</a>
@@ -43,10 +43,10 @@
         <a href="/" data-nav="home">首页</a>
         <a href="/download" data-nav="download">软件下载</a>
         <a href="/tweets" data-nav="tweets">推文</a>
-        <a href="/board" data-nav="board">事件墙</a>
+        <a href="/board" data-nav="board" aria-current="page">事件墙</a>
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
-        <a href="/my" data-nav="my" aria-current="page">我的订阅</a>
+        <a href="/my" data-nav="my">我的订阅</a>
         <a href="/checkin" data-nav="checkin">签到</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/faq" data-nav="faq">常见问题</a>
@@ -56,55 +56,32 @@
 </header>
 <main id="main">
 
-<section class="page-head">
-  <div class="wrap">
-    <span class="eyebrow">我的订阅</span>
-    <h1>查看订阅、签到、续费</h1>
-    <p>输入订阅 token，或直接粘贴整条订阅链接。token 只保存在你自己的浏览器里。</p>
-  </div>
-</section>
-
 <section class="section-tight">
-  <div class="wrap">
-    <form id="lookup" class="card feature" novalidate>
-      <div class="field">
-        <label for="token">订阅 token 或订阅链接</label>
-        <div class="row">
-          <input id="token" class="input" autocomplete="off" spellcheck="false" placeholder="例如 https://…/sub?token=xxxx 或 xxxx">
-          <button class="btn btn-primary" type="submit">查看</button>
+  <div class="wrap board-narrow">
+    <p><a href="/board">← 返回事件墙</a></p>
+    <article id="post" class="card board-post" aria-live="polite">
+      <p class="notice" id="post-msg" role="status">加载中…</p>
+    </article>
+
+    <section class="mt-lg" aria-labelledby="comments-title">
+      <h2 id="comments-title">留言 <span class="muted" id="comment-count"></span></h2>
+      <div id="comments" class="board-comments"></div>
+
+      <form id="comment-form" class="card feature mt hidden" novalidate>
+        <h3>发表留言</h3>
+        <p class="muted" id="premod-note">留言经管理员审核后显示。不要写你的真实姓名、电话或住址。</p>
+        <div class="field mt">
+          <label for="nickname">昵称（可不填）</label>
+          <input id="nickname" class="input" maxlength="20" autocomplete="off" placeholder="匿名">
         </div>
-      </div>
-      <p class="notice mt" id="lookup-msg" role="alert"></p>
-    </form>
-  </div>
-</section>
-
-<section class="section-tight hidden" id="result">
-  <div class="wrap grid">
-    <div class="card feature">
-      <div class="section-head">
-        <h2>订阅状态</h2>
-        <div class="row">
-          <button class="btn btn-ghost btn-sm" id="renew" type="button">签到</button>
-          <a class="btn btn-primary btn-sm" id="extend" href="/plans">续费 / 升级</a>
+        <div class="field mt">
+          <label for="comment">留言</label>
+          <textarea id="comment" class="input board-textarea" maxlength="1000" rows="4" required></textarea>
         </div>
-      </div>
-      <dl class="kv" id="status"></dl>
-      <p class="notice mt" id="renew-msg" role="status"></p>
-    </div>
-
-    <div class="card feature">
-      <h2>订阅链接</h2>
-      <p class="muted">复制后在客户端里“从剪贴板导入”或“添加订阅”。主链接打不开时用备用链接。</p>
-      <div id="links"></div>
-    </div>
-
-    <div class="card feature">
-      <h2>本月以来的流量</h2>
-      <dl class="kv" id="traffic"></dl>
-    </div>
-
-    <p class="center"><button class="btn btn-ghost btn-sm" id="forget" type="button">在这台设备上忘记 token</button></p>
+        <button class="btn btn-primary mt" type="submit" id="comment-submit">提交留言</button>
+        <p class="notice mt" id="comment-msg" role="status"></p>
+      </form>
+    </section>
   </div>
 </section>
 

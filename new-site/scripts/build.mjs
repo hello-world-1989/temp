@@ -7,6 +7,7 @@
 //   -->
 // and may use {{> header}} / {{> footer}}; both are inserted automatically when absent.
 // {{> ad}} inserts the manual AdSense display unit (partials/ad.html).
+// Optional front matter: `script: x.js`, `style: x.css`, `ads: off` (no AdSense script on the page).
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -36,7 +37,12 @@ for (const file of readdirSync(join(root, 'pages')).filter((f) => f.endsWith('.h
   const head = partial('head')
     .replace('{{title}}', esc(title))
     .replace('{{description}}', esc(meta.description || '公益项目：免费翻墙节点与订阅、翻墙软件下载和每日新闻。'))
-    .replace('{{extraHead}}', meta.script ? `<script type="module" src="/assets/${meta.script}"></script>` : '');
+    .replace('{{extraHead}}', [
+      meta.style ? `<link rel="stylesheet" href="/assets/${meta.style}">` : '',
+      meta.script ? `<script type="module" src="/assets/${meta.script}"></script>` : '',
+    ].filter(Boolean).join('\n'))
+    // `ads: off` for pages where people write or submit things (no third-party scripts there)
+    .replace(meta.ads === 'off' ? '<script src="/assets/ads.js" async></script>\n' : '\u0000', '');
   const html = [
     '<!doctype html>',
     '<html lang="zh-CN">',
