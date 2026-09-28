@@ -198,5 +198,56 @@
       "karing_1.2.25.2802_windows_x64.zip"
     ],
     "updated": "2026-09-28T05:35:42.016Z"
+  },
+  "linux-hiddify.zip": {
+    "version": "v4.1.1",
+    "files": [
+      "Hiddify-Linux-x64-AppImage.AppImage",
+      "Hiddify-Debian-x64.deb"
+    ],
+    "updated": "2026-09-28T06:01:35.306Z"
+  },
+  "linux-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_linux_amd64.deb"
+    ],
+    "updated": "2026-09-28T06:01:39.975Z"
+  },
+  "linux-outline.zip": {
+    "version": "https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage|\"c77790cd9b0c80be701ab586fc25edd4-7\"|Tue, 09 Dec 2025 13:59:57 GMT|114447794",
+    "files": [
+      "Outline-Client.AppImage"
+    ],
+    "updated": "2026-09-28T06:01:50.591Z"
+  },
+  "linux-v2ray.zip": {
+    "version": "7.24.9",
+    "files": [
+      "v2rayN-linux-64.zip",
+      "v2rayN-linux-arm64.zip"
+    ],
+    "updated": "2026-09-28T06:02:03.026Z"
+  },
+  "linux-clash.zip": {
+    "version": "v2.5.6",
+    "files": [
+      "Clash.Verge_2.5.6_amd64.deb"
+    ],
+    "updated": "2026-09-28T06:02:10.648Z"
+  },
+  "linux-chrome.zip": {
+    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"6d2c2b5\"|Sat, 26 Sep 2026 09:19:52 GMT|142114088",
+    "files": [
+      "google-chrome-stable_current_amd64.deb"
+    ],
+    "updated": "2026-09-28T06:02:21.259Z"
+  },
+  "linux-tor.zip": {
+    "version": "15.0.23",
+    "files": [
+      "tor-browser-linux-x86_64-15.0.23.tar.xz"
+    ],
+    "updated": "2026-09-28T06:02:33.699Z"
   }
 }
