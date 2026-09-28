@@ -12,15 +12,9 @@ workers_dev = false
 pattern = "v1.end-gfw.com"
 custom_domain = true
 
-# end-gfw.com itself (2026-09-27). Takes over from the Cloudflare Tunnel without
-# touching DNS; delete these two routes and deploy to send traffic back (rollback).
-[[routes]]
-pattern = "end-gfw.com/*"
-zone_name = "end-gfw.com"
-
-[[routes]]
-pattern = "www.end-gfw.com/*"
-zone_name = "end-gfw.com"
+# end-gfw.com and www.end-gfw.com moved to the new site (new-site/ on the v2 branch)
+# on 2026-09-28; this Worker keeps v1.end-gfw.com until it closes on 2026-10-15.
+# Rollback: put the two end-gfw.com routes back here after removing them from v2.
 
 [vars]
 # Lambda end-gfw-legacy-api: the routes that need secrets or MongoDB

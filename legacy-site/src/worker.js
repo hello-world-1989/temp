@@ -280,6 +280,12 @@ async function hourly(env) {
   if (ip && /^(\d{1,3}\.){3}\d{1,3}$/.test(ip)) await saveMirror(env, ip, 8081, Date.now());
 }
 
+const RETIRED_HOST = 'v1.end-gfw.com';
+const RETIRE_NOTICE =
+  '<div role="alert" style="margin:0;padding:10px 16px;background:#fff3df;color:#5a3800;border-bottom:1px solid #f0c890;' +
+  'font:15px/1.6 -apple-system,BlinkMacSystemFont,\'Segoe UI\',\'PingFang SC\',\'Microsoft YaHei\',sans-serif;text-align:center">' +
+  '请访问新版网站 <a href="https://end-gfw.com/" style="color:#0b5cff;font-weight:600">end-gfw.com</a>，此网站将于 2026 年 10 月 15 日关闭</div>';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -291,8 +297,13 @@ export default {
       console.error(url.pathname, err?.message);
       res = json({ success: false, error: 'Internal error', message: 'Error occurred' }, 500);
     }
-    const out = new Response(res.body, res);
+    let out = new Response(res.body, res);
     for (const [k, v] of Object.entries(CORS)) out.headers.set(k, v);
+    // Closing notice, only on the old site's own domain (end-gfw.com is the new site,
+    // which also passes some old pages through here)
+    if (url.hostname === RETIRED_HOST && (out.headers.get('Content-Type') || '').startsWith('text/html')) {
+      out = new HTMLRewriter().on('body', { element: (el) => el.prepend(RETIRE_NOTICE, { html: true }) }).transform(out);
+    }
     return out;
   },
   async scheduled(event, env, ctx) {
