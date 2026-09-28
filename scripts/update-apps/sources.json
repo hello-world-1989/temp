@@ -1,57 +1,308 @@
 {
   "_comment": "按 vpn.json 里的 star 从高到低排列。每一项对应 temp 仓库某个 release（tag）里的一个 zip。type: github = 上游 GitHub Release；template = 从 JSON 读版本号再拼下载地址；url = 固定下载地址（按 ETag/Last-Modified/大小判断是否更新）。files 里的正则必须各自恰好匹配一个上游文件。raw=true 表示上游文件本身就是 zip，直接改名上传。",
   "sources": [
-    { "name": "android-hiddify.zip", "type": "github", "repo": "hiddify/hiddify-app", "files": ["^Hiddify-Android-universal\\.apk$"] },
-    { "name": "windows-hiddify.zip", "type": "github", "repo": "hiddify/hiddify-app", "files": ["^Hiddify-Windows-Setup-x64\\.exe$"] },
-    { "name": "mac-hiddify.zip", "type": "github", "repo": "hiddify/hiddify-app", "files": ["^Hiddify-MacOS\\.dmg$"] },
-
-    { "name": "android-karing.zip", "type": "github", "repo": "KaringX/karing", "files": ["^karing_[\\d.]+_android_arm\\.apk$"] },
-    { "name": "windows-karing.zip", "type": "github", "repo": "KaringX/karing", "files": ["^karing_[\\d.]+_windows_x64\\.zip$"], "raw": true },
-    { "name": "mac-karing.zip", "type": "github", "repo": "KaringX/karing", "files": ["^karing_[\\d.]+_macos_universal\\.dmg$"] },
-
-    { "name": "android-outline.zip", "type": "url", "urls": ["https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk"] },
-    { "name": "windows-outline.zip", "type": "github", "repo": "Jigsaw-Code/outline-apps", "tagPattern": "^windows-", "files": ["^Outline-Client\\.exe$"] },
-    { "name": "mac-outline.zip", "type": "url", "urls": ["https://s3.amazonaws.com/outline-releases/manager/macos/stable/Outline-Manager.dmg"] },
-
-    { "name": "android-v2ray.zip", "type": "github", "repo": "2dust/v2rayNG", "files": ["^v2rayNG_[\\d.]+_arm64-v8a\\.apk$", "^v2rayNG_[\\d.]+_armeabi-v7a\\.apk$"] },
-    { "name": "windows-v2ray.zip", "type": "github", "repo": "2dust/v2rayN", "files": ["^v2rayN-windows-64-desktop\\.zip$", "^v2rayN-windows-arm64-desktop\\.zip$"] },
-    { "name": "mac-v2ray.zip", "type": "github", "repo": "2dust/v2rayN", "files": ["^v2rayN-macos-64\\.dmg$", "^v2rayN-macos-arm64\\.dmg$"] },
-
-    { "name": "android-clash.zip", "type": "github", "repo": "MetaCubeX/ClashMetaForAndroid", "files": ["^cmfa-[\\d.]+-meta-universal-release\\.apk$"] },
-
-    { "name": "android-nthlink.zip", "type": "url", "urls": ["https://www.downloadnth.com/nthlink-android-current.apk"] },
-    { "name": "windows-nthlink.zip", "type": "url", "urls": ["https://www.downloadnth.com/nthlink-win64-current.exe"] },
-
-    { "name": "windows-chrome.zip", "type": "url", "urls": ["https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe"] },
-    { "name": "mac-chrome.zip", "type": "url", "urls": ["https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg"] },
-
-    { "name": "android-ooni.zip", "type": "template",
-      "version": { "url": "https://f-droid.org/api/v1/packages/org.openobservatory.ooniprobe", "path": "suggestedVersionCode" },
-      "urls": ["https://f-droid.org/repo/org.openobservatory.ooniprobe_{version}.apk"] },
-    { "name": "windows-ooni.zip", "type": "github", "repo": "ooni/probe-multiplatform", "files": ["^OONI-Probe-[\\d.]+\\.exe$"] },
-    { "name": "mac-ooni.zip", "type": "github", "repo": "ooni/probe-multiplatform", "files": ["^OONI-Probe-[\\d.]+\\.dmg$"] },
-
-    { "name": "android-orbot.zip", "type": "github", "repo": "guardianproject/orbot-android", "files": ["fullperm-arm64-v8a-release\\.apk$"] },
-
-    { "name": "android-tor.zip", "type": "template",
-      "version": { "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json", "path": "version" },
+    {
+      "name": "android-hiddify.zip",
+      "type": "github",
+      "repo": "hiddify/hiddify-app",
+      "files": [
+        "^Hiddify-Android-universal\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-hiddify.zip",
+      "type": "github",
+      "repo": "hiddify/hiddify-app",
+      "files": [
+        "^Hiddify-Windows-Setup-x64\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-hiddify.zip",
+      "type": "github",
+      "repo": "hiddify/hiddify-app",
+      "files": [
+        "^Hiddify-MacOS\\.dmg$"
+      ]
+    },
+    {
+      "name": "android-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_android_arm\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_windows_x64\\.zip$"
+      ],
+      "raw": true
+    },
+    {
+      "name": "mac-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_macos_universal\\.dmg$"
+      ]
+    },
+    {
+      "name": "android-outline.zip",
+      "type": "url",
+      "urls": [
+        "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk"
+      ]
+    },
+    {
+      "name": "windows-outline.zip",
+      "type": "github",
+      "repo": "Jigsaw-Code/outline-apps",
+      "tagPattern": "^windows-",
+      "files": [
+        "^Outline-Client\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-outline.zip",
+      "type": "url",
+      "urls": [
+        "https://s3.amazonaws.com/outline-releases/manager/macos/stable/Outline-Manager.dmg"
+      ]
+    },
+    {
+      "name": "android-v2ray.zip",
+      "type": "github",
+      "repo": "2dust/v2rayNG",
+      "files": [
+        "^v2rayNG_[\\d.]+_arm64-v8a\\.apk$",
+        "^v2rayNG_[\\d.]+_armeabi-v7a\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-v2ray.zip",
+      "type": "github",
+      "repo": "2dust/v2rayN",
+      "files": [
+        "^v2rayN-windows-64-desktop\\.zip$",
+        "^v2rayN-windows-arm64-desktop\\.zip$"
+      ]
+    },
+    {
+      "name": "mac-v2ray.zip",
+      "type": "github",
+      "repo": "2dust/v2rayN",
+      "files": [
+        "^v2rayN-macos-64\\.dmg$",
+        "^v2rayN-macos-arm64\\.dmg$"
+      ]
+    },
+    {
+      "name": "android-clash.zip",
+      "type": "github",
+      "repo": "MetaCubeX/ClashMetaForAndroid",
+      "files": [
+        "^cmfa-[\\d.]+-meta-universal-release\\.apk$"
+      ]
+    },
+    {
+      "name": "android-nthlink.zip",
+      "type": "url",
+      "urls": [
+        "https://www.downloadnth.com/nthlink-android-current.apk"
+      ]
+    },
+    {
+      "name": "windows-nthlink.zip",
+      "type": "url",
+      "urls": [
+        "https://www.downloadnth.com/nthlink-win64-current.exe"
+      ]
+    },
+    {
+      "name": "windows-chrome.zip",
+      "type": "url",
+      "urls": [
+        "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe"
+      ]
+    },
+    {
+      "name": "mac-chrome.zip",
+      "type": "url",
+      "urls": [
+        "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg"
+      ]
+    },
+    {
+      "name": "android-ooni.zip",
+      "type": "template",
+      "version": {
+        "url": "https://f-droid.org/api/v1/packages/org.openobservatory.ooniprobe",
+        "path": "suggestedVersionCode"
+      },
+      "urls": [
+        "https://f-droid.org/repo/org.openobservatory.ooniprobe_{version}.apk"
+      ]
+    },
+    {
+      "name": "windows-ooni.zip",
+      "type": "github",
+      "repo": "ooni/probe-multiplatform",
+      "files": [
+        "^OONI-Probe-[\\d.]+\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-ooni.zip",
+      "type": "github",
+      "repo": "ooni/probe-multiplatform",
+      "files": [
+        "^OONI-Probe-[\\d.]+\\.dmg$"
+      ]
+    },
+    {
+      "name": "android-orbot.zip",
+      "type": "github",
+      "repo": "guardianproject/orbot-android",
+      "files": [
+        "fullperm-arm64-v8a-release\\.apk$"
+      ]
+    },
+    {
+      "name": "android-tor.zip",
+      "type": "template",
+      "version": {
+        "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json",
+        "path": "version"
+      },
       "sha256sums": "https://dist.torproject.org/torbrowser/{version}/sha256sums-signed-build.txt",
-      "urls": ["https://dist.torproject.org/torbrowser/{version}/tor-browser-android-armv7-{version}.apk",
-               "https://dist.torproject.org/torbrowser/{version}/tor-browser-android-aarch64-{version}.apk"] },
-    { "name": "windows-tor.zip", "type": "template",
-      "version": { "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json", "path": "version" },
+      "urls": [
+        "https://dist.torproject.org/torbrowser/{version}/tor-browser-android-armv7-{version}.apk",
+        "https://dist.torproject.org/torbrowser/{version}/tor-browser-android-aarch64-{version}.apk"
+      ]
+    },
+    {
+      "name": "windows-tor.zip",
+      "type": "template",
+      "version": {
+        "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json",
+        "path": "version"
+      },
       "sha256sums": "https://dist.torproject.org/torbrowser/{version}/sha256sums-signed-build.txt",
-      "urls": ["https://dist.torproject.org/torbrowser/{version}/tor-browser-windows-x86_64-portable-{version}.exe"] },
-    { "name": "mac-tor.zip", "type": "template",
-      "version": { "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json", "path": "version" },
+      "urls": [
+        "https://dist.torproject.org/torbrowser/{version}/tor-browser-windows-x86_64-portable-{version}.exe"
+      ]
+    },
+    {
+      "name": "mac-tor.zip",
+      "type": "template",
+      "version": {
+        "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json",
+        "path": "version"
+      },
       "sha256sums": "https://dist.torproject.org/torbrowser/{version}/sha256sums-signed-build.txt",
-      "urls": ["https://dist.torproject.org/torbrowser/{version}/tor-browser-macos-{version}.dmg"] },
-
-    { "name": "windows-warpplus.zip", "type": "url", "urls": ["https://1111-releases.cloudflareclient.com/win/latest"] },
-    { "name": "mac-warpplus.zip", "type": "url", "urls": ["https://1111-releases.cloudflareclient.com/mac/latest"] },
-
-    { "name": "android-psiphon.zip", "type": "url", "urls": ["https://psiphon.ca/PsiphonAndroid.apk"] },
-    { "name": "windows-psiphon.zip", "type": "url", "urls": ["https://psiphon.ca/psiphon3.exe"] }
+      "urls": [
+        "https://dist.torproject.org/torbrowser/{version}/tor-browser-macos-{version}.dmg"
+      ]
+    },
+    {
+      "name": "windows-warpplus.zip",
+      "type": "url",
+      "urls": [
+        "https://1111-releases.cloudflareclient.com/win/latest"
+      ]
+    },
+    {
+      "name": "mac-warpplus.zip",
+      "type": "url",
+      "urls": [
+        "https://1111-releases.cloudflareclient.com/mac/latest"
+      ]
+    },
+    {
+      "name": "android-psiphon.zip",
+      "type": "url",
+      "urls": [
+        "https://psiphon.ca/PsiphonAndroid.apk"
+      ]
+    },
+    {
+      "name": "windows-psiphon.zip",
+      "type": "url",
+      "urls": [
+        "https://psiphon.ca/psiphon3.exe"
+      ]
+    },
+    {
+      "name": "linux-hiddify.zip",
+      "type": "github",
+      "repo": "hiddify/hiddify-app",
+      "files": [
+        "^Hiddify-Linux-x64\\.AppImage$"
+      ]
+    },
+    {
+      "name": "linux-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_linux_amd64\\.deb$"
+      ]
+    },
+    {
+      "name": "linux-outline.zip",
+      "type": "url",
+      "urls": [
+        "https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage"
+      ]
+    },
+    {
+      "name": "linux-v2ray.zip",
+      "type": "github",
+      "repo": "2dust/v2rayN",
+      "files": [
+        "^v2rayN-linux-64\\.zip$",
+        "^v2rayN-linux-arm64\\.zip$"
+      ]
+    },
+    {
+      "name": "linux-clash.zip",
+      "type": "github",
+      "repo": "clash-verge-rev/clash-verge-rev",
+      "files": [
+        "^Clash\\.Verge_[\\d.]+_amd64\\.deb$"
+      ]
+    },
+    {
+      "name": "linux-chrome.zip",
+      "type": "url",
+      "urls": [
+        "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+      ]
+    },
+    {
+      "name": "linux-ooni.zip",
+      "type": "github",
+      "repo": "ooni/probe-multiplatform",
+      "files": [
+        "^OONI-Probe-[\\d.]+\\.AppImage$"
+      ]
+    },
+    {
+      "name": "linux-tor.zip",
+      "type": "template",
+      "version": {
+        "url": "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json",
+        "path": "version"
+      },
+      "sha256sums": "https://dist.torproject.org/torbrowser/{version}/sha256sums-signed-build.txt",
+      "urls": [
+        "https://dist.torproject.org/torbrowser/{version}/tor-browser-linux-x86_64-{version}.tar.xz"
+      ]
+    }
   ],
   "manual": [
     "android-chrome.zip：谷歌不提供官方 APK 直链",
