@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>签到 | 大翻墙运动</title>
-<meta name="description" content="订阅链接 ID 签到（到期后续用订阅链接）和邮箱签到（到期后继续收到节点邮件），每次从签到当天起延长 4 天。">
+<title>重要事件时间线 | 大翻墙运动</title>
+<meta name="description" content="按月整理的重要事件关键词，记录历史，见证变迁；每个月可以查看浏览量最多的推文。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b5cff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="module" src="/assets/site.js"></script>
 <script src="/assets/ads.js" async></script>
-<script type="module" src="/assets/checkin.js"></script>
+<script type="module" src="/assets/events.js"></script>
 </head>
 
-<body class="page-checkin">
+<body class="page-events">
 <a class="skip" href="#main">跳到正文</a>
 <div class="site-notice" role="status">
   <div class="wrap">新版网站上线，有问题请<a href="mailto:end.gfw@hotmail.com">反馈</a>。旧版网站入口 <a href="https://v1.end-gfw.com/">v1.end-gfw.com</a>，将于 2026 年 10 月 15 日关闭。</div>
@@ -32,7 +32,7 @@
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
-        <a href="/checkin" data-nav="checkin" aria-current="page">签到</a>
+        <a href="/checkin" data-nav="checkin">签到</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/faq" data-nav="faq">常见问题</a>
     </nav>
@@ -45,7 +45,7 @@
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
-        <a href="/checkin" data-nav="checkin" aria-current="page">签到</a>
+        <a href="/checkin" data-nav="checkin">签到</a>
         <a href="/news" data-nav="news">新闻</a>
         <a href="/faq" data-nav="faq">常见问题</a>
       </nav>
@@ -56,49 +56,17 @@
 
 <section class="page-head">
   <div class="wrap">
-    <span class="eyebrow">签到</span>
-    <h1>签到续用</h1>
-    <p>免费用户需要定期签到。每次签到从当天起延长 4 天，已经过期的也可以直接签到恢复；剩余时间还多于 4 天时签到不会改变到期时间。</p>
+    <span class="eyebrow">重要事件</span>
+    <h1>重要事件时间线</h1>
+    <p>记录历史，见证变迁。按月整理当月的重要事件关键词，也可以查看当月浏览量最多的推文。</p>
   </div>
 </section>
 
 <section class="section-tight">
-  <div class="wrap grid grid-2">
-    <form id="id-form" class="card feature" novalidate>
-      <h2>订阅链接 ID 签到</h2>
-      <p class="muted">订阅链接到期后，签到即可继续使用同一条订阅链接，不用重新导入。新旧系统的订阅都可以签到。</p>
-      <div class="field mt">
-        <label for="token">订阅链接或 token</label>
-        <input id="token" class="input" autocomplete="off" spellcheck="false" placeholder="粘贴整条订阅链接，或 token= 后面的那一串">
-      </div>
-      <button class="btn btn-primary mt" type="submit" id="id-submit">签到</button>
-      <p class="notice mt" id="id-msg" role="status"></p>
-    </form>
-
-    <form id="email-form" class="card feature" novalidate>
-      <h2>邮箱签到</h2>
-      <p class="muted">通过邮件领取节点的用户，到期后系统不再给你的邮箱发送节点。签到后恢复，可以继续发邮件领取节点。</p>
-      <div class="field mt">
-        <label for="email">领取节点时用的邮箱</label>
-        <input id="email" class="input" type="email" autocomplete="email" spellcheck="false" placeholder="例如 name@gmail.com">
-      </div>
-      <button class="btn btn-primary mt" type="submit" id="email-submit">签到</button>
-      <p class="notice mt" id="email-msg" role="status"></p>
-    </form>
-  </div>
-</section>
-
-<section class="section-tight ad-section" aria-label="广告">
   <div class="wrap">
-    <ins class="adsbygoogle ad-unit" style="display:block" data-ad-client="ca-pub-7165471280882308" data-ad-slot="5427427315" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  </div>
-</section>
-
-
-<section class="section-tight">
-  <div class="wrap">
-    <div class="notice">
-      还没有订阅？首页有 <a href="/#free">免费订阅链接和节点</a>，不用签到；也可以 <a href="/faq#email-nodes">发邮件领取节点</a>，或 <a href="/plans">赞助</a> 获得更快的线路。有问题请发邮件到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>。
+    <div class="tabs" role="tablist" id="years"></div>
+    <div id="timeline" class="timeline mt">
+      <div class="skeleton"></div><div class="skeleton"></div>
     </div>
   </div>
 </section>

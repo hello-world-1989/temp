@@ -33,6 +33,7 @@ function card(a) {
       <div class="meta">${stars ? `<span class="stars" aria-label="推荐指数 ${stars}/10">${'★'.repeat(Math.round(stars / 2))}</span> ` : ''}${sub ? '<span class="badge soft">支持订阅</span> ' : ''}${esc(a.date || '')}</div></div>
     </div>
     <p>${esc(a.comment || '')}</p>
+    <button class="more-toggle" type="button" hidden>展开</button>
     <div class="row">${buttons}</div>
   </article>`;
 }
@@ -41,7 +42,21 @@ function show(os) {
   document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.os === os)));
   const list = apps.filter((a) => a.os === os).sort((a, b) => (Number(b.star) || 0) - (Number(a.star) || 0));
   $('#apps').innerHTML = list.length ? list.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的软件。</p>';
+  // Long instructions are cut to four lines; show 展开 only where something is hidden
+  document.querySelectorAll('#apps .app').forEach((el) => {
+    const p = el.querySelector('p');
+    const btn = el.querySelector('.more-toggle');
+    if (p && btn && p.scrollHeight > p.clientHeight + 2) btn.hidden = false;
+  });
 }
+
+document.getElementById('apps').addEventListener('click', (e) => {
+  const btn = e.target.closest('.more-toggle');
+  if (!btn) return;
+  const p = btn.previousElementSibling;
+  const open = p.classList.toggle('open');
+  btn.textContent = open ? '收起' : '展开';
+});
 
 document.querySelector('.tabs').addEventListener('click', (e) => {
   const tab = e.target.closest('.tab');

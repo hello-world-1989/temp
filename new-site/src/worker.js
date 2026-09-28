@@ -112,12 +112,23 @@ async function route(request, url, env, ctx) {
     const q = url.searchParams;
     const id = q.get('id');
     const [y, m, d] = [q.get('year'), q.get('month'), q.get('day')];
-    if ((!id || id === 'whyyoutouzhele') && !q.get('endDay')) {
-      const date = /^\d{4}$/.test(y || '') && /^\d{1,2}$/.test(m || '') && /^\d{1,2}$/.test(d || '')
-        ? `?date=${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
-        : '';
-      return Response.redirect(`${url.origin}/tweets${date}`, 302);
+    // Only a single day maps onto the new page; month views (events page) stay on the old one
+    if ((!id || id === 'whyyoutouzhele') && !q.get('endDay') && /^\d{4}$/.test(y || '') && /^\d{1,2}$/.test(m || '') && /^\d{1,2}$/.test(d || '')) {
+      return Response.redirect(`${url.origin}/tweets?date=${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`, 302);
     }
+  }
+
+  // The old events pages (events.html, events2022.html, ...) open the new one
+  const ev = p.match(/^\/events(\d{4})?\.html$/);
+  if (ev) return Response.redirect(`${url.origin}/events${ev[1] ? `?year=${ev[1]}` : ''}`, 301);
+  // Monthly keywords for the events timeline (old site's /event, via the legacy Lambda)
+  if (p === '/api/events') {
+    const year = url.searchParams.get('year') || '';
+    if (!/^20\d{2}$/.test(year)) return json({ error: 'year=YYYY' }, 400, 'no-store');
+    return cached(request, ctx, 3600, async () => {
+      const data = await legacy(env, `/event?year=${year}`);
+      return Array.isArray(data) ? json(data, 200, 'public, max-age=3600') : json([], 502, 'no-store');
+    });
   }
 
   // "分站首页": one of the mirrors (https://<ip>/ on the website account's servers), at random
