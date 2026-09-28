@@ -98,13 +98,37 @@ async function tweetsFor({ year, month, day, endDay, id }) {
   return result;
 }
 
-async function streamFile(target, contentType, cacheControl) {
-  const up = await fetch(target, { redirect: 'follow', cf: { cacheTtl: 21600, cacheEverything: true } });
-  if (!up.ok) return new Response('Download failed', { status: 500, headers: { 'Cache-Control': 'no-store' } });
-  const headers = { 'Content-Type': contentType, 'Cache-Control': cacheControl };
+// Resumable downloads: Range / If-Range go through to the subrequest; Cloudflare's cache (or GitHub)
+// answers with 206 + Content-Range, returned as-is. ETag / Last-Modified let browsers check the file
+// has not changed before resuming (If-Range); a changed file comes back as a full 200.
+async function streamFile(request, target, contentType, cacheControl) {
+  const fwd = new Headers();
+  const range = request.headers.get('range');
+  if (range) {
+    fwd.set('Range', range);
+    const ifRange = request.headers.get('if-range');
+    if (ifRange) fwd.set('If-Range', ifRange);
+  }
+  const up = await fetch(target, { headers: fwd, redirect: 'follow', cf: { cacheTtl: 21600, cacheEverything: true } });
+  if (up.status === 416) {
+    up.body?.cancel();
+    const headers = { 'Cache-Control': 'no-store', 'Accept-Ranges': 'bytes' };
+    if (up.headers.get('content-range')) headers['Content-Range'] = up.headers.get('content-range');
+    return new Response(null, { status: 416, headers });
+  }
+  if (!up.ok) {
+    up.body?.cancel();
+    return new Response('Download failed', { status: 500, headers: { 'Cache-Control': 'no-store' } });
+  }
+  const partial = up.status === 206;
+  const headers = { 'Content-Type': contentType, 'Cache-Control': cacheControl, 'Accept-Ranges': 'bytes' };
   const len = up.headers.get('content-length');
   if (len) headers['Content-Length'] = len;
-  return new Response(up.body, { headers });
+  for (const [h, name] of [['etag', 'ETag'], ['last-modified', 'Last-Modified']]) {
+    if (up.headers.get(h)) headers[name] = up.headers.get(h);
+  }
+  if (partial && up.headers.get('content-range')) headers['Content-Range'] = up.headers.get('content-range');
+  return new Response(up.body, { status: partial ? 206 : 200, headers });
 }
 
 // TCP reachability check (net.Socket in the old server)
@@ -231,10 +255,10 @@ async function route(request, url, env) {
 
   // Files proxied from GitHub
   const files = [
-    ['/download-pdf/', (r) => streamFile(`https://github.com/hello-world-1989/whyyoutouzhele/releases/download/${r}`, mimeOf(r, 'application/zip'), 'public, max-age=3600, s-maxage=21600')],
-    ['/download-app/', (r) => streamFile(`https://github.com/hello-world-1989/temp/releases/download/${r}`, mimeOf(r), 'public, max-age=3600, s-maxage=21600')],
-    ['/news-resource/', (r) => streamFile(`${RAW}/resource/main/${r}`, mimeOf(r, 'image/jpeg'), 'public, max-age=86400, s-maxage=604800, immutable')],
-    ['/resource/', (r) => streamFile(`${RAW}/resource/main/${r}`, mimeOf(r, 'image/jpeg'), 'public, max-age=86400, s-maxage=604800, immutable')],
+    ['/download-pdf/', (r) => streamFile(request, `https://github.com/hello-world-1989/whyyoutouzhele/releases/download/${r}`, mimeOf(r, 'application/zip'), 'public, max-age=3600, s-maxage=21600')],
+    ['/download-app/', (r) => streamFile(request, `https://github.com/hello-world-1989/temp/releases/download/${r}`, mimeOf(r), 'public, max-age=3600, s-maxage=21600')],
+    ['/news-resource/', (r) => streamFile(request, `${RAW}/resource/main/${r}`, mimeOf(r, 'image/jpeg'), 'public, max-age=86400, s-maxage=604800, immutable')],
+    ['/resource/', (r) => streamFile(request, `${RAW}/resource/main/${r}`, mimeOf(r, 'image/jpeg'), 'public, max-age=86400, s-maxage=604800, immutable')],
   ];
   for (const [prefix, handle] of files) {
     if (p.startsWith(prefix)) {
