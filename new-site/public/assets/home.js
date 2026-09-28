@@ -15,35 +15,13 @@ function renderQrs(root = document) {
   }
 }
 
-// Free VLESS / Shadowsocks nodes from the published free subscription
-function setSub(kind, url) {
-  const btn = $(`#sub-${kind}`);
-  const qr = $(`#qr-${kind}`);
-  if (!btn) return;
-  if (!url) {
-    btn.querySelector('code').textContent = '订阅链接暂时无法加载，请稍后刷新，或使用下面的 GitHub 订阅。';
-    return;
-  }
-  btn.setAttribute('data-copy', url);
-  btn.querySelector('code').textContent = url;
-  if (qr) qr.innerHTML = qrSvg(url);
-}
-
+// Free VLESS / Shadowsocks nodes of the website's own account
 async function loadFreeNodes() {
   const box = $('#free-nodes');
   let nodes = [];
-  let links = [];
   try {
-    const data = await api('/api/free');
-    links = data.links || [];
-    nodes = data.nodes.filter((n) => n.protocol === 'VLESS' || n.protocol === 'Shadowsocks');
+    nodes = (await api('/api/free')).nodes.filter((n) => n.protocol === 'VLESS' || n.protocol === 'Shadowsocks');
   } catch {}
-  setSub('v2ray', links[0]?.v2ray);
-  setSub('clash', links[0]?.clash);
-  const backup = $('#sub-backup');
-  if (backup && links.length > 1) {
-    backup.innerHTML = '备用域名：' + links.slice(1).map((l) => `<code>${esc(l.v2ray)}</code>（Clash 把 /sub 换成 /clash）`).join('；');
-  }
   if (!nodes.length) {
     box.innerHTML = '<div class="notice warn">免费节点暂时无法加载，请稍后刷新，或使用上面的订阅链接。</div>';
     return;
