@@ -16,12 +16,35 @@ function renderQrs(root = document) {
 }
 
 // Free VLESS / Shadowsocks nodes of the website's own account
+// Mirror addresses of this site, served by the same servers as the free nodes
+function renderMirrors(mirrors) {
+  const box = $('#mirror-list');
+  if (!box) return;
+  if (!mirrors.length) {
+    box.innerHTML = '<div class="notice warn">镜像地址暂时无法加载，请稍后刷新。</div>';
+    return;
+  }
+  box.innerHTML = mirrors
+    .map(
+      (m, i) => `<article class="card feature">
+        <h3>镜像 ${i + 1}</h3>
+        <p><a href="${esc(m)}" target="_blank" rel="noopener">${esc(m)}</a></p>
+        <button class="copy-box" type="button" data-copy="${esc(m)}"><code>${esc(m)}</code><span class="copy-hint">点击复制</span></button>
+      </article>`,
+    )
+    .join('');
+}
+
 async function loadFreeNodes() {
   const box = $('#free-nodes');
   let nodes = [];
+  let mirrors = [];
   try {
-    nodes = (await api('/api/free')).nodes.filter((n) => n.protocol === 'VLESS' || n.protocol === 'Shadowsocks');
+    const data = await api('/api/free');
+    nodes = data.nodes || [];
+    mirrors = data.mirrors || [];
   } catch {}
+  renderMirrors(mirrors);
   if (!nodes.length) {
     box.innerHTML = '<div class="notice warn">免费节点暂时无法加载，请稍后刷新，或使用上面的订阅链接。</div>';
     return;

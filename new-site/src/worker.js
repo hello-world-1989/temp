@@ -115,7 +115,7 @@ async function route(request, url, env, ctx) {
       const res = await xn(env, `/sub?token=${token}`);
       if (!res.ok) return json({ error: '免费节点暂时无法加载' }, 502, 'no-store');
       // Nodes only: the subscription domains are not shown to visitors
-      return json({ nodes: parseFreeNodes(await res.text()) }, 200, 'public, max-age=300');
+      return json(pickFree(parseFreeNodes(await res.text())), 200, 'public, max-age=300');
     });
   }
   if (p === '/api/apps') {
@@ -184,6 +184,19 @@ async function oldSite(request, env, url) {
 // The free subscription is base64 of one share link per line; keep the
 // protocols the home page lists and give each a readable name
 const FREE_PROTOCOLS = { 'vless://': 'VLESS', 'ss://': 'Shadowsocks', 'hysteria2://': 'Hysteria2' };
+// Two of the account's servers, rotating daily: one VLESS node from each, and each
+// server's IP as a mirror of this site (the nodes serve it on https://<ip>/)
+function pickFree(nodes, count = 2) {
+  const hostOf = (uri) => (uri.match(/@\[?([\d.]+)\]?:/) || [])[1] || '';
+  const hosts = [...new Set(nodes.map((n) => hostOf(n.uri)).filter(Boolean))].sort();
+  const day = Math.floor(Date.now() / 86_400_000);
+  const chosen = hosts.length <= count ? hosts : Array.from({ length: count }, (_, i) => hosts[(day + i) % hosts.length]);
+  const picked = chosen
+    .map((h) => nodes.find((n) => hostOf(n.uri) === h && n.protocol === 'VLESS') || nodes.find((n) => hostOf(n.uri) === h))
+    .filter(Boolean);
+  return { nodes: picked, mirrors: chosen.map((h) => `https://${h}/`) };
+}
+
 function parseFreeNodes(b64) {
   let text = '';
   try {
