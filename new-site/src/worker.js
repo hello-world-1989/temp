@@ -282,28 +282,54 @@ function isSafeSubPath(p) {
   );
 }
 
+// Resumable downloads: Range / If-Range go through to the subrequest. Cloudflare's cache slices the
+// range out of the cached file (or GitHub answers it), and the 206 + Content-Range come back as-is.
+// ETag / Last-Modified are passed on because browsers only resume when they can check the file
+// has not changed (If-Range); a changed file comes back as a full 200.
 async function fetchFile(request, ctx, target, ttl) {
+  const range = request.headers.get('range');
   const cache = caches.default;
   const key = new Request(new URL(request.url).toString(), { method: 'GET' });
-  const hit = await cache.match(key);
-  if (hit) return hit;
-  const upstream = await fetch(target, { redirect: 'follow', cf: { cacheTtl: ttl, cacheEverything: true } });
+  // The Cache API only holds full small files; range requests skip it
+  if (!range) {
+    const hit = await cache.match(key);
+    if (hit) return hit;
+  }
+  const fwd = new Headers();
+  if (range) fwd.set('Range', range);
+  const ifRange = request.headers.get('if-range');
+  if (range && ifRange) fwd.set('If-Range', ifRange);
+  const upstream = await fetch(target, { headers: fwd, redirect: 'follow', cf: { cacheTtl: ttl, cacheEverything: true } });
+  if (upstream.status === 416) {
+    upstream.body?.cancel();
+    const headers = { 'Cache-Control': 'no-store', 'Accept-Ranges': 'bytes' };
+    const cr = upstream.headers.get('content-range');
+    if (cr) headers['Content-Range'] = cr;
+    return new Response(null, { status: 416, headers });
+  }
   if (!upstream.ok) {
+    upstream.body?.cancel();
     return new Response('文件暂时无法下载，请稍后再试', {
       status: upstream.status === 404 ? 404 : 502,
       headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
     });
   }
+  const partial = upstream.status === 206;
   const headers = new Headers();
   headers.set('Content-Type', upstream.headers.get('content-type') || 'application/octet-stream');
   const len = upstream.headers.get('content-length');
   if (len) headers.set('Content-Length', len);
+  for (const h of ['content-range', 'etag', 'last-modified']) {
+    const v = upstream.headers.get(h);
+    if (v && (h !== 'content-range' || partial)) headers.set(h, v);
+  }
+  headers.set('Accept-Ranges', 'bytes');
   headers.set('Cache-Control', `public, max-age=3600, s-maxage=${ttl}`);
-  const res = new Response(upstream.body, { status: 200, headers });
-  // Only small files go through the Cache API. clone() tees the body: with a slow client the
+  const res = new Response(upstream.body, { status: partial ? 206 : 200, headers });
+  // Only small full files go through the Cache API. clone() tees the body: with a slow client the
   // cache side runs ahead and the gap is buffered in the Worker's 128 MB memory, which large
   // downloads would blow. Large files are still edge-cached by the fetch() above (cacheEverything).
-  if (len && Number(len) <= 20 * 1024 * 1024) {
+  if (!range && !partial && len && Number(len) <= 20 * 1024 * 1024) {
     ctx.waitUntil(cache.put(key, res.clone()).catch(() => {}));
   }
   return res;
@@ -400,4 +426,4 @@ const qs = (obj) =>
     .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
     .join('&');
 
-export { parseFreeNodes, isSafeSubPath, isToken, extractToken };
+export { parseFreeNodes, isSafeSubPath, isToken, extractToken, fetchFile };
