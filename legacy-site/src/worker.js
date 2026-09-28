@@ -8,6 +8,7 @@
 // The tweet-queue API (/api/add-url etc., sqlite) is not carried over.
 import Handlebars from 'handlebars/runtime.js';
 import templates from './templates.js';
+import { ghFetch, setGitHubToken } from './github.js';
 
 const RAW = 'https://raw.githubusercontent.com/hello-world-1989';
 const SITE = `${RAW}/temp/main/public/temp`;
@@ -68,7 +69,7 @@ const missing = (names) => json({ success: false, error: `Missing required param
 
 // GitHub raw, cached at the edge
 async function raw(url, ttl = 600) {
-  return fetch(url, { cf: { cacheTtl: ttl, cacheEverything: true }, signal: AbortSignal.timeout(15000) });
+  return ghFetch(url, { cf: { cacheTtl: ttl, cacheEverything: true }, signal: AbortSignal.timeout(15000) });
 }
 async function rawJson(url, fallback = null, ttl = 600) {
   try {
@@ -109,7 +110,7 @@ async function streamFile(request, target, contentType, cacheControl) {
     const ifRange = request.headers.get('if-range');
     if (ifRange) fwd.set('If-Range', ifRange);
   }
-  const up = await fetch(target, { headers: fwd, redirect: 'follow', cf: { cacheTtl: 21600, cacheEverything: true } });
+  const up = await ghFetch(target, { headers: fwd, redirect: 'follow', cf: { cacheTtl: 21600, cacheEverything: true } });
   if (up.status === 416) {
     up.body?.cancel();
     const headers = { 'Cache-Control': 'no-store', 'Accept-Ranges': 'bytes' };
@@ -312,6 +313,7 @@ const RETIRE_NOTICE =
 
 export default {
   async fetch(request, env) {
+    setGitHubToken(env.GH_TOKEN);
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response('OK', { headers: CORS });
     let res;
@@ -331,6 +333,7 @@ export default {
     return out;
   },
   async scheduled(event, env, ctx) {
+    setGitHubToken(env.GH_TOKEN);
     ctx.waitUntil(hourly(env));
   },
 };
