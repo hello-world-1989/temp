@@ -46,7 +46,7 @@ enabled = false
 
 # ---------------------------------------------------------------------------
 # Preview of 加密分享 (/share): `wrangler deploy --env preview`, from the share-preview
-# branch (.github/workflows/share-preview.yml). Production (above) has no SHARE bucket,
+# branch (.github/workflows/share-preview.yml). Production (above) has no SHARE_STORE_URL,
 # so /share and /api/share are 404 there until this is merged.
 # routes, vars, services and observability are not inherited by environments.
 [env.preview]
@@ -58,17 +58,18 @@ routes = [{ pattern = "share-preview.end-gfw.com", custom_domain = true }]
 WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
 XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
+# Ciphertext storage on Debian-1-1 (new-site/share-store/). The key is the Worker secret
+# SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY), set in the Cloudflare dashboard.
+SHARE_STORE_URL = "https://share-store.end-gfw.com"
+# Backup links on the upload page: mirrors proxy end-gfw.com, where /share is not live yet
+SHARE_MIRROR_LINKS = "0"
 
 [[env.preview.services]]
 binding = "LEGACY"
 service = "end-gfw-legacy"
 
-# Ciphertext only (encrypted in the browser); deleted after download or 7 days
-[[env.preview.r2_buckets]]
-binding = "SHARE"
-bucket_name = "end-gfw-share-preview"
-
-# Per-IP limits: uploads, and reads of file info / ciphertext / delete
+# Per-IP limits: uploads, and reads of file info / ciphertext / delete (skipped for
+# requests from mirror nodes, whose nginx limits each visitor)
 [[env.preview.ratelimits]]
 name = "SHARE_UPLOAD_LIMIT"
 namespace_id = "7101"
@@ -78,10 +79,6 @@ simple = { limit = 10, period = 60 }
 name = "SHARE_READ_LIMIT"
 namespace_id = "7102"
 simple = { limit = 60, period = 60 }
-
-# Hourly sweep of files older than 7 days
-[env.preview.triggers]
-crons = ["17 * * * *"]
 
 # Worker logs on for the preview (requested). The share code logs no IPs, links or keys;
 # the #key part of a link never reaches the server.

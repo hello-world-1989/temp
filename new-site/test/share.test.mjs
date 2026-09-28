@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { encryptFile, decryptFile, b64url, fromB64url, sha256hex } from '../public/assets/share-crypto.js';
-import { handleShare, sweep, isShareId, newId, MAX_BODY, TTL_MS } from '../src/share.js';
+import { handleShare, shareStore, isShareId, newId, MAX_BODY, TTL_MS } from '../src/share.js';
 
 globalThis.FixedLengthStream ??= class extends TransformStream {
   constructor() {
@@ -119,11 +119,84 @@ test('limits, expiry and disabled deployments', async () => {
   env.SHARE.store.set('share/bbbbbbbbbbbbbbbbbbbbbb', { key: 'share/bbbbbbbbbbbbbbbbbbbbbb', size: 1, uploaded: new Date(), customMetadata: {}, data: new Uint8Array(1) });
   assert.equal((await call(env, '/api/share/aaaaaaaaaaaaaaaaaaaaaa/file')).status, 404);
   assert.ok(!env.SHARE.store.has('share/aaaaaaaaaaaaaaaaaaaaaa'));
-  env.SHARE.store.set('share/cccccccccccccccccccccc', { key: 'share/cccccccccccccccccccccc', size: 1, uploaded: new Date(Date.now() - TTL_MS - 1000), customMetadata: {}, data: new Uint8Array(1) });
-  assert.equal(await sweep(env), 1);
   assert.deepEqual([...env.SHARE.store.keys()], ['share/bbbbbbbbbbbbbbbbbbbbbb']);
 
   assert.equal(await call({}, '/share'), 'disabled');
   assert.equal(await call({}, '/api/share/bbbbbbbbbbbbbbbbbbbbbb'), 'disabled');
   assert.equal(await call({}, '/news'), null);
+});
+
+test('rate limits apply per IP, except for requests from mirror nodes', async () => {
+  let calls = 0;
+  const deny = { limit: async () => (calls++, { success: false }) };
+  const env = { SHARE: fakeBucket(), SHARE_READ_LIMIT: deny, SHARE_UPLOAD_LIMIT: deny };
+  const opts = { mirrorIps: async () => new Set(['9.9.9.9']) };
+  const req = (ip) => {
+    const url = new URL('https://x/api/share/bbbbbbbbbbbbbbbbbbbbbb');
+    return handleShare(new Request(url, { headers: { 'cf-connecting-ip': ip } }), url, env, opts);
+  };
+  assert.equal((await req('1.1.1.1')).status, 429);
+  assert.equal((await req('9.9.9.9')).status, 404); // not limited here, file just missing
+  assert.equal(calls, 1);
+
+  const m = new URL('https://x/api/share/mirrors');
+  const off = await (await handleShare(new Request(m), m, env, opts)).json();
+  assert.deepEqual(off, { mirrors: [], site: [] });
+  const on = await (await handleShare(new Request(m), m, { ...env, SHARE_MIRROR_LINKS: '1', SHARE_SITE_URL: 'https://end-gfw.com/' }, opts)).json();
+  assert.deepEqual(on, { mirrors: ['https://9.9.9.9'], site: ['https://end-gfw.com'] });
+});
+
+test('the storage server client', async () => {
+  const saved = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (url, init = {}) => {
+    const h = new Headers(init.headers);
+    seen.push({ url, method: init.method || 'GET', key: h.get('x-store-key'), dh: h.get('x-meta-dh') });
+    if (init.method === 'PUT') {
+      await new Response(init.body).arrayBuffer();
+      return Response.json({ size: 3, uploaded: 1700000000000 }, { status: 201 });
+    }
+    if (url.endsWith('/f/missingmissingmissing1')) return new Response('{}', { status: 404 });
+    const headers = { 'x-size': '3', 'x-uploaded': '1700000000000', 'x-meta-dh': 'd'.repeat(64), 'x-meta-pw': '1' };
+    if (init.method === 'HEAD') return new Response(null, { headers });
+    if (init.method === 'DELETE') return Response.json({ deleted: true });
+    return new Response('abc', { headers });
+  };
+  try {
+    assert.equal(shareStore({}), null);
+    const st = shareStore({ SHARE_STORE_URL: 'https://store.example/', SHARE_STORE_KEY: 'k'.repeat(40) });
+    const put = await st.put('share/aaaaaaaaaaaaaaaaaaaaaa', new Response('abc').body, { customMetadata: { dh: 'd'.repeat(64), pw: '1' } });
+    assert.equal(put.size, 3);
+    assert.equal(put.uploaded.getTime(), 1700000000000);
+    const head = await st.head('share/aaaaaaaaaaaaaaaaaaaaaa');
+    assert.deepEqual(head.customMetadata, { dh: 'd'.repeat(64), pw: '1' });
+    assert.equal(await st.head('share/missingmissingmissing1'), null);
+    const got = await st.get('share/aaaaaaaaaaaaaaaaaaaaaa');
+    assert.equal(await new Response(got.body).text(), 'abc');
+    await st.delete('share/aaaaaaaaaaaaaaaaaaaaaa');
+    assert.equal(seen[0].url, 'https://store.example/f/aaaaaaaaaaaaaaaaaaaaaa');
+    assert.ok(seen.every((c) => c.key === 'k'.repeat(40)));
+    assert.equal(seen[0].dh, 'd'.repeat(64));
+  } finally {
+    globalThis.fetch = saved;
+  }
+});
+
+test('photo metadata is removed (GPS, camera, comments, trailing images), orientation kept', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { stripMetadata } = await import('../public/assets/share-meta.js');
+  for (const f of ['a.jpg', 'p.jpg', 'm.jpg', 'a.png', 'a.webp']) {
+    const src = readFileSync(new URL(`fixtures/${f}`, import.meta.url));
+    assert.ok(src.toString('latin1').includes('SECRET'), f);
+    const { file, cleaned } = await stripMetadata(new File([src], f));
+    const out = Buffer.from(await file.arrayBuffer()).toString('latin1');
+    assert.ok(cleaned, f);
+    assert.ok(!out.includes('SECRET'), f);
+    if (f.endsWith('.jpg')) {
+      assert.ok(out.includes('Exif\0\0MM'), `${f} keeps orientation`);
+      assert.ok(out.endsWith('\xff\xd9'), `${f} ends at the main image`);
+    }
+  }
+  const other = new File(['%PDF-1.4 author'], 'x.pdf');
+  assert.equal((await stripMetadata(other)).cleaned, false);
 });

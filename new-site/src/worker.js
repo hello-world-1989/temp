@@ -1,5 +1,5 @@
 import { ghFetch, setGitHubToken } from './github.js';
-import { handleShare, sweep } from './share.js';
+import { handleShare } from './share.js';
 // v2.end-gfw.com — Cloudflare Worker
 // Static pages come from ./public (Workers Static Assets). This file serves the
 // dynamic parts:
@@ -34,16 +34,12 @@ export default {
       return withSecurityHeaders(json({ error: '服务暂时不可用，请稍后再试' }, 502, 'no-store'));
     }
   },
-  // Cron (preview only for now): delete shared files older than 7 days
-  async scheduled(_event, env, ctx) {
-    ctx.waitUntil(sweep(env));
-  },
 };
 
 async function route(request, url, env, ctx) {
   const p = url.pathname;
   // 加密分享 (src/share.js); 'disabled' where the Worker has no SHARE bucket
-  const share = await handleShare(request, url, env);
+  const share = await handleShare(request, url, env, { mirrorIps: () => mirrorIps(env) });
   if (share === 'disabled') return notFound(request, env, url);
   if (share) return share;
   if (request.method !== 'GET' && request.method !== 'HEAD') {
@@ -232,6 +228,19 @@ async function oldSite(request, env, url) {
 async function notFound(request, env, url) {
   const page = await env.ASSETS.fetch(new Request(new URL('/404', url), request));
   return new Response(page.body, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
+}
+
+// IPs of the website account's servers, which also serve this site as mirrors
+// (https://<ip>/ proxies to end-gfw.com). Cached per isolate for 5 minutes.
+let mirrorCache = { at: 0, ips: new Set() };
+async function mirrorIps(env) {
+  if (Date.now() - mirrorCache.at < 300_000) return mirrorCache.ips;
+  const token = encodeURIComponent(String(env.WEB_TOKEN || ''));
+  const res = token ? await xn(env, `/sub?token=${token}`).catch(() => null) : null;
+  if (!res || !res.ok) return mirrorCache.ips;
+  const ips = new Set(pickFree(parseFreeNodes(await res.text()), 99).mirrors.map((m) => new URL(m).hostname));
+  mirrorCache = { at: Date.now(), ips };
+  return ips;
 }
 
 // The free subscription is base64 of one share link per line; keep the

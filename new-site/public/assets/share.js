@@ -1,6 +1,13 @@
 import { $, esc, fmtBytes, fmtDate, copyText } from './site.js';
 import qrcode from './vendor/qrcode.js';
 import { MAX_FILE, encryptFile, b64url, sha256hex } from './share-crypto.js';
+import { stripMetadata, kindOf } from './share-meta.js';
+
+// Other addresses of this site (mirror IPs, the main domain) for backup links
+const backupsReady = fetch('/api/share/mirrors', { cache: 'no-store' })
+  .then((r) => (r.ok ? r.json() : {}))
+  .then((d) => [...(d.mirrors || []), ...(d.site || [])].filter((o) => o !== location.origin))
+  .catch(() => []);
 
 function msg(el, text, kind = '') {
   el.className = `notice mt ${kind}`;
@@ -36,15 +43,29 @@ function post(body, headers, onProgress) {
 
 let current = null; // { id, deleteToken }
 
+async function metaNote() {
+  const f = $('#file').files[0];
+  const note = $('#meta-note');
+  if (!f) return msg(note, '');
+  const kind = kindOf(new Uint8Array(await f.slice(0, 16).arrayBuffer()));
+  if (kind && $('#strip').checked) msg(note, '会清除这张图片的位置、拍摄设备和时间信息。', 'ok');
+  else if (kind) msg(note, '不会清除图片里的隐藏信息，照片可能带有拍摄位置。', 'warn');
+  else if (/^image\//.test(f.type) || /\.(heic|heif|tiff?|dng|raw)$/i.test(f.name))
+    msg(note, '这种图片格式无法自动清除位置等信息。建议先截图或转成 JPG 再分享。', 'warn');
+  else msg(note, '这种文件无法自动清除隐藏信息（例如 PDF、Word 的作者名，视频的拍摄位置）。请自己先检查。', 'warn');
+}
+
 $('#file').addEventListener('change', () => {
   const f = $('#file').files[0];
   $('#file-info').textContent = f ? `${f.name} · ${fmtBytes(f.size)}${f.size > MAX_FILE ? '（超过 50 MB，无法上传）' : ''}` : '';
+  metaNote();
 });
+$('#strip').addEventListener('change', metaNote);
 
 $('#up-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const out = $('#up-msg');
-  const file = $('#file').files[0];
+  let file = $('#file').files[0];
   const password = $('#password').value;
   if (!file) return msg(out, '请先选择文件', 'warn');
   if (file.size > MAX_FILE) return msg(out, '文件太大，最大 50 MB', 'warn');
@@ -52,6 +73,13 @@ $('#up-form').addEventListener('submit', async (e) => {
 
   $('#up-submit').disabled = true;
   try {
+    if ($('#strip').checked) {
+      try {
+        file = (await stripMetadata(file)).file;
+      } catch {
+        throw new Error('这张图片无法处理，无法清除隐藏信息。可以取消勾选“清除隐藏信息”后再上传，或先截图再分享。');
+      }
+    }
     msg(out, password ? '正在加密（设置了密码，需要几秒钟）…' : '正在加密…');
     const { blob, linkKey, deleteToken } = await encryptFile(file, password);
     msg(out, '正在上传… 0%');
@@ -61,9 +89,14 @@ $('#up-form').addEventListener('submit', async (e) => {
       (p) => msg(out, `正在上传… ${Math.floor(p * 100)}%`),
     );
     current = { id: res.id, deleteToken };
-    const link = `${location.origin}/s/${res.id}#${b64url(linkKey)}`;
+    const path = `/s/${res.id}#${b64url(linkKey)}`;
+    const link = `${location.origin}${path}`;
     $('#link').textContent = link;
     $('#link-box').onclick = () => copyText(link);
+    const backups = (await backupsReady).slice(0, 4).map((o) => `${o}${path}`);
+    $('#backup').hidden = !backups.length;
+    $('#backup-links').innerHTML = backups.map((l) => `<li><code>${esc(l)}</code></li>`).join('');
+    $('#copy-all').onclick = () => copyText(['加密文件（打不开时换下一个链接）：', link, ...backups].join('\n'));
     $('#link-qr').innerHTML = qrSvg(link);
     $('#pw-note').hidden = !password;
     $('#meta').innerHTML = [

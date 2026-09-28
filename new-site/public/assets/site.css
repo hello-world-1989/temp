@@ -323,6 +323,10 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .page-share .feature ul { margin: 12px 0 0; padding-left: 1.1em; display: grid; gap: 8px; color: var(--muted); font-size: .95rem; }
 .page-share .feature ul strong { color: var(--text); }
 .page-share #howto { grid-column: 1 / -1; }
+.page-share .check { display: flex; gap: 8px; align-items: flex-start; font-size: .95rem; cursor: pointer; }
+.page-share .check input { margin-top: 4px; }
+.page-share .backup-links { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.page-share .backup-links code { display: block; font-size: .8rem; word-break: break-all; padding: 8px 10px; border-radius: 10px; background: var(--surface-2); }
 .page-share input[type="file"].input { padding: 10px; }
 .page-share-get #get-form { max-width: 640px; }
 .page-share [hidden], .page-share-get [hidden] { display: none !important; }

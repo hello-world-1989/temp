@@ -63,6 +63,12 @@
 </section>
 
 <section class="section-tight">
+  <div class="wrap">
+    <p class="notice warn">建议先打开浏览器的<strong>无痕 / 隐私模式</strong>再使用本页：分享链接里带着密钥，普通模式会把它留在浏览记录里。</p>
+  </div>
+</section>
+
+<section class="section-tight">
   <div class="wrap grid grid-2">
     <form id="up-form" class="card feature" novalidate>
       <h2>1. 选择文件</h2>
@@ -71,6 +77,8 @@
         <input id="file" class="input" type="file">
         <span class="muted" id="file-info"></span>
       </div>
+      <label class="check mt"><input type="checkbox" id="strip" checked> 清除照片里的位置、拍摄设备和时间等隐藏信息</label>
+      <p class="notice mt" id="meta-note" role="status"></p>
       <div class="field mt">
         <label for="password">密码（可选，推荐）</label>
         <input id="password" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="不填则只凭链接就能下载">
@@ -85,6 +93,12 @@
       <p class="muted">这个链接只显示一次，关闭页面后无法找回。</p>
       <button class="copy-box mt" type="button" id="link-box"><code id="link"></code><span class="copy-hint">点击复制链接</span></button>
       <div class="qr" id="link-qr"></div>
+      <div id="backup" hidden>
+        <h3 class="mt">备用链接</h3>
+        <p class="muted">上面的链接打不开时（例如镜像站换了地址），用下面任意一个，打开的是同一个文件。</p>
+        <ul class="backup-links" id="backup-links"></ul>
+        <button class="btn btn-ghost btn-sm mt" type="button" id="copy-all">复制全部链接</button>
+      </div>
       <p class="notice warn mt" id="pw-note" hidden>记得把密码另外发给对方，不要和链接放在同一条消息里。</p>
       <dl class="kv mt" id="meta"></dl>
       <div class="row mt">
@@ -99,6 +113,7 @@
         <li>链接里 <code>#</code> 后面是密钥，服务器收不到；但微信、QQ 能看到你发出的整条消息。<strong>设置密码，并把密码用另一种方式告诉对方</strong>（当面、电话、另一个聊天软件）。</li>
         <li>对方用手机<strong>系统浏览器</strong>打开链接（微信里点右上角“···”，选“在浏览器打开”）。微信内置浏览器不能保存文件。</li>
         <li>文件只能成功下载一次；对方输错密码不会删除文件。</li>
+        <li>照片会自动清除位置和拍摄设备信息；PDF、Word、视频等文件可能带有作者名、设备等信息，请自己先检查。文件名对方也能看到。</li>
         <li>解密后的文件保存在对方手机上，之后是否安全取决于对方的手机，例如相册是否同步到国内网盘。</li>
       </ul>
     </div>
