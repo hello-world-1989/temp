@@ -260,7 +260,8 @@ for (const src of SOURCES) {
     rmSync(out, { force: true });
     if (src.raw) {
       if (paths.length !== 1) throw new Error('raw 只能有一个文件');
-      execFileSync('unzip', ['-tq', paths[0]]); // 确认是完整的 zip
+      // 确认是能读出文件目录的 zip（unzip -t 对部分 Windows 打包工具生成的 zip 会误报）
+      execFileSync('python3', ['-c', 'import sys,zipfile; n=len(zipfile.ZipFile(sys.argv[1]).namelist()); assert n>0', paths[0]]);
       out = paths[0];
     } else {
       execFileSync('zip', ['-j', '-q', '-X', out, ...paths]);
