@@ -12,6 +12,14 @@ const media = (list) =>
     .filter((p) => /^\/[\w/.-]+\.(jpe?g|png|webp|gif)$/i.test(p))
     .map((p) => `/news-resource${p}`);
 
+// "[查看原文](https://…)" and "[查看引用原文](https://…)" in the text become links
+function linkify(text) {
+  return esc(text).replace(/\[([^\]\n]{1,40})\]\((https?:\/\/[^\s)]+)\)/g, (all, label, href) => {
+    const safe = safeUrl(href.replace(/&amp;/g, '&'));
+    return safe && safe !== '#' ? `<a href="${esc(safe)}" target="_blank" rel="noopener nofollow">${label}</a>` : all;
+  });
+}
+
 function render() {
   const q = $('#q').value.trim();
   const list = q ? items.filter((t) => String(t.content || '').includes(q)) : items;
@@ -22,11 +30,10 @@ function render() {
           const hasVideo = !!String(t.videos || t.originVideos || '').trim();
           return `<article class="card item">
             <div class="item-meta"><b>${esc(t.name || '')}</b><span>${esc(t.createdDate)}</span>${Number(t.views) ? `<span>${esc(t.views)} 次浏览</span>` : ''}</div>
-            <p>${esc(t.content)}</p>
+            <p>${linkify(t.content)}</p>
             ${pics.length ? `<div class="thumbs">${pics.map((src) => `<img src="${esc(src)}" alt="" loading="lazy">`).join('')}</div>` : ''}
             <div class="row">
               ${t.link ? `<a class="btn btn-ghost btn-sm" href="${esc(safeUrl(t.link))}" rel="noopener nofollow">在 X 查看${hasVideo ? '（含视频）' : ''}</a>` : ''}
-              ${t.telegramLink ? `<a class="btn btn-ghost btn-sm" href="${esc(safeUrl(t.telegramLink))}" rel="noopener nofollow">Telegram</a>` : ''}
             </div>
           </article>`;
         })

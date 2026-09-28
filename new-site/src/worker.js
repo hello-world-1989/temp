@@ -107,6 +107,18 @@ async function route(request, url, env, ctx) {
   }
 
   // --- content from GitHub
+  // "分站首页": one of the mirrors (https://<ip>/ on the website account's servers), at random
+  if (p === '/mirror') {
+    const token = encodeURIComponent(String(env.WEB_TOKEN || ''));
+    const res = token ? await xn(env, `/sub?token=${token}`).catch(() => null) : null;
+    const mirrors = res && res.ok ? pickFree(parseFreeNodes(await res.text()), 99).mirrors : [];
+    if (!mirrors.length) return Response.redirect(`${url.origin}/#mirrors`, 302);
+    return new Response(null, {
+      status: 302,
+      headers: { Location: mirrors[Math.floor(Math.random() * mirrors.length)], 'Cache-Control': 'no-store' },
+    });
+  }
+
   // The website's own shared account (WEB_TOKEN): its nodes
   if (p === '/api/free') {
     return cached(request, ctx, 300, async () => {
