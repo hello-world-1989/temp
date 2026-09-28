@@ -241,7 +241,8 @@
       "type": "github",
       "repo": "hiddify/hiddify-app",
       "files": [
-        "^Hiddify-Linux-x64\\.AppImage$"
+        "^Hiddify-Linux-x64-AppImage\\.AppImage$",
+        "^Hiddify-Debian-x64\\.deb$"
       ]
     },
     {
@@ -281,14 +282,6 @@
       "type": "url",
       "urls": [
         "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-      ]
-    },
-    {
-      "name": "linux-ooni.zip",
-      "type": "github",
-      "repo": "ooni/probe-multiplatform",
-      "files": [
-        "^OONI-Probe-[\\d.]+\\.AppImage$"
       ]
     },
     {
