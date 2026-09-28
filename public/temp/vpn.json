@@ -206,7 +206,7 @@
     "id": "clash",
     "name": "Clash",
     "link1": "/download-app/android/android-clash.zip",
-    "link2": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.13/cmfa-2.11.13-meta-universal-release.apk",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-clash.zip",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取订阅链接",
     "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开clash->配置 右上角+ ->从URL导入主页Clash订阅链接",
