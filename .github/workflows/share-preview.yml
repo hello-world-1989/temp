@@ -31,5 +31,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN not set, skipping deploy"; exit 0; fi
-          npx wrangler r2 bucket create end-gfw-share-preview 2>&1 | tail -3 || true
+          # Asia-Pacific location (closest to users in China); "already exists" is fine
+          npx wrangler r2 bucket create end-gfw-share-preview --location apac 2>&1 | tail -3 || true
+          npx wrangler r2 bucket info end-gfw-share-preview
           npx wrangler deploy --env preview
