@@ -102,7 +102,10 @@ async function downloadPdf() {
   try {
     await loadScript(HTML2PDF);
     const feed = $('#feed');
-    await Promise.all([...feed.querySelectorAll('img')].map((img) => (img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; }))));
+    // Lazy images below the fold never load on their own: load them all, waiting at most 15 s
+    const imgs = [...feed.querySelectorAll('img')];
+    imgs.forEach((img) => { img.loading = 'eager'; });
+    await Promise.all(imgs.map((img) => (img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; setTimeout(r, 15000); }))));
     await window.html2pdf()
       .set({
         margin: [10, 10, 10, 10],
