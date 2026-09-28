@@ -71,3 +71,54 @@ $('#date').addEventListener('change', (e) => e.target.value && go(e.target.value
 $('#q').addEventListener('input', render);
 
 load();
+
+// Download the day's tweets as a PDF (like the old site): html2pdf is loaded on first use
+const HTML2PDF = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (window.html2pdf) return resolve();
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('load failed'));
+    document.head.appendChild(s);
+  });
+}
+// A light-theme copy, so the PDF is readable when the page is in dark mode
+function printable(el) {
+  const copy = el.cloneNode(true);
+  const vars = { '--bg': '#ffffff', '--surface': '#ffffff', '--surface-2': '#eef2f8', '--text': '#0f1b2d', '--muted': '#5b6b82', '--line': '#dde4ee', '--accent': '#0b5cff' };
+  for (const [k, v] of Object.entries(vars)) copy.style.setProperty(k, v);
+  copy.style.background = '#ffffff';
+  copy.style.color = '#0f1b2d';
+  return copy;
+}
+
+async function downloadPdf() {
+  const btn = $('#pdf');
+  const label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = '生成中…';
+  try {
+    await loadScript(HTML2PDF);
+    const feed = $('#feed');
+    await Promise.all([...feed.querySelectorAll('img')].map((img) => (img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; }))));
+    await window.html2pdf()
+      .set({
+        margin: [10, 10, 10, 10],
+        filename: `tweets-${date}.pdf`,
+        image: { type: 'jpeg', quality: 0.92 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css'] },
+      })
+      .from(printable(feed))
+      .save();
+  } catch {
+    alert('PDF 生成失败，请稍后再试');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = label;
+  }
+}
+$('#pdf')?.addEventListener('click', downloadPdf);

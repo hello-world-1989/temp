@@ -184,6 +184,8 @@ async function oldSite(request, env, url) {
       if ((res.headers.get('content-type') || '').startsWith('text/html')) {
         return new HTMLRewriter()
           .on('head', { element: (el) => el.append('<script src="/assets/ads.js" async></script>', { html: true }) })
+          // The old pages' donation links point at the old Stripe page; send them to the sponsor page
+          .on('a[href*="buy.stripe.com"]', { element: (el) => el.setAttribute('href', '/plans') })
           .transform(res);
       }
       return res;
