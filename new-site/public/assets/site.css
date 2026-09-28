@@ -225,8 +225,10 @@ p { margin: 0 0 1em; }
 .item-meta { display: flex; gap: 10px; align-items: center; font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
 .item h3 { margin: 0; font-size: 1.08rem; }
 .item p { margin: 0; color: var(--text); white-space: pre-line; }
-.item .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
-.item .thumbs img { border-radius: 10px; aspect-ratio: 4/3; object-fit: cover; width: 100%; background: var(--surface-2); }
+.item .thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.item .thumbs a { display: block; }
+.item .thumbs img { border-radius: 10px; aspect-ratio: 3/4; object-fit: cover; width: 100%; background: var(--surface-2); }
+@media (max-width: 600px) { .item .thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .pager { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .skeleton { height: 96px; border-radius: var(--radius); background: linear-gradient(90deg, var(--surface-2), var(--surface), var(--surface-2)); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
 @keyframes shimmer { to { background-position: -200% 0; } }
@@ -295,7 +297,7 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
   body { background: #fff; color: #000; }
   .site-notice, .site-header, .site-footer, .ad-section, .feed-more, .adsbygoogle, .skip, .pager, .search, #pdf, #preview, .row .btn { display: none !important; }
   .card { box-shadow: none; break-inside: avoid; }
-  .thumbs img { max-height: 240px; }
+  .item .thumbs img { max-height: 320px; }
   a[href^="http"]::after { content: none; }
 }
 

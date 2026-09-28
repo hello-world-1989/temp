@@ -40,7 +40,7 @@ function card(t) {
   return `<article class="card item">
     <div class="item-meta"><b>${esc(t.name || '')}</b><span>${esc(t.createdDate)}</span>${Number(t.views) ? `<span>${esc(t.views)} 次浏览</span>` : ''}</div>
     <p>${linkify(t.content)}</p>
-    ${pics.length ? `<div class="thumbs">${pics.map((src) => `<img src="${esc(src)}" alt="" loading="lazy">`).join('')}</div>` : ''}
+    ${pics.length ? `<div class="thumbs">${pics.map((src) => `<a href="${esc(src)}" target="_blank" rel="noopener"><img src="${esc(src)}" alt="" loading="lazy"></a>`).join('')}</div>` : ''}
     <div class="row">
       ${t.link ? `<a class="btn btn-ghost btn-sm" href="${esc(safeUrl(t.link))}" rel="noopener nofollow">在 X 查看${hasVideo ? '（含视频）' : ''}</a>` : ''}
     </div>
