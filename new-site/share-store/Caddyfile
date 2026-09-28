@@ -1,0 +1,19 @@
+# end-gfw 加密分享 storage: TLS in front of store.py. Only /f/<id> is served; no access log.
+{
+	admin off
+}
+
+share-store.end-gfw.com {
+	request_body {
+		max_size 52MB
+	}
+	@file path_regexp ^/f/[A-Za-z0-9_-]{22}$
+	handle @file {
+		reverse_proxy 127.0.0.1:8790 {
+			flush_interval -1
+		}
+	}
+	handle {
+		respond 404
+	}
+}

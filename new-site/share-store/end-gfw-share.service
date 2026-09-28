@@ -1,0 +1,23 @@
+[Unit]
+Description=end-gfw 加密分享 storage
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/end-gfw-share/store.py
+Environment=STORE_DIR=/var/lib/end-gfw-share
+Environment=STORE_LISTEN=127.0.0.1:8790
+LoadCredential=store-key:/etc/end-gfw-share/store-key
+DynamicUser=yes
+StateDirectory=end-gfw-share
+StateDirectoryMode=0700
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+NoNewPrivileges=yes
+MemoryMax=256M
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
