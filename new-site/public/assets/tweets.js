@@ -4,6 +4,9 @@ const params = new URLSearchParams(location.search);
 const today = ymd();
 let date = /^\d{4}-\d{2}-\d{2}$/.test(params.get('date') || '') ? params.get('date') : today;
 let items = [];
+// ?view=print: the preview page — the whole day in the print layout, no menus or ads
+const previewMode = params.get('view') === 'print';
+if (previewMode) document.body.classList.add('print-view');
 
 const media = (list) =>
   String(list || '')
@@ -23,7 +26,7 @@ function linkify(text) {
 // Like the old site: the day's tweets come in one request, but are shown 10 at a time;
 // the next 10 appear when the reader nears the end (or presses the button)
 const BATCH = 10;
-let shown = BATCH;
+let shown = previewMode ? Infinity : BATCH;
 let observer = null;
 
 const filtered = () => {
@@ -74,6 +77,11 @@ function loadMore() {
   window.scrollTo(0, y);
 }
 
+function setPreviewLink() {
+  const a = $('#preview');
+  if (a) a.href = `/tweets?date=${date}&view=print`;
+}
+
 async function load() {
   $('#date').value = date;
   $('#date').max = today;
@@ -89,25 +97,26 @@ async function load() {
     return load();
   }
   items.sort((a, b) => String(b.createdDate).localeCompare(String(a.createdDate)));
-  shown = BATCH;
+  shown = previewMode ? Infinity : BATCH;
+  setPreviewLink();
   render();
 }
 
 function go(d) {
   date = d;
-  history.replaceState(null, '', `?date=${date}`);
+  history.replaceState(null, '', `?date=${date}${previewMode ? '&view=print' : ''}`);
   load();
 }
 
 $('#prev').addEventListener('click', () => go(addDays(date, -1)));
 $('#next').addEventListener('click', () => date < today && go(addDays(date, 1)));
 $('#date').addEventListener('change', (e) => e.target.value && go(e.target.value > today ? today : e.target.value));
-$('#q').addEventListener('input', () => { shown = BATCH; render(); });
+$('#q').addEventListener('input', () => { shown = previewMode ? Infinity : BATCH; render(); });
 
 load();
 
-// "Save as PDF": the browser's own print preview renders the day's tweets (print styles
-// in site.css hide the menus, ads and controls); lazy images are loaded first
+// "保存为 PDF": opens the browser's print window (print styles in site.css hide the menus,
+// ads and controls; choose "Save as PDF" there); lazy images are loaded first
 async function printDay() {
   // The PDF holds the whole day, not just the tweets shown so far
   shown = Infinity;

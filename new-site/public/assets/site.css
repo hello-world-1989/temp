@@ -293,10 +293,16 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 @media print {
   :root { --bg: #fff; --surface: #fff; --surface-2: #f3f5f9; --text: #000; --muted: #444; --line: #ccc; --accent: #0b5cff; }
   body { background: #fff; color: #000; }
-  .site-notice, .site-header, .site-footer, .ad-section, .feed-more, .adsbygoogle, .skip, .pager, .search, #pdf, .row .btn { display: none !important; }
+  .site-notice, .site-header, .site-footer, .ad-section, .feed-more, .adsbygoogle, .skip, .pager, .search, #pdf, #preview, .row .btn { display: none !important; }
   .card { box-shadow: none; break-inside: avoid; }
   .thumbs img { max-height: 240px; }
   a[href^="http"]::after { content: none; }
 }
 
 .feed-more { text-align: center; display: grid; gap: 10px; justify-items: center; }
+
+/* Tweets preview page (?view=print): the print layout on screen, with the save button kept */
+.print-view { background: #fff; color: #0f1b2d; --bg: #fff; --surface: #fff; --text: #0f1b2d; --muted: #5b6b82; --line: #dde4ee; }
+.print-view .site-notice, .print-view .site-header, .print-view .site-footer, .print-view .ad-section,
+.print-view .feed-more, .print-view .pager, .print-view .search, .print-view #preview, .print-view .row .btn { display: none !important; }
+.print-view .card { box-shadow: none; }
