@@ -1,0 +1,13 @@
+# end-gfw 事件墙 API: TLS in front of the board service. Only /api/board/* is served;
+# Caddy keeps no access log (no `log` directive). BOARD_HOST is replaced by install.sh.
+BOARD_HOST {
+	request_body {
+		max_size 10MB
+	}
+	handle /api/board/* {
+		reverse_proxy 127.0.0.1:8791
+	}
+	handle {
+		respond 404
+	}
+}
