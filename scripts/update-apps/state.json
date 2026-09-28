@@ -1,0 +1,195 @@
+{
+  "android-hiddify.zip": {
+    "version": "v4.1.1",
+    "files": [
+      "Hiddify-Android-universal.apk"
+    ],
+    "updated": "2026-09-28T05:26:07.826Z"
+  },
+  "windows-hiddify.zip": {
+    "version": "v4.1.1",
+    "files": [
+      "Hiddify-Windows-Setup-x64.exe"
+    ],
+    "updated": "2026-09-28T05:26:11.906Z"
+  },
+  "mac-hiddify.zip": {
+    "version": "v4.1.1",
+    "files": [
+      "Hiddify-MacOS.dmg"
+    ],
+    "updated": "2026-09-28T05:26:18.191Z"
+  },
+  "android-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_android_arm.apk"
+    ],
+    "updated": "2026-09-28T05:26:24.557Z"
+  },
+  "mac-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_macos_universal.dmg"
+    ],
+    "updated": "2026-09-28T05:26:32.335Z"
+  },
+  "android-outline.zip": {
+    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"f094c0b60b27ed0a922462e59c63e637-6\"|Wed, 02 Sep 2026 18:06:28 GMT|45310306",
+    "files": [
+      "Outline-Client.apk"
+    ],
+    "updated": "2026-09-28T05:26:37.383Z"
+  },
+  "windows-outline.zip": {
+    "version": "windows-v1.9.1",
+    "files": [
+      "Outline-Client.exe"
+    ],
+    "updated": "2026-09-28T05:26:44.017Z"
+  },
+  "mac-outline.zip": {
+    "version": "https://s3.amazonaws.com/outline-releases/manager/macos/stable/Outline-Manager.dmg|\"3617599b58bc6dc540fe6b853df46980-27\"|Tue, 21 Jul 2026 15:54:58 GMT|218450708",
+    "files": [
+      "Outline-Manager.dmg"
+    ],
+    "updated": "2026-09-28T05:26:58.155Z"
+  },
+  "android-v2ray.zip": {
+    "version": "2.2.6",
+    "files": [
+      "v2rayNG_2.2.6_arm64-v8a.apk",
+      "v2rayNG_2.2.6_armeabi-v7a.apk"
+    ],
+    "updated": "2026-09-28T05:27:02.938Z"
+  },
+  "windows-v2ray.zip": {
+    "version": "7.24.9",
+    "files": [
+      "v2rayN-windows-64-desktop.zip",
+      "v2rayN-windows-arm64-desktop.zip"
+    ],
+    "updated": "2026-09-28T05:27:13.204Z"
+  },
+  "mac-v2ray.zip": {
+    "version": "7.24.9",
+    "files": [
+      "v2rayN-macos-64.dmg",
+      "v2rayN-macos-arm64.dmg"
+    ],
+    "updated": "2026-09-28T05:27:28.790Z"
+  },
+  "android-clash.zip": {
+    "version": "v2.11.34",
+    "files": [
+      "cmfa-2.11.34-meta-universal-release.apk"
+    ],
+    "updated": "2026-09-28T05:27:36.774Z"
+  },
+  "android-nthlink.zip": {
+    "version": "https://www.downloadnth.com/nthlink-android-current.apk|\"6a3a3a2b-5665d0d\"|Tue, 23 Jun 2026 07:47:55 GMT|90594573",
+    "files": [
+      "nthlink-android-current.apk"
+    ],
+    "updated": "2026-09-28T05:27:43.877Z"
+  },
+  "windows-nthlink.zip": {
+    "version": "https://www.downloadnth.com/nthlink-win64-current.exe|\"6a3a3d93-11a5e6f8\"|Tue, 23 Jun 2026 08:02:27 GMT|296085240",
+    "files": [
+      "nthlink-win64-current.exe"
+    ],
+    "updated": "2026-09-28T05:27:59.516Z"
+  },
+  "windows-chrome.zip": {
+    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"6d2cdc3-3c1aab87\"|Fri, 25 Sep 2026 15:18:12 GMT|165938616",
+    "files": [
+      "ChromeStandaloneSetup64.exe"
+    ],
+    "updated": "2026-09-28T05:28:10.920Z"
+  },
+  "mac-chrome.zip": {
+    "version": "https://dl.google.com/tag/s/appguid%3DCOM.GOOGLE.CHROME%26brand%3DGGRO/chrome/mac/universal/stable/googlechrome.dmg|\"6d2ce57-e441ac88\"|Tue, 22 Sep 2026 18:18:25 GMT|282964019",
+    "files": [
+      "googlechrome.dmg"
+    ],
+    "updated": "2026-09-28T05:28:27.518Z"
+  },
+  "android-ooni.zip": {
+    "version": "374",
+    "files": [
+      "org.openobservatory.ooniprobe_374.apk"
+    ],
+    "updated": "2026-09-28T05:32:54.366Z"
+  },
+  "windows-ooni.zip": {
+    "version": "v6.2.0",
+    "files": [
+      "OONI-Probe-6.2.0.exe"
+    ],
+    "updated": "2026-09-28T05:33:08.496Z"
+  },
+  "mac-ooni.zip": {
+    "version": "v6.2.0",
+    "files": [
+      "OONI-Probe-6.2.0.dmg"
+    ],
+    "updated": "2026-09-28T05:33:24.244Z"
+  },
+  "android-orbot.zip": {
+    "version": "17.9.6-BETA-1-tor-0.4.9.12",
+    "files": [
+      "Orbot-17.9.6-BETA-1-tor-0.4.9.12-2-g7b2bb2571-fullperm-arm64-v8a-release.apk"
+    ],
+    "updated": "2026-09-28T05:33:27.836Z"
+  },
+  "android-tor.zip": {
+    "version": "15.0.23",
+    "files": [
+      "tor-browser-android-armv7-15.0.23.apk",
+      "tor-browser-android-aarch64-15.0.23.apk"
+    ],
+    "updated": "2026-09-28T05:33:51.870Z"
+  },
+  "windows-tor.zip": {
+    "version": "15.0.23",
+    "files": [
+      "tor-browser-windows-x86_64-portable-15.0.23.exe"
+    ],
+    "updated": "2026-09-28T05:34:01.439Z"
+  },
+  "mac-tor.zip": {
+    "version": "15.0.23",
+    "files": [
+      "tor-browser-macos-15.0.23.dmg"
+    ],
+    "updated": "2026-09-28T05:34:15.737Z"
+  },
+  "windows-warpplus.zip": {
+    "version": "https://downloads.cloudflareclient.com/v1/download/windows/version/2026.7.1376.0|\"92475c156b6699ad10cb2eb56e9f2a06\"||59437056",
+    "files": [
+      "2026.7.1376.0"
+    ],
+    "updated": "2026-09-28T05:34:21.483Z"
+  },
+  "mac-warpplus.zip": {
+    "version": "https://downloads.cloudflareclient.com/v1/download/macos/version/2026.7.1376.0|\"23237ae43e7a363a915f6d159658610c-1\"||152847432",
+    "files": [
+      "2026.7.1376.0"
+    ],
+    "updated": "2026-09-28T05:34:34.035Z"
+  },
+  "android-psiphon.zip": {
+    "version": "https://psiphon.ca/PsiphonAndroid.apk|\"18bee82-65b004ae652c0\"|Tue, 08 Sep 2026 22:31:15 GMT|25947778",
+    "files": [
+      "PsiphonAndroid.apk"
+    ],
+    "updated": "2026-09-28T05:34:37.015Z"
+  },
+  "windows-psiphon.zip": {
+    "version": "https://psiphon.ca/psiphon3.exe|\"ac9450-658f7588bfe80\"|Fri, 14 Aug 2026 01:00:26 GMT|11310160",
+    "files": [
+      "psiphon3.exe"
+    ],
+    "updated": "2026-09-28T05:34:39.020Z"
+  }
+}
