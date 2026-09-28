@@ -288,7 +288,7 @@ const md = [
   '',
   '| 文件 | 原版本 | 上游版本 | 结果 |',
   '|---|---|---|---|',
-  ...results.map((r) => `| ${r.name} | ${String(r.prev).slice(0, 60)} | ${String(r.now).slice(0, 60)} | ${r.status.replaceAll('|', '\\|').slice(0, 400)} |`),
+  ...results.map((r) => `| ${r.name} | ${String(r.prev).slice(0, 60)} | ${String(r.now).slice(0, 60)} | ${r.status.replaceAll('|', '\\|').slice(0, 1500)} |`),
 ].join('\n');
 console.log(md);
 if (process.env.GITHUB_STEP_SUMMARY) writeFileSync(process.env.GITHUB_STEP_SUMMARY, `${md}\n`, { flag: 'a' });

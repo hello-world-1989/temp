@@ -9,10 +9,11 @@
     { "name": "windows-karing.zip", "type": "github", "repo": "KaringX/karing", "files": ["^karing_[\\d.]+_windows_x64\\.zip$"], "raw": true },
     { "name": "mac-karing.zip", "type": "github", "repo": "KaringX/karing", "files": ["^karing_[\\d.]+_macos_universal\\.dmg$"] },
 
-    { "name": "android-outline.zip", "type": "github", "repo": "Jigsaw-Code/outline-apps", "tagPattern": "android", "files": ["^Outline-Client\\.apk$"] },
-    { "name": "windows-outline.zip", "type": "github", "repo": "Jigsaw-Code/outline-apps", "tagPattern": "windows", "files": ["^Outline-Client\\.exe$"] },
+    { "name": "android-outline.zip", "type": "url", "urls": ["https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk"] },
+    { "name": "windows-outline.zip", "type": "github", "repo": "Jigsaw-Code/outline-apps", "tagPattern": "^windows-", "files": ["^Outline-Client\\.exe$"] },
+    { "name": "mac-outline.zip", "type": "url", "urls": ["https://s3.amazonaws.com/outline-releases/manager/macos/stable/Outline-Manager.dmg"] },
 
-    { "name": "android-v2ray.zip", "type": "github", "repo": "2dust/v2rayNG", "files": ["^v2rayNG_[\\d.]+_universal\\.apk$"] },
+    { "name": "android-v2ray.zip", "type": "github", "repo": "2dust/v2rayNG", "files": ["^v2rayNG_[\\d.]+_arm64-v8a\\.apk$", "^v2rayNG_[\\d.]+_armeabi-v7a\\.apk$"] },
     { "name": "windows-v2ray.zip", "type": "github", "repo": "2dust/v2rayN", "files": ["^v2rayN-windows-64-desktop\\.zip$", "^v2rayN-windows-arm64-desktop\\.zip$"] },
     { "name": "mac-v2ray.zip", "type": "github", "repo": "2dust/v2rayN", "files": ["^v2rayN-macos-64\\.dmg$", "^v2rayN-macos-arm64\\.dmg$"] },
 
@@ -27,8 +28,8 @@
     { "name": "android-ooni.zip", "type": "template",
       "version": { "url": "https://f-droid.org/api/v1/packages/org.openobservatory.ooniprobe", "path": "suggestedVersionCode" },
       "urls": ["https://f-droid.org/repo/org.openobservatory.ooniprobe_{version}.apk"] },
-    { "name": "windows-ooni.zip", "type": "github", "repo": "ooni/probe-desktop", "files": ["^OONI-Probe-[\\d.]+\\.exe$"] },
-    { "name": "mac-ooni.zip", "type": "github", "repo": "ooni/probe-desktop", "files": ["^OONI-Probe-[\\d.]+\\.dmg$"] },
+    { "name": "windows-ooni.zip", "type": "github", "repo": "ooni/probe-multiplatform", "files": ["^OONI-Probe-[\\d.]+\\.exe$"] },
+    { "name": "mac-ooni.zip", "type": "github", "repo": "ooni/probe-multiplatform", "files": ["^OONI-Probe-[\\d.]+\\.dmg$"] },
 
     { "name": "android-orbot.zip", "type": "github", "repo": "guardianproject/orbot-android", "files": ["fullperm-arm64-v8a-release\\.apk$"] },
 
@@ -55,7 +56,7 @@
   "manual": [
     "android-chrome.zip：谷歌不提供官方 APK 直链",
     "windows-vpngate.zip、android/windows-freegate.zip、android/windows/mac-freebrowser.zip、geph：没有稳定的下载地址",
-    "mac-outline.zip（Outline Manager）、mac-orbot.zip、android-warpplus.zip：待确认官方来源",
+    "mac-orbot.zip、android-warpplus.zip：待确认官方来源",
     "ios-karing.zip：temp 仓库没有 ios release"
   ]
 }
