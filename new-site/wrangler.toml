@@ -20,6 +20,17 @@ service = "end-gfw-legacy"
 pattern = "v2.end-gfw.com"
 custom_domain = true
 
+# end-gfw.com itself (2026-09-28, taken over from the old site's Worker, which keeps
+# v1.end-gfw.com until 2026-10-15). Rollback: remove these two, deploy, then put them
+# back in legacy-site/wrangler.toml on the v1 branch.
+[[routes]]
+pattern = "end-gfw.com/*"
+zone_name = "end-gfw.com"
+
+[[routes]]
+pattern = "www.end-gfw.com/*"
+zone_name = "end-gfw.com"
+
 [vars]
 # xrayr-next public subscription domains, tried in order (swap here when one is blocked)
 XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
