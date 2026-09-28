@@ -2,7 +2,8 @@ name: share-preview
 
 # Preview of 加密分享: deploys new-site/ with `--env preview` to the Worker
 # end-gfw-share-preview (share-preview.end-gfw.com). Does not touch end-gfw-new
-# (v2.end-gfw.com / end-gfw.com). Needs the R2 bucket end-gfw-share-preview.
+# (v2.end-gfw.com / end-gfw.com). Needs the R2 bucket end-gfw-share-preview, created
+# outside this workflow (the deploy token has no R2 permission).
 on:
   push:
     branches: [share-preview]
@@ -31,7 +32,4 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN not set, skipping deploy"; exit 0; fi
-          # Asia-Pacific location (closest to users in China); "already exists" is fine
-          npx wrangler r2 bucket create end-gfw-share-preview --location apac 2>&1 | tail -3 || true
-          npx wrangler r2 bucket info end-gfw-share-preview
           npx wrangler deploy --env preview
