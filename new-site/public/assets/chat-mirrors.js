@@ -11,13 +11,13 @@ async function load() {
     mirrors = ((await api('/api/chat-mirrors')).mirrors || []).filter(ok);
   } catch {}
   if (!mirrors.length) {
-    box.innerHTML = '<div class="notice warn">聊天入口暂时无法加载，请稍后刷新。</div>';
+    box.innerHTML = '<div class="notice warn">备用入口暂时无法加载，请稍后刷新，或直接在本站打开。</div>';
     return;
   }
   box.innerHTML = mirrors
     .map(
       (m, i) => `<article class="card feature">
-        <h3>入口 ${i + 1}${m.region ? ` <span class="muted">· ${esc(m.region)}</span>` : ''}</h3>
+        <h3>备用入口 ${i + 1}${m.region ? ` <span class="muted">· ${esc(m.region)}</span>` : ''}</h3>
         <p><a class="btn btn-primary" href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">打开聊天</a></p>
         <button class="copy-box" type="button" data-copy="${esc(m.url)}"><code>${esc(m.url)}</code><span class="copy-hint">点击复制</span></button>
       </article>`,

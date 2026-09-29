@@ -20,12 +20,13 @@
 
 <main class="wrap" id="main">
   <noscript><p class="notice warn">这个页面需要开启 JavaScript：加密和解密都在你的浏览器里完成。</p></noscript>
+  <div class="notice error" id="unofficial" hidden><strong>请使用官方地址。</strong>为了保证端到端加密不被篡改，加密聊天只在官方地址提供，这个地址不是官方地址。请打开 https://end-gfw.com/chat ；打不开时，官方入口见 https://end-gfw.com/chat-mirrors 。</div>
   <p class="notice warn" id="unsupported" hidden>这个浏览器太旧，不支持页面需要的加密功能。请换用新版 Chrome、Firefox、Edge 或 Safari。</p>
 
   <!-- 建群 -->
   <section id="v-create" hidden>
     <h1>建一个事件群</h1>
-    <p class="muted">不需要注册、邮箱或手机号。消息在你的浏览器里加密，密钥只在邀请链接里，服务器和镜像站都看不到内容。消息到时间后自动删除。</p>
+    <p class="muted">不需要注册、邮箱或手机号。消息在你的浏览器里加密，密钥只在邀请链接里，服务器看不到内容。消息到时间后自动删除。</p>
     <form id="create-form" class="card" novalidate>
       <label class="field">群名称（可选，也是加密的）
         <input id="c-name" class="input" maxlength="40" autocomplete="off" placeholder="例如：某地某事">

@@ -1,4 +1,6 @@
-import { $, esc, fmtBytes, fmtDate } from './site.js';
+import { $, esc, fmtBytes, fmtDate, guardOfficial } from './site.js';
+
+guardOfficial('加密分享');
 import { decryptFile, fromB64url } from './share-crypto.js';
 
 function msg(text, kind = '') {

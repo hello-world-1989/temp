@@ -1,22 +1,23 @@
 <!--
-title: 加密聊天
-description: 按事件建群的网页聊天，不用注册，消息端到端加密、到时间自动删除。通过下面的地址打开。
+title: 加密聊天入口
+description: 加密聊天的全部官方入口：本站 end-gfw.com/chat，以及直连聊天服务器的备用地址。
 nav: chat
 script: chat-mirrors.js
 -->
 <section class="page-head">
   <div class="wrap">
     <span class="eyebrow">加密聊天 · Beta</span>
-    <h1>加密聊天</h1>
-    <p>按事件建群的网页聊天：不用注册、邮箱或手机号，消息在浏览器里加密，服务器看不到内容；每条消息到时间自动删除，也可以设置“看过后删除”。</p>
+    <h1>加密聊天入口</h1>
+    <p>按事件建群的网页聊天：不用注册、邮箱或手机号，消息在浏览器里加密，服务器看不到内容；每条消息到时间自动删除。下面每个入口都是同一个聊天，群和消息互通。</p>
+    <p><a class="btn btn-primary" href="/chat">在本站打开加密聊天</a></p>
   </div>
 </section>
 
 <section class="section-tight">
   <div class="wrap">
     <div class="section-head">
-      <div><span class="eyebrow">入口</span><h2>从下面任一地址打开</h2></div>
-      <span class="muted">每个地址都是同一个聊天，群和消息互通。地址会定期更换，打不开就换一个</span>
+      <div><span class="eyebrow">备用入口</span><h2>本站打不开时，用下面的地址</h2></div>
+      <span class="muted">地址会定期更换，打不开就换一个</span>
     </div>
     <div id="chat-list" class="grid grid-2">
       <div class="skeleton"></div><div class="skeleton"></div>
@@ -27,16 +28,16 @@ script: chat-mirrors.js
 <section class="section-tight">
   <div class="wrap grid grid-2">
     <div class="card feature">
-      <h2>为什么不在本站打开？</h2>
-      <p class="muted">端到端加密的前提是：你的浏览器拿到的聊天页面和加密代码没有被中间人改过。本站经过 Cloudflare 等代理，代理能改页面，改了就能偷走群密钥。上面的地址只做原样转发，加密连接直接连到聊天服务器，中间的服务器看不到也改不了内容。</p>
+      <h2>两种入口有什么不同？</h2>
+      <p class="muted">端到端加密的前提是：你的浏览器拿到的聊天页面和加密代码没有被改过。本站入口经过 Cloudflare，需要信任 Cloudflare；备用入口直接连到聊天服务器，中间的服务器只转发加密后的数据，看不到也改不了。对安全要求高的群，建议所有人都用备用入口。</p>
     </div>
     <div class="card feature">
       <h2>使用须知</h2>
       <ul class="muted">
+        <li>只用本页列出的官方入口。其他人搭的镜像站不提供加密聊天，也不要在那里打开邀请链接。</li>
         <li>邀请链接里带着群密钥，只发给信任的人；拿到链接的人都能看到群里的消息。</li>
         <li>建议用浏览器的无痕 / 隐私模式打开，免得链接留在浏览记录里。</li>
-        <li>防不住截图和拍屏。</li>
-        <li>测试版功能，可能随时调整；请不要只依赖它保存重要信息。</li>
+        <li>防不住截图和拍屏。测试版功能，可能随时调整。</li>
       </ul>
     </div>
   </div>

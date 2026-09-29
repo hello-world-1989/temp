@@ -1,4 +1,6 @@
-import { $, esc, fmtBytes, fmtDate, copyText } from './site.js';
+import { $, esc, fmtBytes, fmtDate, copyText, guardOfficial } from './site.js';
+
+guardOfficial('加密分享');
 import qrcode from './vendor/qrcode.js';
 import { MAX_FILE, encryptFile, b64url, sha256hex } from './share-crypto.js';
 import { stripMetadata, kindOf } from './share-meta.js';

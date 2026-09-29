@@ -9,6 +9,8 @@ import { handleBoard } from './board.js';
 //   /api/apps, /api/news, /api/tweets                  -> public JSON on GitHub
 //   /api/free                                          -> the website account's nodes (WEB_TOKEN)
 //   /api/chat-mirrors                                  -> 加密聊天 relay addresses (xrayr-next)
+//   /api/official-hosts                                -> addresses 加密分享 / 加密聊天 may run on
+//   /chat, /chat/*, /chat/ws                           -> 加密聊天 on Debian-1-2 (CHAT_URL, Cloudflare Tunnel)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
 //
 // xrayr-next is reached through its public subscription domains (XN_BASES), the
@@ -16,6 +18,17 @@ import { handleBoard } from './board.js';
 
 const GITHUB_RAW = 'https://raw.githubusercontent.com/hello-world-1989';
 const NEWS_SOURCES = ['bbc', 'dw', 'rfa', 'rfi', 'voa'];
+
+// Where 加密分享 and 加密聊天 may run. Third-party mirrors can change page scripts (and steal
+// the keys in the links), so the pages refuse to run anywhere else; this site's own node IPs
+// are added from xrayr-next (/api/official-hosts).
+const OFFICIAL_HOSTS = [
+  'end-gfw.com',
+  'www.end-gfw.com',
+  'v2.end-gfw.com',
+  'share-preview.end-gfw.com',
+  'board-preview.end-gfw.com',
+];
 
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
@@ -29,6 +42,8 @@ export default {
     setGitHubToken(env.GH_TOKEN);
     const url = new URL(request.url);
     try {
+      // 加密聊天 WebSocket: handed back untouched (a 101 response cannot be rebuilt)
+      if (url.pathname === '/chat/ws' && env.CHAT_URL) return await chatSocket(request, env);
       const res = await route(request, url, env, ctx);
       return withSecurityHeaders(res);
     } catch (err) {
@@ -40,6 +55,8 @@ export default {
 
 async function route(request, url, env, ctx) {
   const p = url.pathname;
+  // 加密聊天 (Debian-1-2 through the Cloudflare Tunnel end-gfw-chat)
+  if (p === '/chat' || p.startsWith('/chat/')) return chatProxy(request, url, env);
   // 加密分享 (src/share.js); 'disabled' where the Worker has no SHARE bucket
   const share = await handleShare(request, url, env, { mirrorIps: () => mirrorIps(env) });
   if (share === 'disabled') return notFound(request, env, url);
@@ -152,6 +169,19 @@ async function route(request, url, env, ctx) {
     return new Response(null, {
       status: 302,
       headers: { Location: mirrors[Math.floor(Math.random() * mirrors.length)], 'Cache-Control': 'no-store' },
+    });
+  }
+
+  // Addresses 加密分享 and 加密聊天 run on: this site's domains, its mirror node IPs and the chat relays
+  if (p === '/api/official-hosts') {
+    return cached(request, ctx, 120, async () => {
+      const ips = [...((await mirrorIps(env).catch(() => null)) || [])];
+      let chat = [];
+      try {
+        const res = await xn(env, '/chat/mirrors');
+        if (res.ok) chat = ((await res.json()).mirrors || []).map((m) => hostOfUrl(m?.url)).filter(Boolean);
+      } catch {}
+      return json({ hosts: [...new Set([...OFFICIAL_HOSTS, ...ips, ...chat])] }, 200, 'public, max-age=120');
     });
   }
 
@@ -428,6 +458,53 @@ function noStore(res) {
     if (!['content-type', 'cache-control', 'content-length'].includes(h)) out.headers.delete(h);
   }
   return out;
+}
+
+const hostOfUrl = (u) => {
+  try {
+    return new URL(String(u)).hostname;
+  } catch {
+    return '';
+  }
+};
+
+// Request headers for the chat service: nothing that identifies the visitor
+function chatHeaders(request) {
+  const h = new Headers(request.headers);
+  for (const k of ['cookie', 'x-forwarded-for', 'x-real-ip', 'x-xn-host', 'cf-connecting-ip', 'true-client-ip']) h.delete(k);
+  return h;
+}
+
+// 加密聊天 page, assets and API. The page's CSP names the WebSocket host; the service sees its
+// tunnel hostname, so that is swapped for the address the browser used (this domain, or the
+// node IP a mirror reports in X-Xn-Host).
+async function chatProxy(request, url, env) {
+  if (!env.CHAT_URL) return notFound(request, env, url);
+  const target = new URL(url.pathname + url.search, env.CHAT_URL);
+  const hasBody = request.method !== 'GET' && request.method !== 'HEAD';
+  const res = await fetch(target, {
+    method: request.method,
+    headers: chatHeaders(request),
+    body: hasBody ? request.body : undefined,
+    redirect: 'manual',
+  });
+  const out = new Response(res.body, res);
+  const csp = out.headers.get('content-security-policy');
+  if (csp) {
+    const xn = request.headers.get('x-xn-host') || '';
+    const host = /^\d{1,3}(\.\d{1,3}){3}$/.test(xn) ? xn : url.host;
+    const inner = new URL(env.CHAT_URL).host;
+    out.headers.set('content-security-policy', csp.replaceAll(`wss://${inner}`, `wss://${host}`).replaceAll(`ws://${inner}`, `ws://${host}`));
+  }
+  if (!out.headers.has('cache-control')) out.headers.set('cache-control', 'no-store');
+  return out;
+}
+
+async function chatSocket(request, env) {
+  if ((request.headers.get('upgrade') || '').toLowerCase() !== 'websocket') {
+    return new Response('expected a WebSocket', { status: 426 });
+  }
+  return fetch(new URL('/chat/ws', env.CHAT_URL), { method: 'GET', headers: chatHeaders(request) });
 }
 
 function withSecurityHeaders(res) {

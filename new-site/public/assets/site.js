@@ -132,3 +132,29 @@ export const tokenStore = {
     } catch {}
   },
 };
+
+// 加密分享 / 加密聊天 run only on official addresses: this site's domains and its own node IPs.
+// A third-party mirror can change the page's scripts, so the page stops there instead.
+const OFFICIAL_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com', 'share-preview.end-gfw.com', 'board-preview.end-gfw.com', 'localhost', '127.0.0.1'];
+export async function isOfficialHost() {
+  if (OFFICIAL_HOSTS.includes(location.hostname)) return true;
+  try {
+    const res = await fetch('/api/official-hosts', { cache: 'no-store' });
+    if (!res.ok) return false;
+    return ((await res.json()).hosts || []).includes(location.hostname);
+  } catch {
+    return false;
+  }
+}
+
+export async function guardOfficial(what) {
+  if (await isOfficialHost()) return true;
+  const main = document.getElementById('main');
+  if (main) {
+    main.innerHTML = `<section class="section"><div class="wrap"><div class="notice error">
+      <h2>请使用官方地址</h2>
+      <p>为了保证端到端加密不被篡改，${esc(what)}只在官方地址提供，这个地址不是官方地址。请打开 <b>https://end-gfw.com/share</b>；打不开时，官方入口见 <b>https://end-gfw.com/chat-mirrors</b>。</p>
+    </div></div></section>`;
+  }
+  return false;
+}

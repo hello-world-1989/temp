@@ -4,7 +4,7 @@
 #   bash new-site/chat-server/deploy/install.sh
 #
 # Unlike 事件墙 this service is NOT behind Cloudflare: the page and its scripts must reach the
-# browser unchanged, so TLS ends here. The mirrors forward raw TCP (mirror/chat-relay.sh):
+# browser unchanged, so TLS ends here. Own xrayr-next nodes forward raw TCP (their agent nginx):
 #   mirror :8443  --TCP-->  here :8443   TLS with the mirror IP's Let's Encrypt certificate
 #   mirror :80    --HTTP->  here :8080   ACME http-01 answers and the mirrors' check-ins
 # Open TCP 8443 and 8080 in the instance firewall (Lightsail: Networking -> IPv4 firewall).

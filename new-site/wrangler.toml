@@ -51,6 +51,10 @@ SHARE_STORE_URL = "https://share-store.end-gfw.com"
 BOARD_URL = "https://board-store.end-gfw.com"
 # Backup links on the upload page: the website account's mirror IPs and the main domain
 SHARE_MIRROR_LINKS = "1"
+# 加密聊天 service on Debian-1-2 (new-site/chat-server/), served at /chat. Reached through the
+# Cloudflare Tunnel end-gfw-chat (-> 127.0.0.1:8792); the direct https://<node IP>:8443/chat relays
+# stay as the backup entries (TLS ends on Debian-1-2 there).
+CHAT_URL = "https://chat-store.end-gfw.com"
 SHARE_SITE_URL = "https://end-gfw.com"
 
 # 加密分享 per-IP limits (skipped for the website's mirror nodes, whose nginx limits each visitor)

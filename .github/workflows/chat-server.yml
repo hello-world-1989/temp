@@ -24,4 +24,4 @@ jobs:
         with: { node-version: 22 }
       - run: npm ci
       - run: npm test
-      - run: bash -n deploy/install.sh && bash -n deploy/fetch.sh && bash -n mirror/chat-relay.sh
+      - run: bash -n deploy/install.sh && bash -n deploy/fetch.sh

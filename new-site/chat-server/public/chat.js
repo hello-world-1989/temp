@@ -389,9 +389,28 @@ async function roomView(frag, identity, vault) {
 
 // ---- start --------------------------------------------------------------------------------
 
+// Official addresses only: the relays on :8443 (TLS ends on the chat server itself), this site's
+// domains, and its own node IPs (listed by the website at /api/official-hosts). A third-party
+// mirror could change this page and steal the keys in the links, so the page stops there.
+const OFFICIAL_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com', 'localhost', '127.0.0.1'];
+async function officialAddress() {
+  if (location.port === '8443' || OFFICIAL_HOSTS.includes(location.hostname)) return true;
+  try {
+    const res = await fetch('/api/official-hosts', { cache: 'no-store' });
+    if (!res.ok) return false;
+    return ((await res.json()).hosts || []).includes(location.hostname);
+  } catch {
+    return false;
+  }
+}
+
 async function main() {
   if (!window.crypto?.subtle || !window.WebSocket) {
     $('unsupported').hidden = false;
+    return;
+  }
+  if (!(await officialAddress())) {
+    $('unofficial').hidden = false;
     return;
   }
   const { identity, vault } = await setupVault();

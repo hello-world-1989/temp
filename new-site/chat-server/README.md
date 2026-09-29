@@ -4,17 +4,22 @@
 
 ## 工作方式
 
+两种入口，群和消息互通：
+
 ```
-浏览器 ──https://<镜像IP>:8443/chat──► 镜像（nginx stream，只转发 TCP 字节）
-                                          │  PROXY 协议头
-                                          ▼
-                              源站 Debian-1-2（本服务）
-                               :8443  TLS 在这里结束（每个镜像 IP 一张 Let's Encrypt 证书）
-                               :8080  ACME 验证、镜像报到（经镜像的 80 端口转来）
-                               SQLite：只有密文和哈希
+① https://end-gfw.com/chat（也经自己节点的 https://<节点IP>/chat）
+   浏览器 ── Cloudflare ── 网站 Worker（/chat、/chat/ws）── Cloudflare Tunnel end-gfw-chat
+          ── Debian-1-2 127.0.0.1:8792（本服务）
+
+② https://<节点IP>:8443/chat（备用，更安全）
+   浏览器 ──► 自己的 xrayr-next 节点（agent 的 nginx stream，只转发 TCP 字节，带 PROXY 协议头）
+          ──► Debian-1-2 :8443  TLS 在这里结束（每个节点 IP 一张 Let's Encrypt 证书）
+              Debian-1-2 :8080  ACME 验证、节点报到（经节点的 80 端口转来）
 ```
 
-- **不经过 Cloudflare**：聊天页面和加解密脚本必须原样到达浏览器。七层代理（Cloudflare、普通 nginx 镜像）都能改脚本、偷走密钥，所以这里 TLS 在源站结束，镜像只转发加密后的字节。
+- **入口 ① 信任 Cloudflare**：Cloudflare 和你的 Cloudflare 账号 / token 能改页面脚本。用户接受这个取舍，好处是主站能直接打开。
+- **入口 ② 不经过 Cloudflare**：TLS 在源站结束，节点只转发加密后的字节。
+- **不支持第三方镜像**：第三方运营的地址随时可以换成假页面偷走群密钥（给自己的 IP 签一张证书很容易），所以不提供第三方转发脚本；页面只在官方地址运行（:8443、end-gfw.com、网站 `/api/official-hosts` 列出的自己节点 IP），别的地址显示“请使用官方地址”。mirror.sh 搭的镜像对 `/chat` 直接返回 403。
 - **密钥只在链接里**：邀请链接 `/chat#<群号>.<群密钥>`，`#` 后面不会发给任何服务器。浏览器用 HKDF 从群密钥派生出消息密钥（AES-256-GCM）和入群凭证；服务器只存入群凭证的 SHA-256，没有密钥的人连密文都拿不到。
 - **服务器看不到**：消息内容、昵称、群名称都是加密的；消息按 256/1024/4096/16384 字节补齐，看不出长短。服务器不记录 IP、不写访问日志。
 - **防冒充**：每个浏览器有一把 Ed25519 签名密钥（存在 IndexedDB，不可导出），消息带签名，昵称旁显示指纹。同一个昵称出现两个指纹会标红。
@@ -49,23 +54,9 @@ curl -fsSLO https://raw.githubusercontent.com/hello-world-1989/temp/<commit>/new
 
 - 需要 Node.js 20+。脚本会装依赖（`ws`、`better-sqlite3`），下载 acme.sh，并装好 systemd 服务 `end-gfw-chat`。
 - **防火墙**：放行 TCP **8443** 和 **8080**（Lightsail：Networking → IPv4 Firewall）。
-- 只想让登记过的镜像连进来：在 `/etc/end-gfw-chat/env` 里写 `ALLOW_FROM=镜像IP1,镜像IP2`，然后 `systemctl restart end-gfw-chat`。
-- 数据在 `/var/lib/end-gfw-chat/`（数据库、镜像证书、acme.sh 账号）。
-- 源站 IP 需要告诉镜像运营者，但普通访客不会直连源站。
-
-## 镜像
-
-```bash
-wget <chat-relay.sh 的地址> && sudo bash chat-relay.sh <源站IP>
-```
-
-- 已经用 `mirror.sh` 搭了网站镜像的服务器可以直接加装：网站还在 443，聊天在 **8443**。
-- 需要放行 TCP 80 和 8443。
-- 装好后一两分钟，源站会给这台镜像的 IP 签好证书，之后 `https://<镜像IP>:8443/chat` 就能用。
-- 镜像 IP 变了，脚本每 10 分钟报到一次，源站会自动给新 IP 签证书。
-- `bash /opt/end-gfw-chat-relay/chat-relay.sh status` 查看状态，`uninstall` 卸载（会还原网站镜像的配置）。
-
-证书怎么签：镜像向源站 `:8080/.well-known/end-gfw-chat/hello` 报到，源站用它的来源 IP 向 Let's Encrypt 申请 IP 证书（6 天有效，剩 2 天时续签）。Let's Encrypt 访问 `http://<镜像IP>/.well-known/acme-challenge/...`，镜像的 nginx 在本地找不到就转给源站 8080。这样只有真的把流量转给源站的 IP 才签得出证书，私钥始终在源站。
+- 数据在 `/var/lib/end-gfw-chat/`（数据库、节点证书、acme.sh 账号）。
+- 入口 ①：`bash new-site/tunnel/tunnel.sh end-gfw-chat chat-store.end-gfw.com http://127.0.0.1:8792`（Cloudflare Tunnel，只出站；网站 Worker 变量 `CHAT_URL`）。
+- 入口 ②：Lightsail 防火墙的 8443、8080 只放行开了聊天的自己节点，由 xrayr-next Lambda 自动同步（`CHAT_ORIGIN*` 环境变量，`POST /admin/nodes/chat?name=&on=1|0`）；节点 agent 自己做 TCP 透传和报到，节点每 10 分钟向源站 `:8080/.well-known/end-gfw-chat/hello` 报到，源站据此给节点 IP 签证书，私钥始终在源站。
 
 ## 本地开发
 
@@ -81,4 +72,3 @@ npm test
 - MLS 或 Sender Keys：前向保密，踢人后自动换密钥
 - 图片、文件（加密后上传，复用加密分享）
 - WebSocket 连不上时退回长轮询
-- 在 end-gfw.com 上列出可用的聊天镜像地址
