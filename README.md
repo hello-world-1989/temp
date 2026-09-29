@@ -50,7 +50,7 @@ https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
 
 ## 镜像站
 
-镜像站就是别人服务器上的 end-gfw.com 副本：用浏览器打开 `https://<服务器IP>/` 就能访问网站的全部内容（订阅、下载、新闻、加密分享），主域名被墙时也能用。IP 被墙了换一个 IP 就行，成本很低，**欢迎有海外服务器的朋友搭建**。
+镜像站就是别人服务器上的 end-gfw.com 副本：用浏览器打开 `https://<服务器IP>/` 就能访问网站的全部内容（订阅、下载、新闻、加密分享、加密聊天），主域名被墙时也能用。IP 被墙了换一个 IP 就行，成本很低，**欢迎有海外服务器的朋友搭建**。
 
 ### 一键搭建
 
@@ -65,7 +65,7 @@ wget https://end-gfw.com/mirror.sh && sudo bash mirror.sh
 end-gfw.com 打不开时：
 
 ```bash
-curl -fsSLO https://raw.githubusercontent.com/hello-world-1989/temp/main/public/temp/mirror.sh && sudo bash mirror.sh
+curl -fsSLO https://raw.githubusercontent.com/hello-world-1989/temp/v2/new-site/public/mirror.sh && sudo bash mirror.sh
 ```
 
 几分钟后完成，访问 `https://<你的服务器IP>/` 即可。
@@ -80,7 +80,8 @@ sudo bash mirror.sh mirror.example.com
 
 - 安装 nginx，把网站反向代理过来；页面里的 end-gfw.com 链接自动改成镜像地址
 - 自动申请 Let's Encrypt 证书（IP 证书或域名证书），自动续签；服务器 IP 变了会自动给新 IP 申请证书，新地址就是 `https://<新IP>/`
-- Matrix 聊天（`/_matrix/`）也一起转发
+- 加密分享、加密聊天（含 WebSocket）和 Matrix 聊天（`/_matrix/`）也一起转发。镜像上的加密分享和加密聊天会提示“这是第三方镜像”：镜像运营者理论上能改动页面，敏感内容请用官方地址
+- 已经搭好的镜像重新下载运行一次脚本即可更新；旧镜像不转发 WebSocket 时，聊天会自动改用兼容模式（长轮询）
 - **不记录访问日志，不把访客 IP 传给源站**
 
 ### 管理
@@ -98,7 +99,7 @@ bash /opt/end-gfw-mirror/mirror.sh uninstall   # 卸载
 - **想让更多人用**：把 `https://<IP>/` 发给墙内的朋友；也欢迎[发邮件](mailto:end.gfw@hotmail.com)告诉我们，加到镜像列表里
 - **流量**：镜像只转发网页和下载，按访问量计算；大文件下载会占用较多流量，注意服务商的流量额度
 
-脚本源码：[public/temp/mirror.sh](https://github.com/hello-world-1989/temp/blob/main/public/temp/mirror.sh)
+脚本源码：[new-site/public/mirror.sh](https://github.com/hello-world-1989/temp/blob/v2/new-site/public/mirror.sh)
 
 ## 联系
 

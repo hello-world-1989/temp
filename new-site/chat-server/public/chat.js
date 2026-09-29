@@ -170,9 +170,37 @@ async function roomView(frag, identity, vault) {
   const nowServer = () => Date.now() + serverSkew;
   const status = (text) => ($('r-status').textContent = text);
 
+  // Transport: a WebSocket, or long polling where WebSockets do not get through (some mirrors
+  // and networks). Both carry the same messages (see chat-server/src/app.js).
+  let mode = 'ws';
+  let wsWorked = false;
+  let cid = null; // long-poll client id
+  const connected = () => (mode === 'ws' ? ws?.readyState === 1 : !!cid);
+
   function sendJson(obj) {
-    if (ws && ws.readyState === 1) ws.send(JSON.stringify(obj));
+    if (mode === 'ws') {
+      if (ws && ws.readyState === 1) ws.send(JSON.stringify(obj));
+      return;
+    }
+    if (!cid) return;
+    postJson('/chat/api/poll/act', { ...obj, cid })
+      .then((r) => r.events.forEach(receive))
+      .catch(() => {});
   }
+
+  async function postJson(path, body) {
+    const res = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), cache: 'no-store' });
+    let data = {};
+    try {
+      data = await res.json();
+    } catch {}
+    if (!res.ok) throw Object.assign(new Error(data.error || `请求失败（${res.status}）`), { status: res.status, code: data.code });
+    return data;
+  }
+
+  // Events are handled one at a time, in order
+  let inbox = Promise.resolve();
+  const receive = (m) => (inbox = inbox.then(() => handle(m)).catch((err) => console.error(err)));
 
   function remove(id) {
     const m = msgs.get(id);
@@ -281,79 +309,117 @@ async function roomView(frag, identity, vault) {
     for (const m of [...msgs.values()]) tick(m);
   }, 1000);
 
+  function reconnectLater() {
+    if (gone) return;
+    retry = Math.min(retry + 1, 6);
+    const wait = Math.min(30, 2 ** retry) * 1000;
+    status(`连接断开，${Math.round(wait / 1000)} 秒后重连…`);
+    setTimeout(connect, wait);
+  }
+
   function connect() {
     if (gone) return;
     status('连接中…');
+    if (mode === 'poll') return pollLoop();
     ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/chat/ws`);
     ws.onopen = () => ws.send(JSON.stringify({ t: 'auth', room, token: b64url(auth) }));
-    ws.onmessage = async (e) => {
+    ws.onmessage = (e) => {
       let m;
       try {
         m = JSON.parse(e.data);
       } catch {
         return;
       }
-      if (m.t === 'ready') {
-        retry = 0;
-        serverSkew = m.now - Date.now();
-        maxTtl = m.maxTtl;
-        try {
-          const meta = await open(aes, room, 'meta', fromB64url(m.meta));
-          if (meta.name) {
-            $('r-name').textContent = meta.name;
-            document.title = `${meta.name} · 加密聊天`;
-          }
-          if (Number.isInteger(meta.ttl)) defaultTtl = meta.ttl;
-          // 我的群: saved (encrypted) when this device has a 保险箱 open
-          vault.remember({ room, key, owner, name: String(meta.name || '').slice(0, 40) }).catch(() => {});
-        } catch {
-          note($('r-msg'), '群信息无法解密：链接可能不完整。', 'error');
-        }
-        if (!$('s-ttl').options.length) fillTtl($('s-ttl'), maxTtl, defaultTtl);
-        // The server's list is the truth: drop what was deleted while we were away
-        const ids = new Set(m.msgs.map((r) => r.id));
-        for (const id of [...msgs.keys()]) if (!ids.has(id)) remove(id);
-        for (const r of m.msgs) await add(r);
-        $('r-online').textContent = m.online;
-        status('已连接（端到端加密）');
-        note($('r-msg'), '');
-        list.lastElementChild?.scrollIntoView({ block: 'end' });
-      } else if (m.t === 'msg') {
-        const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 80;
-        await add(m, m.ref);
-        if (atBottom || m.ref != null) list.lastElementChild?.scrollIntoView({ block: 'end' });
-      } else if (m.t === 'exp') {
-        const x = msgs.get(m.id);
-        if (x) {
-          x.exp = m.exp;
-          tick(x);
-        }
-      } else if (m.t === 'del') {
-        remove(m.id);
-      } else if (m.t === 'online') {
-        $('r-online').textContent = m.n;
-      } else if (m.t === 'gone') {
-        gone = true;
-        for (const id of [...msgs.keys()]) remove(id);
-        note($('r-msg'), '这个群已经被销毁，所有消息都已删除。', 'warn');
-        $('send-form').hidden = true;
-        status('已销毁');
-      } else if (m.t === 'error') {
-        if (m.code === 'room') {
-          gone = true;
-          $('send-form').hidden = true;
-          status('无法进入');
-        }
-        note($('r-msg'), m.message, 'error');
-      }
+      if (m.t === 'ready') wsWorked = true;
+      receive(m);
     };
     ws.onclose = () => {
       if (gone) return;
-      retry = Math.min(retry + 1, 6);
-      const wait = Math.min(30, 2 ** retry) * 1000;
-      status(`连接断开，${Math.round(wait / 1000)} 秒后重连…`);
-      setTimeout(connect, wait);
+      if (!wsWorked) {
+        // Never got through: this network or mirror does not pass WebSockets
+        mode = 'poll';
+        return connect();
+      }
+      reconnectLater();
     };
+  }
+
+  async function pollLoop() {
+    try {
+      const r = await postJson('/chat/api/poll/join', { room, token: b64url(auth) });
+      cid = r.cid;
+      receive(r.ready);
+    } catch (err) {
+      if (err.code === 'room' || err.code === 'full') return receive({ t: 'error', code: err.code, message: err.message });
+      return reconnectLater();
+    }
+    while (!gone) {
+      let r;
+      try {
+        r = await postJson('/chat/api/poll', { cid });
+      } catch (err) {
+        cid = null;
+        if (err.status === 404) return connect(); // dropped by the server: join again
+        return reconnectLater();
+      }
+      for (const m of r.events) receive(m);
+    }
+  }
+
+  async function handle(m) {
+    if (m.t === 'ready') {
+      retry = 0;
+      serverSkew = m.now - Date.now();
+      maxTtl = m.maxTtl;
+      try {
+        const meta = await open(aes, room, 'meta', fromB64url(m.meta));
+        if (meta.name) {
+          $('r-name').textContent = meta.name;
+          document.title = `${meta.name} · 加密聊天`;
+        }
+        if (Number.isInteger(meta.ttl)) defaultTtl = meta.ttl;
+        // 我的群: saved (encrypted) when this device has a 保险箱 open
+        vault.remember({ room, key, owner, name: String(meta.name || '').slice(0, 40) }).catch(() => {});
+      } catch {
+        note($('r-msg'), '群信息无法解密：链接可能不完整。', 'error');
+      }
+      if (!$('s-ttl').options.length) fillTtl($('s-ttl'), maxTtl, defaultTtl);
+      // The server's list is the truth: drop what was deleted while we were away
+      const ids = new Set(m.msgs.map((r) => r.id));
+      for (const id of [...msgs.keys()]) if (!ids.has(id)) remove(id);
+      for (const r of m.msgs) await add(r);
+      $('r-online').textContent = m.online;
+      status(mode === 'ws' ? '已连接（端到端加密）' : '已连接（端到端加密，兼容模式）');
+      note($('r-msg'), '');
+      list.lastElementChild?.scrollIntoView({ block: 'end' });
+    } else if (m.t === 'msg') {
+      const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 80;
+      await add(m, m.ref);
+      if (atBottom || m.ref != null) list.lastElementChild?.scrollIntoView({ block: 'end' });
+    } else if (m.t === 'exp') {
+      const x = msgs.get(m.id);
+      if (x) {
+        x.exp = m.exp;
+        tick(x);
+      }
+    } else if (m.t === 'del') {
+      remove(m.id);
+    } else if (m.t === 'online') {
+      $('r-online').textContent = m.n;
+    } else if (m.t === 'gone') {
+      gone = true;
+      for (const id of [...msgs.keys()]) remove(id);
+      note($('r-msg'), '这个群已经被销毁，所有消息都已删除。', 'warn');
+      $('send-form').hidden = true;
+      status('已销毁');
+    } else if (m.t === 'error') {
+      if (m.code === 'room') {
+        gone = true;
+        $('send-form').hidden = true;
+        status('无法进入');
+      }
+      note($('r-msg'), m.message, 'error');
+    }
   }
 
   $('send-form').addEventListener('submit', async (e) => {
@@ -361,7 +427,7 @@ async function roomView(frag, identity, vault) {
     const text = $('s-text').value.trim();
     if (!text) return;
     if (text.length > MAX_TEXT) return note($('r-msg'), `一条消息最多 ${MAX_TEXT} 个字`, 'error');
-    if (!ws || ws.readyState !== 1) return note($('r-msg'), '还没连上服务器，请稍等', 'error');
+    if (!connected()) return note($('r-msg'), '还没连上服务器，请稍等', 'error');
     const msg = await makeMessage(room, identity, nick, text);
     myIds.add(msg.i);
     const token = randomBytes(32);
@@ -389,9 +455,10 @@ async function roomView(frag, identity, vault) {
 
 // ---- start --------------------------------------------------------------------------------
 
-// Official addresses only: the relays on :8443 (TLS ends on the chat server itself), this site's
-// domains, and its own node IPs (listed by the website at /api/official-hosts). A third-party
-// mirror could change this page and steal the keys in the links, so the page stops there.
+// Official addresses: the relays on :8443 (TLS ends on the chat server itself), this site's
+// domains, and its own node IPs (listed by the website at /api/official-hosts). Anywhere else
+// (a mirror anyone can run with mirror.sh) the page still works, with a warning: whoever runs
+// that mirror could change this page and read the keys in the links.
 const OFFICIAL_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com', 'localhost', '127.0.0.1'];
 async function officialAddress() {
   if (location.port === '8443' || OFFICIAL_HOSTS.includes(location.hostname)) return true;
@@ -409,10 +476,7 @@ async function main() {
     $('unsupported').hidden = false;
     return;
   }
-  if (!(await officialAddress())) {
-    $('unofficial').hidden = false;
-    return;
-  }
+  if (!(await officialAddress())) $('unofficial').hidden = false;
   const { identity, vault } = await setupVault();
   $('me-btn').onclick = () => vault.open();
   const tmp = vault.state === 'skipped' ? '（临时）' : '';

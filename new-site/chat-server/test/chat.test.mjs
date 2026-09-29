@@ -232,7 +232,7 @@ const POW_BITS = 4;
 
 before(async () => {
   const dir = mkdtempSync(join(tmp, 'app-'));
-  config = loadConfig({ DATA_DIR: dir, POW_BITS_CREATE: String(POW_BITS), SEND_BURST: '5', MAX_ROOM_MESSAGES: '3', MAX_TTL_SECONDS: '3600' });
+  config = loadConfig({ DATA_DIR: dir, POW_BITS_CREATE: String(POW_BITS), SEND_BURST: '5', MAX_ROOM_MESSAGES: '3', MAX_TTL_SECONDS: '3600', POLL_WAIT_SECONDS: '1' });
   store = openStore(join(dir, 'chat.db'));
   clock = { off: 0 };
   app = createApp({ store, config, now: () => Date.now() + clock.off });
@@ -508,6 +508,69 @@ test('transfer slots: proof of work, one download only, gone after 10 minutes', 
   app.sweep();
   clock.off = 0;
   assert.equal(store.transferCount(), 0);
+});
+
+test('long polling: same room protocol as WebSockets, both directions', async () => {
+  const api = async (path, body) => {
+    const res = await fetch(`http://${base}${path}`, { method: 'POST', body: JSON.stringify(body) });
+    return { status: res.status, data: await res.json() };
+  };
+  const r = await makeRoom();
+  const bad = await api('/chat/api/poll/join', { room: r.room, token: C.b64url(C.randomBytes(32)) });
+  assert.equal(bad.status, 404);
+  assert.equal(bad.data.code, 'room');
+  const j = await api('/chat/api/poll/join', { room: r.room, token: C.b64url(r.auth) });
+  assert.equal(j.status, 200);
+  assert.equal(j.data.ready.t, 'ready');
+  const { cid } = j.data;
+  assert.match(cid, /^[A-Za-z0-9]{16}$/);
+
+  // the join's own online count is queued; after that, nothing new: the request is held, then
+  // answered empty (POLL_WAIT_SECONDS = 1)
+  assert.deepEqual((await api('/chat/api/poll', { cid })).data.events, [{ t: 'online', n: 1 }]);
+  const t0 = Date.now();
+  const empty = await api('/chat/api/poll', { cid });
+  assert.ok(Date.now() - t0 >= 900);
+  assert.deepEqual(empty.data.events, []);
+
+  // a WebSocket member's message reaches the poller while its request is waiting
+  const w = await enter(r);
+  assert.deepEqual((await api('/chat/api/poll', { cid })).data.events, [{ t: 'online', n: 2 }]);
+  const waiting = api('/chat/api/poll', { cid });
+  await new Promise((res) => setTimeout(res, 100));
+  const sent = await post(w, r, 'from websocket');
+  const got = await waiting;
+  assert.deepEqual(got.data.events.map((e) => [e.t, e.id, e.ref]), [['msg', sent.id, undefined]]);
+
+  // the poller sends: the WebSocket member gets it, the poller's own copy carries its ref
+  const ct = C.b64url(await C.seal(r.aes, r.room, 'msg', await C.makeMessage(r.room, null, 'p', 'from poll')));
+  const act = await api('/chat/api/poll/act', { cid, t: 'send', ref: 7, ct, ttl: 60, dh: C.b64url(C.randomBytes(32)) });
+  assert.deepEqual(act.data.events, []);
+  const seen = await w.next((m) => m.t === 'msg' && m.ref === undefined && m.id > sent.id);
+  const mine = await api('/chat/api/poll', { cid });
+  assert.ok(mine.data.events.some((e) => e.t === 'msg' && e.id === seen.id && e.ref === 7));
+  // errors come back to the poller only
+  const denied = await api('/chat/api/poll/act', { cid, t: 'destroy', owner: C.b64url(C.randomBytes(32)) });
+  assert.equal(denied.data.events[0].code, 'denied');
+
+  // destroying the room reaches the poller, then its id is gone
+  w.send({ t: 'destroy', owner: C.b64url(r.owner) });
+  const gone = await api('/chat/api/poll', { cid });
+  assert.ok(gone.data.events.some((e) => e.t === 'gone'));
+  assert.equal((await api('/chat/api/poll', { cid })).status, 404);
+});
+
+test('long polling: a client that stops asking is dropped from the room', async () => {
+  const r = await makeRoom();
+  const w = await enter(r);
+  const j = await (await fetch(`http://${base}/chat/api/poll/join`, { method: 'POST', body: JSON.stringify({ room: r.room, token: C.b64url(r.auth) }) })).json();
+  await w.next((m) => m.t === 'online' && m.n === 2);
+  clock.off = 61_000;
+  app.heartbeat();
+  clock.off = 0;
+  await w.next((m) => m.t === 'online' && m.n === 1);
+  assert.equal((await fetch(`http://${base}/chat/api/poll`, { method: 'POST', body: JSON.stringify({ cid: j.cid }) })).status, 404);
+  w.ws.close();
 });
 
 test('store: expired messages and spent challenges are purged', () => {

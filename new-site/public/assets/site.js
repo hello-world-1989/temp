@@ -133,8 +133,8 @@ export const tokenStore = {
   },
 };
 
-// 加密分享 / 加密聊天 run only on official addresses: this site's domains and its own node IPs.
-// A third-party mirror can change the page's scripts, so the page stops there instead.
+// 加密分享 / 加密聊天 on a third-party mirror (anyone can run one with mirror.sh): they work, with a
+// warning, because whoever runs the mirror could change the page's scripts and read the keys.
 const OFFICIAL_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com', 'share-preview.end-gfw.com', 'board-preview.end-gfw.com', 'localhost', '127.0.0.1'];
 export async function isOfficialHost() {
   if (OFFICIAL_HOSTS.includes(location.hostname)) return true;
@@ -147,14 +147,15 @@ export async function isOfficialHost() {
   }
 }
 
+// -> true on an official address; elsewhere shows the warning at the top of the page
 export async function guardOfficial(what) {
   if (await isOfficialHost()) return true;
   const main = document.getElementById('main');
   if (main) {
-    main.innerHTML = `<section class="section"><div class="wrap"><div class="notice error">
-      <h2>请使用官方地址</h2>
-      <p>为了保证端到端加密不被篡改，${esc(what)}只在官方地址提供，这个地址不是官方地址。请打开 <b>https://end-gfw.com/share</b>；打不开时，官方入口见 <b>https://end-gfw.com/chat-mirrors</b>。</p>
-    </div></div></section>`;
+    const box = document.createElement('div');
+    box.className = 'wrap';
+    box.innerHTML = `<p class="notice warn mt"><strong>这是第三方镜像，不是官方地址。</strong>${esc(what)}可以正常使用，但镜像的运营者理论上能改动这个页面、看到链接里的密钥。敏感内容请用官方地址 <b>https://end-gfw.com</b>，打不开时官方入口见 <b>https://end-gfw.com/chat-mirrors</b>。</p>`;
+    main.prepend(box);
   }
   return false;
 }
