@@ -7,6 +7,7 @@ import { join } from 'node:path';
 import { kindOf, stripJpeg, stripPng, stripWebp } from '../../public/assets/share-meta.js';
 import { CATEGORIES } from './config.js';
 import { checkPow, makeChallenge } from './pow.js';
+import { reencode } from './images.js';
 
 const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 const STRIP = { jpeg: stripJpeg, png: stripPng, webp: stripWebp };
@@ -210,10 +211,12 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     if (!kind) throw new HttpError(415, '只支持 JPEG、PNG、WebP 图片');
     let clean;
     try {
-      // Again on the server, in case the page's own cleaning was skipped
-      clean = Buffer.from(STRIP[kind](bytes));
+      // 1. Metadata strip again on the server, in case the page's own cleaning was skipped
+      const stripped = Buffer.from(STRIP[kind](bytes));
+      // 2. Decode, resize, re-encode: no camera compression tables, weaker sensor fingerprint
+      clean = await reencode(stripped, kind);
     } catch {
-      throw new HttpError(415, '图片文件损坏，无法读取');
+      throw new HttpError(415, '图片文件损坏或太大，无法读取');
     }
     const id = rid(20);
     await mkdir(filesDir, { recursive: true, mode: 0o700 });

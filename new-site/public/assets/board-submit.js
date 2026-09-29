@@ -4,9 +4,10 @@
 import { $, call, boardMeta, proofOfWork, setMsg } from './board-common.js';
 import { copyText } from './site.js';
 import { kindOf, stripMetadata } from './share-meta.js';
+import { redact } from './board-redact.js';
 
 const msg = $('#msg');
-const picked = []; // { file, url }
+const picked = []; // { file, url, redacted }
 let meta = { maxImages: 6, maxImageBytes: 8 * 1024 * 1024, categories: [] };
 let draft = null; // kept for retries after a failed upload: { draftId, draftKey, uploaded: Map(file -> imageId) }
 
@@ -20,6 +21,17 @@ function renderThumbs() {
     const img = document.createElement('img');
     img.src = p.url;
     img.alt = `图片 ${i + 1}`;
+    const edit = document.createElement('button');
+    edit.type = 'button';
+    edit.className = 'btn btn-ghost btn-sm';
+    edit.textContent = p.redacted ? '打码 ✓' : '打码';
+    edit.addEventListener('click', async () => {
+      const out = await redact(p.file);
+      if (!out || out === p.file) return;
+      URL.revokeObjectURL(p.url);
+      picked[i] = { file: out, url: URL.createObjectURL(out), redacted: true };
+      renderThumbs();
+    });
     const rm = document.createElement('button');
     rm.type = 'button';
     rm.className = 'btn btn-ghost btn-sm';
@@ -29,7 +41,10 @@ function renderThumbs() {
       picked.splice(i, 1);
       renderThumbs();
     });
-    fig.append(img, rm);
+    const row = document.createElement('div');
+    row.className = 'board-thumb-actions';
+    row.append(edit, rm);
+    fig.append(img, row);
     box.append(fig);
   });
 }

@@ -21,7 +21,7 @@ ads: off
       <ul class="board-tips">
         <li>用浏览器的无痕模式（隐私模式）投稿，投完关掉窗口。</li>
         <li>不要写你的真实姓名、电话、住址、单位，也不要写只有你才知道的细节。</li>
-        <li>照片里的拍摄地点、时间、手机型号等隐藏信息会自动删除；但画面本身（人脸、车牌、门牌、窗外景物）仍可能认出你或别人，必要时先打码或裁剪。</li>
+        <li>照片里的拍摄地点、时间、手机型号等隐藏信息会自动删除，图片还会被缩小并重新压缩；但画面本身（人脸、车牌、门牌、窗外景物、屏幕）仍可能认出你或别人。选好图片后点“打码”，把这些地方遮住。</li>
         <li>投稿后会给你一个回执码，用它查审核结果或撤回投稿。</li>
       </ul>
     </div>
@@ -54,6 +54,7 @@ ads: off
         <label for="images">图片（可不选，JPEG / PNG / WebP）</label>
         <input id="images" class="input" type="file" accept="image/jpeg,image/png,image/webp" multiple>
         <div id="thumbs" class="board-thumbs"></div>
+        <span class="muted board-count">打码在你的手机上完成，原图不会上传。</span>
       </div>
       <button class="btn btn-primary mt" type="submit" id="submit">提交投稿</button>
       <p class="notice mt" id="msg" role="status"></p>
@@ -67,3 +68,20 @@ ads: off
     </div>
   </div>
 </section>
+
+<dialog id="editor" class="board-editor" aria-labelledby="editor-title">
+  <div class="board-editor-bar">
+    <strong id="editor-title">打码</strong>
+    <div class="board-editor-tools" role="group" aria-label="工具">
+      <button class="btn btn-ghost btn-sm" type="button" data-tool="mosaic">马赛克</button>
+      <button class="btn btn-ghost btn-sm" type="button" data-tool="black">涂黑</button>
+      <button class="btn btn-ghost btn-sm" type="button" id="editor-undo">撤销</button>
+    </div>
+  </div>
+  <div class="board-editor-stage"><canvas id="editor-canvas"></canvas></div>
+  <p class="muted board-editor-hint" id="editor-hint"></p>
+  <div class="board-editor-bar">
+    <button class="btn btn-ghost" type="button" id="editor-cancel">取消</button>
+    <button class="btn btn-primary" type="button" id="editor-done">完成</button>
+  </div>
+</dialog>

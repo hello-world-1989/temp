@@ -8,6 +8,7 @@ import { mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import pg from 'pg';
+import sharp from 'sharp';
 import { createApp, cleanup, cleanText, cleanDate, rid } from '../src/app.js';
 import { parseAdmins } from '../src/config.js';
 import { leadingZeroBits, checkPow, makeChallenge } from '../src/pow.js';
@@ -22,6 +23,7 @@ let db, server, base, filesDir, config, events;
 const schema = `t_${rid(8).toLowerCase()}`;
 
 before(async () => {
+  photo = await makePhoto();
   if (skip) return;
   const setup = new pg.Client({ connectionString: process.env.DATABASE_URL });
   await setup.connect();
@@ -86,13 +88,20 @@ async function pow(purpose) {
   return { challenge: data.challenge, nonce: solve(data.challenge, data.bits) };
 }
 
-// A tiny JPEG with an EXIF segment (carrying a fake GPS marker) and trailing bytes
-function jpegWithExif() {
-  const exif = Buffer.concat([Buffer.from('Exif\0\0'), Buffer.from('MM\0*\0\0\0\x08\0\0GPS-SECRET', 'latin1')]);
-  const app1 = Buffer.concat([Buffer.from([0xff, 0xe1, 0, exif.length + 2]), exif]);
-  const sos = Buffer.from([0xff, 0xda, 0, 8, 1, 1, 0, 0, 0x3f, 0, 0x12, 0x34, 0x56, 0xff, 0xd9]);
-  return Buffer.concat([Buffer.from([0xff, 0xd8]), app1, sos, Buffer.from('TRAILER-SECRET')]);
+// Real photos made with sharp: EXIF with the phone model and GPS, an ICC profile, and extra
+// bytes after the image (like a phone's depth map). Solid colours keep them small.
+let photo;
+async function makePhoto({ width = 640, height = 480, orientation } = {}) {
+  const exif = { IFD0: { Model: 'SECRET-PHONE-MODEL', Make: 'SECRET-MAKER' }, IFD3: { GPSLatitudeRef: 'N', GPSLatitude: '39/1 54/1 30/1' } };
+  const img = await sharp({ create: { width, height, channels: 3, background: { r: 200, g: 90, b: 40 } } })
+    .withExif(exif)
+    .withMetadata(orientation ? { orientation } : {})
+    .withIccProfile('p3')
+    .jpeg({ quality: 90 })
+    .toBuffer();
+  return Buffer.concat([img, Buffer.from('TRAILER-SECRET')]);
 }
+const jpegWithExif = () => photo;
 
 async function submit(fields = {}, images = []) {
   const d = await call('POST', '/api/board/drafts', { body: { pow: await pow('post') } });
@@ -147,9 +156,15 @@ test('submit, review, publish, comment, withdraw', { skip }, async () => {
 
   // Metadata and trailing data are gone from the stored file
   const stored = readFileSync(join(filesDir, s.imageIds[0]));
-  assert.equal(stored.includes('GPS-SECRET'), false);
+  assert.equal(stored.includes('SECRET-PHONE-MODEL'), false);
+  assert.equal(stored.includes('SECRET-MAKER'), false);
   assert.equal(stored.includes('TRAILER-SECRET'), false);
   assert.deepEqual([...stored.subarray(0, 2)], [0xff, 0xd8]);
+  const m = await sharp(stored).metadata();
+  assert.equal(m.exif, undefined);
+  assert.equal(m.icc, undefined);
+  assert.equal(m.xmp, undefined);
+  assert.equal(m.format, 'jpeg');
 
   // Pending: not public, image not public, visible to its author by receipt
   assert.equal((await call('GET', `/api/board/posts/${postId}`)).status, 404);
@@ -271,4 +286,31 @@ test('list paging', { skip }, async () => {
   assert.equal(new Set(seen).size, seen.length);
   const cat = await call('GET', `/api/board/posts?category=${encodeURIComponent('抗议')}`);
   assert.equal(cat.data.items.length, 0);
+});
+
+test('images are resized, rotated upright and re-encoded', { skip }, async () => {
+  const d = await call('POST', '/api/board/drafts', { body: { pow: await pow('post') } });
+  const dk = { 'x-draft-key': d.data.draftKey };
+  const put = (raw) => call('PUT', `/api/board/drafts/${d.data.draftId}/images`, { raw, headers: dk });
+
+  const big = await put(await makePhoto({ width: 4000, height: 3000 }));
+  assert.equal(big.status, 201, JSON.stringify(big.data));
+  const bigMeta = await sharp(readFileSync(join(filesDir, big.data.imageId))).metadata();
+  assert.deepEqual([bigMeta.width, bigMeta.height], [2048, 1536]);
+
+  // Orientation 6 = rotate 90 degrees: stored upright, with no orientation tag left
+  const turned = await put(await makePhoto({ width: 400, height: 200, orientation: 6 }));
+  assert.equal(turned.status, 201, JSON.stringify(turned.data));
+  const tMeta = await sharp(readFileSync(join(filesDir, turned.data.imageId))).metadata();
+  assert.deepEqual([tMeta.width, tMeta.height, tMeta.orientation], [200, 400, undefined]);
+
+  // Small images are not enlarged; PNG stays PNG (new draft: the test limit is 2 images)
+  const d2 = await call('POST', '/api/board/drafts', { body: { pow: await pow('post') } });
+  const put2 = (raw) => call('PUT', `/api/board/drafts/${d2.data.draftId}/images`, { raw, headers: { 'x-draft-key': d2.data.draftKey } });
+  const png = await sharp({ create: { width: 300, height: 100, channels: 4, background: '#08f' } }).png().toBuffer();
+  const p = await put2(png);
+  assert.equal(p.status, 201);
+  assert.equal(p.data.type, 'image/png');
+  const pMeta = await sharp(readFileSync(join(filesDir, p.data.imageId))).metadata();
+  assert.deepEqual([pMeta.format, pMeta.width, pMeta.height], ['png', 300, 100]);
 });

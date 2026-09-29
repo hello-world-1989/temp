@@ -47,3 +47,18 @@
 .board-pre { white-space: pre-line; margin: 6px 0 0; color: var(--text) !important; overflow-wrap: anywhere; }
 .board-log { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .board-log td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+
+/* thumbnails: 打码 / 移除 */
+.board-thumb-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.board-thumb-actions .btn { padding-left: 6px; padding-right: 6px; }
+
+/* redaction editor */
+.board-editor { width: min(960px, 100vw - 16px); max-height: calc(100vh - 16px); padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+.board-editor::backdrop { background: rgba(0, 0, 0, .7); }
+.board-editor[open] { display: grid; gap: 10px; }
+.board-editor-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.board-editor-tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.board-editor-tools [aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.board-editor-stage { display: grid; place-items: center; background: var(--surface-2); border-radius: 10px; overflow: hidden; }
+.board-editor-stage canvas { display: block; max-width: 100%; max-height: calc(100vh - 220px); width: auto; height: auto; touch-action: none; cursor: crosshair; }
+.board-editor-hint { margin: 0; font-size: .9rem; }
