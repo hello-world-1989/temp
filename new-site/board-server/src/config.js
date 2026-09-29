@@ -32,6 +32,8 @@ export function loadConfig(env = process.env) {
   return {
     listen: env.LISTEN || '127.0.0.1:8791',
     databaseUrl: cred('db-url') || env.DATABASE_URL,
+    // PEM of the database server's own (self-signed) certificate: TLS is pinned to it
+    dbCa: cred('db-ca'),
     boardKey: cred('board-key'),
     admins: parseAdmins(cred('admins')),
     filesDir: env.FILES_DIR || './data/files',

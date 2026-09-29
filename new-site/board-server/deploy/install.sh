@@ -1,9 +1,12 @@
 #!/bin/bash
 # Installs / updates the 事件墙 service on Debian-1-2 (run as root; idempotent).
+# The database is PostgreSQL on Debian-1-1 (private IP, TLS; see db-setup.sh).
 #
 # Secrets come from Parameter Store (us-east-1; the instance role end-gfw-main-ssm reads /end-gfw/*):
-#   /end-gfw/board/BOARD_KEY   shared key between the site's Worker and this service
-#   /end-gfw/board/ADMINS      "name:sha256(token)" lines (the tokens themselves never reach the server)
+#   /end-gfw/board/BOARD_KEY     shared key between the site's Worker and this service
+#   /end-gfw/board/ADMINS        "name:sha256(token)" lines (the tokens themselves never reach the server)
+#   /end-gfw/board/DATABASE_URL  postgres://end_gfw_board:...@<Debian-1-1 private IP>:5432/end_gfw_board
+#   /end-gfw/board/DB_CA         Debian-1-1's PostgreSQL certificate (TLS is pinned to it)
 # Settings: /etc/end-gfw-board/settings (BOARD_HOST=, SITE_URL=), written with defaults on first run.
 # Caddy: /etc/caddy/Caddyfile imports /etc/caddy/sites/*.caddy; this service adds board.caddy.
 set -euo pipefail
@@ -12,7 +15,6 @@ conf=/etc/end-gfw-board
 export DEBIAN_FRONTEND=noninteractive
 
 need=()
-command -v psql >/dev/null || need+=(postgresql)
 command -v node >/dev/null || need+=(nodejs)
 command -v npm >/dev/null || need+=(npm)
 command -v caddy >/dev/null || need+=(caddy)
@@ -29,14 +31,11 @@ install -d -m 0750 "$conf"
 param() { python3 -c "import boto3,sys; print(boto3.client('ssm', region_name='us-east-1').get_parameter(Name=sys.argv[1], WithDecryption=True)['Parameter']['Value'])" "$1"; }
 (umask 077; param /end-gfw/board/BOARD_KEY > "$conf/board-key.new"; mv "$conf/board-key.new" "$conf/board-key")
 (umask 077; param /end-gfw/board/ADMINS > "$conf/admins.new"; mv "$conf/admins.new" "$conf/admins")
+(umask 077; param /end-gfw/board/DATABASE_URL > "$conf/db-url.new"; mv "$conf/db-url.new" "$conf/db-url")
+param /end-gfw/board/DB_CA > "$conf/db-ca"
 printf 'SITE_URL=%s\n' "$SITE_URL" > "$conf/env"
 
-# System user = database role; peer auth over the Unix socket, no password anywhere
 id end-gfw-board >/dev/null 2>&1 || useradd --system --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin end-gfw-board
-systemctl enable --now postgresql >/dev/null 2>&1
-psql_su() { (cd / && runuser -u postgres -- psql -qAt "$@"); }
-psql_su -c "select 1 from pg_roles where rolname = 'end-gfw-board'" | grep -q 1 || psql_su -c 'create role "end-gfw-board" login'
-psql_su -c "select 1 from pg_database where datname = 'end_gfw_board'" | grep -q 1 || psql_su -c 'create database end_gfw_board owner "end-gfw-board"'
 
 # Code
 app=/opt/end-gfw-board
@@ -64,5 +63,5 @@ systemctl enable caddy >/dev/null 2>&1
 systemctl reload-or-restart caddy
 
 sleep 3
-systemctl is-active end-gfw-board caddy postgresql
+systemctl is-active end-gfw-board caddy
 curl -fsS -H "x-board-key: $(cat "$conf/board-key")" http://127.0.0.1:8791/api/board/meta >/dev/null && echo "board api ok"
