@@ -22,6 +22,9 @@ command -v node >/dev/null || need+=(nodejs)
 command -v npm >/dev/null || need+=(npm)
 command -v curl >/dev/null || need+=(curl)
 command -v openssl >/dev/null || need+=(openssl)
+# better-sqlite3 builds from source when no prebuilt binary matches (Debian 13 + distro Node)
+command -v make >/dev/null || need+=(make)
+command -v g++ >/dev/null || need+=(g++)
 if [ ${#need[@]} -gt 0 ]; then
   apt-get update -qq
   apt-get install -y -qq --no-install-recommends "${need[@]}" >/dev/null
