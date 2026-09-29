@@ -330,3 +330,6 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .page-share input[type="file"].input { padding: 10px; }
 .page-share-get #get-form { max-width: 640px; }
 .page-share [hidden], .page-share-get [hidden] { display: none !important; }
+
+/* "Beta" tag next to a menu item */
+.beta { display: inline-block; margin-left: 4px; padding: 0 5px; border-radius: 6px; font-size: .68rem; font-weight: 700; line-height: 1.5; vertical-align: 2px; background: var(--warn-soft); color: var(--warn); }

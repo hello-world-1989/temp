@@ -3,7 +3,10 @@
 	admin off
 }
 
-share-store.end-gfw.com {
+# The Worker cannot use a hostname in its own Cloudflare zone (such subrequests go to the
+# origin over plain HTTP), so it uses these IP-based names, which resolve to this server
+# without Cloudflare. share-store.end-gfw.com is kept for direct checks.
+share-store.end-gfw.com, 43-200-196-209.sslip.io, 43-200-196-209.nip.io {
 	request_body {
 		max_size 52MB
 	}

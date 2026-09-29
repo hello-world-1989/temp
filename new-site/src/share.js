@@ -57,7 +57,8 @@ const expired = (obj, now = Date.now()) => now - obj.uploaded.getTime() > TTL_MS
 export function shareStore(env) {
   if (env.SHARE) return env.SHARE;
   if (!env.SHARE_STORE_URL || !env.SHARE_STORE_KEY) return null;
-  return originStore(String(env.SHARE_STORE_URL).replace(/\/+$/, ''), String(env.SHARE_STORE_KEY).trim().replace(/^["']|["']$/g, ''));
+  const bases = String(env.SHARE_STORE_URL).split(',').map((b) => b.trim().replace(/\/+$/, '')).filter(Boolean);
+  return originStore(bases, String(env.SHARE_STORE_KEY).trim().replace(/^["']|["']$/g, ''));
 }
 
 // Returns a Response for share paths, null when the path is not ours, 'disabled' when this
@@ -211,10 +212,27 @@ function json(data, status = 200) {
 
 // --- the storage server (new-site/share-store/store.py on Debian-1-1)
 // Objects look like R2's: { size, uploaded: Date, customMetadata: { dh, pw }, body? }
-function originStore(base, secret) {
+// bases: the store's addresses, tried in order when one cannot be reached. Uploads (a
+// one-time stream) only go to the first reachable address found by earlier requests.
+function originStore(bases, secret) {
   const id = (k) => encodeURIComponent(String(k).replace(/^share\//, ''));
-  const call = (k, init = {}) =>
-    fetch(`${base}/f/${id(k)}`, { ...init, headers: { ...init.headers, 'X-Store-Key': secret }, signal: AbortSignal.timeout(init.timeout || 20000) });
+  let good = 0;
+  const call = async (k, init = {}) => {
+    const order = [...bases.slice(good), ...bases.slice(0, good)];
+    const tries = init.body ? order.slice(0, 1) : order;
+    let last;
+    for (const base of tries) {
+      try {
+        const res = await fetch(`${base}/f/${id(k)}`, { ...init, redirect: 'manual', headers: { ...init.headers, 'X-Store-Key': secret }, signal: AbortSignal.timeout(init.timeout || 20000) });
+        if (res.status >= 300 && res.status < 400) throw new Error(`redirect from ${new URL(base).host}`);
+        good = bases.indexOf(base);
+        return res;
+      } catch (err) {
+        last = err;
+      }
+    }
+    throw last;
+  };
   const meta = (res) => ({
     size: Number(res.headers.get('x-size')) || 0,
     uploaded: new Date(Number(res.headers.get('x-uploaded')) || 0),
