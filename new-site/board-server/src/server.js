@@ -31,9 +31,11 @@ const [host, port] = config.listen.split(':');
 server.listen(Number(port), host, () => console.log(`board listening on ${config.listen}`, publisher.enabled));
 
 const sweep = () => cleanup(db, config).catch((err) => console.error('cleanup failed', err.message));
+const flush = () => handler.flushViews().catch((err) => console.error('view flush failed', err.message));
+setInterval(flush, 15_000).unref();
 sweep();
 setInterval(sweep, 10 * 60 * 1000).unref();
 
 for (const sig of ['SIGTERM', 'SIGINT']) {
-  process.on(sig, () => server.close(() => db.end().then(() => process.exit(0))));
+  process.on(sig, () => server.close(() => flush().then(() => db.end()).then(() => process.exit(0))));
 }

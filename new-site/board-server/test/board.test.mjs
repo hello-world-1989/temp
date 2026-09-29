@@ -19,7 +19,7 @@ const KEY = 'k'.repeat(40);
 const ADMIN_TOKEN = 'admin-token-for-tests';
 const skip = !process.env.DATABASE_URL && 'DATABASE_URL not set';
 
-let db, server, base, filesDir, config, events;
+let db, server, base, filesDir, config, events, app;
 const schema = `t_${rid(8).toLowerCase()}`;
 
 before(async () => {
@@ -53,7 +53,8 @@ before(async () => {
     unpublished: async (id) => events.push(['unpublished', id]),
     queued: async (kind, n) => events.push(['queued', kind, n]),
   };
-  server = http.createServer(createApp({ db, config, publisher }));
+  app = createApp({ db, config, publisher });
+  server = http.createServer(app);
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   base = `http://127.0.0.1:${server.address().port}`;
 });
@@ -313,4 +314,21 @@ test('images are resized, rotated upright and re-encoded', { skip }, async () =>
   assert.equal(p.data.type, 'image/png');
   const pMeta = await sharp(readFileSync(join(filesDir, p.data.imageId))).metadata();
   assert.deepEqual([pMeta.format, pMeta.width, pMeta.height], ['png', 300, 100]);
+});
+
+test('view counts', { skip }, async () => {
+  const s = await submit({ title: '浏览次数' });
+  const id = s.data.postId;
+  // Views of a post that is not published are not counted
+  assert.equal((await call('POST', `/api/board/posts/${id}/view`)).status, 202);
+  await app.flushViews();
+  await call('POST', `/api/board/admin/posts/${id}`, { headers: admin, body: { action: 'approve' } });
+  assert.equal((await call('GET', `/api/board/posts/${id}`)).data.views, 0);
+  for (let i = 0; i < 3; i++) await call('POST', `/api/board/posts/${id}/view`);
+  assert.equal(await app.flushViews(), 1);
+  assert.equal((await call('GET', `/api/board/posts/${id}`)).data.views, 3);
+  const list = await call('GET', '/api/board/posts');
+  assert.equal(list.data.items.find((i) => i.id === id).views, 3);
+  assert.equal(await app.flushViews(), 0); // nothing pending
+  assert.equal((await call('POST', '/api/board/posts/../view')).status, 404);
 });

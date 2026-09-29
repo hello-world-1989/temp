@@ -69,3 +69,6 @@ create table if not exists pow_used (
   h           bytea primary key,
   expires_at  timestamptz not null
 );
+
+-- 浏览次数 (added 2026-09-29): a plain counter, nothing about who viewed
+alter table posts add column if not exists views bigint not null default 0;

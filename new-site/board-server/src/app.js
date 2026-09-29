@@ -97,6 +97,7 @@ function postJson(row, images = [], { admin = false } = {}) {
     happenedOn: row.happened_on ? fmtDate(row.happened_on) : null,
     publishedAt: row.published_at ? row.published_at.toISOString() : null,
     edited: row.edited,
+    views: Number(row.views || 0),
     images: images.map((im) => ({ id: im.id, type: im.mime, size: im.size })),
   };
   if (admin) Object.assign(out, { status: row.status, createdAt: row.created_at.toISOString(), rejectReason: row.reject_reason, reports: row.reports });
@@ -117,6 +118,8 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
   const powSecret = createHmac('sha256', config.boardKey || 'dev').update('board-pow').digest();
   const filesDir = config.filesDir;
   const bg = (p) => p.catch((err) => console.error('background task failed', err.message));
+  const pendingViews = new Map(); // post id -> views not yet written (see view / flushViews)
+  const viewsOf = (id, stored) => Number(stored || 0) + (pendingViews.get(id) || 0);
 
   async function spendPow(purpose, pow) {
     const r = checkPow(powSecret, purpose, config.powBits[purpose], pow, now());
@@ -283,7 +286,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       where.push(`(p.published_at, p.id) < ($${params.length - 1}, $${params.length})`);
     }
     const { rows } = await db.query(
-      `select p.id, p.title, p.category, p.place, p.happened_on, p.published_at, left(p.body, 140) as excerpt,
+      `select p.id, p.title, p.category, p.place, p.happened_on, p.published_at, p.views, left(p.body, 140) as excerpt,
               (select count(*)::int from comments c where c.post_id = p.id and c.status = 'published') as comments,
               (select i.id from images i where i.post_id = p.id order by i.pos, i.created_at limit 1) as cover,
               (select count(*)::int from images i where i.post_id = p.id) as image_count
@@ -301,6 +304,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       publishedAt: r.published_at.toISOString(),
       excerpt: r.excerpt,
       comments: r.comments,
+      views: viewsOf(r.id, r.views),
       cover: r.cover,
       images: r.image_count,
     }));
@@ -312,7 +316,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     const post = await publishedPost(id);
     if (!post) throw new HttpError(404, '没有找到这条事件，可能还在审核或已被删除');
     const comments = (await db.query("select * from comments where post_id = $1 and status = 'published' order by published_at, id limit 500", [id])).rows;
-    send(res, 200, { ...postJson(post, await imagesOf(id)), comments: comments.map((c) => commentJson(c)) }, { 'Cache-Control': 'no-cache' });
+    send(res, 200, { ...postJson(post, await imagesOf(id)), views: viewsOf(id, post.views), comments: comments.map((c) => commentJson(c)) }, { 'Cache-Control': 'no-cache' });
   }
 
   async function sendImage(res, id, where, cacheControl) {
@@ -401,6 +405,24 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     const r = await db.query(`update ${table} set reports = reports + 1 where id = $1 and status = 'published'`, [input.id]);
     if (!r.rowCount) throw new HttpError(404, '内容不存在');
     send(res, 200, { ok: true });
+  }
+
+  // Views: the page asks once per browser tab session. Counts are kept in memory and added to
+  // the database in batches, so no row is written per visit and nothing about the visitor is kept.
+  async function view(req, res, id) {
+    if (!isId(id)) throw new HttpError(404, 'not found');
+    if (pendingViews.size < 5000 || pendingViews.has(id)) pendingViews.set(id, (pendingViews.get(id) || 0) + 1);
+    send(res, 202, { ok: true });
+  }
+  async function flushViews() {
+    if (!pendingViews.size) return 0;
+    const batch = [...pendingViews];
+    pendingViews.clear();
+    await db.query(
+      "update posts p set views = p.views + v.n from unnest($1::text[], $2::int[]) as v(id, n) where p.id = v.id and p.status = 'published'",
+      [batch.map(([k]) => k), batch.map(([, n]) => n)],
+    );
+    return batch.length;
   }
 
   // ---------- admin ----------
@@ -517,6 +539,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     ['GET', /^\/api\/board\/posts$/, listPosts],
     ['GET', /^\/api\/board\/posts\/([^/]+)$/, getPost],
     ['POST', /^\/api\/board\/posts\/([^/]+)\/comments$/, addComment],
+    ['POST', /^\/api\/board\/posts\/([^/]+)\/view$/, view],
     ['GET', /^\/api\/board\/img\/([^/]+)$/, (req, res, id) => sendImage(res, id, "p.status = 'published'", 'public, max-age=3600')],
     ['POST', /^\/api\/board\/status$/, status],
     ['POST', /^\/api\/board\/withdraw$/, withdraw],
@@ -529,7 +552,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     ['POST', /^\/api\/board\/admin\/comments\/([^/]+)$/, (req, res, id, admin) => adminComment(req, res, id, admin)],
   ];
 
-  return async function handle(req, res) {
+  const handle = async function handle(req, res) {
     try {
       // Only the site's Worker may call this service
       const key = Buffer.from(String(req.headers['x-board-key'] || ''));
@@ -555,6 +578,8 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       send(res, 500, { error: '服务暂时不可用，请稍后再试' });
     }
   };
+  handle.flushViews = flushViews;
+  return handle;
 }
 
 // Housekeeping: expired drafts and challenges; rejected, removed and withdrawn content is

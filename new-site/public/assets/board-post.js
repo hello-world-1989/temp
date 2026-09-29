@@ -1,6 +1,7 @@
 // 事件墙: one event, its comments, the comment form
 import { $, call, boardMeta, fmtDay, fmtTime, paragraphs, proofOfWork, setMsg } from './board-common.js';
 import { copyText } from './site.js';
+import qrcode from './vendor/qrcode.js';
 
 const id = decodeURIComponent(location.pathname.split('/')[3] || new URLSearchParams(location.search).get('id') || '');
 const box = $('#post');
@@ -30,6 +31,24 @@ function renderComments(comments) {
     item.append(meta, body);
     list.append(item);
   });
+}
+
+// Counts one view per browser tab session; the server only keeps a number
+function countView(postId) {
+  const key = `board-viewed-${postId}`;
+  try {
+    if (sessionStorage.getItem(key)) return false;
+    sessionStorage.setItem(key, '1');
+  } catch {}
+  fetch(`/api/board/posts/${encodeURIComponent(postId)}/view`, { method: 'POST' }).catch(() => {});
+  return true;
+}
+
+function qrSvg(text) {
+  const qr = qrcode(0, 'M');
+  qr.addData(text);
+  qr.make();
+  return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
 }
 
 async function reportIt(target, targetId, btn) {
@@ -77,16 +96,34 @@ async function load() {
       box.append(gallery);
     }
 
+    const counted = countView(post.id);
+    const views = post.views + (counted ? 1 : 0);
+    const link = `${location.origin}/board/e/${encodeURIComponent(post.id)}`;
     const foot = el('div', 'item-meta board-foot');
     foot.append(el('span', '', `发布于 ${fmtTime(post.publishedAt)}${post.edited ? '（发布后经管理员修改）' : ''}`));
+    foot.append(el('span', '', `浏览 ${views.toLocaleString('zh-CN')} 次`));
     const copy = el('button', 'btn btn-ghost btn-sm', '复制链接');
     copy.type = 'button';
-    copy.addEventListener('click', () => copyText(location.href.split('#')[0]));
+    copy.addEventListener('click', () => copyText(link));
+    const qrBtn = el('button', 'btn btn-ghost btn-sm', '二维码');
+    qrBtn.type = 'button';
+    qrBtn.setAttribute('aria-expanded', 'false');
+    const share = el('div', 'board-share hidden');
+    const code = el('div', 'qr');
+    code.setAttribute('role', 'img');
+    code.setAttribute('aria-label', '本页链接的二维码');
+    const linkText = el('code', 'board-share-link', link);
+    share.append(code, linkText, el('p', 'muted', '用手机扫码打开，或长按、截图保存后发给朋友。'));
+    qrBtn.addEventListener('click', () => {
+      if (!code.firstChild) code.innerHTML = qrSvg(link);
+      const open = share.classList.toggle('hidden') === false;
+      qrBtn.setAttribute('aria-expanded', String(open));
+    });
     const report = el('button', 'board-link', '举报');
     report.type = 'button';
     report.addEventListener('click', () => reportIt('post', post.id, report));
-    foot.append(copy, report);
-    box.append(foot);
+    foot.append(copy, qrBtn, report);
+    box.append(foot, share);
 
     renderComments(post.comments);
     $('#comment-form').classList.remove('hidden');

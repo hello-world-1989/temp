@@ -62,3 +62,9 @@
 .board-editor-stage { display: grid; place-items: center; background: var(--surface-2); border-radius: 10px; overflow: hidden; }
 .board-editor-stage canvas { display: block; max-width: 100%; max-height: calc(100vh - 220px); width: auto; height: auto; touch-action: none; cursor: crosshair; }
 .board-editor-hint { margin: 0; font-size: .9rem; }
+
+/* share: QR code of the event link */
+.board-share { display: grid; justify-items: center; gap: 8px; padding: 16px; border-radius: 12px; background: var(--surface-2); text-align: center; }
+.board-share .qr { width: 220px; margin: 0; }
+.board-share-link { font-size: .85rem; word-break: break-all; }
+.board-share p { margin: 0; font-size: .88rem; }

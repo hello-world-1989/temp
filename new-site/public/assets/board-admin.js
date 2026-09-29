@@ -77,6 +77,7 @@ function postCard(p) {
     a.href = `/board/e/${encodeURIComponent(p.id)}`;
     a.target = '_blank';
   }
+  if (p.status === 'published') meta.append(el('span', '', `浏览 ${p.views} 次`));
   if (p.reports) meta.append(el('span', 'badge warn', `举报 ${p.reports}`));
   card.append(meta);
 

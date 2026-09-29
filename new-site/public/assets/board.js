@@ -21,7 +21,7 @@ function card(item) {
   badge.className = 'badge soft';
   badge.textContent = item.category;
   meta.append(badge);
-  for (const t of [item.happenedOn && fmtDay(item.happenedOn), item.place, item.comments ? `${item.comments} 条留言` : '']) {
+  for (const t of [item.happenedOn && fmtDay(item.happenedOn), item.place, item.views ? `${item.views.toLocaleString('zh-CN')} 次浏览` : '', item.comments ? `${item.comments} 条留言` : '']) {
     if (!t) continue;
     const s = document.createElement('span');
     s.textContent = t;
