@@ -1,6 +1,6 @@
 // Side effects of review decisions: optional export of published posts to a GitHub repo
-// (a second place to read them, and a backup), and an optional Telegram ping to admins
-// when the queue grows. Both are off unless configured. Failures are logged, never thrown.
+// (a second place to read them, and a backup). Off unless configured. Failures are logged,
+// never thrown. Review in Telegram is in telegram.js.
 
 const GH_API = 'https://api.github.com';
 
@@ -21,7 +21,6 @@ export function exportDoc(post, images, siteUrl) {
 export function createPublisher(config, fetchImpl = globalThis.fetch) {
   const gh = config.github;
   const ghOn = Boolean(gh.token && gh.repo);
-  const tg = config.telegram;
 
   async function ghRequest(method, path, body) {
     const res = await fetchImpl(`${GH_API}/repos/${gh.repo}/contents/${path}`, {
@@ -47,7 +46,7 @@ export function createPublisher(config, fetchImpl = globalThis.fetch) {
   const committer = { name: 'Git', email: 'git@example.com' };
 
   return {
-    enabled: { github: ghOn, telegram: Boolean(tg.token && tg.chatId) },
+    enabled: { github: ghOn },
 
     async published(post, images) {
       if (!ghOn) return;
@@ -72,20 +71,6 @@ export function createPublisher(config, fetchImpl = globalThis.fetch) {
         if (!res.ok) throw new Error(`github delete ${res.status}`);
       } catch (err) {
         console.error('export removal failed', id, err.message);
-      }
-    },
-
-    // Only counts go to Telegram, never the content of a submission
-    async queued(kind, pendingCount) {
-      if (!tg.token || !tg.chatId) return;
-      try {
-        await fetchImpl(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: tg.chatId, text: `事件墙：新的${kind === 'post' ? '投稿' : '评论'}待审核（共 ${pendingCount} 条）\n${config.siteUrl}/board-admin`, disable_web_page_preview: true }),
-        });
-      } catch (err) {
-        console.error('notify failed', err.message);
       }
     },
   };

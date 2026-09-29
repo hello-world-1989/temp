@@ -28,6 +28,23 @@ export function parseAdmins(text) {
   return out;
 }
 
+// Telegram reviewers: "name:telegram user id" per line or comma-separated
+export function parseTgAdmins(text) {
+  const out = new Map();
+  for (const line of String(text || '').split(/[\n,]/)) {
+    const [name, uid] = line.trim().split(':');
+    if (name && /^[A-Za-z0-9_-]{1,32}$/.test(name) && /^\d{1,15}$/.test(uid || '')) out.set(uid, name);
+  }
+  return out;
+}
+
+// Without TG_ADMINS, a private chat (positive chat id) is its own single reviewer
+export function tgAdmins(text, chatId) {
+  const out = parseTgAdmins(text);
+  if (!out.size && /^\d{1,15}$/.test(String(chatId || ''))) out.set(String(chatId), 'telegram');
+  return out;
+}
+
 export function loadConfig(env = process.env) {
   return {
     listen: env.LISTEN || '127.0.0.1:8791',
@@ -55,7 +72,8 @@ export function loadConfig(env = process.env) {
       branch: env.GITHUB_BRANCH || 'main',
       dir: env.GITHUB_DIR || 'board',
     },
-    telegram: { token: cred('tg-bot-token'), chatId: env.TG_CHAT_ID || '' },
+    // Review in Telegram: the bot posts new submissions to TG_CHAT_ID with 通过 / 拒绝 buttons
+    telegram: { token: cred('tg-bot-token'), chatId: (env.TG_CHAT_ID || '').trim(), admins: tgAdmins(env.TG_ADMINS, (env.TG_CHAT_ID || '').trim()) },
   };
 }
 

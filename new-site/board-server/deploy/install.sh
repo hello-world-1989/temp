@@ -7,7 +7,9 @@
 #   /end-gfw/board/ADMINS        "name:sha256(token)" lines (the tokens themselves never reach the server)
 #   /end-gfw/board/DATABASE_URL  postgres://end_gfw_board:...@<Debian-1-1 private IP>:5432/end_gfw_board
 #   /end-gfw/board/DB_CA         Debian-1-1's PostgreSQL certificate (TLS is pinned to it)
-# Settings: /etc/end-gfw-board/settings (BOARD_HOST=, SITE_URL=), written with defaults on first run.
+#   /end-gfw/board/TG_BOT_TOKEN  (optional) Telegram review bot token from @BotFather
+# Settings: /etc/end-gfw-board/settings (BOARD_HOST=, SITE_URL=, and for the Telegram review
+# chat TG_CHAT_ID= and TG_ADMINS="name:telegram user id,..."), written with defaults on first run.
 # Caddy: /etc/caddy/Caddyfile imports /etc/caddy/sites/*.caddy; this service adds board.caddy.
 set -euo pipefail
 src=$(cd "$(dirname "$0")/../.." && pwd) # the new-site/ tree
@@ -33,7 +35,9 @@ param() { python3 -c "import boto3,sys; print(boto3.client('ssm', region_name='u
 (umask 077; param /end-gfw/board/ADMINS > "$conf/admins.new"; mv "$conf/admins.new" "$conf/admins")
 (umask 077; param /end-gfw/board/DATABASE_URL > "$conf/db-url.new"; mv "$conf/db-url.new" "$conf/db-url")
 param /end-gfw/board/DB_CA > "$conf/db-ca"
-printf 'SITE_URL=%s\n' "$SITE_URL" > "$conf/env"
+# Optional: without the parameter the file is empty and the bot stays off
+(umask 077; { param /end-gfw/board/TG_BOT_TOKEN 2>/dev/null || true; } > "$conf/tg-bot-token.new"; mv "$conf/tg-bot-token.new" "$conf/tg-bot-token")
+(umask 077; printf 'SITE_URL=%s\nTG_CHAT_ID=%s\nTG_ADMINS=%s\n' "$SITE_URL" "${TG_CHAT_ID:-}" "${TG_ADMINS:-}" > "$conf/env")
 
 id end-gfw-board >/dev/null 2>&1 || useradd --system --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin end-gfw-board
 

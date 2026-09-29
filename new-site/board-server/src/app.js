@@ -266,7 +266,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     } finally {
       client.release();
     }
-    bg(pendingCount('posts').then((n) => publisher.queued('post', n)));
+    bg(pendingCount('posts').then((n) => publisher.queued('post', n, id)));
     send(res, 201, { postId: id, receipt, status: 'pending' });
   }
 
@@ -354,7 +354,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       `insert into comments (id, post_id, status, nickname, body, receipt_hash, published_at) values ($1, $2, $3, $4, $5, $6, ${status === 'published' ? 'now()' : 'null'})`,
       [id, postId, status, nickname, body, sha256(receipt)],
     );
-    if (status === 'pending') bg(pendingCount('comments').then((n) => publisher.queued('comment', n)));
+    if (status === 'pending') bg(pendingCount('comments').then((n) => publisher.queued('comment', n, id)));
     send(res, 201, { commentId: id, receipt, status });
   }
 
@@ -394,6 +394,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     } else {
       await db.query("update comments set status = 'withdrawn', body = '', nickname = '', updated_at = now() where id = $1", [row.id]);
     }
+    changed(kind, row.id, { status: 'withdrawn' });
     send(res, 200, { ok: true });
   }
 
@@ -445,8 +446,15 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     }
   }
 
+  // Other places that show a submission (the Telegram review chat) follow its status
+  const changed = (kind, id, info) => publisher.changed && bg(publisher.changed(kind, id, info));
+
   async function adminPost(req, res, id, admin) {
-    const input = await readJson(req);
+    send(res, 200, await reviewPost(id, await readJson(req), admin));
+  }
+
+  // One review decision on a post (also used by the Telegram bot); returns the admin JSON
+  async function reviewPost(id, input, admin) {
     if (!isId(id)) throw new HttpError(404, 'not found');
     const post = (await db.query('select * from posts where id = $1', [id])).rows[0];
     if (!post || post.status === 'withdrawn') throw new HttpError(404, '投稿不存在或已被作者撤回');
@@ -498,28 +506,58 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     // Keep the exported copy in step with what the site shows
     if (status === 'published') bg(publisher.published(postJson(fresh, images), images));
     else if (post.status === 'published') bg(publisher.unpublished(id));
-    send(res, 200, postJson(fresh, images, { admin: true }));
+    if (status !== post.status) changed('post', id, { status, by: admin, title: fresh.title, reason: fresh.reject_reason });
+    return postJson(fresh, images, { admin: true });
   }
 
   async function adminComment(req, res, id, admin) {
     const input = await readJson(req);
+    send(res, 200, { ok: true, status: await reviewComment(id, input.action, admin) });
+  }
+
+  // One review decision on a comment (also used by the Telegram bot); returns the new status
+  async function reviewComment(id, action, admin) {
     if (!isId(id)) throw new HttpError(404, 'not found');
-    const next = { approve: 'published', reject: 'rejected', remove: 'removed', restore: 'published' }[input.action];
+    const before = (await db.query('select status from comments where id = $1', [id])).rows[0];
+    const next = { approve: 'published', reject: 'rejected', remove: 'removed', restore: 'published' }[action];
     let r;
     if (next) {
       r = await db.query(
         `update comments set status = $2, published_at = case when $2 = 'published' then coalesce(published_at, now()) else published_at end, updated_at = now() where id = $1 and status <> 'withdrawn'`,
         [id, next],
       );
-    } else if (input.action === 'clear-reports') {
+    } else if (action === 'clear-reports') {
       r = await db.query('update comments set reports = 0 where id = $1', [id]);
     } else {
       throw new HttpError(400, '未知操作');
     }
     if (!r.rowCount) throw new HttpError(404, '评论不存在或已被作者撤回');
-    await log(admin, input.action, `comment:${id}`);
-    send(res, 200, { ok: true, status: next || null });
+    await log(admin, action, `comment:${id}`);
+    if (next && before && next !== before.status) changed('comment', id, { status: next, by: admin });
+    return next || null;
   }
+
+  // For the Telegram bot: what the review page shows, without going through HTTP
+  const review = {
+    post: reviewPost,
+    comment: reviewComment,
+    async getPost(id) {
+      if (!isId(id)) return null;
+      const row = (await db.query('select * from posts where id = $1', [id])).rows[0];
+      return row ? postJson(row, await imagesOf(id), { admin: true }) : null;
+    },
+    async getComment(id) {
+      if (!isId(id)) return null;
+      const row = (await db.query('select x.*, p.title as post_title from comments x join posts p on p.id = x.post_id where x.id = $1', [id])).rows[0];
+      return row ? commentJson(row, { admin: true }) : null;
+    },
+    async pending(limit = 20) {
+      const posts = await db.query("select id from posts where status = 'pending' order by created_at limit $1", [limit]);
+      const comments = await db.query("select id from comments where status = 'pending' order by created_at limit $1", [limit]);
+      return { posts: posts.rows.map((r) => r.id), comments: comments.rows.map((r) => r.id) };
+    },
+    imageFile: (id) => (isId(id) ? join(filesDir, id) : null),
+  };
 
   async function adminLog(req, res, url) {
     const limit = Math.min(Number(url.searchParams.get('limit')) || 100, 500);
@@ -579,6 +617,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     }
   };
   handle.flushViews = flushViews;
+  handle.review = review;
   return handle;
 }
 

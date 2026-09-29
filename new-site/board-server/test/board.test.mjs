@@ -10,8 +10,9 @@ import { join } from 'node:path';
 import pg from 'pg';
 import sharp from 'sharp';
 import { createApp, cleanup, cleanText, cleanDate, rid } from '../src/app.js';
-import { parseAdmins } from '../src/config.js';
+import { parseAdmins, tgAdmins } from '../src/config.js';
 import { leadingZeroBits, checkPow, makeChallenge } from '../src/pow.js';
+import { createTelegram, REASONS } from '../src/telegram.js';
 
 pg.types.setTypeParser(1082, (v) => v);
 
@@ -19,7 +20,7 @@ const KEY = 'k'.repeat(40);
 const ADMIN_TOKEN = 'admin-token-for-tests';
 const skip = !process.env.DATABASE_URL && 'DATABASE_URL not set';
 
-let db, server, base, filesDir, config, events, app;
+let db, server, base, filesDir, config, events, app, tgBot;
 const schema = `t_${rid(8).toLowerCase()}`;
 
 before(async () => {
@@ -51,7 +52,11 @@ before(async () => {
   const publisher = {
     published: async (p) => events.push(['published', p.id]),
     unpublished: async (id) => events.push(['unpublished', id]),
-    queued: async (kind, n) => events.push(['queued', kind, n]),
+    queued: async (kind, n, id) => {
+      events.push(['queued', kind, n]);
+      await tgBot?.queued(kind, n, id);
+    },
+    changed: async (kind, id, info) => tgBot?.changed(kind, id, info),
   };
   app = createApp({ db, config, publisher });
   server = http.createServer(app);
@@ -130,6 +135,12 @@ test('text cleaning', () => {
   assert.equal(cleanDate('2026-02-28'), '2026-02-28');
   assert.throws(() => cleanDate('2026-02-30'));
   assert.throws(() => cleanDate('2999-01-01'));
+});
+
+test('telegram reviewers', () => {
+  assert.deepEqual([...tgAdmins('bob:42, eve:x, :7,carol:1234567')], [['42', 'bob'], ['1234567', 'carol']]);
+  assert.deepEqual([...tgAdmins('', '42')], [['42', 'telegram']]); // private chat: its own reviewer
+  assert.equal(tgAdmins('', '-1001').size, 0); // group: must be listed
 });
 
 test('proof of work', () => {
@@ -331,4 +342,152 @@ test('view counts', { skip }, async () => {
   assert.equal(list.data.items.find((i) => i.id === id).views, 3);
   assert.equal(await app.flushViews(), 0); // nothing pending
   assert.equal((await call('POST', '/api/board/posts/../view')).status, 404);
+});
+
+// A fake Telegram API: records every call, answers like the real one
+function fakeTelegram() {
+  const calls = [];
+  let next = 100;
+  const fetchImpl = async (url, { body, signal }) => {
+    const method = url.split('/').pop();
+    assert.match(url, /^https:\/\/api\.telegram\.org\/botTEST-TOKEN\//);
+    const data = body instanceof FormData ? Object.fromEntries(body.entries()) : JSON.parse(body);
+    calls.push({ method, data });
+    const ok = (result) => new Response(JSON.stringify({ ok: true, result }), { headers: { 'content-type': 'application/json' } });
+    if (method === 'getUpdates') return new Promise((_, reject) => signal.addEventListener('abort', () => reject(new Error('aborted'))));
+    if (method === 'getMe') return ok({ id: 999, is_bot: true });
+    if (method === 'sendMessage' || method === 'sendPhoto') return ok({ message_id: next++ });
+    if (method === 'sendMediaGroup') return ok(JSON.parse(data.media).map(() => ({ message_id: next++ })));
+    return ok(true);
+  };
+  return { calls, fetchImpl };
+}
+async function until(fn, ms = 3000) {
+  const end = Date.now() + ms;
+  for (;;) {
+    const v = await fn();
+    if (v) return v;
+    if (Date.now() > end) throw new Error('timed out');
+    await new Promise((r) => setTimeout(r, 20));
+  }
+}
+
+test('review in Telegram', { skip }, async () => {
+  const tgApi = fakeTelegram();
+  const tgConfig = { ...config, telegram: { token: 'TEST-TOKEN', chatId: '-1001', admins: new Map([['42', 'bob']]) } };
+  tgBot = createTelegram({ config: tgConfig, db, review: app.review, fetchImpl: tgApi.fetchImpl, log: { error() {} } });
+  const running = tgBot.start();
+  await until(() => tgApi.calls.some((c) => c.method === 'getUpdates'));
+  const chat = { id: -1001, type: 'supergroup' };
+  const since = () => tgApi.calls.length;
+  const after = (n, method) => tgApi.calls.slice(n).filter((c) => c.method === method);
+  const press = (data, message_id, from = 42) => tgBot.onUpdate({ update_id: 1, callback_query: { id: 'q', from: { id: from }, data, message: { message_id, chat } } });
+  try {
+    // New post with a photo: photo (spoiler) and text with buttons, no forwarding, no receipt
+    let n = since();
+    const s = await submit({ title: '电报审核测试', body: '这是一段发给审核群的事件描述。' }, [jpegWithExif()]);
+    const { postId } = s.data;
+    const main = await until(() => after(n, 'sendMessage').find((c) => c.data.text.includes(postId)));
+    const photo = after(n, 'sendPhoto')[0];
+    assert.equal(photo.data.has_spoiler, 'true');
+    assert.equal(photo.data.protect_content, 'true');
+    assert.equal(main.data.chat_id, '-1001');
+    assert.equal(main.data.protect_content, true);
+    assert.match(main.data.text, /电报审核测试/);
+    assert.match(main.data.text, /这是一段发给审核群的事件描述/);
+    assert.equal(main.data.text.includes(s.data.receipt), false);
+    assert.deepEqual(main.data.reply_markup.inline_keyboard[0].map((b) => b.callback_data), [`p:${postId}:a`, `p:${postId}:r`]);
+    const mainId = Number((await db.query("select message_id from tg_messages where target = $1 and main", [`post:${postId}`])).rows[0].message_id);
+
+    // Someone who is not a reviewer cannot decide
+    n = since();
+    await press(`p:${postId}:a`, mainId, 7);
+    assert.match(after(n, 'answerCallbackQuery')[0].data.text, /没有审核权限/);
+    assert.equal((await app.review.getPost(postId)).status, 'pending');
+
+    // Reject with a preset reason: logged as the reviewer; the content leaves the chat
+    await press(`p:${postId}:r`, mainId);
+    n = since();
+    await press(`p:${postId}:r0`, mainId);
+    const rejected = await app.review.getPost(postId);
+    assert.equal(rejected.status, 'rejected');
+    assert.equal(rejected.rejectReason, REASONS[0]);
+    assert.equal((await db.query("select admin from mod_log where target = $1 order by id desc limit 1", [`post:${postId}`])).rows[0].admin, 'tg:bob');
+    const edit = await until(() => after(n, 'editMessageText')[0]);
+    assert.equal(edit.data.message_id, mainId);
+    assert.match(edit.data.text, /已拒绝（tg:bob）/);
+    assert.equal(edit.data.text.includes('电报审核测试'), false);
+    assert.equal(edit.data.text.includes('事件描述'), false);
+    assert.equal(after(n, 'deleteMessage').length, 1); // the photo
+    assert.equal((await db.query('select count(*)::int as n from tg_messages where target = $1', [`post:${postId}`])).rows[0].n, 0);
+
+    // A second press on an old message changes nothing
+    n = since();
+    await press(`p:${postId}:a`, mainId);
+    assert.match(after(n, 'answerCallbackQuery')[0].data.text, /已经处理过了/);
+    assert.equal((await app.review.getPost(postId)).status, 'rejected');
+
+    // Reason written by the reviewer, as a reply to the bot's prompt
+    n = since();
+    const s2 = await submit({ title: '第二条' });
+    const main2 = await until(() => after(n, 'sendMessage').find((c) => c.data.text.includes(s2.data.postId)));
+    n = since();
+    await press(`p:${s2.data.postId}:rc`, 1);
+    const prompt = after(n, 'sendMessage')[0];
+    assert.equal(prompt.data.reply_markup.force_reply, true);
+    await tgBot.onUpdate({ update_id: 2, message: { message_id: 555, chat, from: { id: 42 }, text: '请补充照片', reply_to_message: { from: { id: 999 }, text: prompt.data.text } } });
+    assert.equal((await app.review.getPost(s2.data.postId)).rejectReason, '请补充照片');
+    assert.ok(main2);
+
+    // Approve: the message keeps title and public link
+    n = since();
+    const s3 = await submit({ title: '第三条' });
+    await until(() => after(n, 'sendMessage').find((c) => c.data.text.includes(s3.data.postId)));
+    n = since();
+    await press(`p:${s3.data.postId}:a`, 1);
+    assert.equal((await app.review.getPost(s3.data.postId)).status, 'published');
+    const ok = await until(() => after(n, 'editMessageText')[0]);
+    assert.match(ok.data.text, new RegExp(`已通过.*\\n第三条\\nhttps://example.test/board/e/${s3.data.postId}`));
+
+    // Comments: sent with buttons, rejected from Telegram
+    n = since();
+    const c = await call('POST', `/api/board/posts/${s3.data.postId}/comments`, { body: { body: '电报评论', nickname: '某人', pow: await pow('comment') } });
+    const cm = await until(() => after(n, 'sendMessage').find((x) => x.data.text.includes(c.data.commentId)));
+    assert.match(cm.data.text, /电报评论/);
+    n = since();
+    await press(`c:${c.data.commentId}:x`, 1);
+    assert.equal((await app.review.getComment(c.data.commentId)).status, 'rejected');
+    const ce = await until(() => after(n, 'editMessageText')[0]);
+    assert.equal(ce.data.text.includes('电报评论'), false);
+
+    // Decided on the web page, or withdrawn by the author: the chat follows
+    n = since();
+    const s4 = await submit({ title: '第四条' });
+    await until(() => after(n, 'sendMessage').find((x) => x.data.text.includes(s4.data.postId)));
+    n = since();
+    await call('POST', '/api/board/withdraw', { body: { receipt: s4.data.receipt } });
+    const we = await until(() => after(n, 'editMessageText')[0]);
+    assert.match(we.data.text, /作者撤回/);
+    assert.equal(we.data.text.includes('第四条'), false);
+
+    n = since();
+    const s5 = await submit({ title: '第五条' });
+    await until(() => after(n, 'sendMessage').find((x) => x.data.text.includes(s5.data.postId)));
+    n = since();
+    await call('POST', `/api/board/admin/posts/${s5.data.postId}`, { headers: admin, body: { action: 'reject', reason: '不实' } });
+    assert.match((await until(() => after(n, 'editMessageText')[0])).data.text, /已拒绝（alice）/);
+
+    // /pending sends the queue again
+    n = since();
+    const s6 = await submit({ title: '第六条' });
+    await until(() => after(n, 'sendMessage').find((x) => x.data.text.includes(s6.data.postId)));
+    n = since();
+    await tgBot.onUpdate({ update_id: 3, message: { message_id: 556, chat, from: { id: 42 }, text: '/pending' } });
+    assert.ok(after(n, 'sendMessage').some((x) => x.data.text.includes(s6.data.postId)));
+    assert.ok(after(n, 'deleteMessage').length >= 1); // the old copy
+  } finally {
+    tgBot.stop();
+    await running;
+    tgBot = undefined;
+  }
 });
