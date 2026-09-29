@@ -5,6 +5,19 @@
 //        GET  /chat/assets/<file>     its scripts and styles
 //        GET  /chat/api/pow           proof-of-work challenge for creating a room
 //        GET  /chat/api/entries       addresses this page can be opened at (invite links' backups)
+//        POST /chat/api/backup/get    { id } -> { blob }                       恢复口令 backups
+//        POST /chat/api/backup/put    { id, write, blob, pow? } -> { ok }     pow only to create
+//        POST /chat/api/backup/delete { id, write } -> { ok }
+// 公开事件群 (the room owner asks, a site admin approves the listing; joining needs the owner):
+//        GET  /chat/api/directory                 listed rooms: { rooms: [{ room, name, desc, at, ownerPub }] }
+//        POST /chat/api/rooms/publish  { room, owner, name, desc, ownerPub, ownerBox }  -> waits for review
+//        POST /chat/api/rooms/unpublish { room, owner }
+//        POST /chat/api/rooms/owner    { room, owner } -> { state, name, desc, reason, ownerBox, requests }
+//        POST /chat/api/rooms/decide   { room, owner, id, approve, sealed? }
+//        POST /chat/api/join/request   { room, reqPub, info, secret, pow } -> { id }
+//        POST /chat/api/join/status    { id, secret } -> { status, sealed?, ownerPub }
+//        GET  /chat/api/admin/listings?state=1|2|3   POST /chat/api/admin/review { room, action, reason }
+//             (Authorization: Bearer <事件墙 admin token>)
 //        POST /chat/api/rooms         { id, auth, owner, meta, pow } -> { id }
 //        POST /chat/api/transfer      { blob, pow } -> { id, exp }   迁移到新设备 (one-time copy)
 //        POST /chat/api/transfer/take { id } -> { blob }            and it is deleted
@@ -51,6 +64,20 @@ const safeEq = (a, b) => Buffer.isBuffer(a) && Buffer.isBuffer(b) && a.length ==
 const MAGIC = Buffer.from('EGC1');
 const isBlob = (buf, max, magic = MAGIC) => buf && buf.length >= magic.length + 12 + 16 && buf.length <= max && buf.subarray(0, 4).equals(magic);
 const TRANSFER_MAGIC = Buffer.from('EGT1');
+const BACKUP_MAGIC = Buffer.from('EGR1');
+const BACKUP_ID = /^[A-Za-z0-9_-]{22}$/;
+const OWNER_MAGIC = Buffer.from('EGO1'); // owner's private key, boxed with the owner token
+const JOIN_MAGIC = Buffer.from('EGJ1'); // request info (to the owner) and approval (to the requester)
+const PUB_STATES = { private: 0, review: 1, listed: 2, rejected: 3 };
+
+// Plain text for public listings: no control or bidi characters, NFC, one line (or a few)
+export function cleanText(v, max, { multiline = false } = {}) {
+  let s = typeof v === 'string' ? v.normalize('NFC') : '';
+  s = s.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0009\u000B-\u001F\u007F\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, '');
+  s = multiline ? s.replace(/\n{3,}/g, '\n\n') : s.replace(/\n/g, ' ');
+  s = s.trim();
+  return [...s].length > max ? null : s;
+}
 
 const STATIC = {
   '/chat': ['../public/chat.html', 'text/html; charset=utf-8'],
@@ -59,6 +86,8 @@ const STATIC = {
   '/chat/assets/chat-crypto.js': ['../public/chat-crypto.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/chat-vault.js': ['../public/chat-vault.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/chat-me.js': ['../public/chat-me.js', 'text/javascript; charset=utf-8'],
+  '/chat/assets/chat-identity.js': ['../public/chat-identity.js', 'text/javascript; charset=utf-8'],
+  '/chat/assets/chat-rooms.js': ['../public/chat-rooms.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/qrcode.js': ['../../public/assets/vendor/qrcode.js', 'text/javascript; charset=utf-8'],
 };
 
@@ -152,8 +181,8 @@ export function createApp({ store, config, entries = { list: () => [] }, now = (
         return res.end(req.method === 'HEAD' ? undefined : f.body);
       }
       if (path === '/chat/api/pow') {
-        const purpose = url.searchParams.get('for') === 'transfer' ? 'transfer' : 'room';
-        const bits = purpose === 'transfer' ? config.powBitsTransfer : config.powBits;
+        const purpose = { transfer: 'transfer', backup: 'backup', join: 'join' }[url.searchParams.get('for')] || 'room';
+        const bits = { transfer: config.powBitsTransfer, backup: config.powBitsBackup, join: config.powBitsJoin, room: config.powBits }[purpose];
         return send(res, 200, { challenge: makeChallenge(powSecret, purpose, bits, now()), bits });
       }
       if (path === '/chat/api/health') return send(res, 200, { ok: true, rooms: rooms.size, connections });
@@ -162,6 +191,18 @@ export function createApp({ store, config, entries = { list: () => [] }, now = (
     if (req.method === 'POST' && path === '/chat/api/rooms') return send(res, 200, createRoom(await readJson(req)));
     if (req.method === 'POST' && path === '/chat/api/transfer') return send(res, 200, putTransfer(await readJson(req, config.transferBytes * 1.4 + 1024)));
     if (req.method === 'POST' && path === '/chat/api/transfer/take') return send(res, 200, takeTransfer(await readJson(req)));
+    if ((req.method === 'GET' || req.method === 'HEAD') && path === '/chat/api/directory') return send(res, 200, directory(), { 'Cache-Control': 'public, max-age=60' });
+    if (req.method === 'GET' && path === '/chat/api/admin/listings') return send(res, 200, adminListings(req, url));
+    if (req.method === 'POST' && path === '/chat/api/admin/review') return send(res, 200, adminReview(req, await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/rooms/publish') return send(res, 200, publish(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/rooms/unpublish') return send(res, 200, unpublish(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/rooms/owner') return send(res, 200, ownerView(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/rooms/decide') return send(res, 200, decide(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/join/request') return send(res, 200, joinRequest(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/join/status') return send(res, 200, joinStatus(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/backup/get') return send(res, 200, getBackup(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/backup/put') return send(res, 200, putBackup(await readJson(req, config.backupBytes * 1.4 + 2048)));
+    if (req.method === 'POST' && path === '/chat/api/backup/delete') return send(res, 200, deleteBackup(await readJson(req)));
     if (req.method === 'POST' && path === '/chat/api/poll/join') return send(res, 200, pollJoin(await readJson(req)));
     if (req.method === 'POST' && path === '/chat/api/poll/act') return send(res, 200, pollAct(await readJson(req, config.maxMessageBytes * 2 + 1024)));
     if (req.method === 'POST' && path === '/chat/api/poll') return pollWait(await readJson(req), res);
@@ -196,6 +237,159 @@ export function createApp({ store, config, entries = { list: () => [] }, now = (
     const exp = t + TRANSFER_TTL;
     store.addTransfer(id, blob, exp);
     return { id, exp };
+  }
+
+  // ---- 公开事件群 -------------------------------------------------------------------------------
+  function ownedRoom(body) {
+    const id = typeof body.room === 'string' && ROOM_ID.test(body.room) ? body.room : null;
+    const room = id && store.getRoom(id);
+    const owner = b64(body.owner, { len: 32 });
+    if (!room) throw new HttpError(404, '群不存在或已销毁');
+    if (!owner || !safeEq(sha256(owner), room.owner_hash)) throw new HttpError(403, '只有建群的人能管理这个群');
+    return room;
+  }
+
+  const STATE_NAMES = ['private', 'review', 'listed', 'rejected'];
+
+  function publish(body) {
+    const room = ownedRoom(body);
+    const name = cleanText(body.name, 40);
+    const desc = cleanText(body.desc, 300, { multiline: true });
+    const ownerPub = b64(body.ownerPub, { len: 65 });
+    const ownerBox = b64(body.ownerBox, { max: 1024 });
+    if (!name || [...name].length < 2) throw new HttpError(400, '群名称要 2 到 40 个字');
+    if (desc == null) throw new HttpError(400, '简介不能超过 300 个字');
+    if (!ownerPub || ownerPub[0] !== 4 || !isBlob(ownerBox, 1024, OWNER_MAGIC)) throw new HttpError(400, '请求格式不正确');
+    store.publish(room.id, { name, desc, ownerPub, ownerBox }, now());
+    return { state: 'review' };
+  }
+
+  function unpublish(body) {
+    const room = ownedRoom(body);
+    store.unpublish(room.id);
+    return { state: 'private' };
+  }
+
+  function ownerView(body) {
+    const room = ownedRoom(body);
+    const requests = room.pub_state ? store.pendingRequests(room.id).map((r) => ({ id: r.id, reqPub: r.req_pub.toString('base64url'), info: r.info.toString('base64url'), at: r.created_at })) : [];
+    return {
+      state: STATE_NAMES[room.pub_state] || 'private',
+      name: room.pub_name,
+      desc: room.pub_desc,
+      reason: room.pub_reason,
+      ownerBox: room.owner_box ? room.owner_box.toString('base64url') : null,
+      requests,
+    };
+  }
+
+  function decide(body) {
+    const room = ownedRoom(body);
+    const id = typeof body.id === 'string' && ROOM_ID.test(body.id) ? body.id : null;
+    const approve = body.approve === true;
+    const sealed = approve ? b64(body.sealed, { max: 1024 }) : null;
+    if (!id || (approve && !isBlob(sealed, 1024, JOIN_MAGIC))) throw new HttpError(400, '请求格式不正确');
+    if (!store.decideRequest(room.id, id, approve ? 'approved' : 'rejected', sealed, now())) throw new HttpError(404, '这个申请已经处理过了');
+    return { ok: true };
+  }
+
+  function directory() {
+    return {
+      rooms: store.listed(300).map((r) => ({ room: r.id, name: r.pub_name, desc: r.pub_desc, at: r.pub_at, ownerPub: r.owner_pub.toString('base64url'), online: rooms.get(r.id)?.size || 0 })),
+    };
+  }
+
+  function joinRequest(body) {
+    const t = now();
+    const pow = checkPow(powSecret, 'join', config.powBitsJoin, body.pow, t);
+    if (!pow.ok) throw new HttpError(400, pow.error === 'expired' ? '验证已过期，请重试' : '验证失败，请重试');
+    const id = typeof body.room === 'string' && ROOM_ID.test(body.room) ? body.room : null;
+    const room = id && store.getRoom(id);
+    if (!room || room.pub_state !== PUB_STATES.listed) throw new HttpError(404, '这个群不在公开列表里了');
+    const reqPub = b64(body.reqPub, { len: 65 });
+    const info = b64(body.info, { max: 2048 });
+    const secret = b64(body.secret, { len: 32 });
+    if (!reqPub || reqPub[0] !== 4 || !secret || !isBlob(info, 2048, JOIN_MAGIC)) throw new HttpError(400, '请求格式不正确');
+    if (store.pendingCount(room.id) >= 200) throw new HttpError(503, '这个群待处理的申请太多了，请稍后再试');
+    if (!store.usePow(pow.hash, pow.expiresAt.getTime())) throw new HttpError(400, '验证已使用，请重试');
+    const rid = newId();
+    store.addRequest({ id: rid, room: room.id, reqPub, info, secretHash: sha256(secret), now: t });
+    return { id: rid };
+  }
+
+  function joinStatus(body) {
+    const id = typeof body.id === 'string' && ROOM_ID.test(body.id) ? body.id : null;
+    const r = id && store.getRequest(id);
+    const secret = b64(body.secret, { len: 32 });
+    if (!r || !secret || !safeEq(sha256(secret), r.secret_hash)) throw new HttpError(404, '申请不存在或已过期');
+    const room = store.getRoom(r.room);
+    return { status: r.status, sealed: r.sealed ? r.sealed.toString('base64url') : null, ownerPub: room?.owner_pub ? room.owner_pub.toString('base64url') : null };
+  }
+
+  // Site admins: the 事件墙 admin tokens (Authorization: Bearer ...)
+  function adminName(req) {
+    const auth = String(req.headers.authorization || '');
+    const token = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
+    const name = token && config.admins.get(sha256(token).toString('hex'));
+    if (!name) throw new HttpError(401, '需要管理员口令');
+    return name;
+  }
+
+  function adminListings(req, url) {
+    adminName(req);
+    const state = Number(url.searchParams.get('state') || 1);
+    if (![1, 2, 3].includes(state)) throw new HttpError(400, 'state 1, 2 or 3');
+    return { items: store.listings(state).map((r) => ({ room: r.id, state: STATE_NAMES[r.pub_state], name: r.pub_name, desc: r.pub_desc, reason: r.pub_reason, at: r.pub_at })) };
+  }
+
+  function adminReview(req, body) {
+    const admin = adminName(req);
+    const id = typeof body.room === 'string' && ROOM_ID.test(body.room) ? body.room : null;
+    const action = { approve: PUB_STATES.listed, reject: PUB_STATES.rejected, remove: PUB_STATES.rejected }[body.action];
+    const reason = cleanText(body.reason ?? '', 200) ?? '';
+    if (!id || action == null) throw new HttpError(400, '请求格式不正确');
+    if (!store.review(id, action, action === PUB_STATES.listed ? '' : reason, now())) throw new HttpError(404, '这个群没有申请公开');
+    console.log(`listing ${body.action} by ${admin}`); // no room id or name in the log
+    return { ok: true };
+  }
+
+  // ---- 恢复口令 backups ---------------------------------------------------------------------
+  const backupId = (body) => (typeof body.id === 'string' && BACKUP_ID.test(body.id) ? body.id : null);
+
+  function getBackup(body) {
+    const id = backupId(body);
+    const row = id && store.getBackup(id);
+    if (!row) throw new HttpError(404, '没有找到这个恢复口令的备份：请检查口令有没有抄错');
+    return { blob: row.blob.toString('base64url') };
+  }
+
+  function putBackup(body) {
+    const id = backupId(body);
+    const write = b64(body.write, { len: 32 });
+    const blob = b64(body.blob, { max: config.backupBytes });
+    if (!id || !write || !isBlob(blob, config.backupBytes, BACKUP_MAGIC)) throw new HttpError(400, '请求格式不正确');
+    const row = store.getBackup(id);
+    if (row) {
+      if (!safeEq(sha256(write), row.write_hash)) throw new HttpError(403, '恢复口令不对');
+    } else {
+      const t = now();
+      const pow = checkPow(powSecret, 'backup', config.powBitsBackup, body.pow, t);
+      if (!pow.ok) throw new HttpError(400, pow.error === 'expired' ? '验证已过期，请重试' : '验证失败，请重试');
+      if (store.backupCount() >= config.maxBackups) throw new HttpError(503, '服务器繁忙，请稍后再试');
+      if (!store.usePow(pow.hash, pow.expiresAt.getTime())) throw new HttpError(400, '验证已使用，请重试');
+    }
+    store.putBackup(id, blob, sha256(write), now());
+    return { ok: true, created: !row };
+  }
+
+  function deleteBackup(body) {
+    const id = backupId(body);
+    const write = b64(body.write, { len: 32 });
+    const row = id && store.getBackup(id);
+    if (!row) return { ok: true };
+    if (!write || !safeEq(sha256(write), row.write_hash)) throw new HttpError(403, '恢复口令不对');
+    store.deleteBackup(id);
+    return { ok: true };
   }
 
   function takeTransfer(body) {
@@ -474,6 +668,7 @@ export function createApp({ store, config, entries = { list: () => [] }, now = (
     for (const { room, id } of store.purgeExpired(t)) broadcast(room, { t: 'del', id });
   }
   function sweepRooms() {
+    store.purgeRequests(now());
     for (const id of store.idleRooms(now() - config.roomIdleDays * 86400_000)) {
       store.deleteRoom(id);
       closeRoom(id);

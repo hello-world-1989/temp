@@ -1,10 +1,12 @@
-// 我的身份与群: the 保险箱 dialog (set a passphrase, unlock, 我的群, backup file, move to a new
-// device). All text is set with textContent; the only markup inserted is the generated QR SVG.
+// 我的身份与群: the 保险箱 dialog (set a passphrase, unlock, 我的群, 事件墙 receipts, 恢复口令,
+// backup file, move to a new device). All text is set with textContent; the only markup inserted
+// is the generated QR SVG.
 import qrcode from './qrcode.js';
 import { b64url, exportIdentity, fragment, fromB64url, importIdentity, kvClear, kvGet, kvPut, loadIdentity, newIdentity, proofOfWork } from './chat-crypto.js';
 import {
-  MIN_PASS, backupFile, cleanContents, lockBox, newBox, openBox, openTransfer, parseTransfer, readBackupFile,
-  sealTransfer, sessionKey, setSessionKey, transferFragment, unlockBox,
+  MIN_PASS, backupFile, cleanContents, lockBox, newBox, newRecoveryPhrase, normalizePhrase, openBox, openRecovery,
+  openTransfer, parseTransfer, pushRecovery, readBackupFile, recoveryKeys, sealTransfer, sessionKey, setSessionKey,
+  transferFragment, unlockBox,
 } from './chat-vault.js';
 
 const $ = (id) => document.getElementById(id);
@@ -20,6 +22,7 @@ function note(text, kind = '') {
 
 function pane(id) {
   for (const p of PANES) $(p).hidden = p !== id;
+  $('me-find-wrap').hidden = !(id === 'me-none' || id === 'me-locked');
 }
 
 function checkPass(a, b) {
@@ -103,8 +106,30 @@ export async function setupVault() {
   };
 
   async function save() {
+    // Another page of this site (事件墙) may have added receipts since this one opened the vault
+    try {
+      const stored = await kvGet('vault');
+      if (stored && stored.ct !== vault.box.ct) {
+        const other = cleanContents(await unlockBox(vault.raw, stored));
+        for (const r of other.receipts) if (!vault.data.receipts.some((x) => x.receipt === r.receipt)) vault.data.receipts.push(r);
+        vault.data.receipts.sort((a, b) => b.at - a.at);
+      }
+    } catch {}
     vault.box = await lockBox(vault.raw, vault.data, vault.box);
     await kvPut('vault', vault.box);
+    if (vault.data.recovery) syncSoon();
+  }
+
+  // 恢复口令: every change is also sent (encrypted) to the server, a moment after it happens
+  let syncTimer = null;
+  function syncSoon() {
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(() => syncRecovery().catch((err) => setRecStatus(`同步失败：${err.message}`)), 1500);
+  }
+  const setRecStatus = (t) => $('me-rec-status') && ($('me-rec-status').textContent = t);
+  async function syncRecovery(pow) {
+    await pushRecovery(vault.data, pow);
+    setRecStatus(`（已同步 ${new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}）`);
   }
 
   // Makes `data` this device's vault under `raw`, then reloads so everything uses it
@@ -128,6 +153,22 @@ export async function setupVault() {
 
   function renderOpen() {
     $('me-fp').textContent = identity ? `#${identity.fp}` : '（这个浏览器不支持签名）';
+    const rl = $('me-receipts');
+    rl.replaceChildren();
+    $('me-receipts-empty').hidden = vault.data.receipts.length > 0;
+    for (const r of vault.data.receipts) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `/board-status#${r.receipt}`;
+      a.textContent = `${r.kind === 'comment' ? '留言' : '投稿'}：${r.title || '（无标题）'}`;
+      const when = document.createElement('span');
+      when.className = 'small muted';
+      when.textContent = r.at ? ` ${new Date(r.at).toLocaleDateString('zh-CN')}` : '';
+      li.append(a, when);
+      rl.append(li);
+    }
+    $('me-rec-off').hidden = !!vault.data.recovery;
+    $('me-rec-onbox').hidden = !vault.data.recovery;
     const list = $('me-rooms');
     list.replaceChildren();
     $('me-rooms-empty').hidden = vault.data.rooms.length > 0;
@@ -239,6 +280,64 @@ export async function setupVault() {
     note('备份文件已下载。它用你的口令加密，没有口令打不开；忘了口令也打不开。', '');
   };
 
+  $('me-rec-on').onclick = async () => {
+    const btn = $('me-rec-on');
+    btn.disabled = true;
+    try {
+      note('正在生成并加密上传，通常几秒钟…');
+      const phrase = newRecoveryPhrase();
+      vault.data.recovery = { phrase };
+      const { challenge, bits } = await api('/chat/api/pow?for=backup');
+      await syncRecovery(await proofOfWork(challenge, bits));
+      vault.box = await lockBox(vault.raw, vault.data, vault.box);
+      await kvPut('vault', vault.box);
+      note('');
+      renderOpen();
+      $('me-rec-phrase').textContent = phrase;
+      $('me-rec-box').hidden = false;
+    } catch (err) {
+      vault.data.recovery = null;
+      note(err.message, 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  };
+  $('me-rec-show').onclick = () => {
+    $('me-rec-phrase').textContent = vault.data.recovery?.phrase || '';
+    $('me-rec-box').hidden = !$('me-rec-box').hidden;
+  };
+  $('me-rec-del').onclick = async () => {
+    if (!confirm('关闭恢复口令，并删除服务器上的加密备份？之后丢了设备就只能靠备份文件找回。')) return;
+    try {
+      const k = await recoveryKeys(vault.data.recovery.phrase);
+      await api('/chat/api/backup/delete', { id: k.id, write: b64url(k.write) });
+      vault.data.recovery = null;
+      await save();
+      $('me-rec-box').hidden = true;
+      renderOpen();
+      note('已关闭，服务器上的备份已删除。');
+    } catch (err) {
+      note(err.message, 'error');
+    }
+  };
+
+  // Found by a recovery phrase: this device takes it over with its own passphrase
+  onSubmit($('me-find'), async () => {
+    const phrase = normalizePhrase($('me-f-phrase').value);
+    if (!phrase) throw new Error('恢复口令应该是 20 个字母和数字（例如 abcd-efgh-jkmn-pqrs-tuvw），请检查有没有抄错');
+    note('正在查找…');
+    const k = await recoveryKeys(phrase);
+    const { blob } = await api('/chat/api/backup/get', { id: k.id });
+    let data;
+    try {
+      data = cleanContents(await openRecovery(k.aes, fromB64url(blob)));
+    } catch {
+      throw new Error('备份无法解密：请检查恢复口令');
+    }
+    note('');
+    await receiveContents(data, '已找到');
+  });
+
   let xferTimer = null;
   $('me-move').onclick = async () => {
     const btn = $('me-move');
@@ -282,6 +381,31 @@ export async function setupVault() {
     } catch {}
   };
 
+  // Identity and lists from elsewhere (another device, or a recovery phrase): ask for this
+  // device's passphrase, then make them this device's vault (the page reloads)
+  let incoming = null;
+  onSubmit($('me-recv-form'), async () => {
+    if (!incoming) return;
+    const err = checkPass($('me-t-pass').value, $('me-t-pass2').value);
+    if (err) throw new Error(err);
+    const hasVault = !!(await kvGet('vault').catch(() => null));
+    if (hasVault && !confirm('这台设备上已经保存过身份和群，会被替换。继续？')) return;
+    note('正在加密…');
+    const { box, raw } = await newBox($('me-t-pass').value, incoming);
+    await adopt(box, raw);
+  });
+  async function receiveContents(data, what) {
+    incoming = data;
+    pane('me-recv');
+    if (!dialog.open) dialog.showModal();
+    const extra = [data.rooms.length ? `${data.rooms.length} 个群` : '', data.receipts.length ? `${data.receipts.length} 条事件墙回执` : ''].filter(Boolean).join('、');
+    $('me-recv-info').textContent = `${what}：${data.identity ? '身份（指纹不变）' : '（没有身份）'}${extra ? `、${extra}` : ''}。给这台设备设一个口令，以后在这里用它解锁。`;
+    $('me-recv-form').hidden = false;
+    // Setting the passphrase reloads the page; closing the dialog instead gives up
+    await new Promise((r) => dialog.addEventListener('close', r, { once: true }));
+    incoming = null;
+  }
+
   // ---- start -----------------------------------------------------------------------------
   let identity = null;
 
@@ -296,20 +420,7 @@ export async function setupVault() {
       const { blob } = await api('/chat/api/transfer/take', { id: xfer.id });
       const data = cleanContents(await openTransfer(xfer.key, fromB64url(blob)));
       note('');
-      $('me-recv-info').textContent = `已收到：${data.identity ? '身份（指纹不变）' : '（没有身份）'}、${data.rooms.length} 个群。给这台设备设一个口令，以后在这里用它解锁。`;
-      $('me-recv-form').hidden = false;
-      const hasVault = !!(await kvGet('vault').catch(() => null));
-      await new Promise((resolve) =>
-        onSubmit($('me-recv-form'), async () => {
-          const err = checkPass($('me-t-pass').value, $('me-t-pass2').value);
-          if (err) throw new Error(err);
-          if (hasVault && !confirm('这台设备上已经保存过身份和群，会被旧设备的替换。继续？')) return;
-          note('正在加密…');
-          const { box, raw } = await newBox($('me-t-pass').value, data);
-          resolve();
-          await adopt(box, raw);
-        }),
-      );
+      await receiveContents(data, '已收到');
     } catch (err) {
       note(err.message, 'error');
       $('me-recv-form').hidden = true;

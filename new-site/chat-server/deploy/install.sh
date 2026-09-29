@@ -33,6 +33,17 @@ node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 20 ? 0 : 1)
 
 install -d -m 0750 /etc/end-gfw-chat
 [ -f /etc/end-gfw-chat/env ] || printf '# ALLOW_FROM=1.2.3.4,5.6.7.8\n' > /etc/end-gfw-chat/env
+# Site admins (the same tokens as 事件墙): review which rooms go into the public list.
+# Parameter Store /end-gfw/board/ADMINS ("name:sha256(token)" lines), else 事件墙's copy on this
+# machine, else nobody (the list then stays empty).
+(umask 077
+if python3 -c 'import boto3' 2>/dev/null && python3 -c "import boto3,sys; print(boto3.client('ssm', region_name='us-east-1').get_parameter(Name='/end-gfw/board/ADMINS', WithDecryption=True)['Parameter']['Value'])" > /etc/end-gfw-chat/admins.new 2>/dev/null; then
+  mv /etc/end-gfw-chat/admins.new /etc/end-gfw-chat/admins
+elif [ -s /etc/end-gfw-board/admins ]; then
+  rm -f /etc/end-gfw-chat/admins.new; cp /etc/end-gfw-board/admins /etc/end-gfw-chat/admins
+else
+  rm -f /etc/end-gfw-chat/admins.new; : > /etc/end-gfw-chat/admins
+fi)
 id end-gfw-chat >/dev/null 2>&1 || useradd --system --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin end-gfw-chat
 
 # Code: the same relative layout as the repository (the service imports pow.js from board-server

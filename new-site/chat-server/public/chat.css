@@ -102,3 +102,10 @@ details summary { cursor: pointer; color: var(--accent); font-size: .9rem; }
 .backups ul { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-direction: column; gap: 4px; }
 .backups li { font-size: .75rem; word-break: break-all; }
 .backups li span { color: var(--muted); margin-right: 6px; }
+.phrase code { display: block; font-size: 1.25rem; letter-spacing: .06em; padding: 10px 12px; background: var(--surface-2); border-radius: 10px; text-align: center; word-break: break-all; }
+.dir-list { display: flex; flex-direction: column; gap: 10px; }
+.dir-item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.dir-item h3 { margin: 0 0 4px; }
+.dir-item .desc { white-space: pre-wrap; word-break: break-word; font-size: .9rem; margin: 4px 0; }
+.dir-item form { margin-top: 8px; }
+.req-actions { display: flex; gap: 8px; margin-top: 6px; }

@@ -30,6 +30,8 @@ const TABS = [
   { id: 'posts-rejected', label: '未通过', type: 'posts', status: 'rejected' },
   { id: 'posts-removed', label: '已下架', type: 'posts', status: 'removed' },
   { id: 'comments-published', label: '已发布留言', type: 'comments', status: 'published' },
+  { id: 'chat-review', label: '公开群审核', chat: 1 },
+  { id: 'chat-listed', label: '已公开群', chat: 2 },
   { id: 'log', label: '操作记录' },
 ];
 let tab = TABS[0];
@@ -206,6 +208,43 @@ function commentCard(c) {
   return card;
 }
 
+// 加密聊天 rooms whose owners asked to be in the public list (the chat service checks the same
+// admin token). Only the public name and description exist on the server; messages are encrypted.
+function chatListingCard(item) {
+  const card = el('article', 'card board-admin-item');
+  card.append(el('h3', '', item.name), el('p', 'muted', `${fmtTime(new Date(item.at).toISOString())} ${tab.chat === 1 ? '申请公开' : '公开'}`));
+  if (item.desc) {
+    const d = el('p', 'board-admin-body', item.desc);
+    d.style.whiteSpace = 'pre-wrap';
+    card.append(d);
+  }
+  const reason = input('', { max: 200 });
+  reason.placeholder = '不通过 / 下架的原因（群主能看到，可不填）';
+  const out = el('p', 'notice mt');
+  const actions = el('div', 'row gap mt');
+  const act = (label, action, primary = false) => {
+    const b = el('button', `btn btn-sm ${primary ? 'btn-primary' : 'btn-ghost'}`, label);
+    b.type = 'button';
+    b.addEventListener('click', async () => {
+      b.disabled = true;
+      try {
+        await acall('POST', '/chat/api/admin/review', { body: { room: item.room, action, reason: reason.value.trim() } });
+        card.remove();
+      } catch (err) {
+        setMsg(out, err.message, 'error');
+        b.disabled = false;
+      }
+    });
+    actions.append(b);
+  };
+  if (tab.chat === 1) {
+    act('通过，公开', 'approve', true);
+    act('不通过', 'reject');
+  } else act('下架', 'remove');
+  card.append(field('原因', reason), actions, out);
+  return card;
+}
+
 let counts = { posts: 0, comments: 0 };
 function renderTabs() {
   const box = $('#tabs');
@@ -239,6 +278,12 @@ async function load() {
   list.replaceChildren();
   setMsg(msg, '加载中…');
   try {
+    if (tab.chat) {
+      const r = await acall('GET', `/chat/api/admin/listings?state=${tab.chat}`);
+      for (const item of r.items) list.append(chatListingCard(item));
+      setMsg(msg, r.items.length ? '' : '没有内容');
+      return;
+    }
     if (tab.id === 'log') {
       const r = await acall('GET', '/api/board/admin/log?limit=200');
       const table = el('table', 'board-log');

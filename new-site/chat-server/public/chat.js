@@ -6,6 +6,7 @@ import {
   open, parseFragment, proofOfWork, randomBytes, roomKeys, seal, sha256b64,
 } from './chat-crypto.js';
 import { setupVault } from './chat-me.js';
+import { directoryView, ownerPanel } from './chat-rooms.js';
 
 const $ = (id) => document.getElementById(id);
 const TTLS = [
@@ -17,6 +18,7 @@ const TTLS = [
 
 function show(view) {
   for (const v of ['v-create', 'v-created', 'v-join', 'v-room']) $(v).hidden = v !== view;
+  if (view !== 'v-create') $('dir').hidden = true; // the public list belongs to the start page
 }
 
 function note(el, text, kind = '') {
@@ -66,12 +68,12 @@ const entriesReady = fetch('/chat/api/entries', { cache: 'no-store' })
   .then((d) => (Array.isArray(d.entries) ? d.entries : []))
   .catch(() => []);
 
-// Shows `frag` as a link on this address plus its backups; the copy button copies all of them
-async function showLink(codeId, btnId, backupsId, frag) {
-  const main = `${location.origin}/chat${frag}`;
-  $(codeId).textContent = main;
-  const others = [];
-  for (const e of await entriesReady) {
+// Backups for a link: the main site (unless this is it) and 2 mirror addresses picked at random
+// on different IPs, one website mirror (https://IP/chat) and one relay (:8443) when both exist,
+// so not every invite exposes the same addresses
+function pickBackups(entries) {
+  const list = [];
+  for (const e of entries) {
     let u;
     try {
       u = new URL(String(e.url));
@@ -79,8 +81,30 @@ async function showLink(codeId, btnId, backupsId, frag) {
       continue;
     }
     if (u.protocol !== 'https:' || u.origin === location.origin || u.pathname !== '/chat') continue;
-    others.push({ url: `${u.origin}/chat${frag}`, label: String(e.label || '').slice(0, 30) });
+    list.push({ origin: u.origin, host: u.hostname, relay: u.port === '8443', ip: /^\d{1,3}(\.\d{1,3}){3}$/.test(u.hostname), label: String(e.label || '').slice(0, 30) });
   }
+  const shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = crypto.getRandomValues(new Uint32Array(1))[0] % (i + 1);
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+  const site = list.filter((e) => !e.ip).slice(0, 1);
+  const mirrors = shuffle(list.filter((e) => e.ip));
+  const picked = [];
+  const take = (e) => e && picked.length < 2 && !picked.some((p) => p.host === e.host) && picked.push(e);
+  take(mirrors.find((e) => !e.relay));
+  take(mirrors.find((e) => e.relay && !picked.some((p) => p.host === e.host)));
+  for (const e of mirrors) take(e);
+  return [...site, ...picked];
+}
+
+// Shows `frag` as a link on this address plus its backups; the copy button copies all of them
+async function showLink(codeId, btnId, backupsId, frag) {
+  const main = `${location.origin}/chat${frag}`;
+  $(codeId).textContent = main;
+  const others = pickBackups(await entriesReady).map((e) => ({ url: `${e.origin}/chat${frag}`, label: e.label }));
   const box = $(backupsId);
   const ul = box.querySelector('ul');
   ul.replaceChildren();
@@ -123,8 +147,9 @@ async function api(method, path, body) {
 
 // ---- 建群 ---------------------------------------------------------------------------------
 
-function createView() {
+function createView(ctx) {
   show('v-create');
+  directoryView(ctx).catch((err) => console.error(err));
   fillTtl($('c-ttl'), 7 * 86400, 86400);
   $('create-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -180,6 +205,16 @@ async function roomView(frag, identity, vault) {
 
   show('v-room');
   $('r-destroy').hidden = !owner;
+  let roomName = '';
+  if (owner) {
+    ownerPanel({
+      room,
+      key,
+      owner,
+      getName: () => roomName,
+      onCount: (n) => ($('r-manage').textContent = n ? `管理（${n} 个加入申请）` : '管理'),
+    });
+  }
   showLink('r-invite-link', 'r-invite-copy', 'r-invite-backups', fragment(room, key));
   $('r-invite').onclick = () => {
     const box = $('r-invite-box');
@@ -358,6 +393,9 @@ async function roomView(frag, identity, vault) {
     status('连接中…');
     if (mode === 'poll') return pollLoop();
     ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/chat/ws`);
+    // Some proxies neither pass nor refuse the WebSocket and it just hangs: give up after 8 s
+    const sock = ws;
+    setTimeout(() => !wsWorked && sock.readyState !== 3 && sock.close(), 8000);
     ws.onopen = () => ws.send(JSON.stringify({ t: 'auth', room, token: b64url(auth) }));
     ws.onmessage = (e) => {
       let m;
@@ -410,6 +448,7 @@ async function roomView(frag, identity, vault) {
       try {
         const meta = await open(aes, room, 'meta', fromB64url(m.meta));
         if (meta.name) {
+          roomName = String(meta.name).slice(0, 40);
           $('r-name').textContent = meta.name;
           document.title = `${meta.name} · 加密聊天`;
         }
@@ -523,7 +562,7 @@ async function main() {
     vault.current = { room: frag.room, key: frag.key, owner: frag.owner, name: '' };
     return roomView(frag, identity, vault);
   }
-  createView();
+  createView({ identity, vault });
   if (location.hash) note($('c-msg'), '链接不完整：请让对方重新发送完整的链接（复制时不要截断）。', 'error');
 }
 

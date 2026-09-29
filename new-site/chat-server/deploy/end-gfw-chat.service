@@ -18,6 +18,8 @@ Environment=ACME_SH=/opt/end-gfw-chat/acme.sh
 Environment=HOME=/var/lib/end-gfw-chat
 # Optional overrides (ALLOW_FROM=mirror IPs, limits): /etc/end-gfw-chat/env
 EnvironmentFile=-/etc/end-gfw-chat/env
+# 事件墙's admin token hashes: who may review the public room list
+LoadCredential=admins:/etc/end-gfw-chat/admins
 # Messages, room hashes and the mirrors' TLS keys. Not backed up on purpose: deleted means gone.
 StateDirectory=end-gfw-chat
 StateDirectoryMode=0700

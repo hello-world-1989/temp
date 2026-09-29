@@ -63,3 +63,11 @@ $('#withdraw').addEventListener('click', async () => {
     $('#withdraw').disabled = false;
   }
 });
+
+// /board-status#<receipt> (from 加密聊天 → 我的): check it straight away; the #part never reaches the server
+const fromLink = decodeURIComponent(location.hash.slice(1));
+if (/^[A-Za-z0-9]{24}$/.test(fromLink)) {
+  $('#receipt').value = fromLink;
+  history.replaceState(null, '', location.pathname);
+  $('#form').requestSubmit();
+}
