@@ -69,7 +69,8 @@ export async function handleShare(request, url, env, opts = {}) {
     // Storage errors: say which kind (never the key or file ids), for troubleshooting
     const code = err?.status === 403 ? 'store_auth' : err?.status ? `store_${err.status}` : err?.name === 'TimeoutError' ? 'store_timeout' : 'store_unreachable';
     console.error('share store error', code, String(err?.message || err).slice(0, 200));
-    return json({ error: '服务暂时不可用，请稍后再试', code }, 502);
+    const detail = env.SHARE_DEBUG === '1' ? String(err?.message || err).slice(0, 300) : undefined;
+    return json({ error: '服务暂时不可用，请稍后再试', code, detail }, 502);
   }
 }
 

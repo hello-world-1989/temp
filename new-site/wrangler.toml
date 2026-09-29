@@ -63,6 +63,8 @@ LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.a
 SHARE_STORE_URL = "https://share-store.end-gfw.com"
 # Backup links on the upload page: mirrors proxy end-gfw.com, where /share is not live yet
 SHARE_MIRROR_LINKS = "0"
+# Preview only: storage error messages in API responses
+SHARE_DEBUG = "1"
 
 [[env.preview.services]]
 binding = "LEGACY"
