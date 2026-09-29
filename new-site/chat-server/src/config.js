@@ -36,6 +36,8 @@ export function loadConfig(env = process.env) {
     // A mirror that has not checked in or carried a connection for this long loses its certificate
     mirrorDays: int(env, 'MIRROR_DAYS', 7),
 
+    // The website, where the list of chat addresses for invite links comes from ('' = none)
+    siteUrl: (env.SITE_URL ?? 'https://end-gfw.com').trim(),
     powBits: int(env, 'POW_BITS_CREATE', 18),
     powBitsTransfer: int(env, 'POW_BITS_TRANSFER', 15),
     maxTransfers: int(env, 'MAX_TRANSFERS', 2000),

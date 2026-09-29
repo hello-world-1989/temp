@@ -4,6 +4,7 @@
 // HTTP   GET  /chat                   the page (served from here, never through Cloudflare)
 //        GET  /chat/assets/<file>     its scripts and styles
 //        GET  /chat/api/pow           proof-of-work challenge for creating a room
+//        GET  /chat/api/entries       addresses this page can be opened at (invite links' backups)
 //        POST /chat/api/rooms         { id, auth, owner, meta, pow } -> { id }
 //        POST /chat/api/transfer      { blob, pow } -> { id, exp }   迁移到新设备 (one-time copy)
 //        POST /chat/api/transfer/take { id } -> { blob }            and it is deleted
@@ -97,7 +98,7 @@ async function readJson(req, max = 16 * 1024) {
   throw new HttpError(400, '请求格式不正确');
 }
 
-export function createApp({ store, config, now = () => Date.now() }) {
+export function createApp({ store, config, entries = { list: () => [] }, now = () => Date.now() }) {
   const powSecret = randomBytes(32); // challenges stop working on restart, which is fine
   const files = new Map();
   for (const [path, [file, type]] of Object.entries(STATIC)) {
@@ -156,6 +157,7 @@ export function createApp({ store, config, now = () => Date.now() }) {
         return send(res, 200, { challenge: makeChallenge(powSecret, purpose, bits, now()), bits });
       }
       if (path === '/chat/api/health') return send(res, 200, { ok: true, rooms: rooms.size, connections });
+      if (path === '/chat/api/entries') return send(res, 200, { entries: entries.list() }, { 'Cache-Control': 'public, max-age=300' });
     }
     if (req.method === 'POST' && path === '/chat/api/rooms') return send(res, 200, createRoom(await readJson(req)));
     if (req.method === 'POST' && path === '/chat/api/transfer') return send(res, 200, putTransfer(await readJson(req, config.transferBytes * 1.4 + 1024)));

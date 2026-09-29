@@ -54,10 +54,51 @@ async function copy(btn, text) {
     getSelection().addRange(r);
     hint.textContent = '请手动复制（已选中）';
   }
-  setTimeout(() => (hint.textContent = '点击复制'), 2500);
+  setTimeout(() => (hint.textContent = btn.dataset.hint || '点击复制'), 2500);
 }
 
 const linkFor = (room, key, owner) => `${location.origin}/chat${fragment(room, key, owner)}`;
+
+// Other addresses of 加密聊天 (the site, its mirror nodes, the :8443 relays): invite links carry
+// them as backup lines, so a blocked address does not lock people out of a room
+const entriesReady = fetch('/chat/api/entries', { cache: 'no-store' })
+  .then((r) => (r.ok ? r.json() : {}))
+  .then((d) => (Array.isArray(d.entries) ? d.entries : []))
+  .catch(() => []);
+
+// Shows `frag` as a link on this address plus its backups; the copy button copies all of them
+async function showLink(codeId, btnId, backupsId, frag) {
+  const main = `${location.origin}/chat${frag}`;
+  $(codeId).textContent = main;
+  const others = [];
+  for (const e of await entriesReady) {
+    let u;
+    try {
+      u = new URL(String(e.url));
+    } catch {
+      continue;
+    }
+    if (u.protocol !== 'https:' || u.origin === location.origin || u.pathname !== '/chat') continue;
+    others.push({ url: `${u.origin}/chat${frag}`, label: String(e.label || '').slice(0, 30) });
+  }
+  const box = $(backupsId);
+  const ul = box.querySelector('ul');
+  ul.replaceChildren();
+  for (const o of others) {
+    const li = document.createElement('li');
+    const label = document.createElement('span');
+    label.textContent = o.label;
+    li.append(label, o.url);
+    ul.append(li);
+  }
+  box.hidden = !others.length;
+  const text = others.length ? `${main}\n\n打不开时用备用地址（同一个群）：\n${others.map((o) => o.url).join('\n')}` : main;
+  const btn = $(btnId);
+  btn.dataset.hint = others.length ? `点击复制（含 ${others.length} 个备用地址）` : '点击复制';
+  btn.querySelector('.hint').textContent = btn.dataset.hint;
+  btn.onclick = () => copy(btn, text);
+  return main;
+}
 
 function left(ms) {
   if (ms <= 0) return '即将删除';
@@ -99,13 +140,9 @@ function createView() {
       const { aes, auth } = await roomKeys(key);
       const meta = await seal(aes, room, 'meta', { name: $('c-name').value.trim().slice(0, 40), ttl: Number($('c-ttl').value) });
       await api('POST', '/chat/api/rooms', { id: room, auth: await sha256b64(auth), owner: await sha256b64(owner), meta: b64url(meta), pow });
-      const invite = linkFor(room, key);
-      const admin = linkFor(room, key, owner);
-      $('invite').textContent = invite;
-      $('owner').textContent = admin;
+      const invite = await showLink('invite', 'invite-copy', 'invite-backups', fragment(room, key));
+      const admin = await showLink('owner', 'owner-copy', 'owner-backups', fragment(room, key, owner));
       qr($('invite-qr'), invite);
-      $('invite-copy').onclick = () => copy($('invite-copy'), invite);
-      $('owner-copy').onclick = () => copy($('owner-copy'), admin);
       $('enter').href = admin;
       $('enter').onclick = (ev) => {
         ev.preventDefault();
@@ -143,8 +180,7 @@ async function roomView(frag, identity, vault) {
 
   show('v-room');
   $('r-destroy').hidden = !owner;
-  $('r-invite-link').textContent = invite;
-  $('r-invite-copy').onclick = () => copy($('r-invite-copy'), invite);
+  showLink('r-invite-link', 'r-invite-copy', 'r-invite-backups', fragment(room, key));
   $('r-invite').onclick = () => {
     const box = $('r-invite-box');
     box.hidden = !box.hidden;

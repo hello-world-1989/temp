@@ -51,12 +51,14 @@
       <h2>邀请链接</h2>
       <p class="muted small">发给要进群的人。拿到这个链接就能看群里的消息，请用私密的方式发送。</p>
       <button class="copy" type="button" id="invite-copy"><code id="invite"></code><span class="hint">点击复制</span></button>
+      <div class="backups" id="invite-backups" hidden><p class="muted small">打不开时用下面的备用地址，打开的是同一个群（点上面复制时会一起复制）：</p><ul></ul></div>
       <div class="qr" id="invite-qr"></div>
     </div>
     <div class="card">
       <h2>管理链接（只给你自己）</h2>
       <p class="muted small">用这个链接进群可以<strong>销毁整个群</strong>。只显示这一次，请自己保存好，不要发给别人。</p>
       <button class="copy" type="button" id="owner-copy"><code id="owner"></code><span class="hint">点击复制</span></button>
+      <div class="backups" id="owner-backups" hidden><p class="muted small">打不开时用下面的备用地址，打开的是同一个群（点上面复制时会一起复制）：</p><ul></ul></div>
     </div>
     <a class="btn primary" id="enter" href="#">进入群聊</a>
   </section>
@@ -88,6 +90,7 @@
     </div>
     <div class="card invite-box" id="r-invite-box" hidden>
       <button class="copy" type="button" id="r-invite-copy"><code id="r-invite-link"></code><span class="hint">点击复制</span></button>
+      <div class="backups" id="r-invite-backups" hidden><p class="muted small">打不开时用下面的备用地址，打开的是同一个群（点上面复制时会一起复制）：</p><ul></ul></div>
       <div class="qr" id="r-invite-qr"></div>
     </div>
     <p class="notice" id="r-msg" role="status" hidden></p>

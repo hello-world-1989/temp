@@ -8,7 +8,7 @@ base="https://raw.githubusercontent.com/hello-world-1989/temp/$sha/new-site"
 rm -rf "$dir"
 for f in chat-server/package.json chat-server/package-lock.json \
   chat-server/src/server.js chat-server/src/app.js chat-server/src/config.js chat-server/src/store.js \
-  chat-server/src/edge.js chat-server/src/certs.js \
+  chat-server/src/edge.js chat-server/src/certs.js chat-server/src/entries.js \
   chat-server/public/chat.html chat-server/public/chat.css chat-server/public/chat.js chat-server/public/chat-crypto.js \
   chat-server/public/chat-vault.js chat-server/public/chat-me.js \
   chat-server/deploy/install.sh chat-server/deploy/end-gfw-chat.service \

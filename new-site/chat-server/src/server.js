@@ -8,12 +8,14 @@ import { openStore } from './store.js';
 import { createApp } from './app.js';
 import { createEdge } from './edge.js';
 import { createCerts, createAcmeHandler } from './certs.js';
+import { createEntries } from './entries.js';
 
 const config = loadConfig();
 mkdirSync(config.certDir, { recursive: true, mode: 0o700 });
 mkdirSync(join(config.webroot, '.well-known', 'acme-challenge'), { recursive: true });
 const store = openStore(config.dbFile);
-const app = createApp({ store, config });
+const entries = createEntries({ siteUrl: config.siteUrl });
+const app = createApp({ store, config, entries });
 const certs = createCerts({ store, config });
 
 const servers = [];
@@ -51,6 +53,9 @@ every(60_000, store.checkpoint);
 every(3600_000, app.sweepRooms);
 every(30 * 60_000, certs.renewAll);
 app.sweepRooms();
+const refreshEntries = () => entries.refresh().catch((err) => console.error('chat entries not refreshed', err.message));
+refreshEntries();
+setInterval(refreshEntries, 10 * 60_000).unref();
 certs.renewAll();
 
 for (const sig of ['SIGTERM', 'SIGINT']) {

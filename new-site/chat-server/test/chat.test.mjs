@@ -16,6 +16,7 @@ import { openStore } from '../src/store.js';
 import { loadConfig } from '../src/config.js';
 import { createEdge, parseProxyHeader, isPublicIPv4 } from '../src/edge.js';
 import { createCerts, createAcmeHandler } from '../src/certs.js';
+import { createEntries } from '../src/entries.js';
 import * as C from '../public/chat-crypto.js';
 import * as V from '../public/chat-vault.js';
 import { makeChallenge } from '../../board-server/src/pow.js';
@@ -225,6 +226,34 @@ test('ACME port serves challenges and check-ins, nothing else', async () => {
   server.close();
 });
 
+// ---- invite link backups ---------------------------------------------------------------------
+
+test('chat addresses for invite links: site, mirror nodes, relays; junk dropped; last good list kept', async () => {
+  let up = true;
+  const replies = {
+    '/api/share/mirrors': { mirrors: ['https://1.2.3.4', 'https://5.6.7.8', 'http://9.9.9.9', 'https://evil.example', 'nope'], site: ['https://end-gfw.com'] },
+    '/api/chat-mirrors': { mirrors: [{ url: 'https://1.2.3.4:8443/chat', region: '首尔' }, { url: 'https://1.2.3.4:9999/chat' }, { url: 'javascript:alert(1)' }] },
+  };
+  const fetchImpl = async (url) => {
+    if (!up) throw new Error('down');
+    const path = new URL(url).pathname;
+    return new Response(JSON.stringify(replies[path]), { status: 200 });
+  };
+  const e = createEntries({ siteUrl: 'https://end-gfw.com/', fetchImpl });
+  assert.deepEqual(e.list(), [{ url: 'https://end-gfw.com/chat', label: '主站' }], 'before the first refresh');
+  await e.refresh();
+  assert.deepEqual(e.list(), [
+    { url: 'https://end-gfw.com/chat', label: '主站' },
+    { url: 'https://1.2.3.4/chat', label: '镜像 首尔' },
+    { url: 'https://5.6.7.8/chat', label: '镜像 5.6.7.8' },
+    { url: 'https://1.2.3.4:8443/chat', label: '直连 首尔' },
+  ]);
+  up = false;
+  await assert.rejects(e.refresh());
+  assert.equal(e.list().length, 4, 'kept');
+  assert.deepEqual(createEntries({ siteUrl: '' }).list(), []);
+});
+
 // ---- the service -----------------------------------------------------------------------------
 
 let store, app, web, edge, base, tlsPort, config, clock;
@@ -235,7 +264,7 @@ before(async () => {
   config = loadConfig({ DATA_DIR: dir, POW_BITS_CREATE: String(POW_BITS), SEND_BURST: '5', MAX_ROOM_MESSAGES: '3', MAX_TTL_SECONDS: '3600', POLL_WAIT_SECONDS: '1' });
   store = openStore(join(dir, 'chat.db'));
   clock = { off: 0 };
-  app = createApp({ store, config, now: () => Date.now() + clock.off });
+  app = createApp({ store, config, entries: { list: () => [{ url: 'https://end-gfw.com/chat', label: '主站' }] }, now: () => Date.now() + clock.off });
   web = http.createServer(app.handler);
   web.on('upgrade', app.upgrade);
   await new Promise((r) => web.listen(0, '127.0.0.1', r));
@@ -326,6 +355,7 @@ test('page is served with a strict policy; unknown paths are 404', async () => {
   for (const p of ['/chat/assets/chat.js', '/chat/assets/chat-crypto.js', '/chat/assets/chat.css', '/chat/assets/qrcode.js']) assert.equal((await fetch(`http://${base}${p}`)).status, 200, p);
   assert.equal((await fetch(`http://${base}/chat/assets/../src/app.js`)).status, 404);
   assert.equal((await fetch(`http://${base}/`, { redirect: 'manual' })).headers.get('location'), '/chat');
+  assert.deepEqual(await (await fetch(`http://${base}/chat/api/entries`)).json(), { entries: [{ url: 'https://end-gfw.com/chat', label: '主站' }] });
 });
 
 test('creating a room needs a fresh proof of work and well-formed fields', async () => {
