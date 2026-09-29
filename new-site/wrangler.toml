@@ -39,15 +39,32 @@ XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 # Lambda end-gfw-legacy-api (old site's secret/MongoDB routes): previous-system
 # check-in and the mail list's email check-in
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
+# 加密分享 (/share): ciphertext storage on Debian-1-1 (new-site/share-store/), key in the
+# Worker secret SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY). Not share-store.end-gfw.com:
+# a Worker reaching a hostname in its own zone goes to the origin over plain HTTP.
+SHARE_STORE_URL = "https://43-200-196-209.sslip.io,https://43-200-196-209.nip.io"
+# Backup links on the upload page: the website account's mirror IPs and the main domain
+SHARE_MIRROR_LINKS = "1"
+SHARE_SITE_URL = "https://end-gfw.com"
+
+# 加密分享 per-IP limits (skipped for the website's mirror nodes, whose nginx limits each visitor)
+[[ratelimits]]
+name = "SHARE_UPLOAD_LIMIT"
+namespace_id = "7201"
+simple = { limit = 10, period = 60 }
+
+[[ratelimits]]
+name = "SHARE_READ_LIMIT"
+namespace_id = "7202"
+simple = { limit = 60, period = 60 }
 
 # No request logging: the footer tells visitors the site keeps no access logs
 [observability]
 enabled = false
 
 # ---------------------------------------------------------------------------
-# Preview of 加密分享 (/share): `wrangler deploy --env preview`, from the share-preview
-# branch (.github/workflows/share-preview.yml). Production (above) has no SHARE_STORE_URL,
-# so /share and /api/share are 404 there until this is merged.
+# Preview environment for 加密分享 changes: `wrangler deploy --env preview`, from the
+# share-preview branch (.github/workflows/share-preview.yml).
 # routes, vars, services and observability are not inherited by environments.
 [env.preview]
 name = "end-gfw-share-preview"
