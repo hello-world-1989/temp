@@ -477,7 +477,7 @@ function chatHeaders(request) {
 
 // 加密聊天 page, assets and API. The page's CSP names the WebSocket host; the service sees its
 // tunnel hostname, so that is swapped for the address the browser used (this domain, or the
-// node IP a mirror reports in X-Xn-Host).
+// IP or domain a mirror reports in X-Xn-Host: its own nodes and mirror.sh mirrors send it).
 async function chatProxy(request, url, env) {
   if (!env.CHAT_URL) return notFound(request, env, url);
   const target = new URL(url.pathname + url.search, env.CHAT_URL);
@@ -492,13 +492,17 @@ async function chatProxy(request, url, env) {
   const csp = out.headers.get('content-security-policy');
   if (csp) {
     const xn = request.headers.get('x-xn-host') || '';
-    const host = /^\d{1,3}(\.\d{1,3}){3}$/.test(xn) ? xn : url.host;
+    const host = isMirrorHost(xn) ? xn : url.host;
     const inner = new URL(env.CHAT_URL).host;
     out.headers.set('content-security-policy', csp.replaceAll(`wss://${inner}`, `wss://${host}`).replaceAll(`ws://${inner}`, `ws://${host}`));
   }
   if (!out.headers.has('cache-control')) out.headers.set('cache-control', 'no-store');
   return out;
 }
+
+// An IPv4 address or a plain domain name, nothing that could add to the CSP
+export const isMirrorHost = (h) =>
+  /^\d{1,3}(\.\d{1,3}){3}$/.test(h) || (h.length <= 253 && /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i.test(h));
 
 async function chatSocket(request, env) {
   if ((request.headers.get('upgrade') || '').toLowerCase() !== 'websocket') {
@@ -509,7 +513,8 @@ async function chatSocket(request, env) {
 
 function withSecurityHeaders(res) {
   const out = new Response(res.body, res);
-  for (const [k, v] of Object.entries(SECURITY_HEADERS)) out.headers.set(k, v);
+  // Defaults only: a response that sets its own (the chat page's no-referrer) keeps it
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) if (!out.headers.has(k)) out.headers.set(k, v);
   return out;
 }
 

@@ -50,6 +50,8 @@ export function loadConfig(env = process.env) {
     maxRoomMessages: int(env, 'MAX_ROOM_MESSAGES', 5000),
     maxConnections: int(env, 'MAX_CONNECTIONS', 5000),
     maxRoomConnections: int(env, 'MAX_ROOM_CONNECTIONS', 300),
+    // Long polling holds a request this many seconds (under the mirrors' and Cloudflare's timeouts)
+    pollWait: int(env, 'POLL_WAIT_SECONDS', 25),
     // Per connection: this many messages per 10 seconds
     sendBurst: int(env, 'SEND_BURST', 10),
   };
