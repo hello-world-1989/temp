@@ -55,9 +55,9 @@ systemctl restart end-gfw-board
 # Caddy
 install -d -m 0755 /etc/caddy/sites
 sed "s/BOARD_HOST/$BOARD_HOST/g" "$src/board-server/deploy/board.caddy" > /etc/caddy/sites/board.caddy
-if ! grep -q '^import /etc/caddy/sites/\*.caddy' /etc/caddy/Caddyfile 2>/dev/null; then
-  printf '# Each service adds its own site file in /etc/caddy/sites/\nimport /etc/caddy/sites/*.caddy\n' > /etc/caddy/Caddyfile
-fi
+# Main Caddyfile: each service adds its own site file in /etc/caddy/sites/. default_sni:
+# Cloudflare connects to :8443 without SNI (TLS alert 80 / error 525 otherwise).
+printf '{\n\tdefault_sni %s\n}\n\n# Each service adds its own site file in /etc/caddy/sites/\nimport /etc/caddy/sites/*.caddy\n' "$BOARD_HOST" > /etc/caddy/Caddyfile
 caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null
 systemctl enable caddy >/dev/null 2>&1
 systemctl reload-or-restart caddy
