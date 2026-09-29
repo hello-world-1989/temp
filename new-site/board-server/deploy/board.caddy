@@ -11,3 +11,10 @@ BOARD_HOST {
 		respond 404
 	}
 }
+
+# Plain HTTP is refused, not redirected: the site's Worker must reach this host over HTTPS
+# (Cloudflare SSL mode Full (strict) for this hostname). A redirect would hide a downgrade
+# after the key had already crossed the network in clear. ACME challenges still work.
+http://BOARD_HOST {
+	respond "HTTPS only" 421
+}
