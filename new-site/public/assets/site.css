@@ -318,3 +318,6 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .event-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
 .event-head h3 { margin: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* "Beta" tag next to a menu item */
+.nav-beta { display: inline-block; margin-left: 4px; padding: 0 5px; border-radius: 6px; font-size: .62rem; font-weight: 700; line-height: 1.5; letter-spacing: .02em; vertical-align: super; background: var(--warn-soft); color: var(--warn); }

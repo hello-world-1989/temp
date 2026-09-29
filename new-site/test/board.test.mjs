@@ -17,7 +17,9 @@ function withFetch(fn, respond = () => new Response('{"ok":true}', { headers: { 
 test('board is off without BOARD_URL / BOARD_KEY', async () => {
   const req = new Request('https://site/api/board/meta');
   assert.equal(await handleBoard(req, new URL(req.url), {}), null);
-  assert.equal(await handleBoard(req, new URL(req.url), { BOARD_URL: 'x' }), null);
+  const missing = await handleBoard(req, new URL(req.url), { BOARD_URL: 'x' });
+  assert.equal(missing.status, 503);
+  assert.match((await missing.json()).error, /BOARD_KEY/);
   const other = new Request('https://site/api/plans');
   assert.equal(await handleBoard(other, new URL(other.url), env), null);
 });

@@ -23,7 +23,9 @@ export async function handleBoard(request, url, env) {
   }
 
   if (!p.startsWith('/api/board/')) return null;
-  if (!env.BOARD_URL || !env.BOARD_KEY) return null;
+  if (!env.BOARD_URL) return null;
+  // Configured for this Worker but the secret is missing: say so instead of falling through
+  if (!env.BOARD_KEY) return boardJson({ error: '事件墙还没配置好：Worker 缺少 BOARD_KEY 密钥' }, 503);
   if (!METHODS.has(request.method)) return boardJson({ error: 'method not allowed' }, 405);
 
   const headers = new Headers({ 'x-board-key': env.BOARD_KEY });
