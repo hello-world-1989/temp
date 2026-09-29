@@ -54,7 +54,7 @@ systemctl restart end-gfw-board
 
 # Caddy
 install -d -m 0755 /etc/caddy/sites
-sed "s/BOARD_HOST/$BOARD_HOST/" "$src/board-server/deploy/board.caddy" > /etc/caddy/sites/board.caddy
+sed "s/BOARD_HOST/$BOARD_HOST/g" "$src/board-server/deploy/board.caddy" > /etc/caddy/sites/board.caddy
 if ! grep -q '^import /etc/caddy/sites/\*.caddy' /etc/caddy/Caddyfile 2>/dev/null; then
   printf '# Each service adds its own site file in /etc/caddy/sites/\nimport /etc/caddy/sites/*.caddy\n' > /etc/caddy/Caddyfile
 fi

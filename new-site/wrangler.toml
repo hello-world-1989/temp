@@ -58,7 +58,8 @@ routes = [{ pattern = "board-preview.end-gfw.com", custom_domain = true }]
 WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
 XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
-BOARD_URL = "https://board-store.end-gfw.com"
+# Port 8443, not 443: the zone's Flexible SSL mode would turn a :443 subrequest into plain HTTP
+BOARD_URL = "https://board-store.end-gfw.com:8443"
 
 [[env.board.services]]
 binding = "LEGACY"
