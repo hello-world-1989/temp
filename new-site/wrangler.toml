@@ -39,8 +39,10 @@ XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 # Lambda end-gfw-legacy-api (old site's secret/MongoDB routes): previous-system
 # check-in and the mail list's email check-in
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
-# 加密分享 (/share): ciphertext storage on Debian-1-1 (new-site/share-store/), key in the
-# Worker secret SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY). Not share-store.end-gfw.com:
+# 加密分享 (/share, enabled 2026-09-29): ciphertext storage on Debian-1-1 (new-site/share-store/), key in the
+# Worker secret SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY; set in the dashboard, kept by
+# wrangler deploy). Dashboard edits from a stale settings page can drop these vars; redeploy then.
+# Not share-store.end-gfw.com:
 # a Worker reaching a hostname in its own zone goes to the origin over plain HTTP.
 SHARE_STORE_URL = "https://43-200-196-209.sslip.io,https://43-200-196-209.nip.io"
 # Backup links on the upload page: the website account's mirror IPs and the main domain
