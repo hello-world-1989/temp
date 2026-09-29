@@ -1,8 +1,8 @@
 #!/bin/bash
 # end-gfw.com 镜像站一键脚本
 #
-# 下载：curl -fsSLO https://end-gfw.com/mirror.sh
-#  （打不开时：curl -fsSLO https://raw.githubusercontent.com/hello-world-1989/temp/main/public/temp/mirror.sh）
+# 下载：wget https://end-gfw.com/mirror.sh
+#  （或：curl -fsSLO https://raw.githubusercontent.com/hello-world-1989/temp/main/public/temp/mirror.sh）
 #
 # 用法（root 执行，Debian 11+/Ubuntu 20.04+，需要公网 IPv4，并放行 TCP 80、443）：
 #   bash mirror.sh              # 用服务器 IP 访问：https://<IP>/（Let's Encrypt IP 证书，自动续签）
@@ -29,7 +29,7 @@ die() { printf '\033[1;31m错误：\033[0m%s\n' "$*" >&2; exit 1; }
 
 [ "$(id -u)" = 0 ] || die "请用 root 运行（sudo bash mirror.sh）"
 # 定时任务要用脚本自己，所以必须先下载成文件再运行（不能 curl | bash）
-grep -q 'end-gfw.com 镜像站一键脚本' "$0" 2>/dev/null || die "请先下载成文件再运行：curl -fsSLO https://end-gfw.com/mirror.sh && bash mirror.sh"
+grep -q 'end-gfw.com 镜像站一键脚本' "$0" 2>/dev/null || die "请先下载成文件再运行：wget https://end-gfw.com/mirror.sh && bash mirror.sh"
 
 public_ip() {
   local ip
