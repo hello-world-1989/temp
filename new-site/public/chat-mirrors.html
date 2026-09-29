@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>接收加密文件 | 大翻墙运动</title>
-<meta name="description" content="下载并在浏览器里解密分享给你的文件。">
+<title>加密聊天 | 大翻墙运动</title>
+<meta name="description" content="按事件建群的网页聊天，不用注册，消息端到端加密、到时间自动删除。通过下面的地址打开。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b5cff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="module" src="/assets/site.js"></script>
-<meta name="robots" content="noindex, nofollow">
-<script type="module" src="/assets/share-get.js"></script>
+<script src="/assets/ads.js" async></script>
+<script type="module" src="/assets/chat-mirrors.js"></script>
 </head>
 
-<body class="page-share-get">
+<body class="page-chat-mirrors">
 <a class="skip" href="#main">跳到正文</a>
 <div class="site-notice" role="status">
   <div class="wrap">新版网站上线，有问题请<a href="mailto:end.gfw@hotmail.com">反馈</a>。旧版网站入口 <a href="https://v1.end-gfw.com/">v1.end-gfw.com</a>，将于 2026 年 10 月 15 日关闭。</div>
@@ -34,8 +34,8 @@
         <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
         <a href="/checkin" data-nav="checkin">签到</a>
-        <a href="/share" data-nav="share" aria-current="page">加密分享<span class="beta">Beta</span></a>
-        <a href="/chat-mirrors" data-nav="chat">加密聊天<span class="beta">Beta</span></a>
+        <a href="/share" data-nav="share">加密分享<span class="beta">Beta</span></a>
+        <a href="/chat-mirrors" data-nav="chat" aria-current="page">加密聊天<span class="beta">Beta</span></a>
     </nav>
     <details class="menu">
       <summary aria-label="菜单"><span></span><span></span><span></span></summary>
@@ -48,8 +48,8 @@
         <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
         <a href="/checkin" data-nav="checkin">签到</a>
-        <a href="/share" data-nav="share" aria-current="page">加密分享<span class="beta">Beta</span></a>
-        <a href="/chat-mirrors" data-nav="chat">加密聊天<span class="beta">Beta</span></a>
+        <a href="/share" data-nav="share">加密分享<span class="beta">Beta</span></a>
+        <a href="/chat-mirrors" data-nav="chat" aria-current="page">加密聊天<span class="beta">Beta</span></a>
       </nav>
     </details>
   </div>
@@ -58,33 +58,38 @@
 
 <section class="page-head">
   <div class="wrap">
-    <span class="eyebrow">加密分享 · Beta</span>
-    <h1>接收文件</h1>
-    <p>文件在你的浏览器里解密，服务器看不到内容。解密成功后文件立即从服务器删除，只能下载一次，请马上保存。</p>
+    <span class="eyebrow">加密聊天 · Beta</span>
+    <h1>加密聊天</h1>
+    <p>按事件建群的网页聊天：不用注册、邮箱或手机号，消息在浏览器里加密，服务器看不到内容；每条消息到时间自动删除，也可以设置“看过后删除”。</p>
   </div>
 </section>
 
 <section class="section-tight">
   <div class="wrap">
-    <p class="notice">建议用浏览器的<strong>无痕 / 隐私模式</strong>打开这个链接。保存后不要把文件存进相册，看完删除更安全。</p>
-    <p class="notice warn mt" id="inapp" hidden>你正在微信 / QQ 里打开。这里无法保存文件：请点右上角“···”，选择“在浏览器打开”。</p>
-    <form id="get-form" class="card feature mt" novalidate>
-      <dl class="kv" id="meta"><div><dt>状态</dt><dd>正在读取文件信息…</dd></div></dl>
-      <div class="field mt" id="pw-field" hidden>
-        <label for="password">密码</label>
-        <input id="password" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="分享人另外告诉你的密码">
-      </div>
-      <button class="btn btn-primary mt" type="submit" id="get-submit" disabled>下载并解密</button>
-      <a class="btn btn-primary mt" id="save" hidden>保存文件</a>
-      <p class="notice mt" id="get-msg" role="status"></p>
-    </form>
+    <div class="section-head">
+      <div><span class="eyebrow">入口</span><h2>从下面任一地址打开</h2></div>
+      <span class="muted">每个地址都是同一个聊天，群和消息互通。地址会定期更换，打不开就换一个</span>
+    </div>
+    <div id="chat-list" class="grid grid-2">
+      <div class="skeleton"></div><div class="skeleton"></div>
+    </div>
   </div>
 </section>
 
 <section class="section-tight">
-  <div class="wrap">
-    <div class="notice">
-      想给别人发文件？<a href="/share">加密分享</a>。发现滥用请把链接发到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>。
+  <div class="wrap grid grid-2">
+    <div class="card feature">
+      <h2>为什么不在本站打开？</h2>
+      <p class="muted">端到端加密的前提是：你的浏览器拿到的聊天页面和加密代码没有被中间人改过。本站经过 Cloudflare 等代理，代理能改页面，改了就能偷走群密钥。上面的地址只做原样转发，加密连接直接连到聊天服务器，中间的服务器看不到也改不了内容。</p>
+    </div>
+    <div class="card feature">
+      <h2>使用须知</h2>
+      <ul class="muted">
+        <li>邀请链接里带着群密钥，只发给信任的人；拿到链接的人都能看到群里的消息。</li>
+        <li>建议用浏览器的无痕 / 隐私模式打开，免得链接留在浏览记录里。</li>
+        <li>防不住截图和拍屏。</li>
+        <li>测试版功能，可能随时调整；请不要只依赖它保存重要信息。</li>
+      </ul>
     </div>
   </div>
 </section>

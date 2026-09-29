@@ -8,6 +8,7 @@ import { handleBoard } from './board.js';
 //   /pay/success, /pay/cancel                          -> xrayr-next pages after Stripe
 //   /api/apps, /api/news, /api/tweets                  -> public JSON on GitHub
 //   /api/free                                          -> the website account's nodes (WEB_TOKEN)
+//   /api/chat-mirrors                                  -> 加密聊天 relay addresses (xrayr-next)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
 //
 // xrayr-next is reached through its public subscription domains (XN_BASES), the
@@ -151,6 +152,19 @@ async function route(request, url, env, ctx) {
     return new Response(null, {
       status: 302,
       headers: { Location: mirrors[Math.floor(Math.random() * mirrors.length)], 'Cache-Control': 'no-store' },
+    });
+  }
+
+  // 加密聊天 relays (xrayr-next GET /chat/mirrors): https://<node IP>:8443/chat
+  if (p === '/api/chat-mirrors') {
+    return cached(request, ctx, 120, async () => {
+      const res = await xn(env, '/chat/mirrors');
+      if (!res.ok) return json({ error: '聊天入口暂时无法加载' }, 502, 'no-store');
+      const data = await res.json().catch(() => ({}));
+      const mirrors = (Array.isArray(data.mirrors) ? data.mirrors : [])
+        .filter((m) => /^https:\/\/\d{1,3}(\.\d{1,3}){3}:8443\/chat$/.test(String(m?.url || '')))
+        .map((m) => ({ url: m.url, region: String(m.region || '').slice(0, 20) }));
+      return json({ mirrors }, 200, 'public, max-age=120');
     });
   }
 
