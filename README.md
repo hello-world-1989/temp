@@ -1,6 +1,118 @@
 # 翻墙,免费翻墙,科学上网,免费VPN，完全免费vpn，免费科学上网,防火墙, 思想自由，言论自由，新闻自由，中国是世界上为数不多（不超过10个）无法访问谷歌的国家
 # 免费机场，免费梯子，fanqiang
 
+# 大翻墙运动 · 公益免费翻墙
+
+网站：**[end-gfw.com](https://end-gfw.com/)**（新版 [v2.end-gfw.com](https://v2.end-gfw.com/)，旧版 [v1.end-gfw.com](https://v1.end-gfw.com/)）
+
+免费订阅链接、免费节点、翻墙软件下载、每日新闻和推文、加密分享，全部免费。网站打不开时，用下面的免费订阅或者[镜像站](#镜像站)。
+
+## 免费订阅链接
+
+复制到客户端里导入即可，节点换 IP 后自动更新（每 10 分钟检查一次）。
+
+v2rayN / v2rayNG / Hiddify / Karing / Shadowrocket：
+
+```
+https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-free
+```
+
+Clash Verge / mihomo：
+
+```
+https://raw.githubusercontent.com/hello-world-1989/cn-news/main/clash-free.yaml
+```
+
+旧订阅 `end-gfw-together`、`clash.yaml` 仍然可用：
+
+```
+https://raw.githubusercontent.com/hello-world-1989/cn-news/main/end-gfw-together
+```
+
+各客户端的导入方法见网站 [常见问题](https://end-gfw.com/faq)。
+
+## 网站功能
+
+| 页面 | 说明 |
+|---|---|
+| [首页](https://end-gfw.com/) | 免费订阅链接、免费节点（点击复制，带二维码） |
+| [软件下载](https://end-gfw.com/download) | 安卓、苹果、Windows、Mac、Linux 翻墙软件，每天自动更新到最新版，支持断点续传 |
+| [签到](https://end-gfw.com/checkin) | 订阅链接到期后签到续用（从签到当天起 4 天）；邮箱签到恢复节点邮件 |
+| [我的订阅](https://end-gfw.com/my) | 查询订阅、流量、到期时间 |
+| [赞助支持](https://end-gfw.com/plans) | 赞助用来增加免费节点，赞助者获得 20–50 Mbps 更快线路 30 天 |
+| [加密分享 Beta](https://end-gfw.com/share) | 浏览器端加密，下载一次后删除，自动清除照片里的位置等信息 |
+| [新闻](https://end-gfw.com/news) · [推文](https://end-gfw.com/tweets) | 每日新闻、李老师不是你老师推文 |
+| [常见问题](https://end-gfw.com/faq) | 客户端导入教程、常见问题 |
+
+## 通过邮件领取节点
+
+打不开网站时，发任意内容的邮件到 **end.gfw01@gmail.com**（备用 yumenglong1989@gmail.com、huchenfeng1989@gmail.com），约 6 小时内自动回复节点和订阅链接。
+
+## 镜像站
+
+镜像站就是别人服务器上的 end-gfw.com 副本：用浏览器打开 `https://<服务器IP>/` 就能访问网站的全部内容（订阅、下载、新闻、加密分享），主域名被墙时也能用。IP 被墙了换一个 IP 就行，成本很低，**欢迎有海外服务器的朋友搭建**。
+
+### 一键搭建
+
+需要：一台海外 VPS（Debian 11+ 或 Ubuntu 20.04+，有公网 IPv4，最小配置即可），云服务商的防火墙放行 **TCP 80 和 443**。
+
+用 root 运行：
+
+```bash
+wget https://end-gfw.com/mirror.sh && sudo bash mirror.sh
+```
+
+end-gfw.com 打不开时：
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/hello-world-1989/temp/main/public/temp/mirror.sh && sudo bash mirror.sh
+```
+
+几分钟后完成，访问 `https://<你的服务器IP>/` 即可。
+
+也可以用自己的域名（先把域名 A 记录指向服务器，**不要**开 Cloudflare 代理）：
+
+```bash
+sudo bash mirror.sh mirror.example.com
+```
+
+### 脚本做了什么
+
+- 安装 nginx，把网站反向代理过来；页面里的 end-gfw.com 链接自动改成镜像地址
+- 自动申请 Let's Encrypt 证书（IP 证书或域名证书），自动续签；服务器 IP 变了会自动给新 IP 申请证书，新地址就是 `https://<新IP>/`
+- Matrix 聊天（`/_matrix/`）也一起转发
+- **不记录访问日志，不把访客 IP 传给源站**
+
+### 管理
+
+```bash
+bash /opt/end-gfw-mirror/mirror.sh status      # 查看状态和证书到期时间
+bash /opt/end-gfw-mirror/mirror.sh renew       # 立即检查证书（平时每 30 分钟自动检查）
+bash /opt/end-gfw-mirror/mirror.sh uninstall   # 卸载
+```
+
+### 常见问题
+
+- **证书签不下来**：多半是云服务商的防火墙（安全组）没放行 80 端口；放行后脚本每 30 分钟自动重试
+- **提示 80 或 443 被占用**：这台机器上已经有别的网站或服务，换一台机器，或者先停掉占用的程序
+- **想让更多人用**：把 `https://<IP>/` 发给墙内的朋友；也欢迎[发邮件](mailto:end.gfw@hotmail.com)告诉我们，加到镜像列表里
+- **流量**：镜像只转发网页和下载，按访问量计算；大文件下载会占用较多流量，注意服务商的流量额度
+
+脚本源码：[public/temp/mirror.sh](https://github.com/hello-world-1989/temp/blob/main/public/temp/mirror.sh)
+
+## 联系
+
+- 邮箱：[end.gfw@hotmail.com](mailto:end.gfw@hotmail.com)（反馈能不能用、速度如何，推荐好用的免费翻墙方式）
+- 推特：[@end_gfw](https://twitter.com/end_gfw)
+- 海外朋友可以加入 [Telegram 群](https://t.me/end_gfw1)
+
+> 如果帮助到你，请 Star、Fork，让 GFW 无法封杀，帮助更多人。
+
+---
+
+<details>
+<summary>旧版说明（部分软件和链接可能已过时，以网站为准）</summary>
+
 # 请访问 [网站](https://www.end-gfw.com/) 更清晰分类
 
 # 大翻墙运动 信息倒灌行动 拆墙运动 v2ray 订阅链接, 包含自建节点IP， 可免翻墙访问李老师推文 下载翻墙软件
@@ -461,3 +573,5 @@ X Icon Changer 将应用伪装为其它应用，防止被查手机
 >如需帮助或者有更好的免费VPN请[发邮件](mailto:end.gfw@hotmail.com)或者提Issue，希望能帮助到在墙内的小伙伴
 
 >如果帮助到你，请Star，Fork, 让GFW无法封杀, 使更多人看到，帮助更多人
+
+</details>
