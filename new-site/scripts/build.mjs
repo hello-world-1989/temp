@@ -8,7 +8,8 @@
 // and may use {{> header}} / {{> footer}}; both are inserted automatically when absent.
 // "ads: off" in the front matter leaves out ads.js (and marks the page noindex).
 // {{> ad}} inserts the manual AdSense display unit (partials/ad.html).
-// Optional front matter: `script: x.js`, `style: x.css`, `ads: off` (no AdSense script on the page).
+// Optional front matter: `script: x.js`, `style: x.css`, `ads: off` (no AdSense script on the page,
+// and noindex unless `index: on`).
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -44,7 +45,8 @@ for (const file of readdirSync(join(root, 'pages')).filter((f) => f.endsWith('.h
     ].filter(Boolean).join('\n'));
   // "ads: off" — no AdSense or any other third-party script (pages with secrets in the URL,
   // and pages where people write or submit things)
-  if (meta.ads === 'off') head = head.replace('<script src="/assets/ads.js" async></script>\n', '<meta name="robots" content="noindex, nofollow">\n');
+  // `index: on` keeps an ads-free page in search results (事件墙 event pages)
+  if (meta.ads === 'off') head = head.replace('<script src="/assets/ads.js" async></script>\n', meta.index === 'on' ? '' : '<meta name="robots" content="noindex, nofollow">\n');
   const html = [
     '<!doctype html>',
     '<html lang="zh-CN">',

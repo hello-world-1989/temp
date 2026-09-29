@@ -69,6 +69,7 @@ async function load() {
   try {
     const post = await call('GET', `/api/board/posts/${encodeURIComponent(id)}`);
     document.title = `${post.title} | 事件墙 | 大翻墙运动`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', post.body.replace(/\s+/g, ' ').slice(0, 150));
     box.replaceChildren();
     const meta = el('div', 'item-meta');
     meta.append(el('span', 'badge soft', post.category));
