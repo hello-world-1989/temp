@@ -16,6 +16,8 @@ LoadCredential=admins:/etc/end-gfw-board/admins
 # Database on Debian-1-1 over the private network, TLS pinned to its certificate
 LoadCredential=db-url:/etc/end-gfw-board/db-url
 LoadCredential=db-ca:/etc/end-gfw-board/db-ca
+# Telegram review bot (empty file: off). TG_CHAT_ID / TG_ADMINS come from the env file.
+LoadCredential=tg-bot-token:/etc/end-gfw-board/tg-bot-token
 StateDirectory=end-gfw-board
 StateDirectoryMode=0700
 ProtectSystem=strict

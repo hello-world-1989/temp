@@ -72,3 +72,15 @@ create table if not exists pow_used (
 
 -- 浏览次数 (added 2026-09-29): a plain counter, nothing about who viewed
 alter table posts add column if not exists views bigint not null default 0;
+
+-- Telegram review chat (added 2026-09-29): which bot messages show which submission, so they
+-- can be emptied once it is decided. Only message numbers, never who wrote or read anything.
+create table if not exists tg_messages (
+  chat_id     bigint not null,
+  message_id  bigint not null,
+  target      text not null, -- 'post:<id>' or 'comment:<id>'
+  main        boolean not null default false, -- the text message with the buttons
+  created_at  timestamptz not null default now(),
+  primary key (chat_id, message_id)
+);
+create index if not exists tg_messages_target on tg_messages (target);
