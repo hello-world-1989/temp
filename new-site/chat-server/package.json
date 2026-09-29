@@ -1,0 +1,17 @@
+{
+  "name": "end-gfw-chat",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "LISTEN_HTTP=127.0.0.1:8792 LISTEN_TLS= LISTEN_ACME= DATA_DIR=./data node src/server.js",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "ws": "^8.18.3"
+  }
+}

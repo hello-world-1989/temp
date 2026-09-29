@@ -1,0 +1,27 @@
+name: chat-server
+
+# Tests the 加密聊天 service (new-site/chat-server/). It is deployed to its own server with
+# chat-server/deploy/fetch.sh, not by this workflow.
+on:
+  push:
+    paths: ['new-site/chat-server/**', 'new-site/board-server/src/pow.js', '.github/workflows/chat-server.yml']
+  pull_request:
+    paths: ['new-site/chat-server/**', 'new-site/board-server/src/pow.js', '.github/workflows/chat-server.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: new-site/chat-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - run: npm test
+      - run: bash -n deploy/install.sh && bash -n deploy/fetch.sh && bash -n mirror/chat-relay.sh

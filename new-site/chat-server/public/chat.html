@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>加密聊天</title>
+<link rel="stylesheet" href="/chat/assets/chat.css">
+<script type="module" src="/chat/assets/chat.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <strong class="brand">加密聊天 <span class="tag">Beta</span></strong>
+    <span class="muted small" id="me"></span>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <noscript><p class="notice warn">这个页面需要开启 JavaScript：加密和解密都在你的浏览器里完成。</p></noscript>
+  <p class="notice warn" id="unsupported" hidden>这个浏览器太旧，不支持页面需要的加密功能。请换用新版 Chrome、Firefox、Edge 或 Safari。</p>
+
+  <!-- 建群 -->
+  <section id="v-create" hidden>
+    <h1>建一个事件群</h1>
+    <p class="muted">不需要注册、邮箱或手机号。消息在你的浏览器里加密，密钥只在邀请链接里，服务器和镜像站都看不到内容。消息到时间后自动删除。</p>
+    <form id="create-form" class="card" novalidate>
+      <label class="field">群名称（可选，也是加密的）
+        <input id="c-name" class="input" maxlength="40" autocomplete="off" placeholder="例如：某地某事">
+      </label>
+      <label class="field">消息默认保存多久
+        <select id="c-ttl" class="input"></select>
+      </label>
+      <button class="btn primary" id="c-submit" type="submit">建群</button>
+      <p class="notice" id="c-msg" role="status" hidden></p>
+    </form>
+    <ul class="muted small tips">
+      <li>建议在浏览器的<strong>无痕 / 隐私模式</strong>里使用：链接里带着密钥，普通模式会留在浏览记录里。</li>
+      <li>拿到邀请链接的人都能进群，请只发给信得过的人，并且不要在公开的地方发。</li>
+      <li>阅后即焚防不住截图和拍屏，重要的东西不要发。</li>
+    </ul>
+  </section>
+
+  <!-- 建好了 -->
+  <section id="v-created" hidden>
+    <h1>群已建好</h1>
+    <div class="card">
+      <h2>邀请链接</h2>
+      <p class="muted small">发给要进群的人。拿到这个链接就能看群里的消息，请用私密的方式发送。</p>
+      <button class="copy" type="button" id="invite-copy"><code id="invite"></code><span class="hint">点击复制</span></button>
+      <div class="qr" id="invite-qr"></div>
+    </div>
+    <div class="card">
+      <h2>管理链接（只给你自己）</h2>
+      <p class="muted small">用这个链接进群可以<strong>销毁整个群</strong>。只显示这一次，请自己保存好，不要发给别人。</p>
+      <button class="copy" type="button" id="owner-copy"><code id="owner"></code><span class="hint">点击复制</span></button>
+    </div>
+    <a class="btn primary" id="enter" href="#">进入群聊</a>
+  </section>
+
+  <!-- 进群：填昵称 -->
+  <section id="v-join" hidden>
+    <h1>进入群聊</h1>
+    <form id="join-form" class="card" novalidate>
+      <label class="field">你的昵称（只有群里的人看得到）
+        <input id="j-nick" class="input" maxlength="20" autocomplete="off" required>
+      </label>
+      <p class="muted small">昵称后面的<strong>指纹</strong>代表这个浏览器。同一个昵称但指纹不一样，就不是同一个人。</p>
+      <button class="btn primary" type="submit">进入</button>
+    </form>
+    <p><a href="/chat" id="new-room-link">建一个新群</a></p>
+  </section>
+
+  <!-- 聊天 -->
+  <section id="v-room" hidden>
+    <div class="room-head">
+      <div>
+        <h1 id="r-name">群聊</h1>
+        <span class="muted small"><span id="r-status">连接中…</span> · <span id="r-online">0</span> 人在线</span>
+      </div>
+      <div class="room-actions">
+        <button class="btn" type="button" id="r-invite">邀请</button>
+        <button class="btn danger" type="button" id="r-destroy" hidden>销毁群</button>
+      </div>
+    </div>
+    <div class="card invite-box" id="r-invite-box" hidden>
+      <button class="copy" type="button" id="r-invite-copy"><code id="r-invite-link"></code><span class="hint">点击复制</span></button>
+      <div class="qr" id="r-invite-qr"></div>
+    </div>
+    <p class="notice" id="r-msg" role="status" hidden></p>
+    <ol class="msgs" id="msgs" aria-live="polite"></ol>
+    <form class="composer" id="send-form" novalidate>
+      <textarea id="s-text" class="input" rows="2" maxlength="4000" placeholder="输入消息，Enter 发送，Shift+Enter 换行"></textarea>
+      <div class="composer-row">
+        <label class="small">保存 <select id="s-ttl" class="input input-sm"></select></label>
+        <label class="small">阅后即焚 <select id="s-burn" class="input input-sm">
+          <option value="0">关</option>
+          <option value="10">看过 10 秒后删</option>
+          <option value="60">看过 1 分钟后删</option>
+        </select></label>
+        <button class="btn primary" type="submit" id="s-submit">发送</button>
+      </div>
+    </form>
+  </section>
+</main>
+</body>
+</html>
