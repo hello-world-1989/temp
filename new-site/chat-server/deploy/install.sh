@@ -62,4 +62,4 @@ systemctl restart end-gfw-chat
 sleep 2
 systemctl is-active end-gfw-chat
 curl -fsS http://127.0.0.1:8792/chat/api/health && echo
-echo "chat ok. Mirrors: bash chat-relay.sh <this server's public IPv4> (new-site/chat-server/mirror/)"
+echo "chat ok. Entries: end-gfw.com/chat (Cloudflare Tunnel end-gfw-chat) and https://<node IP>:8443/chat (xrayr-next chat nodes)"
