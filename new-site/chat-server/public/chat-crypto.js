@@ -103,32 +103,50 @@ export async function fingerprint(pub) {
   return `${h.slice(0, 4)}-${h.slice(4)}`;
 }
 
-// The key pair lives in IndexedDB (private key not extractable). Without IndexedDB it lasts
-// for this page only; without Ed25519 messages go unsigned.
-export async function loadIdentity() {
-  let keys = null;
+// Without a 保险箱 (chat-vault.js) the key pair lives in IndexedDB as it is; with one it lives
+// only inside the vault. It is exportable so that it can be backed up and moved to another
+// device. Without IndexedDB it lasts for this page only; without Ed25519 messages go unsigned.
+export async function newIdentity() {
   try {
-    keys = await idbGet();
-  } catch {}
-  if (!keys) {
-    try {
-      keys = await crypto.subtle.generateKey({ name: 'Ed25519' }, false, ['sign', 'verify']);
-    } catch {
-      return null;
-    }
-    try {
-      await idbPut(keys);
-    } catch {}
+    const keys = await crypto.subtle.generateKey({ name: 'Ed25519' }, true, ['sign', 'verify']);
+    return identityFrom(keys);
+  } catch {
+    return null;
   }
+}
+
+async function identityFrom(keys) {
   const pub = new Uint8Array(await crypto.subtle.exportKey('raw', keys.publicKey));
   return { keys, pub, fp: await fingerprint(pub) };
 }
 
-export async function forgetIdentity() {
+export async function loadIdentity() {
   try {
-    await idbPut(null);
+    const keys = await kvGet('identity');
+    if (keys) return identityFrom(keys);
   } catch {}
+  const id = await newIdentity();
+  if (id) {
+    try {
+      await kvPut('identity', id.keys);
+    } catch {}
+  }
+  return id;
 }
+
+// -> { pkcs8, pub } (base64url) ; null when the key cannot be exported (made before backups existed)
+export async function exportIdentity(id) {
+  if (!id?.keys.privateKey.extractable) return null;
+  return { pkcs8: b64url(new Uint8Array(await crypto.subtle.exportKey('pkcs8', id.keys.privateKey))), pub: b64url(id.pub) };
+}
+
+export async function importIdentity(saved) {
+  const privateKey = await crypto.subtle.importKey('pkcs8', fromB64url(saved.pkcs8), { name: 'Ed25519' }, true, ['sign']);
+  const publicKey = await crypto.subtle.importKey('raw', fromB64url(saved.pub), { name: 'Ed25519' }, true, ['verify']);
+  return identityFrom({ privateKey, publicKey });
+}
+
+// ---- storage on this device (IndexedDB key-value) ------------------------------------------
 
 function idb(mode, fn) {
   return new Promise((resolve, reject) => {
@@ -146,8 +164,9 @@ function idb(mode, fn) {
     };
   });
 }
-const idbGet = () => idb('readonly', (s) => s.get('identity'));
-const idbPut = (v) => idb('readwrite', (s) => (v ? s.put(v, 'identity') : s.delete('identity')));
+export const kvGet = (name) => idb('readonly', (s) => s.get(name));
+export const kvPut = (name, v) => idb('readwrite', (s) => (v == null ? s.delete(name) : s.put(v, name)));
+export const kvClear = () => idb('readwrite', (s) => s.clear());
 
 // -> message JSON ready for seal()
 export async function makeMessage(room, identity, nick, text) {

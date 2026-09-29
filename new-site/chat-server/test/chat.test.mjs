@@ -17,6 +17,7 @@ import { loadConfig } from '../src/config.js';
 import { createEdge, parseProxyHeader, isPublicIPv4 } from '../src/edge.js';
 import { createCerts, createAcmeHandler } from '../src/certs.js';
 import * as C from '../public/chat-crypto.js';
+import * as V from '../public/chat-vault.js';
 import { makeChallenge } from '../../board-server/src/pow.js';
 
 const tmp = mkdtempSync(join(tmpdir(), 'chat-test-'));
@@ -70,6 +71,60 @@ test('signed messages verify; a changed message or a borrowed key does not', asy
   await assert.rejects(C.checkMessage(C.newRoomId(), m), 'replayed into another room');
   const unsigned = await C.makeMessage(room, null, '匿名', 'x');
   assert.equal((await C.checkMessage(room, unsigned)).fp, null);
+});
+
+// ---- 保险箱 (vault), backups, transfers --------------------------------------------------------
+
+test('vault: passphrase opens it, a wrong one does not; saving keeps the passphrase', async () => {
+  const id = await C.newIdentity();
+  const saved = await C.exportIdentity(id);
+  const data = { identity: saved, nick: '小明', rooms: [{ room: C.newRoomId(), key: C.b64url(C.randomBytes(32)), owner: null, name: '群', added: 1 }] };
+  const { box, raw } = await V.newBox('correct horse', data, 100000);
+  assert.ok(V.isBox(box));
+  assert.equal(JSON.stringify(box).includes('小明'), false, 'nothing readable in the box');
+  await assert.rejects(V.openBox('wrong pass', box), /password/);
+  const opened = await V.openBox('correct horse', box);
+  assert.deepEqual(opened.data, data);
+  assert.deepEqual([...opened.raw], [...raw]);
+  // re-saving under the session key: same salt/iter, the passphrase still opens it
+  const box2 = await V.lockBox(raw, { ...data, nick: '改名' }, box);
+  assert.equal(box2.salt, box.salt);
+  assert.equal((await V.openBox('correct horse', box2)).data.nick, '改名');
+  // the identity survives the round trip with its fingerprint
+  const back = await C.importIdentity(opened.data.identity);
+  assert.equal(back.fp, id.fp);
+  const room = C.newRoomId();
+  const m = await C.makeMessage(room, back, 'n', 'x');
+  assert.equal((await C.checkMessage(room, m)).fp, id.fp);
+  // backup file format
+  const file = V.backupFile(box);
+  assert.deepEqual(V.readBackupFile(file), box);
+  assert.throws(() => V.readBackupFile('{"type":"other"}'), /format/);
+  assert.throws(() => V.readBackupFile('not json'), /format/);
+});
+
+test('vault contents are cleaned; transfers need the key from the link', async () => {
+  const clean = V.cleanContents({ nick: 'x'.repeat(50), rooms: [{ room: 'bad' }, { room: 'a'.repeat(16), key: 'k'.repeat(43), owner: 'nope', name: 1 }, { room: 'a'.repeat(16), key: 'k'.repeat(43) }], identity: { pkcs8: 1 } });
+  assert.equal(clean.nick.length, 20);
+  assert.equal(clean.rooms.length, 1);
+  assert.equal(clean.rooms[0].owner, null);
+  assert.equal(clean.identity, null);
+  const { key, blob } = await V.sealTransfer({ hello: '世界' });
+  assert.deepEqual(await V.openTransfer(key, blob), { hello: '世界' });
+  await assert.rejects(V.openTransfer(C.randomBytes(32), blob));
+  const id = C.newRoomId();
+  const t = V.parseTransfer(V.transferFragment(id, key));
+  assert.equal(t.id, id);
+  assert.deepEqual([...t.key], [...key]);
+  assert.equal(V.parseTransfer(`#${id}.${C.b64url(key)}`), null, 'a room link is not a transfer link');
+  assert.equal(C.parseFragment(V.transferFragment(id, key)), null, 'a transfer link is not a room link');
+});
+
+test('identity made before backups cannot be exported', async () => {
+  const keys = await crypto.subtle.generateKey({ name: 'Ed25519' }, false, ['sign', 'verify']);
+  const pub = new Uint8Array(await crypto.subtle.exportKey('raw', keys.publicKey));
+  assert.equal(await C.exportIdentity({ keys, pub, fp: '' }), null);
+  assert.equal(await C.exportIdentity(null), null);
 });
 
 // ---- PROXY protocol / addresses ------------------------------------------------------------
@@ -425,6 +480,34 @@ test('TLS edge: through a PROXY header or without one, page and WebSocket work',
     s.on('error', () => {});
   });
   assert.ok(dropped);
+});
+
+test('transfer slots: proof of work, one download only, gone after 10 minutes', async () => {
+  const upload = async (blob) => {
+    const { challenge, bits } = await (await fetch(`http://${base}/chat/api/pow?for=transfer`)).json();
+    assert.equal(bits, config.powBitsTransfer);
+    return fetch(`http://${base}/chat/api/transfer`, { method: 'POST', body: JSON.stringify({ blob, pow: await C.proofOfWork(challenge, bits) }) });
+  };
+  const take = (id) => fetch(`http://${base}/chat/api/transfer/take`, { method: 'POST', body: JSON.stringify({ id }) });
+  const { key, blob } = await V.sealTransfer({ rooms: [] });
+  // a room challenge does not work for transfers
+  const roomPow = await solvedPow();
+  assert.equal((await fetch(`http://${base}/chat/api/transfer`, { method: 'POST', body: JSON.stringify({ blob: C.b64url(blob), pow: roomPow }) })).status, 400);
+  assert.equal((await upload(C.b64url(C.randomBytes(64)))).status, 400, 'not a transfer blob');
+  const res = await upload(C.b64url(blob));
+  assert.equal(res.status, 200);
+  const { id, exp } = await res.json();
+  assert.ok(exp > Date.now() + 9 * 60_000);
+  const got = await take(id);
+  assert.equal(got.status, 200);
+  assert.deepEqual(await V.openTransfer(key, C.fromB64url((await got.json()).blob)), { rooms: [] });
+  assert.equal((await take(id)).status, 404, 'only once');
+  const second = await (await upload(C.b64url(blob))).json();
+  clock.off = 11 * 60_000;
+  assert.equal((await take(second.id)).status, 404, 'expired');
+  app.sweep();
+  clock.off = 0;
+  assert.equal(store.transferCount(), 0);
 });
 
 test('store: expired messages and spent challenges are purged', () => {

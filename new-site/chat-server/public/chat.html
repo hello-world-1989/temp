@@ -14,7 +14,7 @@
 <header class="top">
   <div class="wrap top-row">
     <strong class="brand">加密聊天 <span class="tag">Beta</span></strong>
-    <span class="muted small" id="me"></span>
+    <span class="top-me"><span class="muted small" id="me-fp-top"></span> <button class="btn btn-sm" type="button" id="me-btn">我的</button></span>
   </div>
 </header>
 
@@ -105,5 +105,72 @@
     </form>
   </section>
 </main>
+
+<!-- 我的身份与群 -->
+<dialog id="me" class="me" aria-labelledby="me-title">
+  <div class="me-head">
+    <h2 id="me-title">我的身份与群</h2>
+    <button class="linkish" type="button" id="me-close">关闭</button>
+  </div>
+  <p class="notice" id="me-msg" role="status" hidden></p>
+
+  <div id="me-none" hidden>
+    <p class="small">设一个口令，把这个浏览器的<strong>身份（指纹）</strong>、昵称和<strong>加入过的群</strong>加密保存在本机。以后可以导出备份文件，或者扫码搬到新设备。</p>
+    <p class="small muted">口令只在你的设备上用，服务器不知道。<strong>忘了口令就找不回来</strong>，只能重新开始。</p>
+    <form id="me-create" novalidate>
+      <label class="field">口令（至少 8 个字符）<input id="me-c-pass" class="input" type="password" autocomplete="new-password"></label>
+      <label class="field">再输入一次<input id="me-c-pass2" class="input" type="password" autocomplete="new-password"></label>
+      <button class="btn primary" type="submit">设置口令</button>
+    </form>
+    <details class="mt">
+      <summary>从备份文件恢复</summary>
+      <form id="me-restore" novalidate>
+        <label class="field">备份文件<input id="me-r-file" class="input" type="file" accept=".json,application/json"></label>
+        <label class="field">备份时的口令<input id="me-r-pass" class="input" type="password" autocomplete="current-password"></label>
+        <button class="btn primary" type="submit">恢复</button>
+      </form>
+    </details>
+  </div>
+
+  <div id="me-locked" hidden>
+    <p class="small">这个浏览器保存了你的身份和群列表，输入口令解锁。</p>
+    <form id="me-unlock" novalidate>
+      <label class="field">口令<input id="me-u-pass" class="input" type="password" autocomplete="current-password"></label>
+      <button class="btn primary" type="submit">解锁</button>
+      <button class="btn" type="button" id="me-skip">暂不解锁</button>
+    </form>
+    <p class="small muted">暂不解锁：这次用一个临时身份（指纹不同），关掉页面就没了。<br>忘了口令：只能删除本机数据重新开始，原来的指纹和群列表会丢失（群本身还在，有邀请链接就能再进）。</p>
+    <button class="btn danger" type="button" id="me-wipe">删除本机数据</button>
+  </div>
+
+  <div id="me-open" hidden>
+    <p class="small">你的指纹 <code id="me-fp"></code></p>
+    <h3>我的群</h3>
+    <ul class="me-rooms" id="me-rooms"></ul>
+    <p class="small muted" id="me-rooms-empty">还没有保存的群。进群后会自动加到这里。</p>
+    <div class="me-actions">
+      <button class="btn" type="button" id="me-export">导出备份文件</button>
+      <button class="btn" type="button" id="me-move">迁移到新设备</button>
+      <button class="btn" type="button" id="me-lock">锁定</button>
+    </div>
+    <div class="card" id="me-xfer" hidden>
+      <h3>用新设备扫这个二维码</h3>
+      <p class="small">新设备用相机扫码，或者打开下面的链接。<strong>只能用一次</strong>，<span id="me-x-left"></span>。别人扫到就能拿走你的身份和群，不要给别人看，也不要截图发出去。</p>
+      <div class="qr" id="me-x-qr"></div>
+      <button class="copy mt" type="button" id="me-x-copy"><code id="me-x-link"></code><span class="hint">点击复制</span></button>
+    </div>
+    <p class="small muted mt">备份文件用你的口令加密；新设备扫码迁移时会让你在新设备上另设口令。</p>
+    <button class="btn danger" type="button" id="me-wipe2">删除本机数据</button>
+  </div>
+
+  <div id="me-recv" hidden>
+    <p class="small" id="me-recv-info"></p>
+    <form id="me-recv-form" novalidate hidden>
+      <label class="field">这台设备的口令（至少 8 个字符）<input id="me-t-pass" class="input" type="password" autocomplete="new-password"></label>
+      <label class="field">再输入一次<input id="me-t-pass2" class="input" type="password" autocomplete="new-password"></label>
+      <button class="btn primary" type="submit">保存</button>
+    </form>
+  </div>
+</dialog>
 </body>
 </html>

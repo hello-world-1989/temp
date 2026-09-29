@@ -34,6 +34,13 @@ create table if not exists pow_used (
   exp  integer not null
 ) strict;
 
+-- 迁移到新设备: one encrypted copy of a vault, taken once, gone after 10 minutes at most
+create table if not exists transfers (
+  id    text primary key,
+  blob  blob not null,
+  exp   integer not null
+) strict;
+
 create table if not exists mirrors (
   ip          text primary key,
   last_seen   integer not null,
@@ -69,6 +76,10 @@ export function openStore(file) {
     msgPurge: db.prepare('delete from messages where exp <= ?'),
     powUse: db.prepare('insert or ignore into pow_used (h, exp) values (?, ?)'),
     powPurge: db.prepare('delete from pow_used where exp <= ?'),
+    xferCount: db.prepare('select count(*) as n from transfers'),
+    xferAdd: db.prepare('insert into transfers (id, blob, exp) values (?, ?, ?)'),
+    xferTake: db.prepare('delete from transfers where id = ? and exp > ? returning blob'),
+    xferPurge: db.prepare('delete from transfers where exp <= ?'),
     mirrorSeen: db.prepare('insert into mirrors (ip, last_seen) values (?, ?) on conflict (ip) do update set last_seen = excluded.last_seen'),
     mirrorFail: db.prepare('update mirrors set failed_at = ? where ip = ?'),
     mirrorList: db.prepare('select * from mirrors'),
@@ -102,8 +113,13 @@ export function openStore(file) {
       const gone = q.msgExpired.all(now);
       q.msgPurge.run(now);
       q.powPurge.run(now);
+      q.xferPurge.run(now);
       return gone;
     }),
+    transferCount: () => q.xferCount.get().n,
+    addTransfer: (id, blob, exp) => q.xferAdd.run(id, blob, exp),
+    // The blob, deleted in the same statement: a second download finds nothing
+    takeTransfer: (id, now) => q.xferTake.get(id, now)?.blob || null,
     // true the first time a challenge is spent
     usePow: (hash, exp) => q.powUse.run(hash, exp).changes > 0,
     mirrorSeen: (ip, now) => q.mirrorSeen.run(ip, now),

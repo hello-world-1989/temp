@@ -2,9 +2,10 @@
 // the room id and message timings. Text is always shown with textContent, never as HTML.
 import qrcode from './qrcode.js';
 import {
-  MAX_TEXT, b64url, checkMessage, fragment, fromB64url, loadIdentity, makeMessage, newRoomId,
+  MAX_TEXT, b64url, checkMessage, fragment, fromB64url, makeMessage, newRoomId,
   open, parseFragment, proofOfWork, randomBytes, roomKeys, seal, sha256b64,
 } from './chat-crypto.js';
+import { setupVault } from './chat-me.js';
 
 const $ = (id) => document.getElementById(id);
 const TTLS = [
@@ -13,7 +14,6 @@ const TTLS = [
   [86400, '1 天'],
   [7 * 86400, '7 天'],
 ];
-const NICK_KEY = 'chat-nick';
 
 function show(view) {
   for (const v of ['v-create', 'v-created', 'v-join', 'v-room']) $(v).hidden = v !== view;
@@ -122,14 +122,11 @@ function createView() {
 
 // ---- 群聊 ---------------------------------------------------------------------------------
 
-async function roomView(frag, identity) {
+async function roomView(frag, identity, vault) {
   const { room, key, owner } = frag;
   const { aes, auth } = await roomKeys(key);
   const invite = linkFor(room, key);
-  let nick = '';
-  try {
-    nick = localStorage.getItem(NICK_KEY) || '';
-  } catch {}
+  let nick = vault.nick;
 
   show('v-join');
   $('j-nick').value = nick;
@@ -139,9 +136,7 @@ async function roomView(frag, identity) {
       e.preventDefault();
       nick = $('j-nick').value.trim().slice(0, 20);
       if (!nick) return $('j-nick').focus();
-      try {
-        localStorage.setItem(NICK_KEY, nick);
-      } catch {}
+      vault.setNick(nick).catch(() => {});
       resolve();
     }),
   );
@@ -309,6 +304,8 @@ async function roomView(frag, identity) {
             document.title = `${meta.name} · 加密聊天`;
           }
           if (Number.isInteger(meta.ttl)) defaultTtl = meta.ttl;
+          // 我的群: saved (encrypted) when this device has a 保险箱 open
+          vault.remember({ room, key, owner, name: String(meta.name || '').slice(0, 40) }).catch(() => {});
         } catch {
           note($('r-msg'), '群信息无法解密：链接可能不完整。', 'error');
         }
@@ -397,11 +394,16 @@ async function main() {
     $('unsupported').hidden = false;
     return;
   }
-  const identity = await loadIdentity();
-  $('me').textContent = identity ? `你的指纹 #${identity.fp}` : '这个浏览器不支持签名，消息不带指纹';
+  const { identity, vault } = await setupVault();
+  $('me-btn').onclick = () => vault.open();
+  const tmp = vault.state === 'skipped' ? '（临时）' : '';
+  $('me-fp-top').textContent = identity ? `#${identity.fp}${tmp}` : '不支持签名';
   const frag = parseFragment(location.hash);
   window.addEventListener('hashchange', () => location.reload());
-  if (frag) return roomView(frag, identity);
+  if (frag) {
+    vault.current = { room: frag.room, key: frag.key, owner: frag.owner, name: '' };
+    return roomView(frag, identity, vault);
+  }
   createView();
   if (location.hash) note($('c-msg'), '链接不完整：请让对方重新发送完整的链接（复制时不要截断）。', 'error');
 }

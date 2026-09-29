@@ -37,6 +37,9 @@ export function loadConfig(env = process.env) {
     mirrorDays: int(env, 'MIRROR_DAYS', 7),
 
     powBits: int(env, 'POW_BITS_CREATE', 18),
+    powBitsTransfer: int(env, 'POW_BITS_TRANSFER', 15),
+    maxTransfers: int(env, 'MAX_TRANSFERS', 2000),
+    transferBytes: int(env, 'TRANSFER_BYTES', 128 * 1024),
     maxRooms: int(env, 'MAX_ROOMS', 20000),
     // Rooms with no message for this long are deleted with everything in them
     roomIdleDays: int(env, 'ROOM_IDLE_DAYS', 30),

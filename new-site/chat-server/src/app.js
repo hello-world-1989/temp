@@ -5,6 +5,8 @@
 //        GET  /chat/assets/<file>     its scripts and styles
 //        GET  /chat/api/pow           proof-of-work challenge for creating a room
 //        POST /chat/api/rooms         { id, auth, owner, meta, pow } -> { id }
+//        POST /chat/api/transfer      { blob, pow } -> { id, exp }   迁移到新设备 (one-time copy)
+//        POST /chat/api/transfer/take { id } -> { blob }            and it is deleted
 // WS     /chat/ws                     see handleSocket()
 //
 // Nothing about visitors is kept: no IP addresses, no user agents, no logs of who is in which
@@ -23,6 +25,13 @@ export class HttpError extends Error {
 
 const sha256 = (b) => createHash('sha256').update(b).digest();
 const ROOM_ID = /^[A-Za-z0-9]{16}$/;
+const TRANSFER_TTL = 10 * 60_000;
+const ALPHABET = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function newId() {
+  let out = '';
+  while (out.length < 16) for (const b of randomBytes(32)) if (b < 224 && out.length < 16) out += ALPHABET[b % 56];
+  return out;
+}
 const B64URL = /^[A-Za-z0-9_-]*$/;
 
 // base64url -> Buffer of exactly `len` bytes (or up to `max`), else null
@@ -38,13 +47,16 @@ const safeEq = (a, b) => Buffer.isBuffer(a) && Buffer.isBuffer(b) && a.length ==
 
 // Ciphertext blobs from chat-crypto.js start with this
 const MAGIC = Buffer.from('EGC1');
-const isBlob = (buf, max) => buf && buf.length >= MAGIC.length + 12 + 16 && buf.length <= max && buf.subarray(0, 4).equals(MAGIC);
+const isBlob = (buf, max, magic = MAGIC) => buf && buf.length >= magic.length + 12 + 16 && buf.length <= max && buf.subarray(0, 4).equals(magic);
+const TRANSFER_MAGIC = Buffer.from('EGT1');
 
 const STATIC = {
   '/chat': ['../public/chat.html', 'text/html; charset=utf-8'],
   '/chat/assets/chat.css': ['../public/chat.css', 'text/css; charset=utf-8'],
   '/chat/assets/chat.js': ['../public/chat.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/chat-crypto.js': ['../public/chat-crypto.js', 'text/javascript; charset=utf-8'],
+  '/chat/assets/chat-vault.js': ['../public/chat-vault.js', 'text/javascript; charset=utf-8'],
+  '/chat/assets/chat-me.js': ['../public/chat-me.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/qrcode.js': ['../../public/assets/vendor/qrcode.js', 'text/javascript; charset=utf-8'],
 };
 
@@ -128,10 +140,16 @@ export function createApp({ store, config, now = () => Date.now() }) {
         res.writeHead(200, { 'Content-Type': f.type, 'Content-Length': f.body.length, 'Cache-Control': 'no-cache', ...securityHeaders(req.headers.host) });
         return res.end(req.method === 'HEAD' ? undefined : f.body);
       }
-      if (path === '/chat/api/pow') return send(res, 200, { challenge: makeChallenge(powSecret, 'room', config.powBits, now()), bits: config.powBits });
+      if (path === '/chat/api/pow') {
+        const purpose = url.searchParams.get('for') === 'transfer' ? 'transfer' : 'room';
+        const bits = purpose === 'transfer' ? config.powBitsTransfer : config.powBits;
+        return send(res, 200, { challenge: makeChallenge(powSecret, purpose, bits, now()), bits });
+      }
       if (path === '/chat/api/health') return send(res, 200, { ok: true, rooms: rooms.size, connections });
     }
     if (req.method === 'POST' && path === '/chat/api/rooms') return send(res, 200, createRoom(await readJson(req)));
+    if (req.method === 'POST' && path === '/chat/api/transfer') return send(res, 200, putTransfer(await readJson(req, config.transferBytes * 1.4 + 1024)));
+    if (req.method === 'POST' && path === '/chat/api/transfer/take') return send(res, 200, takeTransfer(await readJson(req)));
     throw new HttpError(404, '找不到页面');
   }
 
@@ -149,6 +167,27 @@ export function createApp({ store, config, now = () => Date.now() }) {
     if (store.getRoom(id)) throw new HttpError(409, '群号冲突，请重试');
     store.addRoom({ id, authHash: auth, ownerHash: owner, meta, now: t });
     return { id };
+  }
+
+  function putTransfer(body) {
+    const t = now();
+    const pow = checkPow(powSecret, 'transfer', config.powBitsTransfer, body.pow, t);
+    if (!pow.ok) throw new HttpError(400, pow.error === 'expired' ? '验证已过期，请重试' : '验证失败，请重试');
+    const blob = b64(body.blob, { max: config.transferBytes });
+    if (!isBlob(blob, config.transferBytes, TRANSFER_MAGIC)) throw new HttpError(400, '请求格式不正确');
+    if (store.transferCount() >= config.maxTransfers) throw new HttpError(503, '服务器繁忙，请稍后再试');
+    if (!store.usePow(pow.hash, pow.expiresAt.getTime())) throw new HttpError(400, '验证已使用，请重试');
+    const id = newId();
+    const exp = t + TRANSFER_TTL;
+    store.addTransfer(id, blob, exp);
+    return { id, exp };
+  }
+
+  function takeTransfer(body) {
+    const id = typeof body.id === 'string' && ROOM_ID.test(body.id) ? body.id : null;
+    const blob = id && store.takeTransfer(id, now());
+    if (!blob) throw new HttpError(404, '迁移码已失效：已经被用过，或者超过了 10 分钟。请在旧设备上重新生成。');
+    return { blob: blob.toString('base64url') };
   }
 
   async function handler(req, res) {
