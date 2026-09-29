@@ -1,6 +1,30 @@
-// Settings from the environment. Nothing here is secret: the proof-of-work key is random per
-// start, rooms authenticate with a hash of a key derived in the browser, and TLS keys are
-// issued on this machine by acme.sh.
+// Settings from the environment. The only secret-ish input is the admins credential (hashes of
+// the site admins' tokens); the proof-of-work key is random per start, rooms authenticate with a
+// hash of a key derived in the browser, and TLS keys are issued on this machine by acme.sh.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// systemd credential ($CREDENTIALS_DIRECTORY/<name>), else the env variable
+function cred(env, name) {
+  const dir = env.CREDENTIALS_DIRECTORY;
+  if (dir) {
+    try {
+      return readFileSync(join(dir, name), 'utf8').trim();
+    } catch {}
+  }
+  return (env[name.toUpperCase()] || '').trim();
+}
+
+// "name:sha256(token)" per line or comma-separated (the same file as 事件墙's admins)
+export function parseAdmins(text) {
+  const out = new Map();
+  for (const line of String(text || '').split(/[\n,]/)) {
+    const [name, hash] = line.trim().split(':');
+    if (name && /^[0-9a-f]{64}$/.test(hash || '')) out.set(hash, name);
+  }
+  return out;
+}
+
 const int = (env, name, def) => {
   const v = Number.parseInt(env[name] ?? '', 10);
   return Number.isFinite(v) ? v : def;
@@ -36,8 +60,16 @@ export function loadConfig(env = process.env) {
     // A mirror that has not checked in or carried a connection for this long loses its certificate
     mirrorDays: int(env, 'MIRROR_DAYS', 7),
 
+    // Site admins (事件墙's admins credential): review which rooms appear in the public list
+    admins: parseAdmins(cred(env, 'admins')),
+    // The website, where the list of chat addresses for invite links comes from ('' = none)
+    siteUrl: (env.SITE_URL ?? 'https://end-gfw.com').trim(),
     powBits: int(env, 'POW_BITS_CREATE', 18),
     powBitsTransfer: int(env, 'POW_BITS_TRANSFER', 15),
+    powBitsBackup: int(env, 'POW_BITS_BACKUP', 16),
+    powBitsJoin: int(env, 'POW_BITS_JOIN', 16),
+    maxBackups: int(env, 'MAX_BACKUPS', 50000),
+    backupBytes: int(env, 'BACKUP_BYTES', 256 * 1024),
     maxTransfers: int(env, 'MAX_TRANSFERS', 2000),
     transferBytes: int(env, 'TRANSFER_BYTES', 128 * 1024),
     maxRooms: int(env, 'MAX_ROOMS', 20000),

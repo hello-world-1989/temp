@@ -1,7 +1,7 @@
 // 事件墙: anonymous submission
 // Photos are cleaned in the browser before upload (share-meta.js: GPS, time, camera, thumbnails
 // removed); the server cleans them again.
-import { $, call, boardMeta, proofOfWork, setMsg } from './board-common.js';
+import { $, call, boardMeta, proofOfWork, rememberReceipt, setMsg } from './board-common.js';
 import { copyText } from './site.js';
 import { kindOf, stripMetadata } from './share-meta.js';
 import { redact } from './board-redact.js';
@@ -124,6 +124,7 @@ $('#form').addEventListener('submit', async (e) => {
     $('#form').classList.add('hidden');
     $('#receipt').textContent = r.receipt;
     $('#done').classList.remove('hidden');
+    rememberReceipt($('#receipt-saved'), { receipt: r.receipt, kind: 'post', title: fields.title });
     $('#done').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err) {
     // An expired or unknown draft cannot be reused; the next attempt starts a new one

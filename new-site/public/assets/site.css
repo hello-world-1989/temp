@@ -333,3 +333,5 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 
 /* "Beta" tag next to a menu item */
 .beta { display: inline-block; margin-left: 4px; padding: 0 5px; border-radius: 6px; font-size: .68rem; font-weight: 700; line-height: 1.5; vertical-align: 2px; background: var(--warn-soft); color: var(--warn); }
+.receipt-unlock { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.receipt-unlock .input { flex: 1; min-width: 12em; }

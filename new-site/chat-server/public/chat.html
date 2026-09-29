@@ -44,6 +44,18 @@
     </ul>
   </section>
 
+  <!-- 公开的事件群 -->
+  <section id="dir" hidden>
+    <h2 class="mt">公开的事件群</h2>
+    <p class="muted small">群主申请公开、网站管理员审核后才会出现在这里。群名和简介是公开的；群里的消息仍然端到端加密，申请加入要群主批准。</p>
+    <div id="dir-list" class="dir-list"></div>
+    <p class="muted small" id="dir-empty" hidden>现在还没有公开的群。</p>
+    <div id="my-req-box" hidden>
+      <h3>我的申请</h3>
+      <ul class="me-rooms" id="my-req"></ul>
+    </div>
+  </section>
+
   <!-- 建好了 -->
   <section id="v-created" hidden>
     <h1>群已建好</h1>
@@ -51,12 +63,14 @@
       <h2>邀请链接</h2>
       <p class="muted small">发给要进群的人。拿到这个链接就能看群里的消息，请用私密的方式发送。</p>
       <button class="copy" type="button" id="invite-copy"><code id="invite"></code><span class="hint">点击复制</span></button>
+      <div class="backups" id="invite-backups" hidden><p class="muted small">打不开时用下面的备用地址，打开的是同一个群（点上面复制时会一起复制）：</p><ul></ul></div>
       <div class="qr" id="invite-qr"></div>
     </div>
     <div class="card">
       <h2>管理链接（只给你自己）</h2>
       <p class="muted small">用这个链接进群可以<strong>销毁整个群</strong>。只显示这一次，请自己保存好，不要发给别人。</p>
       <button class="copy" type="button" id="owner-copy"><code id="owner"></code><span class="hint">点击复制</span></button>
+      <div class="backups" id="owner-backups" hidden><p class="muted small">打不开时用下面的备用地址，打开的是同一个群（点上面复制时会一起复制）：</p><ul></ul></div>
     </div>
     <a class="btn primary" id="enter" href="#">进入群聊</a>
   </section>
@@ -83,12 +97,28 @@
       </div>
       <div class="room-actions">
         <button class="btn" type="button" id="r-invite">邀请</button>
+        <button class="btn" type="button" id="r-manage" hidden>管理</button>
         <button class="btn danger" type="button" id="r-destroy" hidden>销毁群</button>
       </div>
     </div>
     <div class="card invite-box" id="r-invite-box" hidden>
       <button class="copy" type="button" id="r-invite-copy"><code id="r-invite-link"></code><span class="hint">点击复制</span></button>
+      <div class="backups" id="r-invite-backups" hidden><p class="muted small">打不开时用下面的备用地址，打开的是同一个群（点上面复制时会一起复制）：</p><ul></ul></div>
       <div class="qr" id="r-invite-qr"></div>
+    </div>
+    <div class="card" id="r-admin" hidden>
+      <h2>公开到事件群列表</h2>
+      <p class="small" id="ra-state"></p>
+      <form id="ra-pub" novalidate>
+        <label class="field">公开的群名（2 到 40 个字，所有人可见）<input id="ra-name" class="input" maxlength="40" autocomplete="off"></label>
+        <label class="field">简介（可选，300 字以内，所有人可见）<textarea id="ra-desc" class="input" rows="3" maxlength="300"></textarea></label>
+        <button class="btn primary" type="submit" id="ra-submit">申请公开</button>
+        <button class="btn" type="button" id="ra-unpub" hidden>撤下</button>
+      </form>
+      <p class="muted small">公开后，别人可以在列表里看到群名和简介并申请加入；你批准后，对方才会拿到进群的密钥。</p>
+      <h2 class="mt">加入申请</h2>
+      <ul class="me-rooms" id="ra-reqs"></ul>
+      <p class="muted small" id="ra-reqs-empty">还没有申请。</p>
     </div>
     <p class="notice" id="r-msg" role="status" hidden></p>
     <ol class="msgs" id="msgs" aria-live="polite"></ol>
@@ -144,11 +174,36 @@
     <button class="btn danger" type="button" id="me-wipe">删除本机数据</button>
   </div>
 
+  <details id="me-find-wrap" class="mt" hidden>
+    <summary>丢了设备？用恢复口令找回</summary>
+    <form id="me-find" novalidate>
+      <label class="field">恢复口令（设置时抄下的 20 个字符）<input id="me-f-phrase" class="input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="xxxx-xxxx-xxxx-xxxx-xxxx"></label>
+      <button class="btn primary" type="submit">找回</button>
+    </form>
+  </details>
+
   <div id="me-open" hidden>
     <p class="small">你的指纹 <code id="me-fp"></code></p>
     <h3>我的群</h3>
     <ul class="me-rooms" id="me-rooms"></ul>
     <p class="small muted" id="me-rooms-empty">还没有保存的群。进群后会自动加到这里。</p>
+    <h3>事件墙的投稿和留言</h3>
+    <ul class="me-rooms" id="me-receipts"></ul>
+    <p class="small muted" id="me-receipts-empty">在事件墙投稿或留言后，回执码会自动保存到这里（事件墙上仍然是匿名的）。</p>
+    <h3>恢复口令</h3>
+    <div id="me-rec-off">
+      <p class="small">丢了设备、清了浏览器也能找回：生成一个恢复口令，身份、昵称、我的群和事件墙回执会加密后存到服务器，以后用恢复口令在任何设备上找回。</p>
+      <button class="btn" type="button" id="me-rec-on">生成恢复口令</button>
+    </div>
+    <div id="me-rec-onbox" hidden>
+      <p class="small">已开启，改动会自动加密同步到服务器。<span class="muted" id="me-rec-status"></span></p>
+      <button class="btn" type="button" id="me-rec-show">查看恢复口令</button>
+      <button class="btn danger" type="button" id="me-rec-del">关闭并删除服务器上的备份</button>
+    </div>
+    <div class="card" id="me-rec-box" hidden>
+      <p class="small"><strong>请抄下来，保存在安全的地方：</strong>丢了设备时用它找回。服务器和别人都猜不出它；但<strong>拿到它的人就能冒充你、进入你所有的群</strong>，不要拍照上传、不要发给别人。</p>
+      <p class="phrase"><code id="me-rec-phrase"></code></p>
+    </div>
     <div class="me-actions">
       <button class="btn" type="button" id="me-export">导出备份文件</button>
       <button class="btn" type="button" id="me-move">迁移到新设备</button>

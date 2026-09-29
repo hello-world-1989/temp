@@ -1,7 +1,9 @@
 // 事件墙: one event, its comments, the comment form
-import { $, call, boardMeta, fmtDay, fmtTime, paragraphs, proofOfWork, setMsg } from './board-common.js';
+import { $, call, boardMeta, fmtDay, fmtTime, identityNick, paragraphs, proofOfWork, rememberReceipt, setMsg } from './board-common.js';
 import { copyText } from './site.js';
 import qrcode from './vendor/qrcode.js';
+
+let postTitle = ''; // for the receipt saved into the 加密聊天 identity
 
 const id = decodeURIComponent(location.pathname.split('/')[3] || new URLSearchParams(location.search).get('id') || '');
 const box = $('#post');
@@ -69,6 +71,7 @@ async function load() {
   try {
     const post = await call('GET', `/api/board/posts/${encodeURIComponent(id)}`);
     document.title = `${post.title} | 事件墙 | 大翻墙运动`;
+    postTitle = post.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', post.body.replace(/\s+/g, ' ').slice(0, 150));
     box.replaceChildren();
     const meta = el('div', 'item-meta');
@@ -153,9 +156,12 @@ $('#comment-form').addEventListener('submit', async (e) => {
     setMsg(out, '提交中…');
     const r = await call('POST', `/api/board/posts/${encodeURIComponent(id)}/comments`, { body: { body, nickname: $('#nickname').value.trim(), pow } });
     $('#comment').value = '';
+    rememberReceipt($('#comment-saved'), { receipt: r.receipt, kind: 'comment', title: postTitle });
     if (r.status === 'published') {
       setMsg(out, '留言已发布。', 'ok');
       load();
+// Nickname for comments from the 加密聊天 identity (when this tab has it unlocked)
+identityNick().then((n) => n && !$('#nickname').value && ($('#nickname').value = n));
     } else {
       setMsg(out, `留言已提交，审核通过后显示。想撤回的话，保存这个回执码，到“查询投稿状态”页面撤回：${r.receipt}`, 'ok');
     }
@@ -167,3 +173,5 @@ $('#comment-form').addEventListener('submit', async (e) => {
 });
 
 load();
+// Nickname for comments from the 加密聊天 identity (when this tab has it unlocked)
+identityNick().then((n) => n && !$('#nickname').value && ($('#nickname').value = n));

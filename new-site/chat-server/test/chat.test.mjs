@@ -7,6 +7,7 @@ import http from 'node:http';
 import net from 'node:net';
 import tls from 'node:tls';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -16,6 +17,7 @@ import { openStore } from '../src/store.js';
 import { loadConfig } from '../src/config.js';
 import { createEdge, parseProxyHeader, isPublicIPv4 } from '../src/edge.js';
 import { createCerts, createAcmeHandler } from '../src/certs.js';
+import { createEntries } from '../src/entries.js';
 import * as C from '../public/chat-crypto.js';
 import * as V from '../public/chat-vault.js';
 import { makeChallenge } from '../../board-server/src/pow.js';
@@ -120,11 +122,63 @@ test('vault contents are cleaned; transfers need the key from the link', async (
   assert.equal(C.parseFragment(V.transferFragment(id, key)), null, 'a transfer link is not a room link');
 });
 
+test('recovery phrases: generated, typed back loosely, same keys every time', async () => {
+  const p = V.newRecoveryPhrase();
+  assert.match(p, /^[a-z2-9]{4}(-[a-z2-9]{4}){4}$/);
+  assert.doesNotMatch(p, /[ilo01]/, 'no look-alikes');
+  assert.notEqual(V.newRecoveryPhrase(), p);
+  assert.equal(V.normalizePhrase(` ${p.toUpperCase().replaceAll('-', ' ')} `), p);
+  assert.equal(V.normalizePhrase('abcd-efgh'), '');
+  assert.equal(V.normalizePhrase('abcd-efgh-jkmn-pqrs-tuv0'), '', '0 is not in the alphabet');
+  const a = await V.recoveryKeys(p);
+  const b = await V.recoveryKeys(p.replaceAll('-', ''));
+  assert.equal(a.id, b.id);
+  assert.match(a.id, /^[A-Za-z0-9_-]{22}$/);
+  assert.deepEqual([...a.write], [...b.write]);
+  const other = await V.recoveryKeys(V.newRecoveryPhrase());
+  assert.notEqual(other.id, a.id);
+  const blob = await V.sealRecovery(a.aes, { nick: '小明' });
+  assert.deepEqual(await V.openRecovery(b.aes, blob), { nick: '小明' });
+  await assert.rejects(V.openRecovery(other.aes, blob));
+  await assert.rejects(V.recoveryKeys('nope'), /phrase/);
+});
+
+test('vault contents keep 事件墙 receipts and the recovery phrase, cleaned', () => {
+  const p = V.newRecoveryPhrase();
+  const c = V.cleanContents({ receipts: [{ receipt: 'A'.repeat(24), kind: 'comment', title: 't', at: 5 }, { receipt: 'bad' }, { receipt: 'A'.repeat(24) }], recovery: { phrase: p } });
+  assert.deepEqual(c.receipts, [{ receipt: 'A'.repeat(24), kind: 'comment', title: 't', at: 5 }]);
+  assert.deepEqual(c.recovery, { phrase: p });
+  assert.equal(V.cleanContents({ recovery: { phrase: 'x' } }).recovery, null);
+});
+
 test('identity made before backups cannot be exported', async () => {
   const keys = await crypto.subtle.generateKey({ name: 'Ed25519' }, false, ['sign', 'verify']);
   const pub = new Uint8Array(await crypto.subtle.exportKey('raw', keys.publicKey));
   assert.equal(await C.exportIdentity({ keys, pub, fp: '' }), null);
   assert.equal(await C.exportIdentity(null), null);
+});
+
+test('公开事件群 crypto: owner key boxed by the owner token; requests and grants only between the two', async () => {
+  const room = C.newRoomId();
+  const ownerToken = C.randomBytes(32);
+  const owner = await C.newEcdh();
+  assert.equal(owner.pub.length, 65);
+  const box = await C.boxOwnerKey(ownerToken, room, owner.priv);
+  const back = await C.unboxOwnerKey(ownerToken, room, box);
+  await assert.rejects(C.unboxOwnerKey(C.randomBytes(32), room, box), 'another token');
+  await assert.rejects(C.unboxOwnerKey(ownerToken, C.newRoomId(), box), 'another room');
+  const req = await C.newEcdh();
+  const info = await C.sealJoin(req.priv, owner.pub, room, 'info', { nick: '小红', note: '想了解情况' });
+  assert.deepEqual(await C.openJoin(back, req.pub, room, 'info', info), { nick: '小红', note: '想了解情况' });
+  const key = C.b64url(C.randomBytes(32));
+  const grant = await C.sealJoin(back, req.pub, room, 'grant', { key, name: '群' });
+  assert.deepEqual(await C.openJoin(req.priv, owner.pub, room, 'grant', grant), { key, name: '群' });
+  const stranger = await C.newEcdh();
+  await assert.rejects(C.openJoin(stranger.priv, owner.pub, room, 'grant', grant), 'someone else');
+  await assert.rejects(C.openJoin(req.priv, owner.pub, room, 'info', grant), 'kind is bound');
+  // the requester's key survives being stored as JWK
+  const again = await C.importEcdh(await C.exportEcdh(req.priv));
+  assert.deepEqual(await C.openJoin(again, owner.pub, room, 'grant', grant), { key, name: '群' });
 });
 
 // ---- PROXY protocol / addresses ------------------------------------------------------------
@@ -225,17 +279,46 @@ test('ACME port serves challenges and check-ins, nothing else', async () => {
   server.close();
 });
 
+// ---- invite link backups ---------------------------------------------------------------------
+
+test('chat addresses for invite links: site, mirror nodes, relays; junk dropped; last good list kept', async () => {
+  let up = true;
+  const replies = {
+    '/api/share/mirrors': { mirrors: ['https://1.2.3.4', 'https://5.6.7.8', 'http://9.9.9.9', 'https://evil.example', 'nope'], site: ['https://end-gfw.com'] },
+    '/api/chat-mirrors': { mirrors: [{ url: 'https://1.2.3.4:8443/chat', region: '首尔' }, { url: 'https://1.2.3.4:9999/chat' }, { url: 'javascript:alert(1)' }] },
+  };
+  const fetchImpl = async (url) => {
+    if (!up) throw new Error('down');
+    const path = new URL(url).pathname;
+    return new Response(JSON.stringify(replies[path]), { status: 200 });
+  };
+  const e = createEntries({ siteUrl: 'https://end-gfw.com/', fetchImpl });
+  assert.deepEqual(e.list(), [{ url: 'https://end-gfw.com/chat', label: '主站' }], 'before the first refresh');
+  await e.refresh();
+  assert.deepEqual(e.list(), [
+    { url: 'https://end-gfw.com/chat', label: '主站' },
+    { url: 'https://1.2.3.4/chat', label: '镜像 首尔' },
+    { url: 'https://5.6.7.8/chat', label: '镜像 5.6.7.8' },
+    { url: 'https://1.2.3.4:8443/chat', label: '直连 首尔' },
+  ]);
+  up = false;
+  await assert.rejects(e.refresh());
+  assert.equal(e.list().length, 4, 'kept');
+  assert.deepEqual(createEntries({ siteUrl: '' }).list(), []);
+});
+
 // ---- the service -----------------------------------------------------------------------------
 
 let store, app, web, edge, base, tlsPort, config, clock;
 const POW_BITS = 4;
+const ADMIN_TOKEN = 'admin-token-for-tests';
 
 before(async () => {
   const dir = mkdtempSync(join(tmp, 'app-'));
-  config = loadConfig({ DATA_DIR: dir, POW_BITS_CREATE: String(POW_BITS), SEND_BURST: '5', MAX_ROOM_MESSAGES: '3', MAX_TTL_SECONDS: '3600', POLL_WAIT_SECONDS: '1' });
+  config = loadConfig({ DATA_DIR: dir, POW_BITS_CREATE: String(POW_BITS), SEND_BURST: '5', MAX_ROOM_MESSAGES: '3', MAX_TTL_SECONDS: '3600', POLL_WAIT_SECONDS: '1', POW_BITS_BACKUP: '4', POW_BITS_JOIN: '4', ADMINS: `alice:${createHash('sha256').update(ADMIN_TOKEN).digest('hex')}` });
   store = openStore(join(dir, 'chat.db'));
   clock = { off: 0 };
-  app = createApp({ store, config, now: () => Date.now() + clock.off });
+  app = createApp({ store, config, entries: { list: () => [{ url: 'https://end-gfw.com/chat', label: '主站' }] }, now: () => Date.now() + clock.off });
   web = http.createServer(app.handler);
   web.on('upgrade', app.upgrade);
   await new Promise((r) => web.listen(0, '127.0.0.1', r));
@@ -326,6 +409,7 @@ test('page is served with a strict policy; unknown paths are 404', async () => {
   for (const p of ['/chat/assets/chat.js', '/chat/assets/chat-crypto.js', '/chat/assets/chat.css', '/chat/assets/qrcode.js']) assert.equal((await fetch(`http://${base}${p}`)).status, 200, p);
   assert.equal((await fetch(`http://${base}/chat/assets/../src/app.js`)).status, 404);
   assert.equal((await fetch(`http://${base}/`, { redirect: 'manual' })).headers.get('location'), '/chat');
+  assert.deepEqual(await (await fetch(`http://${base}/chat/api/entries`)).json(), { entries: [{ url: 'https://end-gfw.com/chat', label: '主站' }] });
 });
 
 test('creating a room needs a fresh proof of work and well-formed fields', async () => {
@@ -571,6 +655,103 @@ test('long polling: a client that stops asking is dropped from the room', async 
   await w.next((m) => m.t === 'online' && m.n === 1);
   assert.equal((await fetch(`http://${base}/chat/api/poll`, { method: 'POST', body: JSON.stringify({ cid: j.cid }) })).status, 404);
   w.ws.close();
+});
+
+test('恢复口令 backups: proof of work to create, write token to change or delete', async () => {
+  const api = async (path, body) => {
+    const res = await fetch(`http://${base}${path}`, { method: 'POST', body: JSON.stringify(body) });
+    return { status: res.status, data: await res.json() };
+  };
+  const pow = async () => {
+    const { challenge, bits } = await (await fetch(`http://${base}/chat/api/pow?for=backup`)).json();
+    assert.equal(bits, config.powBitsBackup);
+    return C.proofOfWork(challenge, bits);
+  };
+  const k = await V.recoveryKeys(V.newRecoveryPhrase());
+  const blob = C.b64url(await V.sealRecovery(k.aes, { v: 1 }));
+  assert.equal((await api('/chat/api/backup/get', { id: k.id })).status, 404);
+  assert.equal((await api('/chat/api/backup/put', { id: k.id, write: C.b64url(k.write), blob })).status, 400, 'creating needs proof of work');
+  assert.equal((await api('/chat/api/backup/put', { id: k.id, write: C.b64url(k.write), blob: C.b64url(C.randomBytes(50)), pow: await pow() })).status, 400, 'not a backup blob');
+  const created = await api('/chat/api/backup/put', { id: k.id, write: C.b64url(k.write), blob, pow: await pow() });
+  assert.deepEqual(created.data, { ok: true, created: true });
+  const got = await api('/chat/api/backup/get', { id: k.id });
+  assert.deepEqual(await V.openRecovery(k.aes, C.fromB64url(got.data.blob)), { v: 1 });
+  // updates need the write token, not proof of work
+  const blob2 = C.b64url(await V.sealRecovery(k.aes, { v: 2 }));
+  assert.equal((await api('/chat/api/backup/put', { id: k.id, write: C.b64url(C.randomBytes(32)), blob: blob2 })).status, 403);
+  assert.deepEqual((await api('/chat/api/backup/put', { id: k.id, write: C.b64url(k.write), blob: blob2 })).data, { ok: true, created: false });
+  assert.deepEqual(await V.openRecovery(k.aes, C.fromB64url((await api('/chat/api/backup/get', { id: k.id })).data.blob)), { v: 2 });
+  assert.equal((await api('/chat/api/backup/delete', { id: k.id, write: C.b64url(C.randomBytes(32)) })).status, 403);
+  assert.equal((await api('/chat/api/backup/delete', { id: k.id, write: C.b64url(k.write) })).status, 200);
+  assert.equal((await api('/chat/api/backup/get', { id: k.id })).status, 404);
+});
+
+test('公开事件群: publish, admin review, directory, request, owner approves, requester gets the key', async () => {
+  const api = async (path, body, headers = {}) => {
+    const res = await fetch(`http://${base}${path}`, body === undefined ? { headers } : { method: 'POST', headers, body: JSON.stringify(body) });
+    return { status: res.status, data: await res.json() };
+  };
+  const admin = { authorization: `Bearer ${ADMIN_TOKEN}` };
+  const r = await makeRoom();
+  const ownerKey = await C.newEcdh();
+  const pub = {
+    room: r.room, owner: C.b64url(r.owner), name: '某地维权', desc: '第一行\n第二行',
+    ownerPub: C.b64url(ownerKey.pub), ownerBox: C.b64url(await C.boxOwnerKey(r.owner, r.room, ownerKey.priv)),
+  };
+  assert.equal((await api('/chat/api/rooms/publish', { ...pub, owner: C.b64url(C.randomBytes(32)) })).status, 403, 'owner token checked');
+  assert.equal((await api('/chat/api/rooms/publish', { ...pub, name: 'x' })).status, 400);
+  assert.deepEqual((await api('/chat/api/rooms/publish', pub)).data, { state: 'review' });
+  assert.equal((await api('/chat/api/directory')).data.rooms.some((x) => x.room === r.room), false, 'not listed before review');
+
+  // site admin review (the 事件墙 admin token)
+  assert.equal((await api('/chat/api/admin/listings?state=1')).status, 401);
+  const queue = await api('/chat/api/admin/listings?state=1', undefined, admin);
+  assert.ok(queue.data.items.some((x) => x.room === r.room && x.name === '某地维权'));
+  assert.equal((await api('/chat/api/admin/review', { room: r.room, action: 'approve' }, admin)).status, 200);
+  const dir = await api('/chat/api/directory');
+  const listed = dir.data.rooms.find((x) => x.room === r.room);
+  assert.equal(listed.name, '某地维权');
+  assert.equal(listed.desc, '第一行\n第二行');
+  assert.equal(listed.ownerPub, pub.ownerPub);
+
+  // someone asks to join
+  const joinPow = async () => {
+    const { challenge, bits } = await (await fetch(`http://${base}/chat/api/pow?for=join`)).json();
+    return C.proofOfWork(challenge, bits);
+  };
+  const me = await C.newEcdh();
+  const secret = C.randomBytes(32);
+  const info = await C.sealJoin(me.priv, C.fromB64url(listed.ownerPub), r.room, 'info', { nick: '小红', note: '附近居民', fp: 'abcd-1234' });
+  const req = await api('/chat/api/join/request', { room: r.room, reqPub: C.b64url(me.pub), info: C.b64url(info), secret: C.b64url(secret), pow: await joinPow() });
+  assert.equal(req.status, 200);
+  assert.equal((await api('/chat/api/join/status', { id: req.data.id, secret: C.b64url(C.randomBytes(32)) })).status, 404, 'secret checked');
+  assert.equal((await api('/chat/api/join/status', { id: req.data.id, secret: C.b64url(secret) })).data.status, 'pending');
+
+  // the owner sees it, decrypts it, approves with the key sealed to the requester
+  const view = await api('/chat/api/rooms/owner', { room: r.room, owner: C.b64url(r.owner) });
+  assert.equal(view.data.state, 'listed');
+  const ownerPriv = await C.unboxOwnerKey(r.owner, r.room, C.fromB64url(view.data.ownerBox));
+  const rq = view.data.requests[0];
+  assert.deepEqual(await C.openJoin(ownerPriv, C.fromB64url(rq.reqPub), r.room, 'info', C.fromB64url(rq.info)), { nick: '小红', note: '附近居民', fp: 'abcd-1234' });
+  const grant = await C.sealJoin(ownerPriv, C.fromB64url(rq.reqPub), r.room, 'grant', { key: C.b64url(r.key), name: '某地维权' });
+  assert.equal((await api('/chat/api/rooms/decide', { room: r.room, owner: C.b64url(C.randomBytes(32)), id: rq.id, approve: true, sealed: C.b64url(grant) })).status, 403);
+  assert.equal((await api('/chat/api/rooms/decide', { room: r.room, owner: C.b64url(r.owner), id: rq.id, approve: true, sealed: C.b64url(grant) })).status, 200);
+  assert.equal((await api('/chat/api/rooms/decide', { room: r.room, owner: C.b64url(r.owner), id: rq.id, approve: false })).status, 404, 'decided once');
+  const st = await api('/chat/api/join/status', { id: req.data.id, secret: C.b64url(secret) });
+  assert.equal(st.data.status, 'approved');
+  const got = await C.openJoin(me.priv, C.fromB64url(st.data.ownerPub), r.room, 'grant', C.fromB64url(st.data.sealed));
+  assert.deepEqual(C.fromB64url(got.key), r.key);
+  // with that key the requester really gets in
+  const c = await enter({ ...r, auth: (await C.roomKeys(C.fromB64url(got.key))).auth });
+  assert.ok(c.inbox.find((m) => m.t === 'ready'));
+  c.ws.close();
+
+  // unlisted rooms take no requests; the admin can remove a listing
+  assert.equal((await api('/chat/api/admin/review', { room: r.room, action: 'remove', reason: '不适合公开' }, admin)).status, 200);
+  assert.equal((await api('/chat/api/directory')).data.rooms.some((x) => x.room === r.room), false);
+  assert.equal((await api('/chat/api/join/request', { room: r.room, reqPub: C.b64url(me.pub), info: C.b64url(info), secret: C.b64url(secret), pow: await joinPow() })).status, 404);
+  assert.equal((await api('/chat/api/rooms/owner', { room: r.room, owner: C.b64url(r.owner) })).data.reason, '不适合公开');
+  assert.deepEqual((await api('/chat/api/rooms/unpublish', { room: r.room, owner: C.b64url(r.owner) })).data, { state: 'private' });
 });
 
 test('store: expired messages and spent challenges are purged', () => {
