@@ -57,12 +57,23 @@ const expired = (obj, now = Date.now()) => now - obj.uploaded.getTime() > TTL_MS
 export function shareStore(env) {
   if (env.SHARE) return env.SHARE;
   if (!env.SHARE_STORE_URL || !env.SHARE_STORE_KEY) return null;
-  return originStore(String(env.SHARE_STORE_URL).replace(/\/+$/, ''), String(env.SHARE_STORE_KEY));
+  return originStore(String(env.SHARE_STORE_URL).replace(/\/+$/, ''), String(env.SHARE_STORE_KEY).trim().replace(/^["']|["']$/g, ''));
 }
 
 // Returns a Response for share paths, null when the path is not ours, 'disabled' when this
 // deployment has no store. opts.mirrorIps() -> Set of this site's mirror node IPs.
 export async function handleShare(request, url, env, opts = {}) {
+  try {
+    return await handleShareInner(request, url, env, opts);
+  } catch (err) {
+    // Storage errors: say which kind (never the key or file ids), for troubleshooting
+    const code = err?.status === 403 ? 'store_auth' : err?.status ? `store_${err.status}` : err?.name === 'TimeoutError' ? 'store_timeout' : 'store_unreachable';
+    console.error('share store error', code, String(err?.message || err).slice(0, 200));
+    return json({ error: '服务暂时不可用，请稍后再试', code }, 502);
+  }
+}
+
+async function handleShareInner(request, url, env, opts) {
   const p = url.pathname;
   const isOurs = p === '/share' || p === '/share-get' || p.startsWith('/s/') || p === '/api/share' || p.startsWith('/api/share/');
   if (!isOurs) return null;
