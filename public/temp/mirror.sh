@@ -78,11 +78,10 @@ write_nginx() {
     v6_80="listen [::]:80 default_server;"
     v6_443="listen [::]:443 ssl http2 default_server;"
   fi
+  # 返回给访客的说明（纯文本内容，不含引号和美元符号）
+  local official="<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width'><title>请使用官方地址</title><div style='max-width:36em;margin:3em auto;padding:0 1em;font:16px/1.7 sans-serif'><h1>请使用官方地址</h1><p>为了保证端到端加密不被篡改，加密分享和加密聊天只在官方地址提供，镜像站不提供。</p><p>加密分享：https://end-gfw.com/share<br>加密聊天：https://end-gfw.com/chat<br>打不开时，官方入口列表：https://end-gfw.com/chat-mirrors</p></div>"
   cat >"$CONF" <<EOF
 # 由 end-gfw 镜像脚本生成，重新运行脚本会覆盖
-limit_req_zone \$binary_remote_addr zone=xn_share_up:1m rate=10r/m;
-limit_req_zone \$binary_remote_addr zone=xn_share_rd:1m rate=60r/m;
-
 server {
   listen 80 default_server;
   $v6_80
@@ -112,16 +111,9 @@ server {
   gzip_types text/css application/javascript application/json text/plain image/svg+xml;
 $matrix
 
-  location = /api/share {
-    set \$xn_up $UPSTREAM;$proxy
-    limit_req zone=xn_share_up burst=5 nodelay;
-    proxy_request_buffering off;
-  }
-  location ^~ /api/share/ {
-    set \$xn_up $UPSTREAM;$proxy
-    limit_req zone=xn_share_rd burst=30 nodelay;
-    proxy_buffering off;
-  }
+  # 加密分享、加密聊天只在官方地址提供：镜像能改页面脚本，会让端到端加密失效
+  location ~ ^/(share|chat)(/|$) { default_type text/html; return 403 "$official"; }
+  location ~ ^/(s|api/share)(/|$) { default_type text/html; return 403 "$official"; }
   location / {
     set \$xn_up $UPSTREAM;$proxy
     proxy_set_header Accept-Encoding "";
