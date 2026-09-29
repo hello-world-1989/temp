@@ -61,7 +61,7 @@ export async function handleBoard(request, url, env) {
   if (!out.has('cache-control')) out.set('Cache-Control', 'no-store');
   if (upstream.status >= 500 && !(out.get('content-type') || '').includes('json')) {
     upstream.body?.cancel();
-    return boardJson({ error: '事件墙暂时不可用，请稍后再试' }, 502);
+    return boardJson({ error: `事件墙暂时不可用，请稍后再试（${upstream.status}）` }, 502);
   }
   return new Response(upstream.body, { status: upstream.status, headers: out });
 }
