@@ -1,0 +1,29 @@
+<!--
+title: 事件墙
+description: 网友投稿的事件记录，经管理员审核后发布，可以留言讨论。任何人都可以匿名投稿。
+nav: board
+script: board.js
+style: board.css
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">事件墙</span>
+    <h1>民间事件记录</h1>
+    <p>身边发生的事，由亲历者和目击者记录。任何人都可以匿名投稿，管理员审核后发布；发布后可以留言讨论。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/board-submit">我要投稿</a>
+      <a class="btn btn-ghost" href="/board-status">查询投稿状态</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="tabs" id="cats" role="tablist" aria-label="分类"></div>
+    <div id="list" class="board-list" aria-live="polite"></div>
+    <p class="notice mt" id="list-msg" role="status"></p>
+    <div class="pager mt"><button class="btn btn-ghost hidden" type="button" id="more">加载更多</button></div>
+  </div>
+</section>
+
+{{> ad}}

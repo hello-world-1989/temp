@@ -1,0 +1,22 @@
+# end-gfw 事件墙 API: TLS in front of the board service. Only /api/board/* is served;
+# Caddy keeps no access log (no `log` directive). BOARD_HOST is replaced by install.sh.
+# The site's Worker uses port 8443: Cloudflare's Flexible SSL mode only applies to 443, so a
+# Worker subrequest to :8443 is always HTTPS whatever the zone setting is.
+BOARD_HOST, BOARD_HOST:8443 {
+	request_body {
+		max_size 10MB
+	}
+	handle /api/board/* {
+		reverse_proxy 127.0.0.1:8791
+	}
+	handle {
+		respond 404
+	}
+}
+
+# Plain HTTP is refused, not redirected: the site's Worker must reach this host over HTTPS
+# (Cloudflare SSL mode Full (strict) for this hostname). A redirect would hide a downgrade
+# after the key had already crossed the network in clear. ACME challenges still work.
+http://BOARD_HOST {
+	respond "HTTPS only" 421
+}

@@ -1,0 +1,33 @@
+<!--
+title: 查询投稿状态
+description: 用回执码查询事件墙投稿或留言的审核结果，或撤回。
+nav: board
+script: board-status.js
+style: board.css
+ads: off
+-->
+<section class="page-head">
+  <div class="wrap board-narrow">
+    <span class="eyebrow">事件墙</span>
+    <h1>查询投稿状态</h1>
+    <p>输入投稿或留言后拿到的回执码，可以查看审核结果，也可以随时撤回。撤回后内容和图片会立即删除。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap board-narrow">
+    <form id="form" class="card feature" novalidate>
+      <div class="field">
+        <label for="receipt">回执码</label>
+        <input id="receipt" class="input" autocomplete="off" spellcheck="false" maxlength="40" placeholder="24 位字母和数字">
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="check">查询</button>
+      <p class="notice mt" id="msg" role="status"></p>
+    </form>
+
+    <div id="result" class="card feature mt hidden">
+      <dl class="kv" id="kv"></dl>
+      <button class="btn btn-ghost mt" type="button" id="withdraw">撤回并删除</button>
+    </div>
+  </div>
+</section>

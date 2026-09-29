@@ -1,0 +1,31 @@
+[Unit]
+Description=end-gfw 事件墙 (board) API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/end-gfw-board/board-server/src/server.js
+WorkingDirectory=/opt/end-gfw-board/board-server
+User=end-gfw-board
+Group=end-gfw-board
+Environment=LISTEN=127.0.0.1:8791
+Environment=FILES_DIR=/var/lib/end-gfw-board/files
+EnvironmentFile=-/etc/end-gfw-board/env
+LoadCredential=board-key:/etc/end-gfw-board/board-key
+LoadCredential=admins:/etc/end-gfw-board/admins
+# Database on Debian-1-1 over the private network, TLS pinned to its certificate
+LoadCredential=db-url:/etc/end-gfw-board/db-url
+LoadCredential=db-ca:/etc/end-gfw-board/db-ca
+StateDirectory=end-gfw-board
+StateDirectoryMode=0700
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+NoNewPrivileges=yes
+MemoryMax=320M
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

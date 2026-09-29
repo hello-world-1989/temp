@@ -45,6 +45,10 @@ LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.a
 # Not share-store.end-gfw.com:
 # a Worker reaching a hostname in its own zone goes to the origin over plain HTTP.
 SHARE_STORE_URL = "https://43-200-196-209.sslip.io,https://43-200-196-209.nip.io"
+# 事件墙 service on Debian-1-2 (new-site/board-server/); secret BOARD_KEY (= SSM /end-gfw/board/BOARD_KEY)
+# set in the dashboard. Port 8443, not 443: the zone's Flexible SSL mode would turn a :443 subrequest
+# into plain HTTP.
+BOARD_URL = "https://board-store.end-gfw.com:8443"
 # Backup links on the upload page: the website account's mirror IPs and the main domain
 SHARE_MIRROR_LINKS = "1"
 SHARE_SITE_URL = "https://end-gfw.com"
@@ -107,3 +111,28 @@ simple = { limit = 60, period = 60 }
 # the #key part of a link never reaches the server.
 [env.preview.observability]
 enabled = true
+
+# ---------------------------------------------------------------------------
+# 事件墙 preview: `wrangler deploy --env board` from the board-preview branch
+# (.github/workflows/board-preview.yml) -> Worker end-gfw-board-preview on board-preview.end-gfw.com.
+# Does not touch end-gfw-new (end-gfw.com / v2.end-gfw.com). The board service runs on
+# Debian-1-2 (new-site/board-server/). Secret BOARD_KEY (= SSM /end-gfw/board/BOARD_KEY) is set
+# in the Cloudflare dashboard. routes, vars, services and observability are not inherited.
+[env.board]
+name = "end-gfw-board-preview"
+workers_dev = false
+routes = [{ pattern = "board-preview.end-gfw.com", custom_domain = true }]
+
+[env.board.vars]
+WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
+XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
+LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
+# Port 8443, not 443: the zone's Flexible SSL mode would turn a :443 subrequest into plain HTTP
+BOARD_URL = "https://board-store.end-gfw.com:8443"
+
+[[env.board.services]]
+binding = "LEGACY"
+service = "end-gfw-legacy"
+
+[env.board.observability]
+enabled = false

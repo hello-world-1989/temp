@@ -1,0 +1,36 @@
+<!--
+title: 事件详情
+description: 事件墙：网友投稿、管理员审核后发布的事件记录。
+nav: board
+script: board-post.js
+style: board.css
+ads: off
+-->
+<section class="section-tight">
+  <div class="wrap board-narrow">
+    <p><a href="/board">← 返回事件墙</a></p>
+    <article id="post" class="card board-post" aria-live="polite">
+      <p class="notice" id="post-msg" role="status">加载中…</p>
+    </article>
+
+    <section class="mt-lg" aria-labelledby="comments-title">
+      <h2 id="comments-title">留言 <span class="muted" id="comment-count"></span></h2>
+      <div id="comments" class="board-comments"></div>
+
+      <form id="comment-form" class="card feature mt hidden" novalidate>
+        <h3>发表留言</h3>
+        <p class="muted" id="premod-note">留言经管理员审核后显示。不要写你的真实姓名、电话或住址。</p>
+        <div class="field mt">
+          <label for="nickname">昵称（可不填）</label>
+          <input id="nickname" class="input" maxlength="20" autocomplete="off" placeholder="匿名">
+        </div>
+        <div class="field mt">
+          <label for="comment">留言</label>
+          <textarea id="comment" class="input board-textarea" maxlength="1000" rows="4" required></textarea>
+        </div>
+        <button class="btn btn-primary mt" type="submit" id="comment-submit">提交留言</button>
+        <p class="notice mt" id="comment-msg" role="status"></p>
+      </form>
+    </section>
+  </div>
+</section>

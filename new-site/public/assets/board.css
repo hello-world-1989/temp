@@ -1,0 +1,70 @@
+/* 事件墙 (board) pages; uses the tokens from site.css */
+
+.board-narrow { max-width: 820px; }
+.row-between { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+
+/* list */
+.board-list { display: grid; gap: 14px; }
+.board-item { display: flex; gap: 16px; padding: 18px; color: var(--text); align-items: flex-start; }
+.board-item:hover { border-color: var(--accent); }
+.board-item-text { flex: 1; min-width: 0; display: grid; gap: 6px; }
+.board-item h3 { margin: 0; font-size: 1.1rem; line-height: 1.4; }
+.board-excerpt { margin: 0; color: var(--muted); font-size: .95rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.board-cover { width: 120px; height: 90px; object-fit: cover; border-radius: 10px; background: var(--surface-2); flex: none; }
+@media (max-width: 560px) { .board-cover { width: 84px; height: 84px; } }
+
+/* one event */
+.board-post { padding: 24px; display: grid; gap: 14px; }
+.board-title { margin: 0; font-size: 1.6rem; line-height: 1.35; }
+.board-body p { margin: 0 0 .9em; white-space: pre-line; overflow-wrap: anywhere; }
+.board-body p:last-child { margin-bottom: 0; }
+.board-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+.board-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; background: var(--surface-2); display: block; }
+.board-foot { border-top: 1px solid var(--line); padding-top: 12px; }
+.board-link { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); cursor: pointer; text-decoration: underline; }
+.board-link:hover { color: var(--danger); }
+.board-comments { display: grid; gap: 10px; }
+.board-comment { padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); display: grid; gap: 6px; }
+
+/* forms */
+.board-textarea { min-height: 120px; resize: vertical; line-height: 1.6; font: inherit; }
+.board-count { font-size: .82rem; justify-self: end; }
+.board-tips { margin: 8px 0 0; padding-left: 1.2em; }
+.board-tips li { margin: 4px 0; }
+.board-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 8px; }
+.board-thumbs:empty { display: none; }
+.board-thumbs figure { margin: 0; display: grid; gap: 6px; }
+.board-thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; background: var(--surface-2); }
+.board-thumbs figure.dropped img { opacity: .3; outline: 2px solid var(--danger); }
+.board-receipt { display: flex; gap: 10px; align-items: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin-top: 12px; }
+.board-receipt code { flex: 1; font-size: 1.1rem; letter-spacing: .04em; word-break: break-all; }
+
+/* admin */
+.board-admin-list { display: grid; gap: 16px; }
+.board-admin-item { display: grid; gap: 4px; }
+.board-check { font-weight: 400; font-size: .9rem; }
+.board-actions { align-items: center; }
+.board-pre { white-space: pre-line; margin: 6px 0 0; color: var(--text) !important; overflow-wrap: anywhere; }
+.board-log { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.board-log td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+
+/* thumbnails: 打码 / 移除 */
+.board-thumb-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.board-thumb-actions .btn { padding-left: 6px; padding-right: 6px; }
+
+/* redaction editor */
+.board-editor { width: min(960px, 100vw - 16px); max-height: calc(100vh - 16px); padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+.board-editor::backdrop { background: rgba(0, 0, 0, .7); }
+.board-editor[open] { display: grid; gap: 10px; }
+.board-editor-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.board-editor-tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.board-editor-tools [aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.board-editor-stage { display: grid; place-items: center; background: var(--surface-2); border-radius: 10px; overflow: hidden; }
+.board-editor-stage canvas { display: block; max-width: 100%; max-height: calc(100vh - 220px); width: auto; height: auto; touch-action: none; cursor: crosshair; }
+.board-editor-hint { margin: 0; font-size: .9rem; }
+
+/* share: QR code of the event link */
+.board-share { display: grid; justify-items: center; gap: 8px; padding: 16px; border-radius: 12px; background: var(--surface-2); text-align: center; }
+.board-share .qr { width: 220px; margin: 0; }
+.board-share-link { font-size: .85rem; word-break: break-all; }
+.board-share p { margin: 0; font-size: .88rem; }

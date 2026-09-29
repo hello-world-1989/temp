@@ -1,0 +1,87 @@
+<!--
+title: 投稿
+description: 匿名投稿到事件墙：记录身边发生的事，管理员审核后发布。
+nav: board
+script: board-submit.js
+style: board.css
+ads: off
+-->
+<section class="page-head">
+  <div class="wrap board-narrow">
+    <span class="eyebrow">事件墙</span>
+    <h1>匿名投稿</h1>
+    <p>不用注册，不需要手机号和邮箱。本站不记录访问者的 IP 地址。投稿经管理员审核后发布；审核时可能删掉能认出你的细节。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap board-narrow">
+    <div class="notice warn">
+      <strong>发之前请先保护好自己：</strong>
+      <ul class="board-tips">
+        <li>用浏览器的无痕模式（隐私模式）投稿，投完关掉窗口。</li>
+        <li>不要写你的真实姓名、电话、住址、单位，也不要写只有你才知道的细节。</li>
+        <li>照片里的拍摄地点、时间、手机型号等隐藏信息会自动删除，图片还会被缩小并重新压缩；但画面本身（人脸、车牌、门牌、窗外景物、屏幕）仍可能认出你或别人。选好图片后点“打码”，把这些地方遮住。</li>
+        <li>投稿后会给你一个回执码，用它查审核结果或撤回投稿。</li>
+      </ul>
+    </div>
+
+    <form id="form" class="card feature mt" novalidate>
+      <div class="field">
+        <label for="title">标题</label>
+        <input id="title" class="input" maxlength="80" autocomplete="off" required placeholder="一句话说明发生了什么">
+      </div>
+      <div class="grid grid-2 mt">
+        <div class="field">
+          <label for="category">分类</label>
+          <select id="category" class="input"></select>
+        </div>
+        <div class="field">
+          <label for="date">发生日期（可不填）</label>
+          <input id="date" class="input" type="date">
+        </div>
+      </div>
+      <div class="field mt">
+        <label for="place">地点（可不填，写到城市或区县即可）</label>
+        <input id="place" class="input" maxlength="60" autocomplete="off" placeholder="例如：某省某市">
+      </div>
+      <div class="field mt">
+        <label for="body">经过</label>
+        <textarea id="body" class="input board-textarea" maxlength="5000" rows="10" required placeholder="发生了什么、什么时候、有多少人、结果怎样。只写你亲眼看到或能确认的。"></textarea>
+        <span class="muted board-count" id="body-count"></span>
+      </div>
+      <div class="field mt">
+        <label for="images">图片（可不选，JPEG / PNG / WebP）</label>
+        <input id="images" class="input" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+        <div id="thumbs" class="board-thumbs"></div>
+        <span class="muted board-count">打码在你的手机上完成，原图不会上传。</span>
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="submit">提交投稿</button>
+      <p class="notice mt" id="msg" role="status"></p>
+    </form>
+
+    <div id="done" class="card feature mt hidden">
+      <h2>投稿已提交</h2>
+      <p>管理员审核通过后会出现在事件墙上。请保存下面的回执码，用它查询审核结果或撤回投稿。<strong>回执码只显示这一次</strong>，丢了就查不到了。</p>
+      <div class="board-receipt"><code id="receipt"></code><button class="btn btn-ghost btn-sm" type="button" id="copy-receipt">复制</button></div>
+      <p class="mt"><a href="/board-status">查询投稿状态</a> · <a href="/board">返回事件墙</a> · <a href="/board-submit">再投一篇</a></p>
+    </div>
+  </div>
+</section>
+
+<dialog id="editor" class="board-editor" aria-labelledby="editor-title">
+  <div class="board-editor-bar">
+    <strong id="editor-title">打码</strong>
+    <div class="board-editor-tools" role="group" aria-label="工具">
+      <button class="btn btn-ghost btn-sm" type="button" data-tool="mosaic">马赛克</button>
+      <button class="btn btn-ghost btn-sm" type="button" data-tool="black">涂黑</button>
+      <button class="btn btn-ghost btn-sm" type="button" id="editor-undo">撤销</button>
+    </div>
+  </div>
+  <div class="board-editor-stage"><canvas id="editor-canvas"></canvas></div>
+  <p class="muted board-editor-hint" id="editor-hint"></p>
+  <div class="board-editor-bar">
+    <button class="btn btn-ghost" type="button" id="editor-cancel">取消</button>
+    <button class="btn btn-primary" type="button" id="editor-done">完成</button>
+  </div>
+</dialog>

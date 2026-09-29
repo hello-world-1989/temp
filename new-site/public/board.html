@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>免费翻墙软件下载 | 大翻墙运动</title>
-<meta name="description" content="Android、iPhone、Windows、Mac、Linux 翻墙软件下载，国内可直接下载，附使用说明。">
+<title>事件墙 | 大翻墙运动</title>
+<meta name="description" content="网友投稿的事件记录，经管理员审核后发布，可以留言讨论。任何人都可以匿名投稿。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b5cff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
 <script type="module" src="/assets/site.js"></script>
 <script src="/assets/ads.js" async></script>
-<script type="module" src="/assets/download.js"></script>
+<link rel="stylesheet" href="/assets/board.css">
+<script type="module" src="/assets/board.js"></script>
 </head>
 
-<body class="page-download">
+<body class="page-board">
 <a class="skip" href="#main">跳到正文</a>
 <div class="site-notice" role="status">
   <div class="wrap">新版网站上线，有问题请<a href="mailto:end.gfw@hotmail.com">反馈</a>。旧版网站入口 <a href="https://v1.end-gfw.com/">v1.end-gfw.com</a>，将于 2026 年 10 月 15 日关闭。</div>
@@ -27,9 +28,9 @@
     </a>
     <nav class="nav nav-desktop" aria-label="主导航">
         <a href="/" data-nav="home">首页</a>
-        <a href="/download" data-nav="download" aria-current="page">软件下载</a>
+        <a href="/download" data-nav="download">软件下载</a>
         <a href="/tweets" data-nav="tweets">推文</a>
-        <a href="/board" data-nav="board">事件墙<span class="beta">Beta</span></a>
+        <a href="/board" data-nav="board" aria-current="page">事件墙<span class="beta">Beta</span></a>
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
@@ -42,9 +43,9 @@
       <summary aria-label="菜单"><span></span><span></span><span></span></summary>
       <nav class="nav nav-mobile" aria-label="主导航（手机）">
         <a href="/" data-nav="home">首页</a>
-        <a href="/download" data-nav="download" aria-current="page">软件下载</a>
+        <a href="/download" data-nav="download">软件下载</a>
         <a href="/tweets" data-nav="tweets">推文</a>
-        <a href="/board" data-nav="board">事件墙<span class="beta">Beta</span></a>
+        <a href="/board" data-nav="board" aria-current="page">事件墙<span class="beta">Beta</span></a>
         <a href="/mirror" rel="nofollow">分站首页</a>
         <a href="/plans" data-nav="plans">赞助支持</a>
         <a href="/my" data-nav="my">我的订阅</a>
@@ -60,24 +61,22 @@
 
 <section class="page-head">
   <div class="wrap">
-    <span class="eyebrow">软件下载</span>
-    <h1>免费翻墙软件</h1>
-    <p>“本站下载”走本站线路，国内通常可以直接打开；GitHub 和官网链接可能需要先翻墙。使用 <a href="/#free">免费节点</a> 或赞助后获得的订阅，推荐用标有“支持订阅”的客户端。</p>
+    <span class="eyebrow">事件墙</span>
+    <h1>民间事件记录</h1>
+    <p>身边发生的事，由亲历者和目击者记录。任何人都可以匿名投稿，管理员审核后发布；发布后可以留言讨论。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/board-submit">我要投稿</a>
+      <a class="btn btn-ghost" href="/board-status">查询投稿状态</a>
+    </div>
   </div>
 </section>
 
 <section class="section-tight">
   <div class="wrap">
-    <div class="tabs" role="tablist" aria-label="按系统筛选">
-      <button class="tab" role="tab" data-os="android" aria-selected="true">Android</button>
-      <button class="tab" role="tab" data-os="ios" aria-selected="false">iPhone / iPad</button>
-      <button class="tab" role="tab" data-os="windows" aria-selected="false">Windows</button>
-      <button class="tab" role="tab" data-os="mac" aria-selected="false">Mac</button>
-      <button class="tab" role="tab" data-os="linux" aria-selected="false">Linux</button>
-    </div>
-    <div id="apps" class="grid grid-3">
-      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
-    </div>
+    <div class="tabs" id="cats" role="tablist" aria-label="分类"></div>
+    <div id="list" class="board-list" aria-live="polite"></div>
+    <p class="notice mt" id="list-msg" role="status"></p>
+    <div class="pager mt"><button class="btn btn-ghost hidden" type="button" id="more">加载更多</button></div>
   </div>
 </section>
 
