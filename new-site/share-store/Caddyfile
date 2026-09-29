@@ -1,12 +1,13 @@
-# end-gfw 加密分享 storage: TLS in front of store.py. Only /f/<id> is served; no access log.
+# end-gfw 加密分享 storage: Caddy in front of store.py, reached only through the Cloudflare
+# Tunnel end-gfw-share (share-store.end-gfw.com -> cloudflared -> 127.0.0.1:8081).
+# No public port, no certificate. Only /f/<id> is served; no access log.
 {
 	admin off
+	auto_https off
 }
 
-# The Worker cannot use a hostname in its own Cloudflare zone (such subrequests go to the
-# origin over plain HTTP), so it uses these IP-based names, which resolve to this server
-# without Cloudflare. share-store.end-gfw.com is kept for direct checks.
-share-store.end-gfw.com, 43-200-196-209.sslip.io, 43-200-196-209.nip.io {
+http://:8081 {
+	bind 127.0.0.1
 	request_body {
 		# 50 MiB file + encryption overhead (MB here would be decimal: 52MB < 50 MiB)
 		max_size 64MiB

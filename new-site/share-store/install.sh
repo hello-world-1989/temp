@@ -18,6 +18,8 @@ systemctl daemon-reload
 systemctl enable --now end-gfw-share
 systemctl restart end-gfw-share
 systemctl enable caddy
-systemctl reload-or-restart caddy
+systemctl restart caddy   # admin off: reload is not possible
+# Public side: Cloudflare Tunnel (outbound only; no inbound port, server IP not in DNS)
+bash ../tunnel/tunnel.sh end-gfw-share share-store.end-gfw.com http://127.0.0.1:8081
 sleep 2
 systemctl is-active end-gfw-share caddy

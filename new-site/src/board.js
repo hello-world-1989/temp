@@ -1,6 +1,6 @@
 // 事件墙 (board): pages are static (/board, /board-submit, /board-status, /board-admin,
 // /board-post); /board/e/<id> is served the /board-post page. /api/board/* goes to the
-// board service on Debian-1-1 (BOARD_URL) with the shared key BOARD_KEY (Worker secret).
+// board service on Debian-1-2 (BOARD_URL, via Cloudflare Tunnel) with the shared key BOARD_KEY (Worker secret).
 //
 // Only what the service needs is forwarded: no IP, no cookies, no user agent. The admin
 // token (Authorization) is forwarded for /api/board/admin/* only.

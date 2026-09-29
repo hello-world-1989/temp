@@ -56,16 +56,18 @@ systemctl daemon-reload
 systemctl enable end-gfw-board >/dev/null 2>&1
 systemctl restart end-gfw-board
 
-# Caddy
+# Caddy: listens on 127.0.0.1 only; the public side is the Cloudflare Tunnel below.
 install -d -m 0755 /etc/caddy/sites
-sed "s/BOARD_HOST/$BOARD_HOST/g" "$src/board-server/deploy/board.caddy" > /etc/caddy/sites/board.caddy
-# Main Caddyfile: each service adds its own site file in /etc/caddy/sites/. default_sni:
-# Cloudflare connects to :8443 without SNI (TLS alert 80 / error 525 otherwise).
-printf '{\n\tdefault_sni %s\n}\n\n# Each service adds its own site file in /etc/caddy/sites/\nimport /etc/caddy/sites/*.caddy\n' "$BOARD_HOST" > /etc/caddy/Caddyfile
+install -m 0644 "$src/board-server/deploy/board.caddy" /etc/caddy/sites/board.caddy
+# Main Caddyfile: each service adds its own site file in /etc/caddy/sites/ (all local, plain HTTP)
+printf '{\n\tauto_https off\n}\n\n# Each service adds its own site file in /etc/caddy/sites/ (bound to 127.0.0.1;\n# published through Cloudflare Tunnels, never on a public port)\nimport /etc/caddy/sites/*.caddy\n' > /etc/caddy/Caddyfile
 caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null
 systemctl enable caddy >/dev/null 2>&1
-systemctl reload-or-restart caddy
+systemctl restart caddy
+
+# Public side: Cloudflare Tunnel (outbound only; no inbound port, server IP not in DNS)
+bash "$src/tunnel/tunnel.sh" end-gfw-board "$BOARD_HOST" http://127.0.0.1:8081
 
 sleep 3
 systemctl is-active end-gfw-board caddy
-curl -fsS -H "x-board-key: $(cat "$conf/board-key")" http://127.0.0.1:8791/api/board/meta >/dev/null && echo "board api ok"
+curl -fsS -H "x-board-key: $(cat "$conf/board-key")" http://127.0.0.1:8081/api/board/meta >/dev/null && echo "board api ok"

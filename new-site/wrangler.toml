@@ -42,13 +42,13 @@ LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.a
 # 加密分享 (/share, enabled 2026-09-29): ciphertext storage on Debian-1-1 (new-site/share-store/), key in the
 # Worker secret SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY; set in the dashboard, kept by
 # wrangler deploy). Dashboard edits from a stale settings page can drop these vars; redeploy then.
-# Not share-store.end-gfw.com:
-# a Worker reaching a hostname in its own zone goes to the origin over plain HTTP.
-SHARE_STORE_URL = "https://43-200-196-209.sslip.io,https://43-200-196-209.nip.io"
+# Reached through the Cloudflare Tunnel end-gfw-share (new-site/tunnel/): Debian-1-1 has no
+# public web port and its IP is not in DNS.
+SHARE_STORE_URL = "https://share-store.end-gfw.com"
 # 事件墙 service on Debian-1-2 (new-site/board-server/); secret BOARD_KEY (= SSM /end-gfw/board/BOARD_KEY)
-# set in the dashboard. Port 8443, not 443: the zone's Flexible SSL mode would turn a :443 subrequest
-# into plain HTTP.
-BOARD_URL = "https://board-store.end-gfw.com:8443"
+# set in the dashboard. Reached through the Cloudflare Tunnel end-gfw-board (new-site/tunnel/):
+# Debian-1-2 has no public web port and its IP is not in DNS.
+BOARD_URL = "https://board-store.end-gfw.com"
 # Backup links on the upload page: the website account's mirror IPs and the main domain
 SHARE_MIRROR_LINKS = "1"
 SHARE_SITE_URL = "https://end-gfw.com"
@@ -83,9 +83,8 @@ XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
 # Ciphertext storage on Debian-1-1 (new-site/share-store/). The key is the Worker secret
 # SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY), set in the Cloudflare dashboard.
-# Not share-store.end-gfw.com: a Worker reaching a hostname in its own zone goes to the
-# origin over plain HTTP. These names resolve to Debian-1-1 without Cloudflare; tried in order.
-SHARE_STORE_URL = "https://43-200-196-209.sslip.io,https://43-200-196-209.nip.io"
+# Reached through the Cloudflare Tunnel end-gfw-share (new-site/tunnel/).
+SHARE_STORE_URL = "https://share-store.end-gfw.com"
 # Backup links on the upload page: mirrors proxy end-gfw.com, where /share is not live yet
 SHARE_MIRROR_LINKS = "0"
 # Preview only: storage error messages in API responses
@@ -127,8 +126,8 @@ routes = [{ pattern = "board-preview.end-gfw.com", custom_domain = true }]
 WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
 XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
-# Port 8443, not 443: the zone's Flexible SSL mode would turn a :443 subrequest into plain HTTP
-BOARD_URL = "https://board-store.end-gfw.com:8443"
+# Reached through the Cloudflare Tunnel end-gfw-board (new-site/tunnel/)
+BOARD_URL = "https://board-store.end-gfw.com"
 
 [[env.board.services]]
 binding = "LEGACY"

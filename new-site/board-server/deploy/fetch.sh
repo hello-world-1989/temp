@@ -10,6 +10,7 @@ for f in board-server/package.json board-server/package-lock.json board-server/s
   board-server/src/server.js board-server/src/app.js board-server/src/config.js board-server/src/pow.js \
   board-server/src/publish.js board-server/src/images.js board-server/src/admin-token.js board-server/src/telegram.js \
   board-server/deploy/install.sh board-server/deploy/end-gfw-board.service board-server/deploy/board.caddy \
+  tunnel/tunnel.sh tunnel/cf_tunnel.py \
   public/assets/share-meta.js; do
   mkdir -p "$dir/$(dirname "$f")"
   curl -fsSL --retry 3 "$base/$f" -o "$dir/$f"
