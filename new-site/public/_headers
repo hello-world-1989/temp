@@ -36,3 +36,9 @@
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
   Referrer-Policy: no-referrer
+
+# 数字安全指南: no third-party scripts at all, no referrer (still indexed)
+/safety
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Referrer-Policy: no-referrer

@@ -45,6 +45,8 @@ a { color: var(--accent); }
 .top { background: var(--surface); border-bottom: 1px solid var(--line); }
 .top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; }
 .brand { font-size: 1.05rem; }
+.burn-tag { color: var(--danger); background: color-mix(in srgb, var(--danger) 12%, transparent); }
+.panic-armed, .btn.panic-armed { background: var(--danger); border-color: var(--danger); color: #fff; }
 .tag { font-size: .7rem; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 1px 6px; vertical-align: middle; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin: 12px 0; }
 .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; font-size: .9rem; }

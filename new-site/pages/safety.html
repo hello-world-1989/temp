@@ -1,0 +1,204 @@
+<!--
+title: 数字安全指南
+description: 给中国大陆用户的数字安全指南：安全翻墙、安全聊天、手机被查、被约谈之前该知道的事，以及本站加密工具的正确用法。
+nav: safety
+ads: off
+index: on
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">数字安全指南</span>
+    <h1>数字安全指南</h1>
+    <p>大多数人出事，不是因为加密被破解，而是因为一个习惯：用微信发了链接、手机里留着截图、翻墙时没关国内 App。这份指南讲的就是这些习惯。本页没有广告和统计代码。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="card feature safety-key">
+      <h2>先记住五件事</h2>
+      <ol>
+        <li><strong>先开翻墙工具，再打开敏感网站。</strong>不开的时候，运营商能看到你连了哪个地址，哪怕看不到内容。</li>
+        <li><strong>敏感内容不经过国内软件。</strong>微信、QQ、钉钉、微博、国内邮箱和网盘，内容都可能被平台审查、保存并交给警方。</li>
+        <li><strong>手机会被查。</strong>相册、聊天记录、浏览记录、装了哪些软件，都可能被翻看。提前清理比临场应对有用得多。</li>
+        <li><strong>内容本身会暴露你。</strong>照片里的场景、只有少数人知道的细节、发布的时间，都能缩小范围找到人。</li>
+        <li><strong>用完就清。</strong>离开本站前点页面最下方的「一键清除本站数据」，或连按三次 Esc。</li>
+      </ol>
+    </div>
+
+    <nav class="card feature safety-toc" aria-label="目录">
+      <p class="footer-title">目录</p>
+      <a href="#net">1. 上网与翻墙</a>
+      <a href="#chat">2. 聊天与通讯</a>
+      <a href="#phone">3. 手机与电脑</a>
+      <a href="#photo">4. 照片和文件</a>
+      <a href="#tools">5. 本站加密工具的正确用法</a>
+      <a href="#wipe">6. 一键清除能做什么、不能做什么</a>
+      <a href="#offline">7. 线下活动与出行</a>
+      <a href="#police">8. 被约谈、被查手机时</a>
+      <a href="#more">9. 延伸阅读</a>
+    </nav>
+  </div>
+</section>
+
+<section class="section-tight safety" id="net">
+  <div class="wrap card feature">
+    <h2>1. 上网与翻墙</h2>
+    <ul>
+      <li><strong>翻墙能藏住内容，藏不住"在翻墙"。</strong>运营商能看到你一直在连某个海外地址，只是看不到在看什么。所以翻墙工具要选不容易被识别的协议（本站节点用 VLESS REALITY、Hysteria2），并且不要到处宣扬自己在用。</li>
+      <li><strong>访问本站、事件墙、加密分享和加密聊天之前先开翻墙工具。</strong>直接打开镜像 IP 虽然能用、内容也是加密的，但"这个人访问过这个 IP"会留在运营商那里，而镜像 IP 是可以被查出来的。</li>
+      <li><strong>翻墙时关掉国内 App 的后台。</strong>全局模式下，国内 App 的流量也会走节点，有的 App 会检测并上报"正在使用代理"。敏感操作最好在一台不装国内 App 的设备上做。</li>
+      <li><strong>用无痕窗口。</strong>无痕窗口关掉后不留浏览记录和本地数据。但它不能隐藏你的网络地址，也防不住截图。</li>
+      <li><strong>不用国内浏览器</strong>（UC、QQ 浏览器、360、夸克等）打开敏感网站，用 Chrome、Firefox、Safari 或 Tor 浏览器。</li>
+      <li><strong>小心输入法。</strong>国内输入法的"云输入"会把你打的字发到服务器。2024 年公民实验室（Citizen Lab）的研究发现，多家主流中文输入法的云输入加密存在漏洞，传输的内容可以被截获。输入敏感内容时关掉云输入，或者改用系统自带键盘。</li>
+      <li><strong>风险最高时用 Tor 浏览器</strong>（在国内要配合 Snowflake 网桥）。它比普通翻墙多一层保护：连节点运营者也不知道你是谁。可以在 <a href="/download">翻墙软件</a> 页下载。</li>
+      <li><strong>只从可信渠道下载翻墙软件</strong>（官方网站、GitHub 官方发布页，或本站下载页）。来路不明的"免费翻墙"可能记录你的一切。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="chat">
+  <div class="wrap card feature">
+    <h2>2. 聊天与通讯</h2>
+    <ul>
+      <li><strong>微信、QQ 上不要谈敏感的事，也不要发敏感链接。</strong>平台能看到全部内容。加密分享、加密聊天的链接里就带着密钥，通过微信发出去，等于把钥匙交给了腾讯。</li>
+      <li><strong>用端到端加密的软件</strong>，比如 Signal，或本站的 <a href="/chat">加密聊天</a>。打开"消息定时删除"。</li>
+      <li><strong>Telegram 的普通聊天和群组不是端到端加密的</strong>，内容存在 Telegram 的服务器上；只有"私密聊天"才是端到端加密。Telegram 群里也常有人专门截图、收集成员信息。</li>
+      <li><strong>手机号就是身份。</strong>国内手机号是实名的，用它注册海外服务，账号就和你本人关联起来了。Signal 可以设置用户名、对别人隐藏手机号。</li>
+      <li><strong>最大的风险往往是群里的人。</strong>任何人都可以截图、拍屏、被抓后交出手机。不要在群里说出自己的真实姓名、单位、住址，也不要发能认出你的照片。</li>
+      <li><strong>核对对方身份。</strong>加密聊天里每个人的昵称旁边有指纹，同一个昵称出现两个不同指纹时会标红，说明可能有人冒充。</li>
+      <li><strong>国内邮箱（QQ、163 等）同样会被审查。</strong>需要邮件时用海外邮箱，并且不要用国内手机号注册。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="phone">
+  <div class="wrap card feature">
+    <h2>3. 手机与电脑</h2>
+    <ul>
+      <li><strong>锁屏密码设长一点</strong>（字母加数字最好，至少不要用生日和 6 位简单数字），关掉锁屏通知里的消息预览。</li>
+      <li><strong>面容和指纹可以被强制解锁，密码不能。</strong>去参加敏感活动、或者感觉可能被带走之前，先让手机只能用密码解锁：
+        <br>iPhone：同时按住侧边按钮和任一音量键约 2 秒，出现"滑动来关机"时点"取消"，之后必须输入密码才能解锁（不要一直按住，否则会触发紧急呼叫）。
+        <br>安卓：长按电源键，选"锁定"（有的手机叫"锁定模式"，需要先在设置里打开这个选项）。</li>
+      <li><strong>"国家反诈中心"App 权限很大</strong>，可以读取手机里装了哪些软件。如果被要求安装，考虑用另一台手机，敏感的东西不要放在装了它的手机上。</li>
+      <li><strong>两台手机最稳妥。</strong>一台日常用，装微信、支付宝、实名 App；另一台只装翻墙和加密通讯，不登录任何实名账号，不插实名手机卡（用 Wi-Fi）。</li>
+      <li><strong>定期清理。</strong>聊天记录、相册里的截图、浏览记录、下载文件夹。已经不用的翻墙软件可以删掉，需要时再装：有人因为手机里有翻墙软件被警告或罚款。</li>
+      <li><strong>小心云备份。</strong>国区 Apple ID 的 iCloud 数据由国内公司运营；小米、华为、OPPO 等手机的云备份也在国内。敏感照片和聊天记录不要同步到这些云上。</li>
+      <li><strong>系统和软件及时更新</strong>，修补已知漏洞。不要随便点陌生人发来的链接和文件。</li>
+      <li><strong>电脑也一样：</strong>设开机密码，打开磁盘加密（Windows 的 BitLocker / 设备加密，Mac 的 FileVault），不用时锁屏。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="photo">
+  <div class="wrap card feature">
+    <h2>4. 照片和文件</h2>
+    <ul>
+      <li><strong>照片里藏着信息。</strong>手机拍的照片通常带有拍摄地点（GPS）、时间和手机型号。发出去之前要去掉。本站的事件墙投稿和加密分享会自动去掉这些信息；发到别处时，先用截图代替原图，或者关掉相机的"位置"权限。</li>
+      <li><strong>画面本身也会暴露你。</strong>窗外的景物、路牌、店名、反光里的人、只有你能拍到的角度。发布前用事件墙投稿页的"打码"工具，把人脸、车牌、门牌、屏幕等涂掉。</li>
+      <li><strong>不要用"模糊"代替打码。</strong>轻度模糊有时能被还原。用马赛克（格子要大）或直接涂黑。</li>
+      <li><strong>截图会留在相册里</strong>，而且常常自动同步到云。截完用完就删，记得清空"最近删除"。</li>
+      <li><strong>Office、PDF 文件里可能有作者姓名、电脑用户名。</strong>分享前另存为新文件，或者直接截图发送。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="tools">
+  <div class="wrap card feature">
+    <h2>5. 本站加密工具的正确用法</h2>
+    <h3><a href="/share">加密分享</a></h3>
+    <ul>
+      <li>文件在你的浏览器里加密，密钥在链接 # 号后面，不会发给服务器。所以<strong>谁拿到完整链接，谁就能打开文件</strong>。</li>
+      <li>勾选"设置密码"，把链接和密码<strong>分两个渠道</strong>发给对方（比如链接用 Signal，密码当面说）。</li>
+      <li>文件被下载一次后就会删除。如果对方打开时发现文件已经没了，说明链接被别人先用了。</li>
+    </ul>
+    <h3><a href="/chat">加密聊天</a></h3>
+    <ul>
+      <li>建群时可以把整个群设为<strong>"阅后即焚群"</strong>：每条消息被别人看过后几秒到几分钟就从所有人那里删除。每条消息也可以单独设置保存时间（最短 1 分钟）。</li>
+      <li>邀请链接里带着群密钥，同样<strong>不要通过微信、QQ 发送</strong>。</li>
+      <li>阅后即焚防不住截图和拍屏。重要的东西不要发。</li>
+      <li>在"我的"里设置口令，身份和群列表会加密保存；手机可能被查时，用"一键清除"删掉本机数据。</li>
+    </ul>
+    <h3><a href="/board">事件墙</a></h3>
+    <ul>
+      <li>事件墙是公开发布的，不是加密的，网站管理员能看到投稿内容。网站不保存投稿人的 IP。</li>
+      <li>照片会自动去掉位置等信息，但画面要自己打码。</li>
+      <li>写的时候想一想：这件事有多少人知道？看了这段文字，能不能猜出是谁写的？</li>
+      <li>保存好回执码，可以用它查询审核结果或撤回投稿。回执码能证明投稿是你发的，所以不要存在会被查的地方。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="wipe">
+  <div class="wrap card feature">
+    <h2>6. 一键清除能做什么、不能做什么</h2>
+    <p>本站每个页面最下方都有「一键清除本站数据」按钮（点两次），加密聊天页右上角也有。<strong>连按三次 Esc 会立即清除，不再确认。</strong></p>
+    <p><button class="btn btn-panic" type="button" data-panic>一键清除本站数据</button></p>
+    <h3>会清除</h3>
+    <ul>
+      <li>本站保存在这个浏览器里的所有数据：加密聊天的身份、昵称和"我的群"，事件墙回执，"我的订阅"里保存的订阅 token，以及缓存的页面。</li>
+      <li>清除后页面会立刻跳到一个普通网站（必应）。</li>
+    </ul>
+    <h3>不会清除（需要你自己处理）</h3>
+    <ul>
+      <li><strong>浏览记录。</strong>网页没有权限删除浏览器历史。请手动清除：
+        <br>Chrome：设置 → 隐私和安全 → 删除浏览数据。
+        <br>Safari（iPhone）：设置 → Safari 浏览器 → 清除历史记录与网站数据。
+        <br>最好一开始就用无痕窗口，关掉即清。</li>
+      <li><strong>其他地址上的数据。</strong>每个镜像 IP、每个备用地址在浏览器看来都是不同的网站，要分别打开再清除一次。</li>
+      <li><strong>下载的文件、截图、拍的照片。</strong>请到下载文件夹和相册里删除，并清空"最近删除"。</li>
+      <li><strong>别人手机里的内容。</strong>你发出去的消息，对方截图或保存了就删不掉。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="offline">
+  <div class="wrap card feature">
+    <h2>7. 线下活动与出行</h2>
+    <ul>
+      <li><strong>手机一直在报告你在哪里。</strong>开着机、插着实名卡，基站就知道你的大概位置。去敏感地点时，考虑不带手机，或者提前关机。飞行模式不等于关机。</li>
+      <li><strong>摄像头和人脸识别非常普遍</strong>，地铁、路口、商场、小区门口都有。</li>
+      <li><strong>支付和出行记录都是实名的：</strong>微信、支付宝付款，地铁乘车码，打车，火车票，酒店入住。这些记录可以拼出你一天的行程。</li>
+      <li><strong>拍照时注意别拍到他人的脸。</strong>你拍的照片如果被查，也可能连累别人。</li>
+      <li><strong>和同伴事先约好：</strong>如果失联多久该怎么办、该通知谁。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="police">
+  <div class="wrap card feature">
+    <h2>8. 被约谈、被查手机时</h2>
+    <p class="notice warn">以下是常识性建议，不是法律意见。情况紧急时请尽快联系律师。</p>
+    <h3>提前准备</h3>
+    <ul>
+      <li><strong>提前清理比临场应对重要得多。</strong>被叫去之后，往往没有机会再处理手机。</li>
+      <li>记住一个信得过的人和一个律师的电话（写在纸上，不要只存在手机里）。</li>
+      <li>和家人提前沟通：家人也可能被找去谈话、被施压。让他们知道你在做什么、不在做什么，比让他们从警察那里听说要好。</li>
+    </ul>
+    <h3>当场</h3>
+    <ul>
+      <li>保持冷静，不要激怒对方，也不要在压力下编造。</li>
+      <li>可以要求对方出示警察证件和相关法律文书，记下对方的姓名、警号、单位和时间地点。</li>
+      <li>只回答被问到的问题，不必主动提供额外的信息，也不要说出其他人的名字。</li>
+      <li>如果要做笔录，签字前逐字看清楚，和你说的不一致的地方可以要求改正。</li>
+    </ul>
+    <h3>事后</h3>
+    <ul>
+      <li>尽快把经过写下来：时间、地点、人员、问了什么、查了什么。</li>
+      <li>手机被拿走过的，当作已经不安全：修改重要账号的密码，退出其他设备上的登录，考虑换一台手机。</li>
+      <li>告诉可能受到牵连的人，让他们也提前做准备。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-tight safety" id="more">
+  <div class="wrap card feature">
+    <h2>9. 延伸阅读</h2>
+    <ul>
+      <li><a href="https://ssd.eff.org/" rel="noopener noreferrer">电子前哨基金会（EFF）《监控自卫》</a>：更完整的数字安全教程，有中文版。</li>
+      <li><a href="https://signal.org/" rel="noopener noreferrer">Signal 官网</a>：端到端加密通讯软件。</li>
+      <li><a href="/faq">本站常见问题</a>：节点和翻墙软件的使用方法。</li>
+    </ul>
+    <p class="muted">这份指南会持续更新。有补充或发现错误，请发邮件到 <a href="mailto:end.gfw@hotmail.com">end.gfw@hotmail.com</a>。可以用浏览器的"打印"功能保存为 PDF，发给需要的朋友（不要通过微信发）。</p>
+  </div>
+</section>

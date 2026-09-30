@@ -8,13 +8,14 @@
 <meta name="color-scheme" content="light dark">
 <title>加密聊天</title>
 <link rel="stylesheet" href="/chat/assets/chat.css">
+<script src="/chat/assets/panic.js" defer></script>
 <script type="module" src="/chat/assets/chat.js"></script>
 </head>
 <body>
 <header class="top">
   <div class="wrap top-row">
     <strong class="brand">加密聊天 <span class="tag">Beta</span></strong>
-    <span class="top-me"><span class="muted small" id="me-fp-top"></span> <button class="btn btn-sm" type="button" id="me-btn">我的</button></span>
+    <span class="top-me"><span class="muted small" id="me-fp-top"></span> <button class="btn btn-sm" type="button" id="me-btn">我的</button> <button class="btn btn-sm danger" type="button" data-panic title="立即清除本机上本站的所有数据并离开（也可连按三次 Esc）">一键清除</button></span>
   </div>
 </header>
 
@@ -33,6 +34,14 @@
       </label>
       <label class="field">消息默认保存多久
         <select id="c-ttl" class="input"></select>
+      </label>
+      <label class="field">阅后即焚（全群默认，每条消息发送时仍可改）
+        <select id="c-burn" class="input">
+          <option value="0">关</option>
+          <option value="10">看过 10 秒后删</option>
+          <option value="60">看过 1 分钟后删</option>
+          <option value="300">看过 5 分钟后删</option>
+        </select>
       </label>
       <button class="btn primary" id="c-submit" type="submit">建群</button>
       <p class="notice" id="c-msg" role="status" hidden></p>
@@ -92,7 +101,7 @@
   <section id="v-room" hidden>
     <div class="room-head">
       <div>
-        <h1 id="r-name">群聊</h1>
+        <h1><span id="r-name">群聊</span> <span class="tag burn-tag" id="r-burn-tag" hidden>阅后即焚群</span></h1>
         <span class="muted small"><span id="r-status">连接中…</span> · <span id="r-online">0</span> 人在线</span>
       </div>
       <div class="room-actions">
@@ -130,6 +139,7 @@
           <option value="0">关</option>
           <option value="10">看过 10 秒后删</option>
           <option value="60">看过 1 分钟后删</option>
+          <option value="300">看过 5 分钟后删</option>
         </select></label>
         <button class="btn primary" type="submit" id="s-submit">发送</button>
       </div>

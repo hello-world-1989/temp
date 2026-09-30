@@ -99,3 +99,17 @@ test('a range past the end is 416', () =>
       assert.equal(res.headers.get('content-range'), 'bytes */11');
     },
   ));
+
+test('一键清除: /wipe and /chat/wipe clear site data and leave for a neutral site', async () => {
+  const worker = (await import('../src/worker.js')).default;
+  for (const path of ['/wipe', '/chat/wipe']) {
+    const res = await worker.fetch(new Request(`https://end-gfw.com${path}`), {}, {});
+    assert.equal(res.status, 200, path);
+    assert.equal(res.headers.get('clear-site-data'), '"cache", "cookies", "storage"');
+    assert.equal(res.headers.get('cache-control'), 'no-store');
+    assert.equal(res.headers.get('referrer-policy'), 'no-referrer');
+    const html = await res.text();
+    assert.match(html, /http-equiv="refresh" content="0;url=https:\/\/www\.bing\.com\/"/);
+    assert.doesNotMatch(html, /翻墙|end-gfw|加密/);
+  }
+});

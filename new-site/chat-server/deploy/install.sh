@@ -56,6 +56,7 @@ install -m 0644 "$src"/chat-server/src/*.js "$app/chat-server/src/"
 install -m 0644 "$src"/chat-server/public/* "$app/chat-server/public/"
 install -m 0644 "$src/board-server/src/pow.js" "$app/board-server/src/pow.js"
 install -m 0644 "$src/public/assets/vendor/qrcode.js" "$app/public/assets/vendor/qrcode.js"
+install -m 0644 "$src/public/assets/panic.js" "$app/public/assets/panic.js"
 (cd "$app/chat-server" && npm ci --omit=dev --no-audit --no-fund --loglevel=error)
 
 # acme.sh for the mirrors' IP certificates (run by the service as end-gfw-chat)

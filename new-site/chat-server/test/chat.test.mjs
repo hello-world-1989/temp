@@ -412,6 +412,16 @@ test('page is served with a strict policy; unknown paths are 404', async () => {
   assert.deepEqual(await (await fetch(`http://${base}/chat/api/entries`)).json(), { entries: [{ url: 'https://end-gfw.com/chat', label: '主站' }] });
 });
 
+test('一键清除: panic.js is served and /chat/wipe clears site data', async () => {
+  assert.equal((await fetch(`http://${base}/chat/assets/panic.js`)).status, 200);
+  const res = await fetch(`http://${base}/chat/wipe`);
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('clear-site-data'), '"cache", "cookies", "storage"');
+  assert.equal(res.headers.get('cache-control'), 'no-store');
+  assert.match(await res.text(), /http-equiv="refresh" content="0;url=https:\/\/www\.bing\.com\/"/);
+  assert.match(await (await fetch(`http://${base}/chat`)).text(), /data-panic/);
+});
+
 test('creating a room needs a fresh proof of work and well-formed fields', async () => {
   const room = C.newRoomId();
   const body = { id: room, auth: C.b64url(C.randomBytes(32)), owner: C.b64url(C.randomBytes(32)), meta: C.b64url(C.randomBytes(40)) };

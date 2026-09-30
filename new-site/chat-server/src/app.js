@@ -79,6 +79,9 @@ export function cleanText(v, max, { multiline = false } = {}) {
   return [...s].length > max ? null : s;
 }
 
+const WIPE_TARGET = 'https://www.bing.com/';
+const WIPE_HTML = `<!doctype html><meta charset="utf-8"><meta name="referrer" content="no-referrer"><meta http-equiv="refresh" content="0;url=${WIPE_TARGET}"><title></title><a href="${WIPE_TARGET}">&#8203;</a>`;
+
 const STATIC = {
   '/chat': ['../public/chat.html', 'text/html; charset=utf-8'],
   '/chat/assets/chat.css': ['../public/chat.css', 'text/css; charset=utf-8'],
@@ -89,6 +92,7 @@ const STATIC = {
   '/chat/assets/chat-identity.js': ['../public/chat-identity.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/chat-rooms.js': ['../public/chat-rooms.js', 'text/javascript; charset=utf-8'],
   '/chat/assets/qrcode.js': ['../../public/assets/vendor/qrcode.js', 'text/javascript; charset=utf-8'],
+  '/chat/assets/panic.js': ['../../public/assets/panic.js', 'text/javascript; charset=utf-8'],
 };
 
 // Everything the page needs comes from this origin; nothing third-party can run on it
@@ -179,6 +183,18 @@ export function createApp({ store, config, entries = { list: () => [] }, now = (
       if (f) {
         res.writeHead(200, { 'Content-Type': f.type, 'Content-Length': f.body.length, 'Cache-Control': 'no-cache', ...securityHeaders(req.headers.host) });
         return res.end(req.method === 'HEAD' ? undefined : f.body);
+      }
+      // 一键清除 (panic.js): the browser drops this address's cache, cookies and storage, then
+      // the page leaves for a neutral site. Same answer as the site Worker's /wipe.
+      if (path === '/chat/wipe') {
+        const body = Buffer.from(WIPE_HTML);
+        res.writeHead(200, {
+          'Content-Type': 'text/html; charset=utf-8', 'Content-Length': body.length, 'Cache-Control': 'no-store',
+          'Clear-Site-Data': '"cache", "cookies", "storage"', 'Referrer-Policy': 'no-referrer',
+          'Content-Security-Policy': "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+          'X-Robots-Tag': 'noindex, nofollow',
+        });
+        return res.end(req.method === 'HEAD' ? undefined : body);
       }
       if (path === '/chat/api/pow') {
         const purpose = { transfer: 'transfer', backup: 'backup', join: 'join' }[url.searchParams.get('for')] || 'room';

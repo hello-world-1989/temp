@@ -335,3 +335,23 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .beta { display: inline-block; margin-left: 4px; padding: 0 5px; border-radius: 6px; font-size: .68rem; font-weight: 700; line-height: 1.5; vertical-align: 2px; background: var(--warn-soft); color: var(--warn); }
 .receipt-unlock { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 .receipt-unlock .input { flex: 1; min-width: 12em; }
+
+/* 一键清除 (panic.js) */
+.btn-panic { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 40%, var(--line)); background: var(--surface); }
+.btn-panic:hover { background: color-mix(in srgb, var(--danger) 10%, var(--surface)); }
+.panic-armed, .btn.panic-armed { background: var(--danger); border-color: var(--danger); color: #fff; }
+.footer-safety { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.footer-safety a { font-weight: 600; }
+.footer-safety span { font-size: .85rem; }
+
+/* 数字安全指南 /safety */
+.page-safety .safety-key ol, .page-safety .safety ul { margin: 10px 0 0; padding-left: 1.3em; display: grid; gap: 10px; }
+.page-safety .safety-key li, .page-safety .safety li { color: var(--text); font-size: .98rem; line-height: 1.7; }
+.page-safety .safety-key { border-color: var(--accent); margin-bottom: 16px; }
+.page-safety .safety h3 { margin-top: 18px; }
+.page-safety .safety p { color: var(--text); margin: 10px 0 0; line-height: 1.7; }
+.page-safety .safety p.muted { color: var(--muted); }
+.page-safety .safety-toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; }
+.page-safety .safety-toc .footer-title { grid-column: 1 / -1; margin: 0 0 4px; }
+.page-safety .safety-toc a { padding: 3px 0; }
+.page-safety section[id] { scroll-margin-top: 80px; }

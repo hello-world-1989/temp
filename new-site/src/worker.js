@@ -55,6 +55,9 @@ export default {
 
 async function route(request, url, env, ctx) {
   const p = url.pathname;
+  // 一键清除 (public/assets/panic.js): answered here, also for /chat/wipe, so it works even
+  // when the chat service is down
+  if (p === '/wipe' || p === '/chat/wipe') return wipeResponse();
   // 加密聊天 (Debian-1-2 through the Cloudflare Tunnel end-gfw-chat)
   if (p === '/chat' || p.startsWith('/chat/')) return chatProxy(request, url, env);
   // 加密分享 (src/share.js); 'disabled' where the Worker has no SHARE bucket
@@ -467,6 +470,23 @@ const hostOfUrl = (u) => {
     return '';
   }
 };
+
+// 一键清除: Clear-Site-Data makes the browser drop this address's HTTP cache, cookies and
+// storage; the page carries nothing that names the site and moves on to a neutral one.
+export const WIPE_TARGET = 'https://www.bing.com/';
+export function wipeResponse() {
+  const html = `<!doctype html><meta charset="utf-8"><meta name="referrer" content="no-referrer"><meta http-equiv="refresh" content="0;url=${WIPE_TARGET}"><title></title><a href="${WIPE_TARGET}">&#8203;</a>`;
+  return new Response(html, {
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'Clear-Site-Data': '"cache", "cookies", "storage"',
+      'Referrer-Policy': 'no-referrer',
+      'Content-Security-Policy': "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      'X-Robots-Tag': 'noindex, nofollow',
+    },
+  });
+}
 
 // Request headers for the chat service: nothing that identifies the visitor
 function chatHeaders(request) {

@@ -10,7 +10,9 @@ import { directoryView, ownerPanel } from './chat-rooms.js';
 
 const $ = (id) => document.getElementById(id);
 const TTLS = [
+  [60, '1 分钟'],
   [300, '5 分钟'],
+  [600, '10 分钟'],
   [3600, '1 小时'],
   [86400, '1 天'],
   [7 * 86400, '7 天'],
@@ -163,7 +165,7 @@ function createView(ctx) {
       const key = randomBytes(32);
       const owner = randomBytes(32);
       const { aes, auth } = await roomKeys(key);
-      const meta = await seal(aes, room, 'meta', { name: $('c-name').value.trim().slice(0, 40), ttl: Number($('c-ttl').value) });
+      const meta = await seal(aes, room, 'meta', { name: $('c-name').value.trim().slice(0, 40), ttl: Number($('c-ttl').value), burn: Number($('c-burn').value) || 0 });
       await api('POST', '/chat/api/rooms', { id: room, auth: await sha256b64(auth), owner: await sha256b64(owner), meta: b64url(meta), pow });
       const invite = await showLink('invite', 'invite-copy', 'invite-backups', fragment(room, key));
       const admin = await showLink('owner', 'owner-copy', 'owner-backups', fragment(room, key, owner));
@@ -236,6 +238,7 @@ async function roomView(frag, identity, vault) {
   let gone = false;
   let maxTtl = 7 * 86400;
   let defaultTtl = 86400;
+  let burnDefaultSet = false;
 
   const list = $('msgs');
   const nowServer = () => Date.now() + serverSkew;
@@ -453,6 +456,13 @@ async function roomView(frag, identity, vault) {
           document.title = `${meta.name} · 加密聊天`;
         }
         if (Number.isInteger(meta.ttl)) defaultTtl = meta.ttl;
+        // 阅后即焚群: the room's default, set once so a reconnect keeps the sender's own choice
+        if (!burnDefaultSet) {
+          burnDefaultSet = true;
+          const b = String(meta.burn || 0);
+          if ([...$('s-burn').options].some((o) => o.value === b)) $('s-burn').value = b;
+          $('r-burn-tag').hidden = !(meta.burn > 0);
+        }
         // 我的群: saved (encrypted) when this device has a 保险箱 open
         vault.remember({ room, key, owner, name: String(meta.name || '').slice(0, 40) }).catch(() => {});
       } catch {
