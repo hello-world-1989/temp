@@ -348,6 +348,11 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 .footer-safety { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 .footer-safety a { font-weight: 600; }
 .footer-safety span { font-size: .85rem; }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.footer-copy { margin: 0; font-size: .85rem; }
+.footer-social { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.footer-social a { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: .88rem; }
+.footer-social a:hover { color: var(--text); }
 
 /* 数字安全指南 /safety */
 .page-safety .safety-key ol, .page-safety .safety ul { margin: 10px 0 0; padding-left: 1.3em; display: grid; gap: 10px; }
