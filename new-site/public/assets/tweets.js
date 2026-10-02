@@ -1,4 +1,4 @@
-import { $, api, esc, safeUrl, ymd, addDays } from './site.js';
+import { $, api, esc, safeUrl, ymd, addDays, copyText } from './site.js';
 
 const params = new URLSearchParams(location.search);
 const today = ymd();
@@ -34,17 +34,55 @@ const filtered = () => {
   return q ? items.filter((t) => String(t.content || '').includes(q)) : items;
 };
 
+const xUrl = (t) => (t.link ? safeUrl(t.link) : `https://x.com/whyyoutouzhele/status/${encodeURIComponent(t.id)}`);
+const X_ICON = '<svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+
 function card(t) {
   const pics = media(t.images);
   const hasVideo = !!String(t.videos || t.originVideos || '').trim();
-  return `<article class="card item">
-    <div class="item-meta"><b>${esc(t.name || '')}</b><span>${esc(t.createdDate)}</span>${Number(t.views) ? `<span>${esc(t.views)} 次浏览</span>` : ''}</div>
+  const id = String(t.id || '');
+  return `<article class="card item${id && id === targetId ? ' item-target' : ''}"${id ? ` id="${esc(id)}"` : ''}>
+    <div class="item-head">
+      <div class="item-meta"><b>${esc(t.name || '')}</b><span>${esc(t.createdDate)}</span>${Number(t.views) ? `<span>${esc(t.views)} 次浏览</span>` : ''}</div>
+      <div class="item-actions">
+        ${id ? `<button class="btn btn-ghost btn-sm" type="button" data-share="${esc(id)}" title="复制分站链接，国内不翻墙也能打开">免墙分享</button>` : ''}
+        ${id || t.link ? `<a class="btn btn-ghost btn-sm" href="${esc(xUrl(t))}" target="_blank" rel="noopener nofollow" title="在 X 上查看原推文">${X_ICON}查看X推文${hasVideo ? '（含视频）' : ''}</a>` : ''}
+      </div>
+    </div>
     <p>${linkify(t.content)}</p>
     ${pics.length ? `<div class="thumbs">${pics.map((src) => `<a href="${esc(src)}" target="_blank" rel="noopener"><img src="${esc(src)}" alt="" loading="lazy"></a>`).join('')}</div>` : ''}
-    <div class="row">
-      ${t.link ? `<a class="btn btn-ghost btn-sm" href="${esc(safeUrl(t.link))}" rel="noopener nofollow">在 X 查看${hasVideo ? '（含视频）' : ''}</a>` : ''}
-    </div>
   </article>`;
+}
+
+// "免墙分享": like the old site, a link to this tweet on one of the mirrors (分站, https://<ip>/,
+// opens in China without a VPN), with the tweet's id as the anchor
+let mirrorsReq = null;
+const mirrors = () => (mirrorsReq ||= api('/api/free').then((d) => (d.mirrors || []).filter((m) => /^https?:\/\/[^/]+\/$/.test(m))).catch(() => { mirrorsReq = null; return []; }));
+async function shareTweet(id) {
+  const list = await mirrors();
+  const base = list.length ? list[Math.floor(Math.random() * list.length)] : `${location.origin}/`;
+  await copyText(`${base}tweets?date=${date}#${encodeURIComponent(id)}`);
+}
+$('#feed').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-share]');
+  if (btn) shareTweet(btn.getAttribute('data-share'));
+});
+
+// Opened from a shared link (#<tweet id>): show enough of the day to include it and scroll there
+let anchorDone = false;
+let targetId = '';
+function showAnchor() {
+  if (anchorDone) return;
+  anchorDone = true;
+  let id = '';
+  try { id = decodeURIComponent(location.hash.slice(1)); } catch {}
+  if (!id) return;
+  const i = filtered().findIndex((t) => String(t.id) === id);
+  if (i < 0) return;
+  targetId = id;
+  shown = Math.max(shown, Math.ceil((i + 1) / BATCH) * BATCH);
+  render();
+  document.getElementById(id)?.scrollIntoView({ block: 'start' });
 }
 
 function render() {
@@ -100,6 +138,7 @@ async function load() {
   shown = previewMode ? Infinity : BATCH;
   setPreviewLink();
   render();
+  showAnchor();
 }
 
 function go(d) {

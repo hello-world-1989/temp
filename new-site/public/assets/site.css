@@ -226,6 +226,10 @@ p { margin: 0 0 1em; }
 .feed { display: grid; gap: 14px; }
 .item { padding: 18px; display: grid; gap: 8px; }
 .item-meta { display: flex; gap: 10px; align-items: center; font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
+.item-head { display: flex; gap: 8px 12px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+.item-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.item-actions .x-icon { width: 14px; height: 14px; fill: currentColor; margin-right: 4px; vertical-align: -2px; }
+.item-target { outline: 2px solid var(--accent); outline-offset: 2px; scroll-margin-top: 80px; }
 .item h3 { margin: 0; font-size: 1.08rem; }
 .item p { margin: 0; color: var(--text); white-space: pre-line; }
 .item .thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
@@ -298,10 +302,11 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 @media print {
   :root { --bg: #fff; --surface: #fff; --surface-2: #f3f5f9; --text: #000; --muted: #444; --line: #ccc; --accent: #0b5cff; }
   body { background: #fff; color: #000; }
-  .site-notice, .site-header, .site-footer, .ad-section, .feed-more, .adsbygoogle, .skip, .pager, .search, #pdf, #preview, .row .btn { display: none !important; }
+  .site-notice, .site-header, .site-footer, .ad-section, .feed-more, .adsbygoogle, .skip, .pager, .search, #pdf, #preview, .row .btn, .item-actions { display: none !important; }
   .card { box-shadow: none; break-inside: avoid; }
   .item .thumbs img { max-height: 320px; }
   a[href^="http"]::after { content: none; }
+  .item-target { outline: none; }
 }
 
 .feed-more { text-align: center; display: grid; gap: 10px; justify-items: center; }
@@ -309,7 +314,7 @@ ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
 /* Tweets preview page (?view=print): the print layout on screen, with the save button kept */
 .print-view { background: #fff; color: #0f1b2d; --bg: #fff; --surface: #fff; --text: #0f1b2d; --muted: #5b6b82; --line: #dde4ee; }
 .print-view .site-notice, .print-view .site-header, .print-view .site-footer, .print-view .ad-section,
-.print-view .feed-more, .print-view .pager, .print-view .search, .print-view #preview, .print-view .row .btn { display: none !important; }
+.print-view .feed-more, .print-view .pager, .print-view .search, .print-view #preview, .print-view .row .btn, .print-view .item-actions { display: none !important; }
 .print-view .card { box-shadow: none; }
 
 /* events timeline */
