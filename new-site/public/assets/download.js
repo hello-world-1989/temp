@@ -17,6 +17,10 @@ const icon = (img) => (img && !/^https?:/.test(img) ? `/${img.replace(/^\//, '')
 
 let apps = [];
 
+// Apps listed after all others regardless of star rating
+const LAST = /karing/i;
+const rank = (a) => (LAST.test(`${a.id} ${a.name}`) ? 1 : 0);
+
 function card(a) {
   const stars = Math.max(0, Math.min(10, Number(a.star) || 0));
   const sub = SUBSCRIPTION_CLIENTS.test(`${a.id} ${a.name}`);
@@ -40,7 +44,7 @@ function card(a) {
 
 function show(os) {
   document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.os === os)));
-  const list = apps.filter((a) => a.os === os).sort((a, b) => (Number(b.star) || 0) - (Number(a.star) || 0));
+  const list = apps.filter((a) => a.os === os).sort((a, b) => rank(a) - rank(b) || (Number(b.star) || 0) - (Number(a.star) || 0));
   $('#apps').innerHTML = list.length ? list.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的软件。</p>';
   // Long instructions are cut to four lines; show 展开 only where something is hidden
   document.querySelectorAll('#apps .app').forEach((el) => {
