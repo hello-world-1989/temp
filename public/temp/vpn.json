@@ -11,7 +11,7 @@
     "image": "images/nthlink.webp",
     "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -25,7 +25,7 @@
     "image": "images/nthlink.webp",
     "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -68,7 +68,7 @@
     "image": "images/outline.webp",
     "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
   {
     "os": "windows",
@@ -82,7 +82,7 @@
     "image": "images/outline.webp",
     "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
   {
     "os": "ios",
@@ -111,7 +111,7 @@
     "comment": "获取海外苹果账户见主页或常见问题; 谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/outline.webp",
     "star": 11,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
   {
     "os": "android",
@@ -125,7 +125,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
   {
     "os": "android",
@@ -139,9 +139,8 @@
     "image": "https://hiddify.com/assets/hiddify-logo.svg",
     "mainLink": "https://hiddify.com/",
     "star": 13,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
-
   {
     "os": "windows",
     "id": "hiddify",
@@ -154,9 +153,8 @@
     "image": "https://hiddify.com/assets/hiddify-logo.svg",
     "mainLink": "https://hiddify.com/",
     "star": 13,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
-
   {
     "os": "mac",
     "id": "hiddify",
@@ -169,9 +167,8 @@
     "image": "https://hiddify.com/assets/hiddify-logo.svg",
     "mainLink": "https://hiddify.com/",
     "star": 13,
-    "date": "26年8月27日更新"
+    "date": "26年9月28日更新"
   },
-
   {
     "os": "ios",
     "id": "hiddify",
@@ -186,34 +183,19 @@
     "star": 13,
     "date": "26年8月27日更新"
   },
-
-  {
-    "os": "android",
-    "id": "karing",
-    "name": "Karing",
-    "link1": "/download-app/android/android-karing.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-karing.zip",
-    "helpLink": "/index.html#karing_sub",
-    "helpText": "获取SS密钥或订阅链接",
-    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
-    "image": "https://karing.app/img/logo.png",
-    "mainLink": "https://karing.app/",
-    "star": 12,
-    "date": "26年8月27日更新"
-  },
   {
     "os": "android",
     "id": "clash",
     "name": "Clash",
     "link1": "/download-app/android/android-clash.zip",
-    "link2": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases/download/v2.11.13/cmfa-2.11.13-meta-universal-release.apk",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-clash.zip",
     "helpLink": "/index.html#v2ray_sub",
     "helpText": "获取订阅链接",
     "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开clash->配置 右上角+ ->从URL导入主页Clash订阅链接",
     "image": "images/clash.png",
     "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
     "star": 10,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -227,21 +209,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10,
-    "date": "26年3月13日更新"
-  },
-  {
-    "os": "windows",
-    "id": "karing",
-    "name": "Karing",
-    "link1": "/download-app/windows/windows-karing.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-karing.zip",
-    "helpLink": "/index.html#karing_sub",
-    "helpText": "获取SS密钥或订阅链接",
-    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
-    "image": "https://karing.app/img/logo.png",
-    "mainLink": "https://karing.app/",
-    "star": 12,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -256,20 +224,6 @@
     "comment": "免费获取海外苹果账户主页或见常见问题;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray添加单个节点配置(非订阅链接)->右上角+ -> 扫描二维码或从剪贴板导入 -> 右上角相机 ->点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接;进阶用法 订阅链接 从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
     "star": 10
-  },
-  {
-    "os": "ios",
-    "id": "karing",
-    "name": "Karing",
-    "link1": "/download-app/ios/ios-karing.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/ios/ios-karing.zip",
-    "helpLink": "/index.html#karing_sub",
-    "helpText": "获取SS密钥或订阅链接",
-    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
-    "image": "https://karing.app/img/logo.png",
-    "mainLink": "https://karing.app/",
-    "star": 12,
-    "date": "26年8月27日更新"
   },
   {
     "os": "ios",
@@ -298,20 +252,6 @@
     "comment": "获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
     "image": "images/v2ray.webp",
     "star": 8
-  },
-  {
-    "os": "mac",
-    "id": "karing",
-    "name": "Karing",
-    "link1": "/download-app/mac/mac-karing.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-karing.zip",
-    "helpLink": "/index.html#karing_sub",
-    "helpText": "获取SS密钥或订阅链接",
-    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
-    "image": "https://karing.app/img/logo.png",
-    "mainLink": "https://karing.app/",
-    "star": 12,
-    "date": "26年8月27日更新"
   },
   {
     "os": "ios",
@@ -354,9 +294,8 @@
     "comment": "由于安装包没有签名，会提示应用已损坏；安装后需要运行：xattr -cr /Applications/v2rayN.app 获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray添加单个节点配置(非订阅链接)->右上角+ -> 扫描二维码或从剪贴板导入 -> 右上角相机 ->点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接;进阶用法 订阅链接 从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
     "star": 10,
-    "date": "26年3月13日更新"
+    "date": "26年10月8日更新"
   },
-
   {
     "os": "android",
     "id": "chrome",
@@ -379,7 +318,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -402,9 +341,8 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
-
   {
     "os": "android",
     "id": "warpplus",
@@ -425,7 +363,8 @@
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
     "mainLink": "https://1.1.1.1/zh-Hans/",
-    "star": 8.1
+    "star": 8.1,
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -449,7 +388,8 @@
     "mainText": "获取苹果账户",
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
-    "star": 8.1
+    "star": 8.1,
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -464,52 +404,6 @@
   },
   {
     "os": "android",
-    "id": "geph",
-    "name": "迷雾通",
-    "link1": "/download-app/android/android-geph.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-geph.zip",
-    "comment": "需注册(无需手机号邮箱)",
-    "image": "images/geph.webp",
-    "mainLink": "https://geph.io/zhs",
-    "star": 7.2
-  },
-  {
-    "os": "windows",
-    "id": "geph",
-    "name": "迷雾通",
-    "link1": "/download-app/windows/windows-geph.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-geph.zip",
-    "comment": "需注册(无需手机号邮箱)",
-    "image": "images/geph.webp",
-    "mainLink": "https://geph.io/zhs",
-    "star": 7.2
-  },
-  {
-    "os": "mac",
-    "id": "geph",
-    "name": "迷雾通",
-    "link1": "/download-app/mac/mac-geph.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-geph.zip",
-    "mainLink": "/index.html#apple-account",
-    "mainText": "获取苹果账户",
-    "comment": "需注册(无需手机号邮箱)",
-    "image": "images/geph.webp",
-    "star": 7.2
-  },
-  {
-    "os": "linux",
-    "id": "geph",
-    "name": "迷雾通",
-    "link1": "#",
-    "link2": "#",
-    "comment": "需注册(无需手机号邮箱)",
-    "image": "images/geph.webp",
-    "mainLink": "https://geph.io/zhs",
-    "star": 7.2
-  },
-
-  {
-    "os": "android",
     "id": "psiphon",
     "name": "赛风",
     "link1": "/download-app/android/android-psiphon.zip",
@@ -518,7 +412,7 @@
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -530,7 +424,7 @@
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6,
-    "date": "26年8月27日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -566,7 +460,8 @@
     "comment": "设置静态IP和DNS 8.8.4.4, 需要配合网桥使用，发邮件获取;隐私优先，速度慢",
     "image": "images/orbot.png",
     "mainLink": "https://orbot.app/zh_Hans/download/",
-    "star": 8.7
+    "star": 8.7,
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -592,7 +487,6 @@
     "image": "images/orbot.png",
     "star": 8.7
   },
-
   {
     "os": "android",
     "id": "tor",
@@ -602,7 +496,8 @@
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
-    "star": 8.5
+    "star": 8.5,
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -613,7 +508,8 @@
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
-    "star": 8.5
+    "star": 8.5,
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -637,9 +533,9 @@
     "mainText": "获取苹果账户",
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
-    "star": 8.5
+    "star": 8.5,
+    "date": "26年10月8日更新"
   },
-
   {
     "os": "android",
     "id": "freegate",
@@ -697,7 +593,6 @@
     "star": 6,
     "date": "26年3月13日更新"
   },
-
   {
     "os": "mac",
     "id": "freebrowser",
@@ -711,7 +606,6 @@
     "star": 6,
     "date": "26年3月13日更新"
   },
-
   {
     "os": "android",
     "id": "ooni",
@@ -722,7 +616,7 @@
     "image": "images/ooni.webp",
     "mainLink": "https://ooni.org/install/",
     "star": 8.8,
-    "date": "26年3月13日更新"
+    "date": "26年9月28日更新"
   },
   {
     "os": "windows",
@@ -734,7 +628,7 @@
     "image": "images/ooni.webp",
     "mainLink": "https://ooni.org/install/",
     "star": 8.8,
-    "date": "26年3月13日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -759,6 +653,86 @@
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
     "star": 8.8,
-    "date": "26年3月13日更新"
+    "date": "26年10月8日更新"
+  },
+  {
+    "os": "linux",
+    "id": "hiddify",
+    "name": "Hiddify",
+    "link1": "/download-app/linux/linux-hiddify.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-hiddify.zip",
+    "helpLink": "/index.html#hiddify_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "Linux：压缩包里有 AppImage（chmod +x 后直接运行，适合所有发行版）和 deb（Debian/Ubuntu：sudo apt install ./Hiddify-Debian-x64.deb）;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Hiddify->中间 点击链接(非订阅链接) ->扫描二维码或从剪贴板导入 -> 返回->再次 点击连接;如果有多个,点击节点，选择一个节点;进阶用法: 订阅链接",
+    "image": "https://hiddify.com/assets/hiddify-logo.svg",
+    "mainLink": "https://hiddify.com/",
+    "star": 13,
+    "date": "26年9月28日更新"
+  },
+  {
+    "os": "linux",
+    "id": "outline",
+    "name": "Outline",
+    "link1": "/download-app/linux/linux-outline.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-outline.zip",
+    "helpLink": "/index.html#outline",
+    "helpText": "获取SS密钥",
+    "comment": "Linux：AppImage，chmod +x Outline-Client.AppImage 后直接运行;谷歌出品，密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学",
+    "image": "images/outline.webp",
+    "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
+    "star": 11,
+    "date": "26年9月28日更新"
+  },
+  {
+    "os": "linux",
+    "id": "v2ray",
+    "name": "V2ray",
+    "link1": "/download-app/linux/linux-v2ray.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-v2ray.zip",
+    "helpLink": "/index.html#v2ray_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "Linux：v2rayN 桌面版，按电脑架构选 linux-64（x86_64）或 linux-arm64，解压后运行 v2rayN;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray添加单个节点配置(非订阅链接)->右上角+ -> 扫描二维码或从剪贴板导入 -> 右上角相机 ->点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接;进阶用法 订阅链接 从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
+    "image": "images/v2ray.webp",
+    "mainLink": "https://github.com/2dust/v2rayN/releases",
+    "star": 10,
+    "date": "26年10月8日更新"
+  },
+  {
+    "os": "linux",
+    "id": "clash",
+    "name": "Clash Verge",
+    "link1": "/download-app/linux/linux-clash.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-clash.zip",
+    "helpLink": "/index.html#v2ray_sub",
+    "helpText": "获取订阅链接",
+    "comment": "Linux：Clash Verge Rev（mihomo 内核），deb 安装包，sudo apt install ./Clash.Verge_*.deb；使用方法：订阅 → 粘贴主页 Clash 订阅链接 → 导入",
+    "image": "images/clash.png",
+    "mainLink": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
+    "star": 10,
+    "date": "26年10月8日更新"
+  },
+  {
+    "os": "linux",
+    "id": "chrome",
+    "name": "Google Chrome浏览器",
+    "link1": "/download-app/linux/linux-chrome.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-chrome.zip",
+    "comment": "浏览器;Linux：deb 安装包，sudo apt install ./google-chrome-stable_current_amd64.deb",
+    "image": "images/chrome.webp",
+    "star": 9,
+    "web": "https://www.google.com/chrome/",
+    "date": "26年10月8日更新"
+  },
+  {
+    "os": "linux",
+    "id": "tor",
+    "name": "Tor浏览器",
+    "link1": "/download-app/linux/linux-tor.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-tor.zip",
+    "comment": "Linux：解压 tar.xz 后运行 start-tor-browser.desktop;浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
+    "image": "images/tor.webp",
+    "mainLink": "https://www.torproject.org/download/",
+    "star": 8.5,
+    "date": "26年10月8日更新"
   }
 ]
