@@ -11,7 +11,7 @@
     "image": "images/nthlink.webp",
     "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -25,7 +25,7 @@
     "image": "images/nthlink.webp",
     "mainLink": "https://www.downloadnth.com/download.html",
     "star": 9,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -209,7 +209,7 @@
     "image": "images/clash.png",
     "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -223,7 +223,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://www.v2ray.com/awesome/tools.html",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -350,7 +350,7 @@
     "comment": "由于安装包没有签名，会提示应用已损坏；安装后需要运行：xattr -cr /Applications/v2rayN.app 获取海外苹果账户见主页或常见问题; 密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开V2Ray添加单个节点配置(非订阅链接)->右上角+ -> 扫描二维码或从剪贴板导入 -> 右上角相机 ->点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接;进阶用法 订阅链接 从剪贴板导入主页V2Ray订阅链接;右上角...->更新当前组订阅->测试当前组配置真链接;点击任意一个end-gfw.com链接->右下角播放按钮，左下角会显示已链接",
     "image": "images/v2ray.webp",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "android",
@@ -374,7 +374,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -397,7 +397,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "android",
@@ -420,7 +420,7 @@
     "image": "images/warpplus.webp",
     "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -445,7 +445,7 @@
     "comment": "可能需要安装谷歌三件套",
     "image": "images/warpplus.webp",
     "star": 8.1,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -513,7 +513,7 @@
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -525,7 +525,7 @@
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -562,7 +562,7 @@
     "image": "images/orbot.png",
     "mainLink": "https://orbot.app/zh_Hans/download/",
     "star": 8.7,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -598,7 +598,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -610,7 +610,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -635,7 +635,7 @@
     "comment": "浏览器;需要配合网桥使用，见常见问题;隐私优先，速度略慢",
     "image": "images/tor.webp",
     "star": 8.5,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "android",
@@ -729,7 +729,7 @@
     "image": "images/ooni.webp",
     "mainLink": "https://ooni.org/install/",
     "star": 8.8,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -754,7 +754,7 @@
     "comment": "帮助OTF检测防火墙屏蔽方式，以便开发出更好用翻墙软件，请协助测试",
     "image": "images/ooni.webp",
     "star": 8.8,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -810,7 +810,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayN/releases",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -824,7 +824,7 @@
     "image": "images/clash.png",
     "mainLink": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -836,7 +836,7 @@
     "image": "images/chrome.webp",
     "star": 9,
     "web": "https://www.google.com/chrome/",
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -848,6 +848,6 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年9月28日更新"
+    "date": "26年10月8日更新"
   }
 ]

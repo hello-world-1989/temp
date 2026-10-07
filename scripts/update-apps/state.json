@@ -64,55 +64,55 @@
     "updated": "2026-09-28T05:27:02.938Z"
   },
   "windows-v2ray.zip": {
-    "version": "7.24.9",
+    "version": "7.25.4",
     "files": [
       "v2rayN-windows-64-desktop.zip",
       "v2rayN-windows-arm64-desktop.zip"
     ],
-    "updated": "2026-09-28T05:27:13.204Z"
+    "updated": "2026-10-07T20:12:43.002Z"
   },
   "mac-v2ray.zip": {
-    "version": "7.24.9",
+    "version": "7.25.4",
     "files": [
       "v2rayN-macos-64.dmg",
       "v2rayN-macos-arm64.dmg"
     ],
-    "updated": "2026-09-28T05:27:28.790Z"
+    "updated": "2026-10-07T20:13:06.820Z"
   },
   "android-clash.zip": {
-    "version": "v2.11.34",
+    "version": "v2.11.35",
     "files": [
-      "cmfa-2.11.34-meta-universal-release.apk"
+      "cmfa-2.11.35-meta-universal-release.apk"
     ],
-    "updated": "2026-09-28T05:27:36.774Z"
+    "updated": "2026-10-07T20:13:19.277Z"
   },
   "android-nthlink.zip": {
-    "version": "https://www.downloadnth.com/nthlink-android-current.apk|\"6a3a3a2b-5665d0d\"|Tue, 23 Jun 2026 07:47:55 GMT|90594573",
+    "version": "https://www.downloadnth.com/nthlink-android-current.apk|\"6abf2809-5443ee0\"|Fri, 02 Oct 2026 03:42:01 GMT|88358624",
     "files": [
       "nthlink-android-current.apk"
     ],
-    "updated": "2026-09-28T05:27:43.877Z"
+    "updated": "2026-10-07T20:13:27.942Z"
   },
   "windows-nthlink.zip": {
-    "version": "https://www.downloadnth.com/nthlink-win64-current.exe|\"6a3a3d93-11a5e6f8\"|Tue, 23 Jun 2026 08:02:27 GMT|296085240",
+    "version": "https://www.downloadnth.com/nthlink-win64-current.exe|\"6abf24ae-11a376b8\"|Fri, 02 Oct 2026 03:27:42 GMT|295925432",
     "files": [
       "nthlink-win64-current.exe"
     ],
-    "updated": "2026-09-28T05:27:59.516Z"
+    "updated": "2026-10-07T20:13:51.014Z"
   },
   "windows-chrome.zip": {
-    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"6d2cdc3-3c1aab87\"|Fri, 25 Sep 2026 15:18:12 GMT|165938616",
+    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"6e6406c-3c1aab87\"|Wed, 07 Oct 2026 17:24:11 GMT|167683000",
     "files": [
       "ChromeStandaloneSetup64.exe"
     ],
-    "updated": "2026-09-28T05:28:10.920Z"
+    "updated": "2026-10-07T20:14:09.490Z"
   },
   "mac-chrome.zip": {
-    "version": "https://dl.google.com/tag/s/appguid%3DCOM.GOOGLE.CHROME%26brand%3DGGRO/chrome/mac/universal/stable/googlechrome.dmg|\"6d2ce57-e441ac88\"|Tue, 22 Sep 2026 18:18:25 GMT|282964019",
+    "version": "https://dl.google.com/tag/s/appguid%3DCOM.GOOGLE.CHROME%26brand%3DGGRO/chrome/mac/universal/stable/googlechrome.dmg|\"6e668c8-e441ac88\"|Tue, 06 Oct 2026 17:22:12 GMT|282304813",
     "files": [
       "googlechrome.dmg"
     ],
-    "updated": "2026-09-28T05:28:27.518Z"
+    "updated": "2026-10-07T20:14:34.081Z"
   },
   "android-ooni.zip": {
     "version": "374",
@@ -122,75 +122,75 @@
     "updated": "2026-09-28T05:32:54.366Z"
   },
   "windows-ooni.zip": {
-    "version": "v6.2.0",
+    "version": "v6.2.1",
     "files": [
-      "OONI-Probe-6.2.0.exe"
+      "OONI-Probe-6.2.1.exe"
     ],
-    "updated": "2026-09-28T05:33:08.496Z"
+    "updated": "2026-10-07T20:14:58.321Z"
   },
   "mac-ooni.zip": {
-    "version": "v6.2.0",
+    "version": "v6.2.1",
     "files": [
-      "OONI-Probe-6.2.0.dmg"
+      "OONI-Probe-6.2.1.dmg"
     ],
-    "updated": "2026-09-28T05:33:24.244Z"
+    "updated": "2026-10-07T20:15:36.112Z"
   },
   "android-orbot.zip": {
-    "version": "17.9.6-BETA-1-tor-0.4.9.12",
+    "version": "17.9.7-BETA-1-tor-0.4.9.13.2",
     "files": [
-      "Orbot-17.9.6-BETA-1-tor-0.4.9.12-2-g7b2bb2571-fullperm-arm64-v8a-release.apk"
+      "Orbot-17.9.7-BETA-1-tor-0.4.9.13.2-1-g1bf1722f4-fullperm-universal-release.apk"
     ],
-    "updated": "2026-09-28T05:33:27.836Z"
+    "updated": "2026-10-07T20:15:44.748Z"
   },
   "android-tor.zip": {
-    "version": "15.0.23",
+    "version": "15.0.24",
     "files": [
-      "tor-browser-android-armv7-15.0.23.apk",
-      "tor-browser-android-aarch64-15.0.23.apk"
+      "tor-browser-android-armv7-15.0.24.apk",
+      "tor-browser-android-aarch64-15.0.24.apk"
     ],
-    "updated": "2026-09-28T05:33:51.870Z"
+    "updated": "2026-10-07T20:16:11.643Z"
   },
   "windows-tor.zip": {
-    "version": "15.0.23",
+    "version": "15.0.24",
     "files": [
-      "tor-browser-windows-x86_64-portable-15.0.23.exe"
+      "tor-browser-windows-x86_64-portable-15.0.24.exe"
     ],
-    "updated": "2026-09-28T05:34:01.439Z"
+    "updated": "2026-10-07T20:16:34.319Z"
   },
   "mac-tor.zip": {
-    "version": "15.0.23",
+    "version": "15.0.24",
     "files": [
-      "tor-browser-macos-15.0.23.dmg"
+      "tor-browser-macos-15.0.24.dmg"
     ],
-    "updated": "2026-09-28T05:34:15.737Z"
+    "updated": "2026-10-07T20:16:58.827Z"
   },
   "windows-warpplus.zip": {
-    "version": "https://downloads.cloudflareclient.com/v1/download/windows/version/2026.7.1376.0|\"92475c156b6699ad10cb2eb56e9f2a06\"||59437056",
+    "version": "https://downloads.cloudflareclient.com/v1/download/windows/version/2026.8.2100.0|\"878e6a6fb5126ac251699f91657439e2-1\"||60207104",
     "files": [
-      "2026.7.1376.0"
+      "2026.8.2100.0"
     ],
-    "updated": "2026-09-28T05:34:21.483Z"
+    "updated": "2026-10-07T20:17:06.543Z"
   },
   "mac-warpplus.zip": {
-    "version": "https://downloads.cloudflareclient.com/v1/download/macos/version/2026.7.1376.0|\"23237ae43e7a363a915f6d159658610c-1\"||152847432",
+    "version": "https://downloads.cloudflareclient.com/v1/download/macos/version/2026.8.2100.0|\"8817b605d23a935e4cdf053d9b98efbe-1\"||165866465",
     "files": [
-      "2026.7.1376.0"
+      "2026.8.2100.0"
     ],
-    "updated": "2026-09-28T05:34:34.035Z"
+    "updated": "2026-10-07T20:17:22.636Z"
   },
   "android-psiphon.zip": {
-    "version": "https://psiphon.ca/PsiphonAndroid.apk|\"18bee82-65b004ae652c0\"|Tue, 08 Sep 2026 22:31:15 GMT|25947778",
+    "version": "https://psiphon.ca/PsiphonAndroid.apk|\"5ca5d606770c7d853cf9e320183cf3bc\"||25947778",
     "files": [
       "PsiphonAndroid.apk"
     ],
-    "updated": "2026-09-28T05:34:37.015Z"
+    "updated": "2026-10-07T20:17:27.542Z"
   },
   "windows-psiphon.zip": {
-    "version": "https://psiphon.ca/psiphon3.exe|\"ac9450-658f7588bfe80\"|Fri, 14 Aug 2026 01:00:26 GMT|11310160",
+    "version": "https://psiphon.ca/psiphon3.exe|\"abc8b1e76718c806d5043bae7eae1d75\"||11310160",
     "files": [
       "psiphon3.exe"
     ],
-    "updated": "2026-09-28T05:34:39.020Z"
+    "updated": "2026-10-07T20:17:31.478Z"
   },
   "windows-karing.zip": {
     "version": "v1.2.25.2802",
@@ -222,32 +222,32 @@
     "updated": "2026-09-28T06:01:50.591Z"
   },
   "linux-v2ray.zip": {
-    "version": "7.24.9",
+    "version": "7.25.4",
     "files": [
       "v2rayN-linux-64.zip",
       "v2rayN-linux-arm64.zip"
     ],
-    "updated": "2026-09-28T06:02:03.026Z"
+    "updated": "2026-10-07T20:17:50.717Z"
   },
   "linux-clash.zip": {
-    "version": "v2.5.6",
+    "version": "v2.5.7",
     "files": [
-      "Clash.Verge_2.5.6_amd64.deb"
+      "Clash.Verge_2.5.7_amd64.deb"
     ],
-    "updated": "2026-09-28T06:02:10.648Z"
+    "updated": "2026-10-07T20:18:01.281Z"
   },
   "linux-chrome.zip": {
-    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"6d2c2b5\"|Sat, 26 Sep 2026 09:19:52 GMT|142114088",
+    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"6e64631\"|Wed, 07 Oct 2026 15:17:52 GMT|143552428",
     "files": [
       "google-chrome-stable_current_amd64.deb"
     ],
-    "updated": "2026-09-28T06:02:21.259Z"
+    "updated": "2026-10-07T20:18:13.725Z"
   },
   "linux-tor.zip": {
-    "version": "15.0.23",
+    "version": "15.0.24",
     "files": [
-      "tor-browser-linux-x86_64-15.0.23.tar.xz"
+      "tor-browser-linux-x86_64-15.0.24.tar.xz"
     ],
-    "updated": "2026-09-28T06:02:33.699Z"
+    "updated": "2026-10-07T20:18:29.135Z"
   }
 }
