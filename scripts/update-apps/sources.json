@@ -168,7 +168,7 @@
       "type": "github",
       "repo": "guardianproject/orbot-android",
       "files": [
-        "fullperm-arm64-v8a-release\\.apk$"
+        "fullperm-universal-release\\.apk$"
       ]
     },
     {
