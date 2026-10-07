@@ -2,13 +2,12 @@ import { $, api, esc, safeUrl } from './site.js';
 
 const OS = ['android', 'ios', 'windows', 'mac', 'linux'];
 // Clients that import a subscription link from the paid service
-const SUBSCRIPTION_CLIENTS = /hiddify|v2ray|clash|karing|shadowrocket|nekobox|sing-?box|stash|quantumult/i;
+const SUBSCRIPTION_CLIENTS = /hiddify|v2ray|clash|shadowrocket|nekobox|sing-?box|stash|quantumult/i;
 
 // Help links of the old site pointed at anchors on its home page
 const HELP = {
   '/index.html#hiddify_sub': '/faq#hiddify',
   '/index.html#v2ray_sub': '/faq#v2ray',
-  '/index.html#karing_sub': '/faq#karing',
   '/index.html#outline': '/faq#outline',
 };
 const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `/${h.replace(/^\//, '')}` : h);
@@ -16,10 +15,6 @@ const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `/${h.replace(/^\
 const icon = (img) => (img && !/^https?:/.test(img) ? `/${img.replace(/^\//, '')}` : '/favicon.svg');
 
 let apps = [];
-
-// Apps listed after all others regardless of star rating
-const LAST = /karing/i;
-const rank = (a) => (LAST.test(`${a.id} ${a.name}`) ? 1 : 0);
 
 function card(a) {
   const stars = Math.max(0, Math.min(10, Number(a.star) || 0));
@@ -44,7 +39,7 @@ function card(a) {
 
 function show(os) {
   document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.os === os)));
-  const list = apps.filter((a) => a.os === os).sort((a, b) => rank(a) - rank(b) || (Number(b.star) || 0) - (Number(a.star) || 0));
+  const list = apps.filter((a) => a.os === os).sort((a, b) => (Number(b.star) || 0) - (Number(a.star) || 0));
   $('#apps').innerHTML = list.length ? list.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的软件。</p>';
   // Long instructions are cut to four lines; show 展开 only where something is hidden
   document.querySelectorAll('#apps .app').forEach((el) => {
