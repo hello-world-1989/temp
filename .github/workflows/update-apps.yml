@@ -1,10 +1,10 @@
 name: Update apps
 
-# 每天检查 vpn.json 里软件的上游新版本，有更新就覆盖上传到本仓库的 release（android / windows / mac），
+# 每月检查 vpn.json 里软件的上游新版本，有更新就覆盖上传到本仓库的 release（android / windows / mac），
 # 并把 public/temp/vpn.json 对应条目的 date 改成当天。来源配置见 scripts/update-apps/sources.json。
 on:
   schedule:
-    - cron: '17 20 * * *' # 每天 UTC 20:17（北京时间 04:17）
+    - cron: '17 20 1 * *' # 每月 1 号 UTC 20:17（北京时间 2 号 04:17）
   workflow_dispatch:
     inputs:
       dry_run:
