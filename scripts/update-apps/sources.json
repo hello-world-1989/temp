@@ -26,31 +26,6 @@
       ]
     },
     {
-      "name": "android-karing.zip",
-      "type": "github",
-      "repo": "KaringX/karing",
-      "files": [
-        "^karing_[\\d.]+_android_arm\\.apk$"
-      ]
-    },
-    {
-      "name": "windows-karing.zip",
-      "type": "github",
-      "repo": "KaringX/karing",
-      "files": [
-        "^karing_[\\d.]+_windows_x64\\.zip$"
-      ],
-      "raw": true
-    },
-    {
-      "name": "mac-karing.zip",
-      "type": "github",
-      "repo": "KaringX/karing",
-      "files": [
-        "^karing_[\\d.]+_macos_universal\\.dmg$"
-      ]
-    },
-    {
       "name": "android-outline.zip",
       "type": "url",
       "urls": [
@@ -246,14 +221,6 @@
       ]
     },
     {
-      "name": "linux-karing.zip",
-      "type": "github",
-      "repo": "KaringX/karing",
-      "files": [
-        "^karing_[\\d.]+_linux_amd64\\.deb$"
-      ]
-    },
-    {
       "name": "linux-outline.zip",
       "type": "url",
       "urls": [
@@ -299,8 +266,7 @@
   ],
   "manual": [
     "android-chrome.zip：谷歌不提供官方 APK 直链",
-    "windows-vpngate.zip、android/windows-freegate.zip、android/windows/mac-freebrowser.zip、geph：没有稳定的下载地址",
-    "mac-orbot.zip、android-warpplus.zip：待确认官方来源",
-    "ios-karing.zip：temp 仓库没有 ios release"
+    "windows-vpngate.zip、android/windows-freegate.zip、android/windows/mac-freebrowser.zip：没有稳定的下载地址",
+    "mac-orbot.zip、android-warpplus.zip：待确认官方来源"
   ]
 }

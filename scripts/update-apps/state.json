@@ -20,20 +20,6 @@
     ],
     "updated": "2026-09-28T05:26:18.191Z"
   },
-  "android-karing.zip": {
-    "version": "v1.2.25.2802",
-    "files": [
-      "karing_1.2.25.2802_android_arm.apk"
-    ],
-    "updated": "2026-09-28T05:26:24.557Z"
-  },
-  "mac-karing.zip": {
-    "version": "v1.2.25.2802",
-    "files": [
-      "karing_1.2.25.2802_macos_universal.dmg"
-    ],
-    "updated": "2026-09-28T05:26:32.335Z"
-  },
   "android-outline.zip": {
     "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"f094c0b60b27ed0a922462e59c63e637-6\"|Wed, 02 Sep 2026 18:06:28 GMT|45310306",
     "files": [
@@ -192,13 +178,6 @@
     ],
     "updated": "2026-10-07T20:17:31.478Z"
   },
-  "windows-karing.zip": {
-    "version": "v1.2.25.2802",
-    "files": [
-      "karing_1.2.25.2802_windows_x64.zip"
-    ],
-    "updated": "2026-09-28T05:35:42.016Z"
-  },
   "linux-hiddify.zip": {
     "version": "v4.1.1",
     "files": [
@@ -206,13 +185,6 @@
       "Hiddify-Debian-x64.deb"
     ],
     "updated": "2026-09-28T06:01:35.306Z"
-  },
-  "linux-karing.zip": {
-    "version": "v1.2.25.2802",
-    "files": [
-      "karing_1.2.25.2802_linux_amd64.deb"
-    ],
-    "updated": "2026-09-28T06:01:39.975Z"
   },
   "linux-outline.zip": {
     "version": "https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage|\"c77790cd9b0c80be701ab586fc25edd4-7\"|Tue, 09 Dec 2025 13:59:57 GMT|114447794",
