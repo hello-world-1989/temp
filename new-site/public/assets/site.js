@@ -77,6 +77,17 @@ document.addEventListener('click', (e) => {
 // Close the mobile menu after choosing a link
 document.addEventListener('click', (e) => {
   if (e.target.closest('.nav a')) document.querySelector('.menu')?.removeAttribute('open');
+  // Close the 安全工具 dropdown on a choice or a click elsewhere
+  for (const d of document.querySelectorAll('.dropdown[open]')) {
+    if (!d.contains(e.target) || e.target.closest('.dropdown-menu a')) d.removeAttribute('open');
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  for (const d of document.querySelectorAll('.dropdown[open]')) {
+    d.removeAttribute('open');
+    d.querySelector('summary')?.focus();
+  }
 });
 
 export function fmtDate(iso) {

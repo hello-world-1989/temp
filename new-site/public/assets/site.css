@@ -101,6 +101,20 @@ p { margin: 0 0 1em; }
 .nav a { color: var(--muted); padding: 8px 12px; border-radius: 10px; font-size: .95rem; }
 .nav a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
 .nav a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+/* 安全工具 dropdown (desktop) */
+.dropdown { position: relative; }
+.dropdown > summary { list-style: none; cursor: pointer; color: var(--muted); padding: 8px 12px; border-radius: 10px; font-size: .95rem; user-select: none; }
+.dropdown > summary::-webkit-details-marker { display: none; }
+.dropdown > summary::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform .15s; }
+.dropdown[open] > summary::after { transform: translateY(0) rotate(-135deg); }
+.dropdown > summary:hover, .dropdown[open] > summary { color: var(--text); background: var(--surface-2); }
+.dropdown:has([aria-current="page"]) > summary { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.dropdown-menu { position: absolute; right: 0; top: calc(100% + 6px); min-width: 160px; padding: 6px; display: flex; flex-direction: column; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); z-index: 50; }
+.dropdown-menu a { white-space: nowrap; }
+/* 安全工具 group (phone menu) */
+.nav-group { display: flex; flex-direction: column; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
+.nav-group-title { padding: 8px 12px 4px; font-size: .8rem; font-weight: 700; color: var(--muted); }
+.nav .nav-group a { padding-left: 24px; }
 /* Desktop shows .nav-desktop; phones get the collapsible menu (a closed <details>
    never renders its content, so desktop cannot reuse it) */
 .menu { display: none; }

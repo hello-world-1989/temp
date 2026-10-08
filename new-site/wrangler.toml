@@ -16,6 +16,12 @@ run_worker_first = ["/share", "/share-get", "/s/*", "/api/*", "/pay/*", "/downlo
 binding = "LEGACY"
 service = "end-gfw-legacy"
 
+# 随开专线 (/line, src/line.js): the tapline Worker (paid-instance), served under this site's
+# address so the tapline domain is never shown
+[[services]]
+binding = "TAPLINE"
+service = "paid-instance"
+
 [[routes]]
 pattern = "v2.end-gfw.com"
 custom_domain = true
