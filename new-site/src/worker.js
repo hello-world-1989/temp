@@ -1,7 +1,7 @@
 import { ghFetch, setGitHubToken } from './github.js';
 import { handleShare } from './share.js';
 import { handleBoard } from './board.js';
-import { handleLine } from './line.js';
+import { handleTapline } from './tapline.js';
 // v2.end-gfw.com — Cloudflare Worker
 // Static pages come from ./public (Workers Static Assets). This file serves the
 // dynamic parts:
@@ -12,7 +12,7 @@ import { handleLine } from './line.js';
 //   /api/chat-mirrors                                  -> 加密聊天 relay addresses (xrayr-next)
 //   /api/official-hosts                                -> addresses 加密分享 / 加密聊天 may run on
 //   /chat, /chat/*, /chat/ws                           -> 加密聊天 on Debian-1-2 (CHAT_URL, Cloudflare Tunnel)
-//   /line, /line/*                                     -> 随开专线 (tapline Worker, service binding TAPLINE)
+//   /tapline, /tapline/*                               -> 随开专线 (tapline Worker, service binding TAPLINE)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
 //
 // xrayr-next is reached through its public subscription domains (XN_BASES), the
@@ -62,9 +62,9 @@ async function route(request, url, env, ctx) {
   if (p === '/wipe' || p === '/chat/wipe') return wipeResponse();
   // 加密聊天 (Debian-1-2 through the Cloudflare Tunnel end-gfw-chat)
   if (p === '/chat' || p.startsWith('/chat/')) return chatProxy(request, url, env);
-  // 随开专线 (src/line.js): the tapline Worker through the TAPLINE service binding
-  const line = await handleLine(request, url, env);
-  if (line) return line;
+  // 随开专线 (src/tapline.js): the tapline Worker through the TAPLINE service binding
+  const tapline = await handleTapline(request, url, env);
+  if (tapline) return tapline;
   // 加密分享 (src/share.js); 'disabled' where the Worker has no SHARE bucket
   const share = await handleShare(request, url, env, { mirrorIps: () => mirrorIps(env) });
   if (share === 'disabled') return notFound(request, env, url);

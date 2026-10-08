@@ -1,22 +1,27 @@
-// 随开专线 at /line: the paid-instance Worker (tapline), reached through the service binding
+// 随开专线 at /tapline: the paid-instance Worker (tapline), reached through the service binding
 // TAPLINE, so visitors stay on this site's address (end-gfw.com, v2, mirror node IPs) and the
 // tapline domain is never shown.
 //
-//   /line            -> 301 /line/
-//   /line/           -> tapline /         (login + dashboard page)
-//   /line/auth       -> tapline /auth     (login link from the mail, if it points here)
-//   /line/api/*      -> tapline /api/*
-//   /line/c/*        -> tapline /c/*      (copy page for a node's links)
+//   /tapline         -> 301 /tapline/   (old /line, /line/* -> 301 to the same place under /tapline)
+//   /tapline/        -> tapline /         (login + dashboard page)
+//   /tapline/auth    -> tapline /auth     (login link from the mail, if it points here)
+//   /tapline/api/*   -> tapline /api/*
+//   /tapline/c/*     -> tapline /c/*      (copy page for a node's links)
 //
 // tapline's admin, node, bot and Stripe webhook routes are not reachable through here.
 // Only tapline's own cookie (pi_sid) is passed on; no visitor IP, no other cookies.
 
-export const LINE_PREFIX = '/line';
+export const LINE_PREFIX = '/tapline';
+// First address (2026-10-09, a few minutes): kept as a redirect
+const OLD_PREFIX = '/line';
 const ALLOWED = [/^\/$/, /^\/auth$/, /^\/api\/[a-z0-9/-]+$/, /^\/c\/[A-Za-z0-9_-]+$/];
 const COOKIE = 'pi_sid';
 
-export async function handleLine(request, url, env) {
+export async function handleTapline(request, url, env) {
   const p = url.pathname;
+  if (p === OLD_PREFIX || p.startsWith(`${OLD_PREFIX}/`)) {
+    return new Response(null, { status: 301, headers: { Location: `${LINE_PREFIX}${p.slice(OLD_PREFIX.length) || '/'}${url.search}` } });
+  }
   if (p !== LINE_PREFIX && !p.startsWith(`${LINE_PREFIX}/`)) return null;
   if (!env.TAPLINE) return text('随开专线暂时不可用', 503);
   if (p === LINE_PREFIX) return new Response(null, { status: 301, headers: { Location: `${LINE_PREFIX}/${url.search}` } });
@@ -51,7 +56,7 @@ export async function handleLine(request, url, env) {
     if (v) out.set(h, v);
   }
   if (!out.has('cache-control')) out.set('cache-control', 'no-store');
-  // tapline sets its cookie for "/"; here it belongs to /line only
+  // tapline sets its cookie for "/"; here it belongs to /tapline only
   const cookies = typeof res.headers.getSetCookie === 'function' ? res.headers.getSetCookie() : [res.headers.get('set-cookie')].filter(Boolean);
   for (const c of cookies) {
     const v = rewriteCookie(c);
@@ -83,7 +88,7 @@ export function rewriteCookie(c) {
   return c.replace(/;\s*Path=[^;]*/i, '') + `; Path=${LINE_PREFIX}`;
 }
 
-// Same-site redirects ("/", "/?newkey=1") stay under /line; anything else is left alone
+// Same-site redirects ("/", "/?newkey=1") stay under /tapline; anything else is left alone
 export function rewriteLocation(loc) {
   if (loc.startsWith('/') && !loc.startsWith('//')) return LINE_PREFIX + loc;
   return loc;
