@@ -214,5 +214,71 @@
       "tor-browser-linux-x86_64-15.0.24.tar.xz"
     ],
     "updated": "2026-10-07T20:18:29.135Z"
+  },
+  "android-ceno.zip": {
+    "version": "v2.11.7",
+    "files": [
+      "ceno-arm64-v8a-release-2.11.7-2026-09-24_1601.apk",
+      "ceno-armeabi-v7a-release-2.11.7-2026-09-24_1601.apk"
+    ],
+    "updated": "2026-10-08T02:45:40.311Z"
+  },
+  "android-session.zip": {
+    "version": "1.33.5",
+    "files": [
+      "session-1.33.5-universal-play-release.apk"
+    ],
+    "updated": "2026-10-08T02:45:52.192Z"
+  },
+  "windows-session.zip": {
+    "version": "v1.18.1",
+    "files": [
+      "session-desktop-win-x64-1.18.1.exe"
+    ],
+    "updated": "2026-10-08T02:46:02.095Z"
+  },
+  "mac-session.zip": {
+    "version": "v1.18.1",
+    "files": [
+      "session-desktop-mac-arm64-1.18.1.dmg",
+      "session-desktop-mac-x64-1.18.1.dmg"
+    ],
+    "updated": "2026-10-08T02:46:22.757Z"
+  },
+  "linux-session.zip": {
+    "version": "v1.18.1",
+    "files": [
+      "session-desktop-linux-x86_64-1.18.1.AppImage",
+      "session-desktop-linux-amd64-1.18.1.deb"
+    ],
+    "updated": "2026-10-08T02:46:45.493Z"
+  },
+  "android-syncthing.zip": {
+    "version": "v2.1.6.0",
+    "files": [
+      "com.github.catfriend1.syncthingfork_release_v2.1.6.0.apk"
+    ],
+    "updated": "2026-10-08T02:46:51.221Z"
+  },
+  "windows-syncthing.zip": {
+    "version": "v2.1.6",
+    "files": [
+      "syncthing-windows-amd64-v2.1.6.zip"
+    ],
+    "updated": "2026-10-08T02:46:53.306Z"
+  },
+  "mac-syncthing.zip": {
+    "version": "v2.1.6-1",
+    "files": [
+      "Syncthing-2.1.6-1.dmg"
+    ],
+    "updated": "2026-10-08T02:46:56.569Z"
+  },
+  "linux-syncthing.zip": {
+    "version": "v2.1.6",
+    "files": [
+      "syncthing_2.1.6_amd64.deb"
+    ],
+    "updated": "2026-10-08T02:46:58.718Z"
   }
 }

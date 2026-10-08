@@ -726,7 +726,8 @@
     "comment": "压缩包里有两个安装包，大多数手机选 arm64-v8a，老手机选 armeabi-v7a；浏览器；eQualitie 出品，基于 Firefox，不需要密钥；内置点对点网络，网页被封时可以从其他用户分享的缓存里获取，适合看新闻；公开模式下浏览的内容会分享给其他用户，登录账号请用“个人模式”",
     "image": "images/ceno.webp",
     "mainLink": "https://censorship.no/",
-    "star": 8.6
+    "star": 8.6,
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -749,7 +750,8 @@
     "comment": "端到端加密聊天软件，注册不需要手机号或邮箱（自动生成 Account ID）；消息经过洋葱路由转发，不暴露 IP；加好友需要互相发送 Account ID；连不上时先打开翻墙软件",
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
-    "star": 8.6
+    "star": 8.6,
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -760,7 +762,8 @@
     "comment": "端到端加密聊天软件，注册不需要手机号或邮箱（自动生成 Account ID）；消息经过洋葱路由转发，不暴露 IP；加好友需要互相发送 Account ID；连不上时先打开翻墙软件",
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
-    "star": 8.6
+    "star": 8.6,
+    "date": "26年10月8日更新"
   },
   {
     "os": "ios",
@@ -783,7 +786,8 @@
     "comment": "压缩包里有两个 dmg：M 系列芯片选 arm64，Intel 芯片选 x64；端到端加密聊天软件，注册不需要手机号或邮箱（自动生成 Account ID）；消息经过洋葱路由转发，不暴露 IP；加好友需要互相发送 Account ID；连不上时先打开翻墙软件",
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
-    "star": 8.6
+    "star": 8.6,
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -794,7 +798,8 @@
     "comment": "Linux：压缩包里有 AppImage（chmod +x 后直接运行）和 deb（sudo apt install ./session-desktop-linux-amd64-*.deb）；端到端加密聊天软件，注册不需要手机号或邮箱（自动生成 Account ID）；消息经过洋葱路由转发，不暴露 IP；加好友需要互相发送 Account ID；连不上时先打开翻墙软件",
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
-    "star": 8.6
+    "star": 8.6,
+    "date": "26年10月8日更新"
   },
   {
     "os": "android",
@@ -805,7 +810,8 @@
     "comment": "安卓版是社区维护的 Syncthing-Fork（官方安卓版已停止维护）；点对点文件同步：在自己的手机和电脑之间直接同步文件夹，不经过云盘，传输加密；两台设备互相添加“设备 ID”后，选择要共享的文件夹即可",
     "image": "images/syncthing.webp",
     "mainLink": "https://github.com/researchxxl/syncthing-android/releases",
-    "star": 8
+    "star": 8,
+    "date": "26年10月8日更新"
   },
   {
     "os": "windows",
@@ -816,7 +822,8 @@
     "comment": "解压后双击 syncthing.exe，浏览器会自动打开管理页面 http://127.0.0.1:8384，窗口保持打开才能同步；点对点文件同步：在自己的手机和电脑之间直接同步文件夹，不经过云盘，传输加密；两台设备互相添加“设备 ID”后，选择要共享的文件夹即可",
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
-    "star": 8
+    "star": 8,
+    "date": "26年10月8日更新"
   },
   {
     "os": "mac",
@@ -827,7 +834,8 @@
     "comment": "菜单栏应用：打开 dmg，把 Syncthing 拖进“应用程序”后运行，点菜单栏图标打开管理页面；点对点文件同步：在自己的手机和电脑之间直接同步文件夹，不经过云盘，传输加密；两台设备互相添加“设备 ID”后，选择要共享的文件夹即可",
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
-    "star": 8
+    "star": 8,
+    "date": "26年10月8日更新"
   },
   {
     "os": "linux",
@@ -838,6 +846,7 @@
     "comment": "Linux：deb 安装包，sudo apt install ./syncthing_*_amd64.deb，运行 syncthing 后浏览器打开 http://127.0.0.1:8384；点对点文件同步：在自己的手机和电脑之间直接同步文件夹，不经过云盘，传输加密；两台设备互相添加“设备 ID”后，选择要共享的文件夹即可",
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
-    "star": 8
+    "star": 8,
+    "date": "26年10月8日更新"
   }
 ]
