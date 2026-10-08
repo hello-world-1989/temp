@@ -42,13 +42,6 @@
       ]
     },
     {
-      "name": "mac-outline.zip",
-      "type": "url",
-      "urls": [
-        "https://s3.amazonaws.com/outline-releases/manager/macos/stable/Outline-Manager.dmg"
-      ]
-    },
-    {
       "name": "android-v2ray.zip",
       "type": "github",
       "repo": "2dust/v2rayNG",
@@ -262,11 +255,88 @@
       "urls": [
         "https://dist.torproject.org/torbrowser/{version}/tor-browser-linux-x86_64-{version}.tar.xz"
       ]
+    },
+    {
+      "name": "android-ceno.zip",
+      "type": "github",
+      "repo": "censorship-no/ceno-browser",
+      "files": [
+        "^ceno-arm64-v8a-release-[\\d.]+-[\\d_-]+\\.apk$",
+        "^ceno-armeabi-v7a-release-[\\d.]+-[\\d_-]+\\.apk$"
+      ]
+    },
+    {
+      "name": "android-session.zip",
+      "type": "github",
+      "repo": "session-foundation/session-android",
+      "files": [
+        "^session-[\\d.]+-universal-play-release\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-session.zip",
+      "type": "github",
+      "repo": "session-foundation/session-desktop",
+      "files": [
+        "^session-desktop-win-x64-[\\d.]+\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-session.zip",
+      "type": "github",
+      "repo": "session-foundation/session-desktop",
+      "files": [
+        "^session-desktop-mac-arm64-[\\d.]+\\.dmg$",
+        "^session-desktop-mac-x64-[\\d.]+\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-session.zip",
+      "type": "github",
+      "repo": "session-foundation/session-desktop",
+      "files": [
+        "^session-desktop-linux-x86_64-[\\d.]+\\.AppImage$",
+        "^session-desktop-linux-amd64-[\\d.]+\\.deb$"
+      ]
+    },
+    {
+      "name": "android-syncthing.zip",
+      "type": "github",
+      "repo": "researchxxl/syncthing-android",
+      "files": [
+        "^com\\.github\\.catfriend1\\.syncthingfork_release_v[\\d.]+\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-syncthing.zip",
+      "type": "github",
+      "repo": "syncthing/syncthing",
+      "files": [
+        "^syncthing-windows-amd64-v[\\d.]+\\.zip$"
+      ],
+      "raw": true
+    },
+    {
+      "name": "mac-syncthing.zip",
+      "type": "github",
+      "repo": "syncthing/syncthing-macos",
+      "files": [
+        "^Syncthing-[\\d.]+(-\\d+)?\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-syncthing.zip",
+      "type": "github",
+      "repo": "syncthing/syncthing",
+      "files": [
+        "^syncthing_[\\d.]+_amd64\\.deb$"
+      ]
     }
   ],
   "manual": [
     "android-chrome.zip：谷歌不提供官方 APK 直链",
     "windows-vpngate.zip、android/windows-freegate.zip、android/windows/mac-freebrowser.zip：没有稳定的下载地址",
-    "mac-orbot.zip、android-warpplus.zip：待确认官方来源"
+    "mac-orbot.zip、android-warpplus.zip：待确认官方来源",
+    "mac-outline.zip：Outline 的 Mac 客户端只在 App Store 上架（s3 上的 dmg 是 Outline Manager，不再自动更新）"
   ]
 }

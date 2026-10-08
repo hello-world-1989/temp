@@ -34,13 +34,6 @@
     ],
     "updated": "2026-09-28T05:26:44.017Z"
   },
-  "mac-outline.zip": {
-    "version": "https://s3.amazonaws.com/outline-releases/manager/macos/stable/Outline-Manager.dmg|\"3617599b58bc6dc540fe6b853df46980-27\"|Tue, 21 Jul 2026 15:54:58 GMT|218450708",
-    "files": [
-      "Outline-Manager.dmg"
-    ],
-    "updated": "2026-09-28T05:26:58.155Z"
-  },
   "android-v2ray.zip": {
     "version": "2.2.6",
     "files": [
