@@ -151,6 +151,9 @@ export function createCerts({ store, config, now = () => Date.now(), run = runAc
           lastSeen.delete(m.ip);
           continue;
         }
+        // Mirrors check in every 10 minutes; an address quiet for longer has most likely moved
+        // (IP rotation), and renewing it would only burn the hourly issuance budget on failures
+        if (t - m.last_seen > config.renewSeenHours * 3600_000) continue;
         want(m.ip);
       }
     },

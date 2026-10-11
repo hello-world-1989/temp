@@ -59,6 +59,8 @@ export function loadConfig(env = process.env) {
     issuePerHour: int(env, 'ISSUE_PER_HOUR', 10),
     // A mirror that has not checked in or carried a connection for this long loses its certificate
     mirrorDays: int(env, 'MIRROR_DAYS', 7),
+    // Renew only mirrors seen within this many hours
+    renewSeenHours: int(env, 'RENEW_SEEN_HOURS', 2),
 
     // Site admins (事件墙's admins credential): review which rooms appear in the public list
     admins: parseAdmins(cred(env, 'admins')),
