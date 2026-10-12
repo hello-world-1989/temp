@@ -224,6 +224,19 @@ p { margin: 0 0 1em; }
 .app .meta { font-size: .82rem; color: var(--muted); }
 .app .row { margin-top: auto; }
 .stars { color: #f5a623; letter-spacing: 1px; }
+.stars-off { color: var(--line); }
+.badge.danger { background: color-mix(in srgb, var(--danger) 14%, transparent); color: var(--danger); }
+.apps-title { margin: 8px 0 14px; }
+#apps + .apps-title { margin-top: 40px; }
+.apps-sub { font-size: .95rem; font-weight: 400; }
+.p2p-intro { margin-bottom: 20px; }
+.p2p-intro p { margin: 0 0 8px; }
+.p2p-legend { margin: 8px 0 0; padding-left: 18px; font-size: .9rem; }
+.p2p-legend li { margin: 4px 0; }
+.p2p-legend .badge { font-size: .72rem; padding: 1px 8px; }
+.app .rating { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: .85rem; }
+.app .rating .badge { font-size: .74rem; padding: 2px 9px; }
+.app .block-note { flex-basis: 100%; color: var(--muted); font-size: .82rem; }
 
 /* news and tweets */
 .feed { display: grid; gap: 14px; }

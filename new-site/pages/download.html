@@ -9,6 +9,7 @@ script: download.js
     <span class="eyebrow">软件下载</span>
     <h1>免费翻墙软件</h1>
     <p>“本站下载”走本站线路，国内通常可以直接打开；GitHub 和官网链接可能需要先翻墙。使用 <a href="/#free">免费节点</a> 或赞助后获得的订阅，推荐用标有“支持订阅”的客户端。</p>
+    <p><a href="#p2p">往下看：抗封锁软件（点对点 / 去中心化，不依赖中心服务器）↓</a></p>
   </div>
 </section>
 
@@ -21,9 +22,22 @@ script: download.js
       <button class="tab" role="tab" data-os="mac" aria-selected="false">Mac</button>
       <button class="tab" role="tab" data-os="linux" aria-selected="false">Linux</button>
     </div>
+    <h2 class="apps-title">翻墙软件</h2>
     <div id="apps" class="grid grid-3">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
+
+    <h2 class="apps-title" id="p2p">抗封锁软件 <span class="muted apps-sub">点对点 / 去中心化</span></h2>
+    <div class="notice p2p-intro">
+      <p>这些软件没有可以“一刀切断”的中心服务器：用户之间直接连接（点对点），通过分布式哈希表（DHT）、好友网络或匿名网络互相找到对方。<strong>一旦它们跨越了最初的“寻址和建立连接”阶段（即 Bootstrapping 阶段），GFW 就很难通过传统的 IP 封锁或深度包检测（DPI）来精准切断它们。</strong></p>
+      <p>所以最容易被卡住的是第一次连接：打不开时，先用上面的翻墙软件完成第一次连接，之后通常不翻墙也能继续用。</p>
+      <ul class="p2p-legend">
+        <li><b>好用评分</b> ★1–5：越高越容易上手。</li>
+        <li><b>封锁风险</b>（启动阶段）：<span class="badge ok">低</span> 启动不依赖会被封的服务器；<span class="badge warn">中</span> 启动用的服务器可能被封，连上后较稳定；<span class="badge danger">高</span> 需要网桥或翻墙才能启动。</li>
+        <li>列表按封锁风险从低到高、再按好用评分排序；评分是本站的主观参考（2026 年 10 月）。</li>
+      </ul>
+    </div>
+    <div id="apps-p2p" class="grid grid-3"></div>
   </div>
 </section>
 

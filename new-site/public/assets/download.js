@@ -31,25 +31,45 @@ function card(a) {
       <div><h3>${esc(a.name)}</h3>
       <div class="meta">${stars ? `<span class="stars" aria-label="推荐指数 ${stars}/10">${'★'.repeat(Math.round(stars / 2))}</span> ` : ''}${sub ? '<span class="badge soft">支持订阅</span> ' : ''}${esc(a.date || '')}</div></div>
     </div>
+    ${rating(a)}
     <p>${esc(a.comment || '')}</p>
     <button class="more-toggle" type="button" hidden>展开</button>
     <div class="row">${buttons}</div>
   </article>`;
 }
 
+// 抗封锁软件 (category "p2p"): 好用评分 (ease 1-5) and 封锁风险 at the bootstrapping stage
+const BLOCK = { low: ['低', 'ok', 0], mid: ['中', 'warn', 1], high: ['高', 'danger', 2] };
+function rating(a) {
+  const ease = Math.max(0, Math.min(5, Number(a.ease) || 0));
+  const b = BLOCK[a.block];
+  if (!ease && !b) return '';
+  return `<div class="rating">
+    ${ease ? `<span>好用 <span class="stars" aria-label="好用评分 ${ease}/5">${'★'.repeat(ease)}<span class="stars-off">${'★'.repeat(5 - ease)}</span></span></span>` : ''}
+    ${b ? `<span class="badge ${b[1]}">封锁风险：${b[0]}</span>` : ''}
+    ${a.blockNote ? `<span class="block-note">${esc(a.blockNote)}</span>` : ''}
+  </div>`;
+}
+const byStar = (a, b) => (Number(b.star) || 0) - (Number(a.star) || 0);
+const byResistance = (a, b) =>
+  (BLOCK[a.block]?.[2] ?? 3) - (BLOCK[b.block]?.[2] ?? 3) || (Number(b.ease) || 0) - (Number(a.ease) || 0) || byStar(a, b);
+
 function show(os) {
   document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.os === os)));
-  const list = apps.filter((a) => a.os === os).sort((a, b) => (Number(b.star) || 0) - (Number(a.star) || 0));
-  $('#apps').innerHTML = list.length ? list.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的软件。</p>';
+  const mine = apps.filter((a) => a.os === os);
+  const vpn = mine.filter((a) => a.category !== 'p2p').sort(byStar);
+  const p2p = mine.filter((a) => a.category === 'p2p').sort(byResistance);
+  $('#apps').innerHTML = vpn.length ? vpn.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的软件。</p>';
+  $('#apps-p2p').innerHTML = p2p.length ? p2p.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的抗封锁软件。</p>';
   // Long instructions are cut to four lines; show 展开 only where something is hidden
-  document.querySelectorAll('#apps .app').forEach((el) => {
+  document.querySelectorAll('#apps .app, #apps-p2p .app').forEach((el) => {
     const p = el.querySelector('p');
     const btn = el.querySelector('.more-toggle');
     if (p && btn && p.scrollHeight > p.clientHeight + 2) btn.hidden = false;
   });
 }
 
-document.getElementById('apps').addEventListener('click', (e) => {
+document.getElementById('main').addEventListener('click', (e) => {
   const btn = e.target.closest('.more-toggle');
   if (!btn) return;
   const p = btn.previousElementSibling;
@@ -73,6 +93,7 @@ async function init() {
   }
   const hash = location.hash.slice(1);
   show(OS.includes(hash) ? hash : 'android');
+  if (hash === 'p2p') document.getElementById('p2p')?.scrollIntoView();
 }
 
 init();
