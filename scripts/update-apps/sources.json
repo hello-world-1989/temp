@@ -368,7 +368,7 @@
       "name": "android-briar.zip",
       "type": "url",
       "urls": [
-        "https://briarproject.org/apk"
+        "https://briarproject.org/apk/briar.apk"
       ]
     },
     {
