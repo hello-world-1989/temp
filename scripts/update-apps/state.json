@@ -280,5 +280,89 @@
       "syncthing_2.1.6_amd64.deb"
     ],
     "updated": "2026-10-08T02:46:58.718Z"
+  },
+  "android-i2p.zip": {
+    "version": "i2p-2.13.0",
+    "files": [
+      "I2P-2.12.0.apk"
+    ],
+    "updated": "2026-10-12T03:55:42.557Z"
+  },
+  "windows-i2p.zip": {
+    "version": "i2p-firefox-2.11.0",
+    "files": [
+      "I2P-Easy-Install-Bundle-master.master.master.exe"
+    ],
+    "updated": "2026-10-12T03:55:54.393Z"
+  },
+  "mac-i2p.zip": {
+    "version": "i2p-2.13.0",
+    "files": [
+      "I2P-2.13.0.dmg"
+    ],
+    "updated": "2026-10-12T03:56:01.094Z"
+  },
+  "linux-i2p.zip": {
+    "version": "i2p-2.13.0",
+    "files": [
+      "i2pinstall_2.13.0.jar"
+    ],
+    "updated": "2026-10-12T03:56:05.342Z"
+  },
+  "windows-jami.zip": {
+    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"acb5000-65ccc41b3bb28\"|Thu, 01 Oct 2026 19:16:45 GMT|181096448",
+    "files": [
+      "jami.release.x64.msi"
+    ],
+    "updated": "2026-10-12T03:59:25.540Z"
+  },
+  "mac-jami.zip": {
+    "version": "https://dl.jami.net/mac_osx/jami.dmg|\"16b0c317-65c3ee28ec8c0\"|Thu, 24 Sep 2026 18:36:59 GMT|380683031",
+    "files": [
+      "jami.dmg"
+    ],
+    "updated": "2026-10-12T03:59:59.688Z"
+  },
+  "windows-resilio.zip": {
+    "version": "https://download-cdn.resilio.com/stable/windows/x64/0/Resilio-Sync_x64.exe|\"8b43fcda56f740925c23248ba2a38942-5\"|Fri, 31 Oct 2025 11:46:52 GMT|41820320",
+    "files": [
+      "Resilio-Sync_x64.exe"
+    ],
+    "updated": "2026-10-12T04:00:05.710Z"
+  },
+  "mac-resilio.zip": {
+    "version": "https://download-cdn.resilio.com/stable/mac/osx/0/Resilio-Sync.dmg|\"64900d8827d2f0641250d69af7ce385b-4\"|Fri, 31 Oct 2025 11:46:46 GMT|30784929",
+    "files": [
+      "Resilio-Sync.dmg"
+    ],
+    "updated": "2026-10-12T04:00:09.331Z"
+  },
+  "linux-resilio.zip": {
+    "version": "https://download-cdn.resilio.com/stable/linux/x64/0/resilio-sync_x64.tar.gz|\"3acffef0fb702b8e82f6ef75468bf202-2\"|Fri, 31 Oct 2025 11:46:45 GMT|15535020",
+    "files": [
+      "resilio-sync_x64.tar.gz"
+    ],
+    "updated": "2026-10-12T04:00:11.667Z"
+  },
+  "windows-retroshare.zip": {
+    "version": "v0.6.7.2",
+    "files": [
+      "RetroShare-0.6.7a-4-ga1fdce2e5-20231126-Qt-5.15.2-x64-setup.exe"
+    ],
+    "updated": "2026-10-12T04:00:15.007Z"
+  },
+  "mac-retroshare.zip": {
+    "version": "v0.6.7.2",
+    "files": [
+      "RetroShare-0.6.7a-0c03e93a4-01-03-2024-MacOS-10.15.7-Qt-5.15.11.dmg"
+    ],
+    "updated": "2026-10-12T04:00:18.770Z"
+  },
+  "linux-retroshare.zip": {
+    "version": "v0.6.7.2",
+    "files": [
+      "RetroShare-0.6.7-2.glibc2.29-x86_64.AppImage"
+    ],
+    "updated": "2026-10-12T04:00:24.216Z"
   }
 }
