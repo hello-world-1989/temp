@@ -331,6 +331,189 @@
       "files": [
         "^syncthing_[\\d.]+_amd64\\.deb$"
       ]
+    },
+    {
+      "name": "android-i2p.zip",
+      "type": "github",
+      "repo": "i2p/i2p.i2p",
+      "files": [
+        "^I2P-[\\d.]+\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-i2p.zip",
+      "type": "github",
+      "repo": "i2p/i2p.firefox",
+      "files": [
+        "^I2P-Easy-Install-Bundle-.*\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-i2p.zip",
+      "type": "github",
+      "repo": "i2p/i2p.i2p",
+      "files": [
+        "^I2P-[\\d.]+\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-i2p.zip",
+      "type": "github",
+      "repo": "i2p/i2p.i2p",
+      "files": [
+        "^i2pinstall_[\\d.]+\\.jar$"
+      ]
+    },
+    {
+      "name": "android-briar.zip",
+      "type": "url",
+      "urls": [
+        "https://briarproject.org/apk"
+      ]
+    },
+    {
+      "name": "android-jami.zip",
+      "type": "template",
+      "version": {
+        "url": "https://f-droid.org/api/v1/packages/cx.ring",
+        "path": "suggestedVersionCode"
+      },
+      "urls": [
+        "https://f-droid.org/repo/cx.ring_{version}.apk"
+      ]
+    },
+    {
+      "name": "windows-jami.zip",
+      "type": "url",
+      "urls": [
+        "https://dl.jami.net/windows/jami.release.x64.msi"
+      ]
+    },
+    {
+      "name": "mac-jami.zip",
+      "type": "url",
+      "urls": [
+        "https://dl.jami.net/mac_osx/jami.dmg"
+      ]
+    },
+    {
+      "name": "windows-resilio.zip",
+      "type": "url",
+      "urls": [
+        "https://download-cdn.resilio.com/stable/windows/x64/0/Resilio-Sync_x64.exe"
+      ]
+    },
+    {
+      "name": "mac-resilio.zip",
+      "type": "url",
+      "urls": [
+        "https://download-cdn.resilio.com/stable/mac/osx/0/Resilio-Sync.dmg"
+      ]
+    },
+    {
+      "name": "linux-resilio.zip",
+      "type": "url",
+      "urls": [
+        "https://download-cdn.resilio.com/stable/linux/x64/0/resilio-sync_x64.tar.gz"
+      ]
+    },
+    {
+      "name": "windows-tribler.zip",
+      "type": "github",
+      "repo": "Tribler/tribler",
+      "files": [
+        "^Tribler_[\\d.]+_x64\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-tribler.zip",
+      "type": "github",
+      "repo": "Tribler/tribler",
+      "files": [
+        "^tribler-[\\d.]+-arm\\.dmg$",
+        "^tribler-[\\d.]+-i386\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-tribler.zip",
+      "type": "github",
+      "repo": "Tribler/tribler",
+      "files": [
+        "^tribler_[\\d.]+_x64\\.deb$"
+      ]
+    },
+    {
+      "name": "windows-ipfs.zip",
+      "type": "github",
+      "repo": "ipfs/ipfs-desktop",
+      "files": [
+        "^ipfs-desktop-setup-[\\d.]+-win-x64\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-ipfs.zip",
+      "type": "github",
+      "repo": "ipfs/ipfs-desktop",
+      "files": [
+        "^ipfs-desktop-[\\d.]+-mac\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-ipfs.zip",
+      "type": "github",
+      "repo": "ipfs/ipfs-desktop",
+      "files": [
+        "^ipfs-desktop-[\\d.]+-linux-x86_64\\.AppImage$",
+        "^ipfs-desktop-[\\d.]+-linux-amd64\\.deb$"
+      ]
+    },
+    {
+      "name": "windows-onionshare.zip",
+      "type": "github",
+      "repo": "onionshare/onionshare",
+      "files": [
+        "^OnionShare-win64-[\\d.]+\\.msi$"
+      ]
+    },
+    {
+      "name": "mac-onionshare.zip",
+      "type": "github",
+      "repo": "onionshare/onionshare",
+      "files": [
+        "^OnionShare-[\\d.]+\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-onionshare.zip",
+      "type": "github",
+      "repo": "onionshare/onionshare",
+      "files": [
+        "^OnionShare-[\\d.]+\\.flatpak$"
+      ]
+    },
+    {
+      "name": "windows-retroshare.zip",
+      "type": "github",
+      "repo": "RetroShare/RetroShare",
+      "files": [
+        "^RetroShare-.*-x64-setup\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-retroshare.zip",
+      "type": "github",
+      "repo": "RetroShare/RetroShare",
+      "files": [
+        "^RetroShare-.*-MacOS-10\\.15[\\d.]*-.*\\.dmg$"
+      ]
+    },
+    {
+      "name": "linux-retroshare.zip",
+      "type": "github",
+      "repo": "RetroShare/RetroShare",
+      "files": [
+        "^RetroShare-.*-x86_64\\.AppImage$"
+      ]
     }
   ],
   "manual": [
