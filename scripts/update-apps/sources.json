@@ -372,17 +372,6 @@
       ]
     },
     {
-      "name": "android-jami.zip",
-      "type": "template",
-      "version": {
-        "url": "https://f-droid.org/api/v1/packages/cx.ring",
-        "path": "suggestedVersionCode"
-      },
-      "urls": [
-        "https://f-droid.org/repo/cx.ring_{version}.apk"
-      ]
-    },
-    {
       "name": "windows-jami.zip",
       "type": "url",
       "urls": [

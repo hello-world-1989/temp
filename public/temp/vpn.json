@@ -977,16 +977,17 @@
     "os": "android",
     "id": "jami",
     "name": "Jami",
-    "link1": "/download-app/android/android-jami.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-jami.zip",
-    "comment": "点对点加密通话和聊天（GNU 项目）：用分布式哈希表（DHT）找到对方，不需要中心服务器，注册不需要手机号或邮箱；支持视频通话、群聊和发文件；网络封锁严重时可能要先打开翻墙工具",
+    "link1": "",
+    "link2": "",
+    "comment": "从 F-Droid 或 Google Play 安装；点对点加密通话和聊天（GNU 项目）：用分布式哈希表（DHT）找到对方，不需要中心服务器，注册不需要手机号或邮箱；支持视频通话、群聊和发文件；网络封锁严重时可能要先打开翻墙工具",
     "image": "images/jami.webp",
-    "mainLink": "https://jami.net/",
+    "mainLink": "https://f-droid.org/packages/cx.ring/",
     "star": 7.8,
     "category": "p2p",
     "ease": 4,
     "block": "mid",
-    "blockNote": "引导服务器可能被封，连不上时先开翻墙工具"
+    "blockNote": "引导服务器可能被封，连不上时先开翻墙工具",
+    "mainText": "F-Droid"
   },
   {
     "os": "windows",
