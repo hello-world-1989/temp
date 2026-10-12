@@ -970,7 +970,8 @@
     "category": "p2p",
     "ease": 4,
     "block": "low",
-    "blockNote": "蓝牙 / Wi-Fi 模式完全不受封锁；联网模式走 Tor，已内置网桥"
+    "blockNote": "蓝牙 / Wi-Fi 模式完全不受封锁；联网模式走 Tor，已内置网桥",
+    "date": "26年10月12日更新"
   },
   {
     "os": "android",

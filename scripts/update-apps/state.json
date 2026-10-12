@@ -429,5 +429,12 @@
       "OnionShare-2.6.5.flatpak"
     ],
     "updated": "2026-10-12T04:02:57.946Z"
+  },
+  "android-briar.zip": {
+    "version": "https://briarproject.org/apk/briar.apk|\"6ab943c1-30455bb\"|Sun, 27 Sep 2026 16:26:41 GMT|50615739",
+    "files": [
+      "briar.apk"
+    ],
+    "updated": "2026-10-12T04:09:15.345Z"
   }
 }
