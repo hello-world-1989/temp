@@ -1,4 +1,4 @@
-import { $, api, fmtDate, tokenStore } from './site.js';
+import { $, api, fmtDate, tokenStore, isMainSite, MAIN_SITE } from './site.js';
 
 function msg(el, text, kind = '') {
   el.className = `notice mt ${kind}`;
@@ -39,3 +39,12 @@ $('#token').value = params.get('token') || tokenStore.get() || '';
 $('#email').value = params.get('email') || '';
 // Keep tokens and addresses out of the address bar and history
 if (params.has('token') || params.has('email')) history.replaceState(null, '', location.pathname);
+
+// 签到 works on end-gfw.com only: on a mirror the forms are switched off with a link to the main site
+if (!isMainSite()) {
+  for (const id of ['#id-submit', '#email-submit', '#token', '#email']) $(id).disabled = true;
+  const box = document.createElement('div');
+  box.className = 'wrap';
+  box.innerHTML = `<p class="notice warn mt"><strong>签到只能在总站进行。</strong>请打开 <a href="${MAIN_SITE}/checkin">${MAIN_SITE.replace('https://', '')}/checkin</a> 签到（需要先连上翻墙工具）。</p>`;
+  document.querySelector('.page-head')?.after(box);
+}

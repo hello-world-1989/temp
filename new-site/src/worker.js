@@ -85,6 +85,10 @@ async function route(request, url, env, ctx) {
     if (!isToken(token)) return json({ error: '订阅 token 格式不正确' }, 400, 'no-store');
     return noStore(await xn(env, `/user?${qs({ token })}`));
   }
+  // 签到 (and the 签到 button on 我的订阅) only on the main site, not through mirrors
+  if (p === '/api/renew' || p === '/api/checkin/id' || p === '/api/checkin/email') {
+    if (await viaMirror(request, env)) return json({ error: '签到只能在总站 end-gfw.com 进行' }, 403, 'no-store');
+  }
   if (p === '/api/renew') {
     const token = url.searchParams.get('token') || '';
     if (!isToken(token)) return json({ error: '订阅 token 格式不正确' }, 400, 'no-store');
@@ -284,6 +288,25 @@ async function oldSite(request, env, url) {
 async function notFound(request, env, url) {
   const page = await env.ASSETS.fetch(new Request(new URL('/404', url), request));
   return new Response(page.body, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
+}
+
+// Main-site addresses (签到 is allowed only from these pages)
+const MAIN_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com'];
+
+// A request that came through a mirror: from one of the website account's mirror servers, or from
+// a page on another address (mirrors pass the browser's Referer / Origin through unchanged)
+export async function viaMirror(request, env, ips = null) {
+  for (const h of ['origin', 'referer']) {
+    const v = request.headers.get(h);
+    if (!v) continue;
+    let host = '';
+    try { host = new URL(v).hostname; } catch { return true; }
+    if (!MAIN_HOSTS.includes(host)) return true;
+  }
+  const ip = request.headers.get('cf-connecting-ip') || '';
+  if (!ip) return false;
+  const mirrors = ips || (await mirrorIps(env).catch(() => null)) || new Set();
+  return mirrors.has(ip);
 }
 
 // IPs of the website account's servers, which also serve this site as mirrors

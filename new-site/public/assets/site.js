@@ -144,6 +144,12 @@ export const tokenStore = {
   },
 };
 
+// 签到 only on the main site (not on mirror node IPs or third-party mirrors). The address is
+// built in pieces because mirrors strip "https://end-gfw.com" from scripts.
+export const MAIN_SITE = 'https://end-gfw' + '.com';
+const MAIN_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com', 'localhost', '127.0.0.1'];
+export const isMainSite = () => MAIN_HOSTS.includes(location.hostname);
+
 // 加密分享 / 加密聊天 on a third-party mirror (anyone can run one with mirror.sh): they work, with a
 // warning, because whoever runs the mirror could change the page's scripts and read the keys.
 const OFFICIAL_HOSTS = ['end-gfw.com', 'www.end-gfw.com', 'v2.end-gfw.com', 'share-preview.end-gfw.com', 'board-preview.end-gfw.com', 'localhost', '127.0.0.1'];
@@ -165,7 +171,7 @@ export async function guardOfficial(what) {
   if (main) {
     const box = document.createElement('div');
     box.className = 'wrap';
-    box.innerHTML = `<p class="notice warn mt"><strong>这是第三方镜像，不是官方地址。</strong>${esc(what)}可以正常使用，但镜像的运营者理论上能改动这个页面、看到链接里的密钥。敏感内容请用官方地址 <b>https://end-gfw.com</b>，打不开时官方入口见 <b>https://end-gfw.com/chat-mirrors</b>。</p>`;
+    box.innerHTML = `<p class="notice warn mt"><strong>这是第三方镜像，不是官方地址。</strong>${esc(what)}可以正常使用，但镜像的运营者理论上能改动这个页面、看到链接里的密钥。敏感内容请用官方地址 <b>https://end-gfw&#46;com</b>，打不开时官方入口见 <b>https://end-gfw&#46;com/chat-mirrors</b>。</p>`;
     main.prepend(box);
   }
   return false;

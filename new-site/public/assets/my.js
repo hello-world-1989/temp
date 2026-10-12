@@ -1,4 +1,4 @@
-import { $, api, esc, fmtDate, fmtBytes, tokenStore } from './site.js';
+import { $, api, esc, fmtDate, fmtBytes, tokenStore, isMainSite, MAIN_SITE } from './site.js';
 import qrcode from './vendor/qrcode.js';
 
 // SVG QR code for a link; type 0 picks the smallest size that fits
@@ -109,6 +109,12 @@ $('#renew').addEventListener('click', async () => {
   const token = tokenStore.get();
   const out = $('#renew-msg');
   if (!token) return;
+  // 签到 works on end-gfw.com only
+  if (!isMainSite()) {
+    out.className = 'notice mt warn';
+    out.innerHTML = `签到只能在总站进行，请打开 <a href="${MAIN_SITE}/checkin">${MAIN_SITE.replace('https://', '')}/checkin</a>（需要先连上翻墙工具）。`;
+    return;
+  }
   $('#renew').disabled = true;
   msg(out, '签到中…');
   try {
