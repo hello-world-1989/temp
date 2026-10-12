@@ -269,6 +269,7 @@ async function route(request, url, env, ctx) {
 // Old pages and APIs (why.html, events, /tweet-page, /ss-key, /renew-plan, /node, ...)
 // keep working on this domain. Only paths without a new-site page or route get here.
 async function oldSite(request, env, url) {
+  if (env.LEGACY && request.method === 'GET' && url.pathname === '/host') return legacyHosts(request, env);
   if (env.LEGACY) {
     const res = await env.LEGACY.fetch(request);
     if (res.status !== 404) {
@@ -285,6 +286,27 @@ async function oldSite(request, env, url) {
     }
   }
   return notFound(request, env, url);
+}
+
+// /host (old mirror list) does a KV list() in the old Worker on every call, and the free
+// plan allows 1,000 list operations a day. Cache it for a few minutes under one key
+// (same list for every domain and mirror IP); also saves the old Worker's request.
+export const HOST_CACHE_KEY = 'https://cache.end-gfw.internal/legacy/host';
+const HOST_CACHE_SECONDS = 300;
+
+export async function legacyHosts(request, env) {
+  const cache = caches.default;
+  const hit = await cache.match(HOST_CACHE_KEY);
+  if (hit) return hit;
+  const res = await env.LEGACY.fetch(new Request(request.url, { method: 'GET', headers: { Accept: 'application/json' } }));
+  if (!res.ok) return res;
+  const body = await res.arrayBuffer();
+  const headers = new Headers(res.headers);
+  headers.set('Cache-Control', `public, max-age=${HOST_CACHE_SECONDS}`);
+  headers.delete('Set-Cookie');
+  const out = new Response(body, { status: res.status, headers });
+  await cache.put(HOST_CACHE_KEY, out.clone()).catch(() => {});
+  return out;
 }
 
 async function notFound(request, env, url) {
