@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>赞助支持 | 大翻墙运动</title>
-<meta name="description" content="赞助大翻墙运动，帮助增加更多免费节点；赞助者获得 20–50 Mbps 高速线路 30 天，不自动续费。">
+<meta name="description" content="赞助大翻墙运动，帮助增加更多免费节点；赞助者获得 20–50 Mbps 高速线路，可选 1–12 个月，不自动续费。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0b5cff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -69,7 +69,7 @@
   <div class="wrap">
     <span class="eyebrow">赞助支持</span>
     <h1>赞助我们，让更多人免费翻墙</h1>
-    <p>本站是公益项目，免费节点的服务器和流量都靠赞助维持。你的赞助会用来增加更多免费节点；作为感谢，赞助者可以获得一条更快的线路（全部节点和协议，按赞助档位限速）。一次性付款 30 天，不会自动扣费。不方便赞助也没关系，<a href="/#free">免费节点</a>一直可以用。</p>
+    <p>本站是公益项目，免费节点的服务器和流量都靠赞助维持。你的赞助会用来增加更多免费节点；作为感谢，赞助者可以获得一条更快的线路（全部节点和协议，按赞助档位限速）。一次性付款，可以选 1–12 个月，不会自动扣费。不方便赞助也没关系，<a href="/#free">免费节点</a>一直可以用。</p>
   </div>
 </section>
 
@@ -89,6 +89,17 @@
         <label for="plan">赞助档位</label>
         <select id="plan" class="input" required></select>
       </div>
+      <div class="field mt">
+        <label for="months">赞助时长</label>
+        <select id="months" class="input">
+          <option value="1">1 个月（30 天）</option>
+          <option value="2">2 个月（60 天）</option>
+          <option value="3">3 个月（90 天）</option>
+          <option value="6">6 个月（180 天）</option>
+          <option value="12">12 个月（360 天）</option>
+        </select>
+      </div>
+      <p class="mt" id="total" aria-live="polite"></p>
       <div class="field mt">
         <label for="mode">我是</label>
         <div class="row" role="radiogroup" id="mode">
@@ -118,7 +129,7 @@
       </ol>
       <h3 class="mt-lg">续期规则</h3>
       <ul class="muted">
-        <li>到期前续期：在原到期时间基础上加 30 天。</li>
+        <li>到期前续期：在原到期时间基础上加上所选时长（每月 30 天）。</li>
         <li>到期前选了更低的档位：保持原来较高的速度。</li>
         <li>主域名被封时，老订阅请使用备用链接，或到“我的订阅”重新获取。</li>
       </ul>

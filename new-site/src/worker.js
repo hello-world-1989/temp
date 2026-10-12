@@ -131,10 +131,12 @@ async function route(request, url, env, ctx) {
     const plan = url.searchParams.get('plan') || '';
     const email = (url.searchParams.get('email') || '').trim();
     const token = url.searchParams.get('token') || '';
+    const months = url.searchParams.get('months') || '1';
     if (!/^\d{1,2}$/.test(plan)) return json({ error: '请选择套餐' }, 400, 'no-store');
+    if (!/^\d{1,2}$/.test(months)) return json({ error: '请选择赞助时长' }, 400, 'no-store');
     if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ error: '邮箱格式不正确' }, 400, 'no-store');
     if (token && !isToken(token)) return json({ error: '订阅 token 格式不正确' }, 400, 'no-store');
-    const params = { plan, format: 'json', return: url.origin };
+    const params = { plan, months, format: 'json', return: url.origin };
     if (email) params.email = email;
     if (token) params.token = token;
     return noStore(await xn(env, `/pay/checkout?${qs(params)}`));
