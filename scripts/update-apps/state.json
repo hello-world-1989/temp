@@ -364,5 +364,70 @@
       "RetroShare-0.6.7-2.glibc2.29-x86_64.AppImage"
     ],
     "updated": "2026-10-12T04:00:24.216Z"
+  },
+  "windows-tribler.zip": {
+    "version": "v8.4.3",
+    "files": [
+      "Tribler_8.4.3_x64.exe"
+    ],
+    "updated": "2026-10-12T04:00:40.017Z"
+  },
+  "mac-tribler.zip": {
+    "version": "v8.4.3",
+    "files": [
+      "tribler-8.4.3-arm.dmg",
+      "tribler-8.4.3-i386.dmg"
+    ],
+    "updated": "2026-10-12T04:00:50.315Z"
+  },
+  "linux-tribler.zip": {
+    "version": "v8.4.3",
+    "files": [
+      "tribler_8.4.3_x64.deb"
+    ],
+    "updated": "2026-10-12T04:00:55.567Z"
+  },
+  "windows-ipfs.zip": {
+    "version": "v0.50.1",
+    "files": [
+      "ipfs-desktop-setup-0.50.1-win-x64.exe"
+    ],
+    "updated": "2026-10-12T04:01:10.816Z"
+  },
+  "mac-ipfs.zip": {
+    "version": "v0.50.1",
+    "files": [
+      "ipfs-desktop-0.50.1-mac.dmg"
+    ],
+    "updated": "2026-10-12T04:01:40.137Z"
+  },
+  "linux-ipfs.zip": {
+    "version": "v0.50.1",
+    "files": [
+      "ipfs-desktop-0.50.1-linux-x86_64.AppImage",
+      "ipfs-desktop-0.50.1-linux-amd64.deb"
+    ],
+    "updated": "2026-10-12T04:02:13.930Z"
+  },
+  "windows-onionshare.zip": {
+    "version": "v2.6.5",
+    "files": [
+      "OnionShare-win64-2.6.5.msi"
+    ],
+    "updated": "2026-10-12T04:02:30.792Z"
+  },
+  "mac-onionshare.zip": {
+    "version": "v2.6.5",
+    "files": [
+      "OnionShare-2.6.5.dmg"
+    ],
+    "updated": "2026-10-12T04:02:47.799Z"
+  },
+  "linux-onionshare.zip": {
+    "version": "v2.6.5",
+    "files": [
+      "OnionShare-2.6.5.flatpak"
+    ],
+    "updated": "2026-10-12T04:02:57.946Z"
   }
 }

@@ -1143,7 +1143,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "mid",
-    "blockNote": "BT 流量一般不封，但匿名隧道启动慢，有时需先翻墙"
+    "blockNote": "BT 流量一般不封，但匿名隧道启动慢，有时需先翻墙",
+    "date": "26年10月12日更新"
   },
   {
     "os": "mac",
@@ -1158,7 +1159,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "mid",
-    "blockNote": "BT 流量一般不封，但匿名隧道启动慢，有时需先翻墙"
+    "blockNote": "BT 流量一般不封，但匿名隧道启动慢，有时需先翻墙",
+    "date": "26年10月12日更新"
   },
   {
     "os": "linux",
@@ -1173,7 +1175,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "mid",
-    "blockNote": "BT 流量一般不封，但匿名隧道启动慢，有时需先翻墙"
+    "blockNote": "BT 流量一般不封，但匿名隧道启动慢，有时需先翻墙",
+    "date": "26年10月12日更新"
   },
   {
     "os": "windows",
@@ -1188,7 +1191,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "mid",
-    "blockNote": "软件本身能连上点对点网络；ipfs.io 等公共网关在国内大多被封"
+    "blockNote": "软件本身能连上点对点网络；ipfs.io 等公共网关在国内大多被封",
+    "date": "26年10月12日更新"
   },
   {
     "os": "mac",
@@ -1203,7 +1207,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "mid",
-    "blockNote": "软件本身能连上点对点网络；ipfs.io 等公共网关在国内大多被封"
+    "blockNote": "软件本身能连上点对点网络；ipfs.io 等公共网关在国内大多被封",
+    "date": "26年10月12日更新"
   },
   {
     "os": "linux",
@@ -1218,7 +1223,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "mid",
-    "blockNote": "软件本身能连上点对点网络；ipfs.io 等公共网关在国内大多被封"
+    "blockNote": "软件本身能连上点对点网络；ipfs.io 等公共网关在国内大多被封",
+    "date": "26年10月12日更新"
   },
   {
     "os": "windows",
@@ -1233,7 +1239,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "high",
-    "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）"
+    "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
+    "date": "26年10月12日更新"
   },
   {
     "os": "mac",
@@ -1248,7 +1255,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "high",
-    "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）"
+    "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
+    "date": "26年10月12日更新"
   },
   {
     "os": "linux",
@@ -1263,7 +1271,8 @@
     "category": "p2p",
     "ease": 3,
     "block": "high",
-    "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）"
+    "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
+    "date": "26年10月12日更新"
   },
   {
     "os": "windows",
