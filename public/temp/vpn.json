@@ -1383,5 +1383,35 @@
     "category": "live",
     "helpLink": "/live",
     "helpText": "直播中转"
+  },
+  {
+    "name": "Haivision Play Pro",
+    "link1": "#",
+    "link2": "#",
+    "image": "images/haivision.webp",
+    "star": 8.5,
+    "category": "live",
+    "helpLink": "/live",
+    "helpText": "直播中转",
+    "os": "android",
+    "id": "haivision",
+    "comment": "手机直播推流；免费，没有水印；用 SRT 加密推流（不支持 RTMPS）；在中转页面点“在 Haivision 里打开”可以一键填好 SRT 地址、streamid 和密码；只在 Google Play 上架，需要手机能用 Google Play（先开翻墙软件下载）",
+    "mainLink": "https://play.google.com/store/apps/details?id=com.haivision.PlayPro",
+    "mainText": "Google Play"
+  },
+  {
+    "name": "Haivision Play Pro",
+    "link1": "#",
+    "link2": "#",
+    "image": "images/haivision.webp",
+    "star": 8.5,
+    "category": "live",
+    "helpLink": "/live",
+    "helpText": "直播中转",
+    "os": "ios",
+    "id": "haivision",
+    "comment": "手机直播推流；免费，没有水印；用 SRT 加密推流（不支持 RTMPS）；在中转页面点“在 Haivision 里打开”可以一键填好 SRT 地址、streamid 和密码；需要用海外苹果账户从 App Store 下载，获取方法见主页或常见问题",
+    "mainLink": "/index.html#apple-account",
+    "mainText": "获取苹果账户"
   }
 ]
