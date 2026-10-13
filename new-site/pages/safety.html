@@ -54,6 +54,17 @@ index: on
       <li><strong>风险最高时用 Tor 浏览器</strong>（在国内要配合 Snowflake 网桥）。它比普通翻墙多一层保护：连节点运营者也不知道你是谁。可以在 <a href="/download">翻墙软件</a> 页下载。</li>
       <li><strong>只从可信渠道下载翻墙软件</strong>（官方网站、GitHub 官方发布页，或本站下载页）。来路不明的"免费翻墙"可能记录你的一切。</li>
     </ul>
+    <h3 id="dns">防止 DNS 泄漏</h3>
+    <p>打开网站前，设备要先查“这个域名对应哪个 IP”。如果这一步走的是运营商的 DNS，即使内容走了节点，运营商也能看到你访问了哪些网站，这叫 DNS 泄漏。</p>
+    <ul>
+      <li><strong>Clash Verge / Clash Meta：</strong>本站 Clash 订阅已带防泄漏设置，更新一次订阅即可；不要打开客户端里的“DNS 覆写”。</li>
+      <li><strong>v2rayNG：</strong>设置里打开“启用流量探测”和“启用本地 DNS”，远程 DNS 填 <code>https://1.1.1.1/dns-query</code>，国内 DNS 填 <code>https://223.5.5.5/dns-query</code>。</li>
+      <li><strong>v2rayN：</strong>参数设置里勾选“开启流量探测”，DNS 设置里远程 DNS 填 <code>https://1.1.1.1/dns-query</code>，直连 DNS 填 <code>https://223.5.5.5/dns-query</code>。</li>
+      <li><strong>Hiddify：</strong>配置选项里“地区”选中国，远程 DNS 填 <code>https://1.1.1.1/dns-query</code>，直连 DNS 填 <code>https://223.5.5.5/dns-query</code>，打开“启用 DNS 路由”。</li>
+      <li><strong>Shadowrocket：</strong>配置文件 ⓘ → 通用 → DNS 覆写，填上面两个加密 DNS，不要留 system；做敏感的事时把全局路由改成“代理”。</li>
+      <li><strong>Outline：</strong>所有查询都经过节点，不用设置。</li>
+    </ul>
+    <p>设置完后，连上节点打开 <a href="https://browserleaks.com/dns" rel="noopener noreferrer" target="_blank">browserleaks.com/dns</a> 检查：只看到 Cloudflare、Google 等海外服务器就正常；出现中国电信、联通、移动就是还在泄漏。每一步的详细说明见 <a href="/faq#dns">常见问题</a>。</p>
   </div>
 </section>
 

@@ -149,6 +149,22 @@
       <summary>用国内邮箱安全吗？</summary>
       <div>国内邮箱可能被监控，建议使用 Gmail、Outlook、Proton 等海外邮箱接收订阅链接。</div>
     </details>
+    <details class="card" id="dns">
+      <summary>怎么防止 DNS 泄漏？</summary>
+      <div>
+        <p>打开网站前，设备要先查“这个域名对应哪个 IP”（DNS 查询）。如果这一步走的是运营商的 DNS，即使网页内容走了节点，运营商也能看到你访问了哪些网站。下面的设置让查询经节点发出，或者加密后再发。各软件版本不同，菜单名称可能略有差别。</p>
+        <ul class="mt">
+          <li><strong>Clash Verge / Clash Meta：</strong>本站的 Clash 订阅已经带好了防泄漏的 DNS 设置，<strong>更新一次订阅</strong>就生效。如果你在“设置”里打开过“DNS 覆写”，请关掉，否则会盖掉订阅里的设置。</li>
+          <li><strong>v2rayNG（Android）：</strong>右上角菜单 → 设置：打开“启用流量探测”（Sniffing）和“启用本地 DNS”；“远程 DNS”填 <code>https://1.1.1.1/dns-query</code>；“国内 DNS”填 <code>https://223.5.5.5/dns-query</code>。改完后断开再重新连接。</li>
+          <li><strong>v2rayN（Windows）：</strong>设置 → 参数设置：确认“开启流量探测”（Sniffing）已勾选；在“DNS 设置”里把远程 DNS 设为 <code>https://1.1.1.1/dns-query</code>，直连（国内）DNS 设为 <code>https://223.5.5.5/dns-query</code>。用“系统代理”模式时，浏览器会把域名直接交给节点；用 TUN 模式时请保持上面的 DNS 设置。</li>
+          <li><strong>Hiddify：</strong>设置 → 配置选项：“地区”选“中国”；“远程 DNS”填 <code>https://1.1.1.1/dns-query</code>；“直连 DNS”填 <code>https://223.5.5.5/dns-query</code>；打开“启用 DNS 路由”。</li>
+          <li><strong>Shadowrocket：</strong>底部“配置” → 点正在使用的配置文件右边的 ⓘ → “通用” → “DNS 覆写”，填 <code>https://1.1.1.1/dns-query</code> 和 <code>https://223.5.5.5/dns-query</code>（不要留 system）。做敏感的事时，首页“全局路由”可以临时改成“代理”，所有流量和查询都交给节点。</li>
+          <li><strong>Outline：</strong>连接后所有流量（包括 DNS）都经过节点，不用设置。</li>
+        </ul>
+        <p class="mt"><strong>检查是否泄漏：</strong>连上节点后，用浏览器打开 <a href="https://browserleaks.com/dns" rel="noopener noreferrer" target="_blank">browserleaks.com/dns</a>。结果里如果出现“China Telecom / Unicom / Mobile”（中国电信、联通、移动）或你所在城市的运营商，说明还在泄漏；只看到 Cloudflare、Google 等海外服务器就是正常的。</p>
+        <p class="mt">另外，国内 App（微信、淘宝等）会用自己的方式查询域名，不受上面设置的影响。敏感操作请用不装国内 App 的设备，见 <a href="/safety#net">数字安全指南</a>。</p>
+      </div>
+    </details>
   </div>
 </section>
 
