@@ -11,6 +11,7 @@ import { handleTapline } from './tapline.js';
 //   /api/free                                          -> the website account's nodes (WEB_TOKEN)
 //   /api/chat-mirrors                                  -> 加密聊天 relay addresses (xrayr-next)
 //   /api/official-hosts                                -> addresses 加密分享 / 加密聊天 may run on
+//   /api/live-relays                                   -> 直播中转 relay pages (xrayr-next)
 //   /chat, /chat/*, /chat/ws                           -> 加密聊天 on Debian-1-2 (CHAT_URL, Cloudflare Tunnel)
 //   /tapline, /tapline/*                               -> 随开专线 (tapline Worker, service binding TAPLINE)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
@@ -205,6 +206,19 @@ async function route(request, url, env, ctx) {
         .filter((m) => /^https:\/\/\d{1,3}(\.\d{1,3}){3}:8443\/chat$/.test(String(m?.url || '')))
         .map((m) => ({ url: m.url, region: String(m.region || '').slice(0, 20) }));
       return json({ mirrors }, 200, 'public, max-age=120');
+    });
+  }
+
+  // 直播中转 relays (xrayr-next GET /live/relays): https://<node IP>:8443/
+  if (p === '/api/live-relays') {
+    return cached(request, ctx, 120, async () => {
+      const res = await xn(env, '/live/relays');
+      if (!res.ok) return json({ error: '中转服务器列表暂时无法加载' }, 502, 'no-store');
+      const data = await res.json().catch(() => ({}));
+      const relays = (Array.isArray(data.relays) ? data.relays : [])
+        .filter((r) => /^https:\/\/\d{1,3}(\.\d{1,3}){3}:8443\/$/.test(String(r?.url || '')))
+        .map((r) => ({ url: r.url, region: String(r.region || '').slice(0, 20) }));
+      return json({ relays }, 200, 'public, max-age=120');
     });
   }
 

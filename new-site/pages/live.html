@@ -1,0 +1,67 @@
+<!--
+title: 直播中转
+description: 在国内用手机直播到自己的 YouTube / X 频道：手机推到中转服务器，再由服务器转推出去。全程加密（RTMPS / SRT），不用开翻墙软件。
+nav: live
+ads: off
+index: on
+script: live.js
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">直播中转 · Beta</span>
+    <h1>在国内直播到 YouTube / X</h1>
+    <p>手机推流到我们的中转服务器，服务器再转推到<b>你自己的</b> YouTube 或 X 频道。国内到中转服务器这一段全程加密（RTMPS 或 SRT），别人看不到画面，也看不出你在推到哪里；不用开翻墙软件。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">第一步</span><h2>打开中转服务器，申请推流地址</h2></div>
+      <span class="muted">服务器被封会自动换地址，打不开就回本页拿新的</span>
+    </div>
+    <div id="relay-list" class="grid grid-2">
+      <div class="skeleton"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap grid grid-2">
+    <div class="card feature">
+      <h2>第二步：装推流软件</h2>
+      <p class="muted">安卓和 iPhone 推荐 <b>Larix Broadcaster</b>（免费），iPhone 也可以用 <b>Moblin</b>。在 <a href="/download#live">软件下载</a> 里可以直接下载安卓版。</p>
+      <p class="muted">在中转页面申请成功后，点“在 Larix 里打开”可以一键导入；也可以手动填写服务器地址和串流密钥。</p>
+    </div>
+    <div class="card feature">
+      <h2>第三步：开播</h2>
+      <ol class="muted">
+        <li>YouTube：在 YouTube 工作室 → 创建 → 开始直播 → 直播（推流）里复制“推流密钥”。第一次开通直播要等 24 小时。</li>
+        <li>X：在 Media Studio → Producer 新建直播源，复制 RTMP 服务器地址和推流码（需要账号有直播权限）。</li>
+        <li>在推流软件里点开始，回到中转页面用管理口令查看状态：显示“正在转推”就成功了。</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap grid grid-2">
+    <div class="card feature">
+      <h2>限制</h2>
+      <ul class="muted">
+        <li>每台服务器同时最多几路直播（页面上有显示），满了请稍后再推。</li>
+        <li>每路最高约 6000 kbps、单次最长 6 小时。建议 720p 或 1080p、2500–4500 kbps、关键帧间隔 2 秒。</li>
+        <li>推流地址 24 小时内没用过、或连续 7 天没直播会自动删除，到时重新申请即可。</li>
+        <li>测试版，可能随时调整。</li>
+      </ul>
+    </div>
+    <div class="card feature">
+      <h2>安全须知</h2>
+      <ul class="muted">
+        <li>中转只保护国内到服务器这一段。直播画面本身、你的 YouTube / X 账号仍可能暴露身份：注意镜头里的人脸、车牌、门牌和声音。</li>
+        <li>推流码只存在中转服务器上，用来转推；页面不会再显示完整推流码。管理口令只显示一次，请自己保存。</li>
+        <li>长时间大流量连接境外 IP 本身可能引起注意，请自己判断风险。更多建议见 <a href="/safety">数字安全指南</a>。</li>
+      </ul>
+    </div>
+  </div>
+</section>
