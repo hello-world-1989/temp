@@ -107,7 +107,7 @@ p { margin: 0 0 1em; }
 /* Desktop shows .nav-desktop; phones get the collapsible menu (a closed <details>
    never renders its content, so desktop cannot reuse it) */
 .menu { display: none; }
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .nav-desktop { display: none; }
   .menu { display: block; }
   .menu summary { display: block; }

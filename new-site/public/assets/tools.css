@@ -1,0 +1,30 @@
+/* 常用工具 /tools */
+.tool { padding: 22px; display: grid; gap: 14px; }
+.tool h2 { margin: 0; }
+.tool p { margin: 0; }
+.tool .small { font-size: .86rem; }
+.tool textarea.input { min-height: 0; resize: vertical; line-height: 1.45; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86rem; word-break: break-all; }
+.tool-tabs { margin-bottom: 16px; }
+.tool:not(.active) { display: none; }
+.opt { display: inline-flex; align-items: center; gap: 8px; font-size: .92rem; color: var(--muted); }
+.opt .input-sm { min-height: 36px; }
+.row.center { justify-content: center; }
+.tool-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 20px; align-items: start; }
+@media (max-width: 720px) { .tool-grid { grid-template-columns: 1fr; } }
+.qr-out { display: grid; gap: 10px; justify-items: center; }
+.qr-out canvas { width: 100%; max-width: 280px; height: auto; aspect-ratio: 1; background: #fff; border-radius: 10px; border: 1px solid var(--line); image-rendering: pixelated; }
+.drop {
+  display: block; padding: 28px 18px; text-align: center; cursor: pointer; color: var(--muted);
+  border: 2px dashed var(--line); border-radius: var(--radius); background: var(--surface-2);
+}
+.drop:hover, .drop.over { border-color: var(--accent); color: var(--text); }
+.drop b { color: var(--accent); }
+.nodes:empty { display: none; }
+.nodes { display: grid; gap: 6px; max-height: 320px; overflow: auto; border: 1px solid var(--line); border-radius: 12px; padding: 8px; }
+.node { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 4px; border-top: 1px solid var(--line); font-size: .9rem; }
+.node:first-child { border-top: 0; }
+.node .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.node .addr { color: var(--muted); font-size: .82rem; }
+.node .badge { font-size: .72rem; padding: 2px 8px; }
+#hash-result { grid-template-columns: 1fr; }

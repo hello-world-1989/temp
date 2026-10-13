@@ -1,0 +1,192 @@
+<!--
+title: 常用工具
+description: 翻墙常用小工具：二维码生成与识别、订阅/节点链接转 Clash 配置、Base64 编码解码、URL 编码解码、文件 SHA-256 校验、随机密码和 UUID。全部在浏览器本地运行，不上传任何内容。
+nav: tools
+index: on
+style: tools.css
+script: tools.js
+-->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">常用工具</span>
+    <h1>翻墙常用小工具</h1>
+    <p>二维码、订阅转换、Base64……全部在你的浏览器里运行，<b>本站不会把你输入的内容发到任何服务器</b>（节点链接、订阅内容也一样）。页面上有 Google 广告；处理节点链接等敏感内容时，可以打开页面后先断网再用，工具照样能用。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="tabs tool-tabs" role="tablist" aria-label="工具">
+      <button class="tab" role="tab" data-tool="qr">二维码生成</button>
+      <button class="tab" role="tab" data-tool="scan">二维码识别</button>
+      <button class="tab" role="tab" data-tool="convert">订阅 / 配置转换</button>
+      <button class="tab" role="tab" data-tool="base64">Base64</button>
+      <button class="tab" role="tab" data-tool="url">URL 编码</button>
+      <button class="tab" role="tab" data-tool="hash">文件校验</button>
+      <button class="tab" role="tab" data-tool="gen">密码 / UUID</button>
+    </div>
+
+    <!-- 二维码生成 -->
+    <div class="card tool" id="tool-qr" role="tabpanel">
+      <h2>二维码生成</h2>
+      <p class="muted">把节点链接、订阅链接或任意文字变成二维码，用手机客户端扫码导入（v2rayNG、Shadowrocket、Hiddify 等都支持扫码）。</p>
+      <div class="tool-grid">
+        <div class="field">
+          <label for="qr-text">内容</label>
+          <textarea id="qr-text" class="input mono" rows="7" placeholder="例如 vless://…、ss://…、hysteria2://… 或 https://…"></textarea>
+          <div class="row">
+            <label class="opt">纠错 <select id="qr-ecc" class="input input-sm">
+              <option value="L">低（码更稀疏，长链接推荐）</option>
+              <option value="M" selected>中</option>
+              <option value="Q">较高</option>
+              <option value="H">高</option>
+            </select></label>
+            <label class="opt">尺寸 <select id="qr-size" class="input input-sm">
+              <option value="256">256</option>
+              <option value="512" selected>512</option>
+              <option value="1024">1024</option>
+            </select></label>
+          </div>
+          <p class="muted small" id="qr-info"></p>
+        </div>
+        <div class="qr-out">
+          <canvas id="qr-canvas" width="512" height="512" aria-label="二维码"></canvas>
+          <div class="row center">
+            <button class="btn btn-ghost btn-sm" type="button" id="qr-download">保存图片</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 二维码识别 -->
+    <div class="card tool" id="tool-scan" role="tabpanel">
+      <h2>二维码识别</h2>
+      <p class="muted">从截图或照片里读出二维码内容（比如 YouTube 直播画面里的节点二维码、别人发来的图片）。图片只在本机处理，不上传。</p>
+      <label class="drop" id="scan-drop">
+        <input type="file" id="scan-file" accept="image/*" hidden>
+        <b>点这里选择图片</b>，或把图片拖进来，或直接 Ctrl+V / ⌘V 粘贴截图
+      </label>
+      <div class="notice" id="scan-msg"></div>
+      <div class="field hidden" id="scan-result-box">
+        <label for="scan-result">识别结果</label>
+        <textarea id="scan-result" class="input mono" rows="5" readonly></textarea>
+        <div class="row">
+          <button class="btn btn-primary btn-sm" type="button" id="scan-copy">复制</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="scan-to-convert">拿去转换</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="scan-to-base64">Base64 解码</button>
+        </div>
+      </div>
+      <canvas id="scan-canvas" hidden></canvas>
+    </div>
+
+    <!-- 订阅 / 配置转换 -->
+    <div class="card tool" id="tool-convert" role="tabpanel">
+      <h2>订阅 / 配置转换</h2>
+      <p class="muted">把订阅内容（base64）或一行一个的节点链接，转换成 Clash（Clash Verge / mihomo）配置、base64 订阅或明文链接。支持 VLESS（含 REALITY）、VMess、Trojan、Shadowsocks、Hysteria2。</p>
+      <p class="muted small">怎么拿到订阅内容：用浏览器打开订阅链接，全选复制页面上的那一大段文字，粘贴到下面。网页不会替你去下载订阅链接（那样服务器就能看到你的订阅）。</p>
+      <div class="field">
+        <label for="cv-in">输入</label>
+        <textarea id="cv-in" class="input mono" rows="7" placeholder="粘贴订阅内容（一大段 base64），或一行一个 vless:// ss:// trojan:// vmess:// hysteria2:// 链接"></textarea>
+      </div>
+      <div class="row">
+        <label class="opt">输出 <select id="cv-out" class="input input-sm">
+          <option value="clash">Clash 完整配置（国内直连）</option>
+          <option value="clash-global">Clash 完整配置（全部走代理）</option>
+          <option value="proxies">Clash 只要 proxies 段</option>
+          <option value="base64">base64 订阅（v2rayN / v2rayNG / Shadowrocket）</option>
+          <option value="links">明文链接（一行一个）</option>
+        </select></label>
+        <button class="btn btn-primary btn-sm" type="button" id="cv-go">转换</button>
+      </div>
+      <div class="notice" id="cv-msg"></div>
+      <div id="cv-nodes" class="nodes"></div>
+      <div class="field hidden" id="cv-result-box">
+        <label for="cv-result">结果</label>
+        <textarea id="cv-result" class="input mono" rows="12" readonly></textarea>
+        <div class="row">
+          <button class="btn btn-primary btn-sm" type="button" id="cv-copy">复制</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="cv-download">保存为文件</button>
+        </div>
+        <p class="muted small">Clash 配置里已经带上防 DNS 泄漏的设置（fake-ip + 加密 DNS），见 <a href="/faq#dns">怎么防止 DNS 泄漏</a>。“国内直连”用到 GeoIP，客户端第一次启动时可能要下载 GeoIP 数据库，下载不了就先选“全部走代理”。</p>
+      </div>
+    </div>
+
+    <!-- Base64 -->
+    <div class="card tool" id="tool-base64" role="tabpanel">
+      <h2>Base64 编码 / 解码</h2>
+      <p class="muted">解码订阅内容、ss:// 链接里的加密方式和密码等。自动兼容 URL 安全格式（- _）、缺少的 = 和换行；按 UTF-8 处理中文。</p>
+      <div class="field">
+        <label for="b64-in">输入</label>
+        <textarea id="b64-in" class="input mono" rows="7"></textarea>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-sm" type="button" id="b64-decode">解码</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="b64-encode">编码</button>
+        <label class="opt"><input type="checkbox" id="b64-urlsafe"> URL 安全格式（编码时）</label>
+      </div>
+      <div class="notice" id="b64-msg"></div>
+      <div class="field">
+        <label for="b64-out">结果</label>
+        <textarea id="b64-out" class="input mono" rows="7" readonly></textarea>
+        <div class="row"><button class="btn btn-ghost btn-sm" type="button" id="b64-copy">复制结果</button></div>
+      </div>
+    </div>
+
+    <!-- URL 编码 -->
+    <div class="card tool" id="tool-url" role="tabpanel">
+      <h2>URL 编码 / 解码</h2>
+      <p class="muted">节点链接 # 后面的名字、参数里的中文常被编码成 %E4%B8%AD 这样，解码后就能看懂。</p>
+      <div class="field">
+        <label for="url-in">输入</label>
+        <textarea id="url-in" class="input mono" rows="6"></textarea>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-sm" type="button" id="url-decode">解码</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="url-encode">编码</button>
+      </div>
+      <div class="notice" id="url-msg"></div>
+      <div class="field">
+        <label for="url-out">结果</label>
+        <textarea id="url-out" class="input mono" rows="6" readonly></textarea>
+        <div class="row"><button class="btn btn-ghost btn-sm" type="button" id="url-copy">复制结果</button></div>
+      </div>
+    </div>
+
+    <!-- 文件校验 -->
+    <div class="card tool" id="tool-hash" role="tabpanel">
+      <h2>文件校验（SHA-256）</h2>
+      <p class="muted">下载的安装包有没有被调包？算出文件的 SHA-256，和软件官网或 GitHub Release 页面上写的值对比，一致才安全。文件不上传，在本机计算。</p>
+      <label class="drop" id="hash-drop">
+        <input type="file" id="hash-file" hidden>
+        <b>点这里选择文件</b>，或把文件拖进来
+      </label>
+      <div class="field">
+        <label for="hash-expect">官网写的 SHA-256（可选，用来自动对比）</label>
+        <input id="hash-expect" class="input mono" placeholder="粘贴 64 位十六进制">
+      </div>
+      <div class="notice" id="hash-msg"></div>
+      <div class="kv hidden" id="hash-result">
+        <div><dt>文件</dt><dd id="hash-name"></dd></div>
+        <div><dt>SHA-256</dt><dd class="mono" id="hash-value"></dd></div>
+      </div>
+    </div>
+
+    <!-- 密码 / UUID -->
+    <div class="card tool" id="tool-gen" role="tabpanel">
+      <h2>随机密码 / UUID</h2>
+      <p class="muted">用浏览器的安全随机数生成。自己搭节点时可用作 Shadowsocks 密码、VLESS/VMess 的 UUID、Hysteria2 密码。</p>
+      <div class="row">
+        <label class="opt">长度 <input id="gen-len" class="input input-sm" type="number" min="8" max="128" value="24"></label>
+        <label class="opt"><input type="checkbox" id="gen-symbols"> 包含符号</label>
+        <button class="btn btn-primary btn-sm" type="button" id="gen-pass">生成密码</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="gen-uuid">生成 UUID</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="gen-ss">生成 SS-2022 密钥</button>
+      </div>
+      <div class="field">
+        <label for="gen-out">结果（点一下复制）</label>
+        <input id="gen-out" class="input mono" readonly>
+      </div>
+    </div>
+  </div>
+</section>
+{{> ad}}

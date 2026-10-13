@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常用工具 | 大翻墙运动</title>
+<meta name="description" content="翻墙常用小工具：二维码生成与识别、订阅/节点链接转 Clash 配置、Base64 编码解码、URL 编码解码、文件 SHA-256 校验、随机密码和 UUID。全部在浏览器本地运行，不上传任何内容。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b5cff">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/site.js"></script>
+<script src="/assets/panic.js" defer></script>
+<script src="/assets/ads.js" async></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="module" src="/assets/tools.js"></script>
+</head>
+
+<body class="page-tools">
+<!-- Main-site links are written as end-gfw&#46;com so mirror nodes (nginx sub_filter strips "https://end-gfw.com") keep them pointing at the main site -->
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="https://end-gfw&#46;com/" aria-label="大翻墙运动 总站首页">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="3"/><path d="M3 13h26M3 19h26M11 7v6M21 13v6M11 19v6"/><path class="crack" d="M18 4l-3 9 4 3-3 12"/></svg>
+      <span>大翻墙运动</span>
+    </a>
+    <nav class="nav nav-desktop" aria-label="主导航">
+        <a href="https://end-gfw&#46;com/" data-nav="home">总站首页</a>
+        <a href="/download" data-nav="download">翻墙软件</a>
+        <a href="/tweets" data-nav="tweets">推文</a>
+        <a href="/mirror" rel="nofollow">分站首页</a>
+        <a href="/plans" data-nav="plans">赞助支持</a>
+        <a href="/my" data-nav="my">我的订阅</a>
+        <a href="https://end-gfw&#46;com/checkin" data-nav="checkin">签到</a>
+        <a href="/tapline/" data-nav="tapline">随开专线</a>
+        <a href="/tools" data-nav="tools" aria-current="page">常用工具</a>
+        <details class="dropdown">
+          <summary>安全工具<span class="beta">Beta</span></summary>
+          <div class="dropdown-menu">
+            <a href="/board" data-nav="board">事件墙</a>
+            <a href="/share" data-nav="share">加密分享</a>
+            <a href="/chat" data-nav="chat">加密聊天</a>
+            <a href="/live" data-nav="live">直播中转</a>
+          </div>
+        </details>
+    </nav>
+    <details class="menu">
+      <summary aria-label="菜单"><span></span><span></span><span></span></summary>
+      <nav class="nav nav-mobile" aria-label="主导航（手机）">
+        <a href="https://end-gfw&#46;com/" data-nav="home">总站首页</a>
+        <a href="/download" data-nav="download">翻墙软件</a>
+        <a href="/tweets" data-nav="tweets">推文</a>
+        <a href="/mirror" rel="nofollow">分站首页</a>
+        <a href="/plans" data-nav="plans">赞助支持</a>
+        <a href="/my" data-nav="my">我的订阅</a>
+        <a href="https://end-gfw&#46;com/checkin" data-nav="checkin">签到</a>
+        <a href="/tapline/" data-nav="tapline">随开专线</a>
+        <a href="/tools" data-nav="tools" aria-current="page">常用工具</a>
+        <div class="nav-group" role="group" aria-label="安全工具">
+          <div class="nav-group-title">安全工具<span class="beta">Beta</span></div>
+          <a href="/board" data-nav="board">事件墙</a>
+          <a href="/share" data-nav="share">加密分享</a>
+          <a href="/chat" data-nav="chat">加密聊天</a>
+          <a href="/live" data-nav="live">直播中转</a>
+        </div>
+      </nav>
+    </details>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">常用工具</span>
+    <h1>翻墙常用小工具</h1>
+    <p>二维码、订阅转换、Base64……全部在你的浏览器里运行，<b>本站不会把你输入的内容发到任何服务器</b>（节点链接、订阅内容也一样）。页面上有 Google 广告；处理节点链接等敏感内容时，可以打开页面后先断网再用，工具照样能用。</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="tabs tool-tabs" role="tablist" aria-label="工具">
+      <button class="tab" role="tab" data-tool="qr">二维码生成</button>
+      <button class="tab" role="tab" data-tool="scan">二维码识别</button>
+      <button class="tab" role="tab" data-tool="convert">订阅 / 配置转换</button>
+      <button class="tab" role="tab" data-tool="base64">Base64</button>
+      <button class="tab" role="tab" data-tool="url">URL 编码</button>
+      <button class="tab" role="tab" data-tool="hash">文件校验</button>
+      <button class="tab" role="tab" data-tool="gen">密码 / UUID</button>
+    </div>
+
+    <!-- 二维码生成 -->
+    <div class="card tool" id="tool-qr" role="tabpanel">
+      <h2>二维码生成</h2>
+      <p class="muted">把节点链接、订阅链接或任意文字变成二维码，用手机客户端扫码导入（v2rayNG、Shadowrocket、Hiddify 等都支持扫码）。</p>
+      <div class="tool-grid">
+        <div class="field">
+          <label for="qr-text">内容</label>
+          <textarea id="qr-text" class="input mono" rows="7" placeholder="例如 vless://…、ss://…、hysteria2://… 或 https://…"></textarea>
+          <div class="row">
+            <label class="opt">纠错 <select id="qr-ecc" class="input input-sm">
+              <option value="L">低（码更稀疏，长链接推荐）</option>
+              <option value="M" selected>中</option>
+              <option value="Q">较高</option>
+              <option value="H">高</option>
+            </select></label>
+            <label class="opt">尺寸 <select id="qr-size" class="input input-sm">
+              <option value="256">256</option>
+              <option value="512" selected>512</option>
+              <option value="1024">1024</option>
+            </select></label>
+          </div>
+          <p class="muted small" id="qr-info"></p>
+        </div>
+        <div class="qr-out">
+          <canvas id="qr-canvas" width="512" height="512" aria-label="二维码"></canvas>
+          <div class="row center">
+            <button class="btn btn-ghost btn-sm" type="button" id="qr-download">保存图片</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 二维码识别 -->
+    <div class="card tool" id="tool-scan" role="tabpanel">
+      <h2>二维码识别</h2>
+      <p class="muted">从截图或照片里读出二维码内容（比如 YouTube 直播画面里的节点二维码、别人发来的图片）。图片只在本机处理，不上传。</p>
+      <label class="drop" id="scan-drop">
+        <input type="file" id="scan-file" accept="image/*" hidden>
+        <b>点这里选择图片</b>，或把图片拖进来，或直接 Ctrl+V / ⌘V 粘贴截图
+      </label>
+      <div class="notice" id="scan-msg"></div>
+      <div class="field hidden" id="scan-result-box">
+        <label for="scan-result">识别结果</label>
+        <textarea id="scan-result" class="input mono" rows="5" readonly></textarea>
+        <div class="row">
+          <button class="btn btn-primary btn-sm" type="button" id="scan-copy">复制</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="scan-to-convert">拿去转换</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="scan-to-base64">Base64 解码</button>
+        </div>
+      </div>
+      <canvas id="scan-canvas" hidden></canvas>
+    </div>
+
+    <!-- 订阅 / 配置转换 -->
+    <div class="card tool" id="tool-convert" role="tabpanel">
+      <h2>订阅 / 配置转换</h2>
+      <p class="muted">把订阅内容（base64）或一行一个的节点链接，转换成 Clash（Clash Verge / mihomo）配置、base64 订阅或明文链接。支持 VLESS（含 REALITY）、VMess、Trojan、Shadowsocks、Hysteria2。</p>
+      <p class="muted small">怎么拿到订阅内容：用浏览器打开订阅链接，全选复制页面上的那一大段文字，粘贴到下面。网页不会替你去下载订阅链接（那样服务器就能看到你的订阅）。</p>
+      <div class="field">
+        <label for="cv-in">输入</label>
+        <textarea id="cv-in" class="input mono" rows="7" placeholder="粘贴订阅内容（一大段 base64），或一行一个 vless:// ss:// trojan:// vmess:// hysteria2:// 链接"></textarea>
+      </div>
+      <div class="row">
+        <label class="opt">输出 <select id="cv-out" class="input input-sm">
+          <option value="clash">Clash 完整配置（国内直连）</option>
+          <option value="clash-global">Clash 完整配置（全部走代理）</option>
+          <option value="proxies">Clash 只要 proxies 段</option>
+          <option value="base64">base64 订阅（v2rayN / v2rayNG / Shadowrocket）</option>
+          <option value="links">明文链接（一行一个）</option>
+        </select></label>
+        <button class="btn btn-primary btn-sm" type="button" id="cv-go">转换</button>
+      </div>
+      <div class="notice" id="cv-msg"></div>
+      <div id="cv-nodes" class="nodes"></div>
+      <div class="field hidden" id="cv-result-box">
+        <label for="cv-result">结果</label>
+        <textarea id="cv-result" class="input mono" rows="12" readonly></textarea>
+        <div class="row">
+          <button class="btn btn-primary btn-sm" type="button" id="cv-copy">复制</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="cv-download">保存为文件</button>
+        </div>
+        <p class="muted small">Clash 配置里已经带上防 DNS 泄漏的设置（fake-ip + 加密 DNS），见 <a href="/faq#dns">怎么防止 DNS 泄漏</a>。“国内直连”用到 GeoIP，客户端第一次启动时可能要下载 GeoIP 数据库，下载不了就先选“全部走代理”。</p>
+      </div>
+    </div>
+
+    <!-- Base64 -->
+    <div class="card tool" id="tool-base64" role="tabpanel">
+      <h2>Base64 编码 / 解码</h2>
+      <p class="muted">解码订阅内容、ss:// 链接里的加密方式和密码等。自动兼容 URL 安全格式（- _）、缺少的 = 和换行；按 UTF-8 处理中文。</p>
+      <div class="field">
+        <label for="b64-in">输入</label>
+        <textarea id="b64-in" class="input mono" rows="7"></textarea>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-sm" type="button" id="b64-decode">解码</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="b64-encode">编码</button>
+        <label class="opt"><input type="checkbox" id="b64-urlsafe"> URL 安全格式（编码时）</label>
+      </div>
+      <div class="notice" id="b64-msg"></div>
+      <div class="field">
+        <label for="b64-out">结果</label>
+        <textarea id="b64-out" class="input mono" rows="7" readonly></textarea>
+        <div class="row"><button class="btn btn-ghost btn-sm" type="button" id="b64-copy">复制结果</button></div>
+      </div>
+    </div>
+
+    <!-- URL 编码 -->
+    <div class="card tool" id="tool-url" role="tabpanel">
+      <h2>URL 编码 / 解码</h2>
+      <p class="muted">节点链接 # 后面的名字、参数里的中文常被编码成 %E4%B8%AD 这样，解码后就能看懂。</p>
+      <div class="field">
+        <label for="url-in">输入</label>
+        <textarea id="url-in" class="input mono" rows="6"></textarea>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-sm" type="button" id="url-decode">解码</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="url-encode">编码</button>
+      </div>
+      <div class="notice" id="url-msg"></div>
+      <div class="field">
+        <label for="url-out">结果</label>
+        <textarea id="url-out" class="input mono" rows="6" readonly></textarea>
+        <div class="row"><button class="btn btn-ghost btn-sm" type="button" id="url-copy">复制结果</button></div>
+      </div>
+    </div>
+
+    <!-- 文件校验 -->
+    <div class="card tool" id="tool-hash" role="tabpanel">
+      <h2>文件校验（SHA-256）</h2>
+      <p class="muted">下载的安装包有没有被调包？算出文件的 SHA-256，和软件官网或 GitHub Release 页面上写的值对比，一致才安全。文件不上传，在本机计算。</p>
+      <label class="drop" id="hash-drop">
+        <input type="file" id="hash-file" hidden>
+        <b>点这里选择文件</b>，或把文件拖进来
+      </label>
+      <div class="field">
+        <label for="hash-expect">官网写的 SHA-256（可选，用来自动对比）</label>
+        <input id="hash-expect" class="input mono" placeholder="粘贴 64 位十六进制">
+      </div>
+      <div class="notice" id="hash-msg"></div>
+      <div class="kv hidden" id="hash-result">
+        <div><dt>文件</dt><dd id="hash-name"></dd></div>
+        <div><dt>SHA-256</dt><dd class="mono" id="hash-value"></dd></div>
+      </div>
+    </div>
+
+    <!-- 密码 / UUID -->
+    <div class="card tool" id="tool-gen" role="tabpanel">
+      <h2>随机密码 / UUID</h2>
+      <p class="muted">用浏览器的安全随机数生成。自己搭节点时可用作 Shadowsocks 密码、VLESS/VMess 的 UUID、Hysteria2 密码。</p>
+      <div class="row">
+        <label class="opt">长度 <input id="gen-len" class="input input-sm" type="number" min="8" max="128" value="24"></label>
+        <label class="opt"><input type="checkbox" id="gen-symbols"> 包含符号</label>
+        <button class="btn btn-primary btn-sm" type="button" id="gen-pass">生成密码</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="gen-uuid">生成 UUID</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="gen-ss">生成 SS-2022 密钥</button>
+      </div>
+      <div class="field">
+        <label for="gen-out">结果（点一下复制）</label>
+        <input id="gen-out" class="input mono" readonly>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section-tight ad-section" aria-label="广告">
+  <div class="wrap">
+    <ins class="adsbygoogle ad-unit" style="display:block" data-ad-client="ca-pub-7165471280882308" data-ad-slot="5427427315" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+</section>
+
+
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-brand">大翻墙运动</p>
+      <p class="muted">公益项目：免费翻墙节点、翻墙软件和每日新闻。墙倒众人推。</p>
+    </div>
+    <div>
+      <p class="footer-title">常用</p>
+      <a href="/download">翻墙软件</a>
+      <a href="/#free">免费节点</a>
+      <a href="/plans">赞助支持</a>
+      <a href="/my">我的订阅</a>
+      <a href="https://end-gfw&#46;com/checkin">签到</a>
+      <a href="/news">新闻</a>
+      <a href="/faq">常见问题</a>
+      <a href="/tools">常用工具</a>
+    </div>
+    <div>
+      <p class="footer-title">更多内容</p>
+      <a href="/safety">数字安全指南</a>
+      <a href="/events">重要事件时间线</a>
+      <a href="https://www.youtube.com/@end_gfw/streams" rel="noopener">YouTube 直播</a>
+    </div>
+    <div>
+      <p class="footer-title">支持我们</p>
+      <a href="/plans">赞助</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="mailto:end.gfw@hotmail.com">联系：end.gfw@hotmail.com</a>
+      <a href="https://t.me/end_gfw1" rel="noopener">电报群：t.me/end_gfw1</a>
+    </div>
+  </div>
+  <div class="wrap footer-safety">
+    <a href="/safety">🛡 数字安全指南：手机被查、被约谈之前该知道的事</a>
+    <button class="btn btn-sm btn-panic" type="button" data-panic title="立即清除本机上本站的所有数据并离开（也可连按三次 Esc）">一键清除本站数据</button>
+    <span class="muted">连按三次 Esc 也能立即清除</span>
+  </div>
+  <div class="wrap footer-note muted">本站不记录访问日志。付款由 Stripe 处理，本站看不到你的卡号。</div>
+  <div class="wrap footer-bottom">
+    <p class="footer-copy muted">© 2023-2026 大翻墙运动 End GFW · Powered by MXiao</p>
+    <nav class="footer-social" aria-label="社交媒体">
+      <a href="https://x.com/end_gfw" rel="noopener" target="_blank" aria-label="X (Twitter)" title="X (Twitter)"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>X</span></a>
+      <a href="https://github.com/hello-world-1989/temp" rel="noopener" target="_blank" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg><span>GitHub</span></a>
+      <a href="https://www.youtube.com/@end_gfw" rel="noopener" target="_blank" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg><span>YouTube</span></a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
