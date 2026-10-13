@@ -7,14 +7,9 @@ workers_dev = false
 [assets]
 directory = "./public"
 binding = "ASSETS"
-# Paths without a page here go to the Worker, which hands them to the old site
+# Paths without a page here go to the Worker (its own routes, else the 404 page)
 not_found_handling = "none"
 run_worker_first = ["/share", "/share-get", "/s/*", "/api/*", "/pay/*", "/download-app/*", "/download-pdf/*", "/news-resource/*", "/google3265592cabe77d27.html", "/googlebe5a4faac22676fb.html"]
-
-# The old site (temp v1 branch, legacy-site/) for everything this site does not have
-[[services]]
-binding = "LEGACY"
-service = "end-gfw-legacy"
 
 # 随开专线 (/tapline, src/tapline.js): the tapline Worker (paid-instance), served under this site's
 # address so the tapline domain is never shown
@@ -100,10 +95,6 @@ SHARE_MIRROR_LINKS = "0"
 # Preview only: storage error messages in API responses
 SHARE_DEBUG = "1"
 
-[[env.preview.services]]
-binding = "LEGACY"
-service = "end-gfw-legacy"
-
 # Per-IP limits: uploads, and reads of file info / ciphertext / delete (skipped for
 # requests from mirror nodes, whose nginx limits each visitor)
 [[env.preview.ratelimits]]
@@ -138,10 +129,6 @@ XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
 # Reached through the Cloudflare Tunnel end-gfw-board (new-site/tunnel/)
 BOARD_URL = "https://board-store.end-gfw.com"
-
-[[env.board.services]]
-binding = "LEGACY"
-service = "end-gfw-legacy"
 
 [env.board.observability]
 enabled = false

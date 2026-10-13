@@ -40,7 +40,6 @@ async function load() {
       return `<article class="card item event">
         <div class="event-head">
           <h3>${esc(y)} 年 ${esc(Number(m))} 月</h3>
-          <a href="/tweet-page?year=${encodeURIComponent(y)}&month=${encodeURIComponent(m)}&id=whyyoutouzhele" target="_blank" rel="noopener">查看当月浏览量最多的推文 →</a>
         </div>
         <div class="chips">${words.map((w) => `<span class="badge soft">${esc(w)}</span>`).join('')}</div>
       </article>`;

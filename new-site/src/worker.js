@@ -72,11 +72,7 @@ async function route(request, url, env, ctx) {
   // 事件墙 (src/board.js); off unless BOARD_URL and the BOARD_KEY secret are set
   const board = await handleBoard(request, url, env);
   if (board) return board;
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    // CORS preflight and the like for the old site's APIs
-    if (!p.startsWith('/api/') && !p.startsWith('/pay/')) return oldSite(request, env, url);
-    return json({ error: 'method not allowed' }, 405, 'no-store');
-  }
+  if (request.method !== 'GET' && request.method !== 'HEAD') return json({ error: 'method not allowed' }, 405, 'no-store');
 
   // --- subscription system (xrayr-next)
   if (p === '/api/plans') return cached(request, ctx, 300, () => xn(env, '/pay/plans'));
@@ -155,7 +151,7 @@ async function route(request, url, env, ctx) {
     const q = url.searchParams;
     const id = q.get('id');
     const [y, m, d] = [q.get('year'), q.get('month'), q.get('day')];
-    // Only a single day maps onto the new page; month views (events page) stay on the old one
+    // Only a single day maps onto the new page (the old site with its month views is gone)
     if ((!id || id === 'whyyoutouzhele') && !q.get('endDay') && /^\d{4}$/.test(y || '') && /^\d{1,2}$/.test(m || '') && /^\d{1,2}$/.test(d || '')) {
       return Response.redirect(`${url.origin}/tweets?date=${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`, 302);
     }
@@ -262,51 +258,8 @@ async function route(request, url, env, ctx) {
     return fetchFile(request, ctx, `${file.base}/${file.rest}`, file.ttl);
   }
 
-  // --- everything the new site does not have: the old site (end-gfw-legacy Worker)
-  return oldSite(request, env, url);
-}
-
-// Old pages and APIs (why.html, events, /tweet-page, /ss-key, /renew-plan, /node, ...)
-// keep working on this domain. Only paths without a new-site page or route get here.
-async function oldSite(request, env, url) {
-  if (env.LEGACY && request.method === 'GET' && url.pathname === '/host') return legacyHosts(request, env);
-  if (env.LEGACY) {
-    const res = await env.LEGACY.fetch(request);
-    if (res.status !== 404) {
-      // Ads on every page: the old pages only load AdSense on end-gfw.com itself;
-      // ads.js skips loading when a page already did
-      if ((res.headers.get('content-type') || '').startsWith('text/html')) {
-        return new HTMLRewriter()
-          .on('head', { element: (el) => el.append('<script src="/assets/ads.js" async></script>', { html: true }) })
-          // The old pages' donation links point at the old Stripe page; send them to the sponsor page
-          .on('a[href*="buy.stripe.com"]', { element: (el) => el.setAttribute('href', '/plans') })
-          .transform(res);
-      }
-      return res;
-    }
-  }
+  // The old site (end-gfw-legacy Worker) was retired on 2026-10-13: everything else is 404
   return notFound(request, env, url);
-}
-
-// /host (old mirror list) does a KV list() in the old Worker on every call, and the free
-// plan allows 1,000 list operations a day. Cache it for a few minutes under one key
-// (same list for every domain and mirror IP); also saves the old Worker's request.
-export const HOST_CACHE_KEY = 'https://cache.end-gfw.internal/legacy/host';
-const HOST_CACHE_SECONDS = 300;
-
-export async function legacyHosts(request, env) {
-  const cache = caches.default;
-  const hit = await cache.match(HOST_CACHE_KEY);
-  if (hit) return hit;
-  const res = await env.LEGACY.fetch(new Request(request.url, { method: 'GET', headers: { Accept: 'application/json' } }));
-  if (!res.ok) return res;
-  const body = await res.arrayBuffer();
-  const headers = new Headers(res.headers);
-  headers.set('Cache-Control', `public, max-age=${HOST_CACHE_SECONDS}`);
-  headers.delete('Set-Cookie');
-  const out = new Response(body, { status: res.status, headers });
-  await cache.put(HOST_CACHE_KEY, out.clone()).catch(() => {});
-  return out;
 }
 
 async function notFound(request, env, url) {

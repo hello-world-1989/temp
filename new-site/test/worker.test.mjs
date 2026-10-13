@@ -114,29 +114,3 @@ test('一键清除: /wipe and /chat/wipe clear site data and leave for a neutral
   }
 });
 
-// --- /host (old mirror list): cached so the old Worker's KV list() runs at most every few minutes
-import { legacyHosts, HOST_CACHE_KEY } from '../src/worker.js';
-
-test('/host is served from cache after the first call', async () => {
-  const saved = globalThis.caches;
-  const store = new Map();
-  globalThis.caches = { default: { match: async (k) => store.get(k)?.clone(), put: async (k, r) => void store.set(k, r) } };
-  let legacyCalls = 0;
-  const env = { LEGACY: { fetch: async () => (legacyCalls++, new Response('[{"ip":"1.2.3.4","port":80}]', { headers: { 'content-type': 'application/json' } })) } };
-  try {
-    const a = await legacyHosts(new Request('https://end-gfw.com/host'), env);
-    const b = await legacyHosts(new Request('https://203.0.113.9/host'), env);
-    assert.equal(legacyCalls, 1);
-    assert.equal(await a.text(), '[{"ip":"1.2.3.4","port":80}]');
-    assert.equal(await b.text(), '[{"ip":"1.2.3.4","port":80}]');
-    assert.match(a.headers.get('cache-control'), /max-age=300/);
-    assert.ok(store.has(HOST_CACHE_KEY));
-    // errors are not cached
-    store.clear();
-    env.LEGACY.fetch = async () => (legacyCalls++, new Response('x', { status: 500 }));
-    assert.equal((await legacyHosts(new Request('https://end-gfw.com/host'), env)).status, 500);
-    assert.equal(store.size, 0);
-  } finally {
-    globalThis.caches = saved;
-  }
-});
