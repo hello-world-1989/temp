@@ -503,6 +503,12 @@
       "files": [
         "^RetroShare-.*-x86_64\\.AppImage$"
       ]
+    },
+    {
+      "name": "android-larix.zip",
+      "type": "page",
+      "page": "https://softvelum.com/larix/larix-broadcaster-android-apk",
+      "pattern": "https://softvelum\\.com/apk_downloads/larixbroadcaster-([\\d.]+)-web\\.apk"
     }
   ],
   "manual": [

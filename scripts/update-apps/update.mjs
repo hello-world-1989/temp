@@ -125,6 +125,16 @@ async function resolve(src) {
     });
     return { version: String(version), files };
   }
+  // 下载页里找安装包地址（文件名里带版本号、没有固定地址的，例如 Larix）
+  if (src.type === 'page') {
+    const res = await fetch(src.page, { headers: { 'User-Agent': UA } });
+    if (!res.ok) throw new Error(`${src.page} -> ${res.status}`);
+    const html = await res.text();
+    const m = html.match(new RegExp(src.pattern));
+    if (!m) throw new Error(`${src.page}: 找不到 /${src.pattern}/`);
+    const url = new URL(m[0], src.page).href;
+    return { version: m[1] ?? url, files: [{ url, name: decodeURIComponent(basename(new URL(url).pathname)), sha256: null }] };
+  }
   if (src.type === 'url') {
     const probes = await Promise.all(src.urls.map(probe));
     return {
