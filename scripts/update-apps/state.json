@@ -436,5 +436,12 @@
       "briar.apk"
     ],
     "updated": "2026-10-12T04:09:15.345Z"
+  },
+  "android-larix.zip": {
+    "version": "1.5.13",
+    "files": [
+      "larixbroadcaster-1.5.13-web.apk"
+    ],
+    "updated": "2026-10-13T01:22:03.477Z"
   }
 }
