@@ -114,3 +114,17 @@ test('一键清除: /wipe and /chat/wipe clear site data and leave for a neutral
   }
 });
 
+
+test('xrayr-next is called over the XN service binding as end-gfw.com', async () => {
+  const worker = (await import('../src/worker.js')).default;
+  const calls = [];
+  const env = {
+    XN: { fetch: async (url) => { calls.push(String(url)); return new Response('{"plans":[]}', { headers: { 'Content-Type': 'application/json' } }); } },
+    ASSETS: { fetch: async () => new Response('not found', { status: 404 }) },
+  };
+  const ctx = { waitUntil() {} };
+  const token = '2db985f6-1234-4abc-8def-0123456789ab';
+  const res = await worker.fetch(new Request(`https://end-gfw.com/api/user?token=${token}`), env, ctx);
+  assert.equal(res.status, 200);
+  assert.deepEqual(calls, [`https://end-gfw.com/user?token=${token}`]);
+});

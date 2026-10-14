@@ -17,6 +17,12 @@ run_worker_first = ["/share", "/share-get", "/s/*", "/api/*", "/pay/*", "/downlo
 binding = "TAPLINE"
 service = "paid-instance"
 
+# xrayr-next (src/worker.js xn()): its edge Worker, called Worker-to-Worker. No domain is
+# involved, so the temporary subscription domains can be added and removed freely.
+[[services]]
+binding = "XN"
+service = "xrayr-next-edge"
+
 [[routes]]
 pattern = "v2.end-gfw.com"
 custom_domain = true
@@ -35,8 +41,6 @@ zone_name = "end-gfw.com"
 [vars]
 # xrayr-next shared account for the website and YouTube (sg3, sg33, kr3, 30 Mbit)
 WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
-# xrayr-next public subscription domains, tried in order (swap here when one is blocked)
-XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 # Lambda end-gfw-legacy-api (old site's secret/MongoDB routes): previous-system
 # check-in and the mail list's email check-in
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
@@ -81,10 +85,10 @@ enabled = false
 name = "end-gfw-share-preview"
 workers_dev = false
 routes = [{ pattern = "share-preview.end-gfw.com", custom_domain = true }]
+services = [{ binding = "XN", service = "xrayr-next-edge" }]
 
 [env.preview.vars]
 WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
-XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
 # Ciphertext storage on Debian-1-1 (new-site/share-store/). The key is the Worker secret
 # SHARE_STORE_KEY (= SSM /end-gfw/share/STORE_KEY), set in the Cloudflare dashboard.
@@ -122,10 +126,10 @@ enabled = true
 name = "end-gfw-board-preview"
 workers_dev = false
 routes = [{ pattern = "board-preview.end-gfw.com", custom_domain = true }]
+services = [{ binding = "XN", service = "xrayr-next-edge" }]
 
 [env.board.vars]
 WEB_TOKEN = "bf5129f1-31f5-4edf-a07a-27ec31b26c1d"
-XN_BASES = "https://sub2.anti-involution.net,https://sub2.food-safety.academy"
 LEGACY_API = "https://emrxzwdnbpgw7bkgjnbgskmwfq0gsnwh.lambda-url.us-east-1.on.aws"
 # Reached through the Cloudflare Tunnel end-gfw-board (new-site/tunnel/)
 BOARD_URL = "https://board-store.end-gfw.com"

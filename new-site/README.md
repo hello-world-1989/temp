@@ -4,8 +4,8 @@ Cloudflare Worker + static pages. No server, no secrets in the Worker.
 
 - `pages/*.html` + `partials/` → `npm run build` → `public/*.html` (built files are committed)
 - `public/assets/` CSS/JS, `public/images/` app icons, `public/_headers` security headers (CSP)
-- `src/worker.js`: `/api/*` and `/pay/*` go to xrayr-next through its public
-  subscription domains (`XN_BASES` in `wrangler.toml`); news, tweets and the app
+- `src/worker.js`: `/api/*` and `/pay/*` go to xrayr-next through the service binding
+  `XN` (its edge Worker `xrayr-next-edge`; no subscription domain involved); news, tweets and the app
   list come from public JSON on GitHub; `/download-app/*`, `/download-pdf/*`,
   `/news-resource/*` stream GitHub files with edge caching
 

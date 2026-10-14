@@ -16,8 +16,9 @@ import { handleTapline } from './tapline.js';
 //   /tapline, /tapline/*                               -> 随开专线 (tapline Worker, service binding TAPLINE)
 //   /download-app/*, /download-pdf/*, /news-resource/* -> GitHub files, cached at the edge
 //
-// xrayr-next is reached through its public subscription domains (XN_BASES), the
-// same way subscription clients reach it, so this Worker holds no secrets.
+// xrayr-next is reached through its edge Worker over the service binding XN (the same
+// Worker subscription clients reach on the temporary subscription domains), so this
+// Worker holds no secrets and does not depend on any of those domains.
 
 const GITHUB_RAW = 'https://raw.githubusercontent.com/hello-world-1989';
 const NEWS_SOURCES = ['bbc', 'dw', 'rfa', 'rfi', 'voa'];
@@ -429,32 +430,16 @@ async function fetchFile(request, ctx, target, ttl) {
   return res;
 }
 
-// --- xrayr-next through its public subscription domains, with failover
+// --- xrayr-next through the service binding XN (edge Worker xrayr-next-edge)
+// The URL's host is what xrayr-next sees as the site the visitor is on (payment pages
+// fall back to it), so it is always the permanent end-gfw.com.
 async function xn(env, pathAndQuery) {
-  const bases = String(env.XN_BASES || '')
-    .split(',')
-    .map((b) => b.trim().replace(/\/+$/, ''))
-    .filter(Boolean);
-  let last;
-  for (const base of bases) {
-    try {
-      const res = await fetch(`${base}${pathAndQuery}`, {
-        headers: { Accept: 'application/json, text/html' },
-        redirect: 'manual',
-        signal: AbortSignal.timeout(15000),
-      });
-      // 5xx or an edge block: try the next domain
-      if (res.status >= 500) {
-        last = res;
-        continue;
-      }
-      return res;
-    } catch (err) {
-      last = err;
-    }
-  }
-  if (last instanceof Response) return last;
-  throw last || new Error('XN_BASES is empty');
+  if (!env.XN) throw new Error('service binding XN is missing');
+  return env.XN.fetch(`https://end-gfw.com${pathAndQuery}`, {
+    headers: { Accept: 'application/json, text/html' },
+    redirect: 'manual',
+    signal: AbortSignal.timeout(15000),
+  });
 }
 
 async function cached(request, ctx, ttl, produce) {
