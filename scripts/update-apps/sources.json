@@ -26,6 +26,31 @@
       ]
     },
     {
+      "name": "android-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_android_arm\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_windows_x64\\.zip$"
+      ],
+      "raw": true
+    },
+    {
+      "name": "mac-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_macos_universal\\.dmg$"
+      ]
+    },
+    {
       "name": "android-outline.zip",
       "type": "url",
       "urls": [
@@ -211,6 +236,14 @@
       "files": [
         "^Hiddify-Linux-x64-AppImage\\.AppImage$",
         "^Hiddify-Debian-x64\\.deb$"
+      ]
+    },
+    {
+      "name": "linux-karing.zip",
+      "type": "github",
+      "repo": "KaringX/karing",
+      "files": [
+        "^karing_[\\d.]+_linux_amd64\\.deb$"
       ]
     },
     {

@@ -282,6 +282,20 @@
   },
   {
     "os": "android",
+    "id": "karing",
+    "name": "Karing",
+    "link1": "/download-app/android/android-karing.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-karing.zip",
+    "helpLink": "/index.html#karing_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
+    "image": "https://karing.app/img/logo.png",
+    "mainLink": "https://karing.app/",
+    "star": 9,
+    "date": "26年10月26日更新"
+  },
+  {
+    "os": "android",
     "id": "chrome",
     "name": "Google Chrome浏览器",
     "link1": "/download-app/android/android-chrome.zip",
@@ -305,6 +319,32 @@
     "date": "26年10月8日更新"
   },
   {
+    "os": "windows",
+    "id": "karing",
+    "name": "Karing",
+    "link1": "/download-app/windows/windows-karing.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-karing.zip",
+    "helpLink": "/index.html#karing_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
+    "image": "https://karing.app/img/logo.png",
+    "mainLink": "https://karing.app/",
+    "star": 9,
+    "date": "26年10月26日更新"
+  },
+  {
+    "os": "ios",
+    "id": "karing",
+    "name": "Karing",
+    "helpLink": "/index.html#karing_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "苹果需要用海外苹果账户在 App Store 下载 Karing。密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
+    "image": "https://karing.app/img/logo.png",
+    "mainLink": "https://karing.app/",
+    "star": 9,
+    "date": "26年10月26日更新"
+  },
+  {
     "os": "ios",
     "id": "chrome",
     "name": "Google Chrome浏览器",
@@ -316,6 +356,20 @@
     "star": 9,
     "mainLink": "/index.html#apple-account",
     "mainText": "获取苹果账户"
+  },
+  {
+    "os": "mac",
+    "id": "karing",
+    "name": "Karing",
+    "link1": "/download-app/mac/mac-karing.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-karing.zip",
+    "helpLink": "/index.html#karing_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
+    "image": "https://karing.app/img/logo.png",
+    "mainLink": "https://karing.app/",
+    "star": 9,
+    "date": "26年10月26日更新"
   },
   {
     "os": "mac",
@@ -704,6 +758,20 @@
     "star": 9,
     "web": "https://www.google.com/chrome/",
     "date": "26年10月8日更新"
+  },
+  {
+    "os": "linux",
+    "id": "karing",
+    "name": "Karing",
+    "link1": "/download-app/linux/linux-karing.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/linux/linux-karing.zip",
+    "helpLink": "/index.html#karing_sub",
+    "helpText": "获取SS密钥或订阅链接",
+    "comment": "Linux：deb 安装包，Debian/Ubuntu 用 sudo apt install ./karing_*.deb 安装;密钥见主页，点击分站链接或发邮件end.gfw01@gmail.com获取, 邮件主题科学, 使用方法:打开Karing->中间 添加单个节点(非订阅链接)配置 ->扫描二维码或从剪贴板导入-> 添加任意备注aaa -> 返回->点击底部自动选择;如果有多个,查看我的配置;进阶用法: 订阅链接",
+    "image": "https://karing.app/img/logo.png",
+    "mainLink": "https://karing.app/",
+    "star": 9,
+    "date": "26年10月26日更新"
   },
   {
     "os": "linux",
