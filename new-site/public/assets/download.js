@@ -2,12 +2,13 @@ import { $, api, esc, safeUrl } from './site.js';
 
 const OS = ['android', 'ios', 'windows', 'mac', 'linux'];
 // Clients that import a subscription link from the paid service
-const SUBSCRIPTION_CLIENTS = /hiddify|v2ray|clash|shadowrocket|nekobox|sing-?box|stash|quantumult/i;
+const SUBSCRIPTION_CLIENTS = /hiddify|v2ray|clash|karing|shadowrocket|nekobox|sing-?box|stash|quantumult/i;
 
 // Help links of the old site pointed at anchors on its home page
 const HELP = {
   '/index.html#hiddify_sub': '/faq#hiddify',
   '/index.html#v2ray_sub': '/faq#v2ray',
+  '/index.html#karing_sub': '/faq#karing',
   '/index.html#outline': '/faq#outline',
 };
 const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `/${h.replace(/^\//, '')}` : h);
