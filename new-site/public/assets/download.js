@@ -4,12 +4,13 @@ const OS = ['android', 'ios', 'windows', 'mac', 'linux'];
 // Clients that import a subscription link from the paid service
 const SUBSCRIPTION_CLIENTS = /hiddify|v2ray|clash|karing|shadowrocket|nekobox|sing-?box|stash|quantumult/i;
 
-// Help links of the old site pointed at anchors on its home page
+// Help links of the old site pointed at anchors on its home page;
+// the 获取密钥/订阅链接 buttons go to the free nodes on the home page
 const HELP = {
-  '/index.html#hiddify_sub': '/faq#hiddify',
-  '/index.html#v2ray_sub': '/faq#v2ray',
-  '/index.html#karing_sub': '/faq#karing',
-  '/index.html#outline': '/faq#outline',
+  '/index.html#hiddify_sub': '/#free',
+  '/index.html#v2ray_sub': '/#free',
+  '/index.html#karing_sub': '/#free',
+  '/index.html#outline': '/#free',
 };
 const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `/${h.replace(/^\//, '')}` : h);
 
