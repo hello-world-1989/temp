@@ -5,12 +5,12 @@ const OS = ['android', 'ios', 'windows', 'mac', 'linux'];
 const SUBSCRIPTION_CLIENTS = /hiddify|v2ray|clash|karing|shadowrocket|nekobox|sing-?box|stash|quantumult/i;
 
 // Help links of the old site pointed at anchors on its home page;
-// the 获取密钥/订阅链接 buttons go to the free nodes on the home page
+// the 获取密钥/订阅链接 buttons go to the single free nodes on the home page (not the GitHub subscription links)
 const HELP = {
-  '/index.html#hiddify_sub': '/#free',
-  '/index.html#v2ray_sub': '/#free',
-  '/index.html#karing_sub': '/#free',
-  '/index.html#outline': '/#free',
+  '/index.html#hiddify_sub': '/#nodes',
+  '/index.html#v2ray_sub': '/#nodes',
+  '/index.html#karing_sub': '/#nodes',
+  '/index.html#outline': '/#nodes',
 };
 const helpHref = (h) => HELP[h] || (h && !/^https?:/.test(h) ? `/${h.replace(/^\//, '')}` : h);
 
