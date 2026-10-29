@@ -1,0 +1,30 @@
+<!--
+title: 和谐词典 · 今日一词
+description: 和谐词典：每天一个在小红书、抖音、微博、B站上因审查、限流或广告法不能直接写的词，以及网友常用的替代写法。记录中文互联网的语言现象。
+nav: dict
+dictnav: today
+script: dict-today.js
+style: dict.css
+ads: off
+index: on
+-->
+<section class="dict-head">
+  <div class="wrap">
+    <span class="eyebrow">和谐词典</span>
+    <h1>今天，这个词不能直接写</h1>
+    <p>每天一个在中国社交平台上被审查、限流或受广告法限制的词，以及网友想出来的替代写法。</p>
+    {{> dict-nav}}
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap" style="max-width: 760px">
+    <div class="dict-day">
+      <button class="btn btn-ghost" type="button" id="prev">‹ 上一天</button>
+      <div class="dict-day-label" aria-live="polite"><strong id="day-rel">今日一词</strong><span id="day-date"></span></div>
+      <button class="btn btn-ghost" type="button" id="next">下一天 ›</button>
+    </div>
+    <div id="today"><noscript><p class="dict-empty">今日一词需要 JavaScript。也可以直接打开<a href="/dict/words">词库</a>。</p></noscript></div>
+    <p class="mt"><a href="/dict/words">浏览全部词条 →</a></p>
+  </div>
+</section>

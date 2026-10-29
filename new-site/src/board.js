@@ -1,5 +1,6 @@
 // 事件墙 (board): pages are static (/board, /board-submit, /board-status, /board-admin,
-// /board-post); /board/e/<id> is served the /board-post page. /api/board/* goes to the
+// /board-post); /board/e/<id> is served the /board-post page. 和谐词典 words added by visitors
+// (/dict/words/<id> with a board id; built-in words are static files there) get the /dict/word page. /api/board/* goes to the
 // board service on Debian-1-2 (BOARD_URL, via Cloudflare Tunnel) with the shared key BOARD_KEY (Worker secret).
 //
 // Only what the service needs is forwarded: no IP, no cookies, no user agent. The admin
@@ -19,6 +20,13 @@ export async function handleBoard(request, url, env) {
   if (post) {
     if (!env.BOARD_URL || !isBoardId(post[1])) return null;
     const page = await env.ASSETS.fetch(new Request(new URL('/board-post', url), { headers: request.headers }));
+    return new Response(page.body, { status: page.status, headers: page.headers });
+  }
+
+  const word = p.match(/^\/dict\/words\/([^/]+)\/?$/);
+  if (word) {
+    if (!env.BOARD_URL || !isBoardId(word[1])) return null;
+    const page = await env.ASSETS.fetch(new Request(new URL('/dict/word', url), { headers: request.headers }));
     return new Response(page.body, { status: page.status, headers: page.headers });
   }
 

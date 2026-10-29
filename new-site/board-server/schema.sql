@@ -84,3 +84,22 @@ create table if not exists tg_messages (
   primary key (chat_id, message_id)
 );
 create index if not exists tg_messages_target on tg_messages (target);
+
+-- 和谐词典 (added 2026-10-29): words people submit with their 替代写法, reviewed like posts
+create table if not exists dict_words (
+  id            text primary key,
+  status        text not null check (status in ('pending', 'published', 'rejected', 'removed', 'withdrawn')),
+  word          text not null,
+  alternatives  text[] not null default '{}',
+  category      text not null,
+  reason        text not null default '',
+  example       text not null default '',
+  trivia        text not null default '',
+  receipt_hash  bytea not null unique,
+  reject_reason text not null default '',
+  reports       integer not null default 0,
+  created_at    timestamptz not null default now(),
+  updated_at    timestamptz not null default now(),
+  published_at  timestamptz
+);
+create index if not exists dict_words_status on dict_words (status, created_at);

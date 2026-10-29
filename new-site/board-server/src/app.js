@@ -5,13 +5,15 @@ import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypt
 import { mkdir, rename, unlink, writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { kindOf, stripJpeg, stripPng, stripWebp } from '../../public/assets/share-meta.js';
-import { CATEGORIES } from './config.js';
+import { CATEGORIES, DICT_CATEGORIES } from './config.js';
 import { checkPow, makeChallenge } from './pow.js';
 import { reencode } from './images.js';
 
 const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 const STRIP = { jpeg: stripJpeg, png: stripPng, webp: stripWebp };
 const LIMITS = { title: 80, body: 5000, place: 60, nickname: 20, comment: 1000, reason: 200 };
+// 和谐词典: one word, its 替代写法 (each up to `alt`, at most `alts` of them) and the notes
+const WORD_LIMITS = { word: 20, alt: 20, alts: 10, reason: 300, example: 200, trivia: 200 };
 
 export class HttpError extends Error {
   constructor(status, message) {
@@ -110,6 +112,46 @@ function commentJson(row, { admin = false } = {}) {
   return out;
 }
 
+function wordJson(row, { admin = false } = {}) {
+  const out = {
+    id: row.id,
+    word: row.word,
+    alternatives: row.alternatives,
+    category: row.category,
+    reason: row.reason,
+    example: row.example,
+    trivia: row.trivia,
+    publishedAt: row.published_at ? row.published_at.toISOString() : null,
+  };
+  if (admin) Object.assign(out, { status: row.status, createdAt: row.created_at.toISOString(), rejectReason: row.reject_reason, reports: row.reports });
+  return out;
+}
+
+// 替代写法: an array or a string split on commas / 、 / spaces; cleaned, de-duplicated, never the word itself
+export function cleanAlternatives(value, word) {
+  const list = Array.isArray(value) ? value : typeof value === 'string' ? value.split(/[,，、;；\n]+/) : [];
+  const out = [];
+  for (const v of list.slice(0, 50)) {
+    const a = cleanText(v, WORD_LIMITS.alt, { label: '每个替代写法' });
+    if (a && a !== word && !out.includes(a)) out.push(a);
+  }
+  if (!out.length) throw new HttpError(400, '请至少填写一个替代写法');
+  if (out.length > WORD_LIMITS.alts) throw new HttpError(400, `替代写法最多 ${WORD_LIMITS.alts} 个`);
+  return out;
+}
+
+function cleanWord(input) {
+  const word = cleanText(input.word, WORD_LIMITS.word, { required: true, label: '原词' });
+  return {
+    word,
+    alternatives: cleanAlternatives(input.alternatives, word),
+    category: DICT_CATEGORIES.includes(input.category) ? input.category : DICT_CATEGORIES[0],
+    reason: cleanText(input.reason, WORD_LIMITS.reason, { multiline: true, required: true, label: '原因' }),
+    example: cleanText(input.example, WORD_LIMITS.example, { label: '例句' }),
+    trivia: cleanText(input.trivia, WORD_LIMITS.trivia, { label: '小知识' }),
+  };
+}
+
 // pg returns DATE as a local-time Date; format it back without a timezone shift
 const fmtDate = (d) => (typeof d === 'string' ? d : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`);
 
@@ -180,6 +222,8 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       maxImages: config.maxImages,
       maxImageBytes: config.maxImageBytes,
       commentPremod: config.commentPremod,
+      dictCategories: DICT_CATEGORIES,
+      wordLimits: WORD_LIMITS,
     }, { 'Cache-Control': 'public, max-age=300' });
   }
 
@@ -365,6 +409,8 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     if (post) return { kind: 'post', row: post };
     const c = (await db.query('select c.id, c.status, c.post_id, c.created_at, c.published_at, p.title from comments c join posts p on p.id = c.post_id where c.receipt_hash = $1', [h])).rows[0];
     if (c) return { kind: 'comment', row: c };
+    const w = (await db.query('select id, status, word as title, reject_reason, created_at, published_at from dict_words where receipt_hash = $1', [h])).rows[0];
+    if (w) return { kind: 'word', row: w };
     throw new HttpError(404, '没有找到这个回执码。被拒绝或撤回的内容会在 7 天后彻底删除。');
   }
 
@@ -373,10 +419,10 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     send(res, 200, {
       kind,
       id: row.id,
-      postId: kind === 'post' ? row.id : row.post_id,
+      postId: kind === 'post' ? row.id : kind === 'comment' ? row.post_id : null,
       title: row.title,
       status: row.status,
-      rejectReason: kind === 'post' ? row.reject_reason : '',
+      rejectReason: kind === 'comment' ? '' : row.reject_reason,
       submittedOn: row.created_at.toISOString().slice(0, 10),
       publishedAt: row.published_at ? row.published_at.toISOString() : null,
     });
@@ -391,6 +437,8 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       await deleteImages('post_id = $1', [row.id]);
       await db.query("update comments set status = 'removed', updated_at = now() where post_id = $1", [row.id]);
       if (row.status === 'published') bg(publisher.unpublished(row.id));
+    } else if (kind === 'word') {
+      await db.query("update dict_words set status = 'withdrawn', word = '', alternatives = '{}', reason = '', example = '', trivia = '', updated_at = now() where id = $1", [row.id]);
     } else {
       await db.query("update comments set status = 'withdrawn', body = '', nickname = '', updated_at = now() where id = $1", [row.id]);
     }
@@ -400,12 +448,41 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
 
   async function report(req, res) {
     const input = await readJson(req);
-    const table = input.target === 'comment' ? 'comments' : input.target === 'post' ? 'posts' : null;
+    const table = { comment: 'comments', post: 'posts', word: 'dict_words' }[input.target] || null;
     if (!table || !isId(input.id)) throw new HttpError(400, '参数不正确');
     await spendPow('report', input.pow);
     const r = await db.query(`update ${table} set reports = reports + 1 where id = $1 and status = 'published'`, [input.id]);
     if (!r.rowCount) throw new HttpError(404, '内容不存在');
     send(res, 200, { ok: true });
+  }
+
+  // ---------- 和谐词典 ----------
+
+  async function submitWord(req, res) {
+    const input = await readJson(req);
+    const w = cleanWord(input);
+    if ((await pendingCount('dict_words')) >= config.maxPendingWords) throw new HttpError(503, '待审核的词条太多，请稍后再试');
+    await spendPow('word', input.pow);
+    const id = rid(10);
+    const receipt = rid(24);
+    await db.query(
+      "insert into dict_words (id, status, word, alternatives, category, reason, example, trivia, receipt_hash) values ($1, 'pending', $2, $3, $4, $5, $6, $7, $8)",
+      [id, w.word, w.alternatives, w.category, w.reason, w.example, w.trivia, sha256(receipt)],
+    );
+    bg(pendingCount('dict_words').then((n) => publisher.queued('word', n, id)));
+    send(res, 201, { wordId: id, receipt, status: 'pending' });
+  }
+
+  // Every published word at once: the dictionary is small and the page searches it in the browser
+  async function listWords(req, res) {
+    const { rows } = await db.query("select * from dict_words where status = 'published' order by published_at desc, id desc limit 2000");
+    send(res, 200, { items: rows.map((r) => wordJson(r)) }, { 'Cache-Control': 'no-cache' });
+  }
+
+  async function getWord(req, res, id) {
+    const row = isId(id) && (await db.query("select * from dict_words where id = $1 and status = 'published'", [id])).rows[0];
+    if (!row) throw new HttpError(404, '没有找到这个词条，可能还在审核或已被删除');
+    send(res, 200, wordJson(row), { 'Cache-Control': 'no-cache' });
   }
 
   // Views: the page asks once per browser tab session. Counts are kept in memory and added to
@@ -429,7 +506,7 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
   // ---------- admin ----------
 
   async function adminQueue(req, res, url) {
-    const type = url.searchParams.get('type') === 'comments' ? 'comments' : 'posts';
+    const type = ['comments', 'words'].includes(url.searchParams.get('type')) ? url.searchParams.get('type') : 'posts';
     const st = url.searchParams.get('status') || 'pending';
     if (!['pending', 'published', 'rejected', 'removed', 'reported'].includes(st)) throw new HttpError(400, 'bad status');
     const where = st === 'reported' ? "x.status = 'published' and x.reports > 0" : 'x.status = $1';
@@ -439,12 +516,17 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       const { rows } = await db.query(`select x.* from posts x where ${where} order by ${order} limit 100`, params);
       const items = [];
       for (const r of rows) items.push(postJson(r, await imagesOf(r.id), { admin: true }));
-      send(res, 200, { items, pending: { posts: await pendingCount('posts'), comments: await pendingCount('comments') } });
+      send(res, 200, { items, pending: await pendingAll() });
+    } else if (type === 'words') {
+      const { rows } = await db.query(`select x.* from dict_words x where ${where} order by ${order} limit 200`, params);
+      send(res, 200, { items: rows.map((r) => wordJson(r, { admin: true })), pending: await pendingAll() });
     } else {
       const { rows } = await db.query(`select x.*, p.title as post_title from comments x join posts p on p.id = x.post_id where ${where} order by ${order} limit 200`, params);
-      send(res, 200, { items: rows.map((r) => commentJson(r, { admin: true })), pending: { posts: await pendingCount('posts'), comments: await pendingCount('comments') } });
+      send(res, 200, { items: rows.map((r) => commentJson(r, { admin: true })), pending: await pendingAll() });
     }
   }
+
+  const pendingAll = async () => ({ posts: await pendingCount('posts'), comments: await pendingCount('comments'), words: await pendingCount('dict_words') });
 
   // Other places that show a submission (the Telegram review chat) follow its status
   const changed = (kind, id, info) => publisher.changed && bg(publisher.changed(kind, id, info));
@@ -537,6 +619,43 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     return next || null;
   }
 
+  async function adminWord(req, res, id, admin) {
+    send(res, 200, await reviewWord(id, await readJson(req), admin));
+  }
+
+  // One review decision on a 词条 (also used by the Telegram bot); edits can go with any decision.
+  // `reason` is the entry's own text (why the word is restricted); the note to the author is `rejectReason`.
+  async function reviewWord(id, input, admin) {
+    if (!isId(id)) throw new HttpError(404, 'not found');
+    const row = (await db.query('select * from dict_words where id = $1', [id])).rows[0];
+    if (!row || row.status === 'withdrawn') throw new HttpError(404, '词条不存在或已被作者撤回');
+    const action = input.action;
+    if (input.word !== undefined) {
+      if (input.category !== undefined && !DICT_CATEGORIES.includes(input.category)) throw new HttpError(400, '分类不正确');
+      const w = cleanWord({ ...wordJson(row), ...input });
+      const changedCols = Object.keys(w).filter((k) => JSON.stringify(w[k]) !== JSON.stringify(row[k]));
+      if (changedCols.length) {
+        await db.query(`update dict_words set ${changedCols.map((c, i) => `${c} = $${i + 2}`).join(', ')}, updated_at = now() where id = $1`, [id, ...changedCols.map((c) => w[c])]);
+        await log(admin, 'edit', `word:${id}`, changedCols.join(','));
+      }
+    }
+    const reason = cleanText(input.rejectReason, LIMITS.reason, { label: '说明' });
+    const next = { approve: 'published', restore: 'published', reject: 'rejected', remove: 'removed' }[action];
+    if (next === 'published') {
+      await db.query("update dict_words set status = 'published', published_at = coalesce(published_at, date_trunc('milliseconds', now())), reject_reason = '', updated_at = now() where id = $1", [id]);
+    } else if (next) {
+      await db.query('update dict_words set status = $2, reject_reason = $3, updated_at = now() where id = $1', [id, next, reason]);
+    } else if (action === 'clear-reports') {
+      await db.query('update dict_words set reports = 0 where id = $1', [id]);
+    } else if (action !== 'edit') {
+      throw new HttpError(400, '未知操作');
+    }
+    if (action !== 'edit') await log(admin, action, `word:${id}`, reason);
+    const fresh = (await db.query('select * from dict_words where id = $1', [id])).rows[0];
+    if (fresh.status !== row.status) changed('word', id, { status: fresh.status, by: admin, title: fresh.word, reason: fresh.reject_reason });
+    return wordJson(fresh, { admin: true });
+  }
+
   // For the Telegram bot: what the review page shows, without going through HTTP
   const review = {
     post: reviewPost,
@@ -551,10 +670,17 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
       const row = (await db.query('select x.*, p.title as post_title from comments x join posts p on p.id = x.post_id where x.id = $1', [id])).rows[0];
       return row ? commentJson(row, { admin: true }) : null;
     },
+    word: reviewWord,
+    async getWord(id) {
+      if (!isId(id)) return null;
+      const row = (await db.query('select * from dict_words where id = $1', [id])).rows[0];
+      return row ? wordJson(row, { admin: true }) : null;
+    },
     async pending(limit = 20) {
       const posts = await db.query("select id from posts where status = 'pending' order by created_at limit $1", [limit]);
       const comments = await db.query("select id from comments where status = 'pending' order by created_at limit $1", [limit]);
-      return { posts: posts.rows.map((r) => r.id), comments: comments.rows.map((r) => r.id) };
+      const words = await db.query("select id from dict_words where status = 'pending' order by created_at limit $1", [limit]);
+      return { posts: posts.rows.map((r) => r.id), comments: comments.rows.map((r) => r.id), words: words.rows.map((r) => r.id) };
     },
     imageFile: (id) => (isId(id) ? join(filesDir, id) : null),
   };
@@ -582,12 +708,16 @@ export function createApp({ db, config, publisher, now = () => Date.now() }) {
     ['POST', /^\/api\/board\/status$/, status],
     ['POST', /^\/api\/board\/withdraw$/, withdraw],
     ['POST', /^\/api\/board\/report$/, report],
+    ['GET', /^\/api\/board\/dict$/, listWords],
+    ['POST', /^\/api\/board\/dict$/, submitWord],
+    ['GET', /^\/api\/board\/dict\/([^/]+)$/, getWord],
     ['GET', /^\/api\/board\/admin\/me$/, (req, res, admin) => send(res, 200, { admin })],
     ['GET', /^\/api\/board\/admin\/queue$/, (req, res, admin, url) => adminQueue(req, res, url)],
     ['GET', /^\/api\/board\/admin\/log$/, (req, res, admin, url) => adminLog(req, res, url)],
     ['GET', /^\/api\/board\/admin\/img\/([^/]+)$/, (req, res, id) => sendImage(res, id, "p.status <> 'withdrawn'", 'private, no-store')],
     ['POST', /^\/api\/board\/admin\/posts\/([^/]+)$/, (req, res, id, admin) => adminPost(req, res, id, admin)],
     ['POST', /^\/api\/board\/admin\/comments\/([^/]+)$/, (req, res, id, admin) => adminComment(req, res, id, admin)],
+    ['POST', /^\/api\/board\/admin\/words\/([^/]+)$/, (req, res, id, admin) => adminWord(req, res, id, admin)],
   ];
 
   const handle = async function handle(req, res) {
@@ -640,6 +770,7 @@ export async function cleanup(db, config) {
     await db.query('delete from posts where id = any($1)', [ids]);
   }
   await db.query("delete from comments where status in ('rejected', 'removed', 'withdrawn') and updated_at < now() - make_interval(days => $1)", [config.purgeDays]);
+  await db.query("delete from dict_words where status in ('rejected', 'removed', 'withdrawn') and updated_at < now() - make_interval(days => $1)", [config.purgeDays]);
   await Promise.all(files.map((id) => unlink(join(config.filesDir, id)).catch(() => {})));
   return { files: files.length, posts: old.rows.length };
 }

@@ -160,7 +160,7 @@ export async function setupVault() {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = `/board-status#${r.receipt}`;
-      a.textContent = `${r.kind === 'comment' ? '留言' : '投稿'}：${r.title || '（无标题）'}`;
+      a.textContent = `${{ comment: '留言', word: '词条' }[r.kind] || '投稿'}：${r.title || '（无标题）'}`;
       const when = document.createElement('span');
       when.className = 'small muted';
       when.textContent = r.at ? ` ${new Date(r.at).toLocaleDateString('zh-CN')}` : '';

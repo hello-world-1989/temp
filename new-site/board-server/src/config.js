@@ -62,7 +62,8 @@ export function loadConfig(env = process.env) {
     maxDrafts: int('MAX_DRAFTS', 300),
     maxPendingPosts: int('MAX_PENDING_POSTS', 500),
     maxPendingComments: int('MAX_PENDING_COMMENTS', 3000),
-    powBits: { post: int('POW_BITS_POST', 17), comment: int('POW_BITS_COMMENT', 15), report: int('POW_BITS_REPORT', 14) },
+    maxPendingWords: int('MAX_PENDING_WORDS', 500),
+    powBits: { post: int('POW_BITS_POST', 17), comment: int('POW_BITS_COMMENT', 15), report: int('POW_BITS_REPORT', 14), word: int('POW_BITS_WORD', 15) },
     // 1: comments wait for review; 0: shown at once (admins can still remove them)
     commentPremod: env.COMMENT_PREMOD !== '0',
     purgeDays: int('PURGE_DAYS', 7),
@@ -78,3 +79,6 @@ export function loadConfig(env = process.env) {
 }
 
 export const CATEGORIES = ['维权', '抗议', '执法', '灾害事故', '审查删帖', '民生', '其他'];
+
+// 和谐词典: same list as public/assets/dict-render.js
+export const DICT_CATEGORIES = ['平台限流', '广告法', '政治审查', '引流/联系方式', '健康医疗', '金钱交易'];

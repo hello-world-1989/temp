@@ -41,9 +41,28 @@ export function commentText(c, siteUrl) {
   ].join('\n');
 }
 
+export function wordText(w, siteUrl) {
+  return [
+    `📖 新词条待审核（和谐词典）  编号 ${w.id}`,
+    `原词：${w.word}`,
+    `替代写法：${w.alternatives.join('、')}`,
+    `分类：${w.category}`,
+    '',
+    `原因：${w.reason}`,
+    w.example ? `例句：${w.example}` : '',
+    w.trivia ? `小知识：${w.trivia}` : '',
+    '',
+    `后台：${siteUrl}/board-admin`,
+  ].filter((line, i, all) => line || all[i - 1]).join('\n');
+}
+
 // Text the message is reduced to once decided: no content of anything that is not public
 export function doneText(kind, id, { status, by, title, reason }, siteUrl) {
   const who = by ? `（${by}）` : '';
+  if (kind === 'word') {
+    if (status === 'published') return `✅ 词条已通过${who}  编号 ${id}\n${title || ''}\n${siteUrl}/dict/words/${id}`;
+    return { rejected: `❌ 词条已拒绝${who}  编号 ${id}`, removed: `🗑 词条已下架${who}  编号 ${id}`, withdrawn: `↩️ 词条已被作者撤回  编号 ${id}` }[status] || `词条 ${id}：${status}`;
+  }
   if (kind === 'comment') {
     return { published: `✅ 评论已通过${who}  编号 ${id}`, rejected: `❌ 评论已拒绝${who}  编号 ${id}`, removed: `🗑 评论已删除${who}  编号 ${id}`, withdrawn: `↩️ 评论已被作者撤回  编号 ${id}` }[status] || `评论 ${id}：${status}`;
   }
@@ -62,6 +81,7 @@ const reasonKeys = (id) => ({
     [{ text: '↩️ 返回', callback_data: `p:${id}:b` }],
   ],
 });
+const wordKeys = (id) => ({ inline_keyboard: [[{ text: '✅ 通过', callback_data: `w:${id}:a` }, { text: '❌ 拒绝', callback_data: `w:${id}:x` }]] });
 const commentKeys = (id) => ({ inline_keyboard: [[{ text: '✅ 通过', callback_data: `c:${id}:a` }, { text: '❌ 拒绝', callback_data: `c:${id}:x` }]] });
 
 // review: the object from createApp(...).review
@@ -143,6 +163,15 @@ export function createTelegram({ config, db, review, fetchImpl = globalThis.fetc
     if (!now || now.status !== 'pending') await changed('comment', id, { status: now ? now.status : 'withdrawn' });
   }
 
+  async function sendWord(id) {
+    const w = await review.getWord(id);
+    if (!w || w.status !== 'pending') return;
+    const m = await call('sendMessage', { chat_id: chat, text: wordText(w, siteUrl), protect_content: true, link_preview_options: { is_disabled: true }, reply_markup: wordKeys(id) });
+    await remember(`word:${id}`, [m.message_id], true);
+    const now = await review.getWord(id);
+    if (!now || now.status !== 'pending') await changed('word', id, { status: now ? now.status : 'withdrawn' });
+  }
+
   // Take a submission's content out of the chat; the main message keeps a one-line status
   async function changed(kind, id, info) {
     if (!enabled) return;
@@ -174,7 +203,7 @@ export function createTelegram({ config, db, review, fetchImpl = globalThis.fetc
   async function queued(kind, _count, id) {
     if (!enabled || !id) return;
     try {
-      await (kind === 'post' ? sendPost(id) : sendComment(id));
+      await (kind === 'post' ? sendPost(id) : kind === 'word' ? sendWord(id) : sendComment(id));
     } catch (err) {
       log.error('telegram notify failed', kind, id, err.message);
     }
@@ -182,8 +211,8 @@ export function createTelegram({ config, db, review, fetchImpl = globalThis.fetc
 
   // Everything pending that has no message in the chat yet (or all of it, when asked again)
   async function sendPending({ again = false } = {}) {
-    const { posts, comments } = await review.pending(20);
-    for (const [kind, ids] of [['post', posts], ['comment', comments]]) {
+    const { posts, comments, words = [] } = await review.pending(20);
+    for (const [kind, ids] of [['post', posts], ['comment', comments], ['word', words]]) {
       for (const id of ids) {
         const target = `${kind}:${id}`;
         if (again) {
@@ -195,7 +224,7 @@ export function createTelegram({ config, db, review, fetchImpl = globalThis.fetc
         await queued(kind, 0, id);
       }
     }
-    return posts.length + comments.length;
+    return posts.length + comments.length + words.length;
   }
 
   const adminOf = (from) => (from && !from.is_bot ? tg.admins.get(String(from.id)) : undefined);
@@ -205,12 +234,21 @@ export function createTelegram({ config, db, review, fetchImpl = globalThis.fetc
   async function onCallback(q) {
     const name = adminOf(q.from);
     if (!name || !inChat(q.message?.chat)) return answer(q, '没有审核权限', true);
-    const m = new RegExp(`^([pc]):(${ID}):(\\w+)$`).exec(q.data || '');
+    const m = new RegExp(`^([pcw]):(${ID}):(\\w+)$`).exec(q.data || '');
     if (!m) return answer(q);
     const [, k, id, act] = m;
     const admin = `tg:${name}`;
     const ref = { chat_id: chat, message_id: q.message.message_id };
     try {
+      if (k === 'w') {
+        const w = await review.getWord(id);
+        if (!w || w.status !== 'pending') {
+          await changed('word', id, { status: w ? w.status : 'withdrawn' });
+          return answer(q, '这个词条已经处理过了');
+        }
+        await review.word(id, { action: act === 'a' ? 'approve' : 'reject' }, admin);
+        return answer(q, act === 'a' ? '已通过并发布' : '已拒绝');
+      }
       if (k === 'c') {
         const c = await review.getComment(id);
         if (!c || c.status !== 'pending') {
@@ -269,7 +307,7 @@ export function createTelegram({ config, db, review, fetchImpl = globalThis.fetc
     if (!name) return;
     if (cmd && (cmd[1] === 'pending' || cmd[1] === 'start' || cmd[1] === 'help')) {
       if (cmd[1] !== 'pending') {
-        await call('sendMessage', { chat_id: chat, text: '事件墙审核：新投稿和评论会自动发到这里。\n/pending 重新发送所有待审核的内容' });
+        await call('sendMessage', { chat_id: chat, text: '事件墙审核：新投稿、评论和和谐词典的词条会自动发到这里。\n/pending 重新发送所有待审核的内容' });
         return;
       }
       const n = await sendPending({ again: true });

@@ -9,7 +9,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import pg from 'pg';
 import sharp from 'sharp';
-import { createApp, cleanup, cleanText, cleanDate, rid } from '../src/app.js';
+import { createApp, cleanup, cleanText, cleanDate, cleanAlternatives, rid } from '../src/app.js';
 import { parseAdmins, tgAdmins } from '../src/config.js';
 import { leadingZeroBits, checkPow, makeChallenge } from '../src/pow.js';
 import { createTelegram, REASONS } from '../src/telegram.js';
@@ -44,7 +44,8 @@ before(async () => {
     maxDrafts: 50,
     maxPendingPosts: 50,
     maxPendingComments: 50,
-    powBits: { post: 6, comment: 5, report: 4 },
+    maxPendingWords: 50,
+    powBits: { post: 6, comment: 5, report: 4, word: 4 },
     commentPremod: true,
     purgeDays: 7,
   };
@@ -372,6 +373,68 @@ async function until(fn, ms = 3000) {
   }
 }
 
+test('和谐词典: alternatives cleaning', () => {
+  assert.deepEqual(cleanAlternatives('s，鼠、亖, 鼠 ,死', '死'), ['s', '鼠', '亖']);
+  assert.deepEqual(cleanAlternatives([' zf ', ''], '政府'), ['zf']);
+  assert.throws(() => cleanAlternatives([], '死'), /至少填写一个/);
+  assert.throws(() => cleanAlternatives(Array.from({ length: 11 }, (_, i) => `a${i}`), 'x'), /最多 10 个/);
+});
+
+test('和谐词典: submit, review, list, withdraw, purge', { skip }, async () => {
+  const meta = await call('GET', '/api/board/meta');
+  assert.ok(meta.data.dictCategories.includes('广告法'));
+
+  // Validation and proof of work
+  assert.equal((await call('POST', '/api/board/dict', { body: { word: '', alternatives: ['a'], reason: 'r', pow: await pow('word') } })).status, 400);
+  assert.equal((await call('POST', '/api/board/dict', { body: { word: '最', alternatives: ['蕞'], reason: '广告法', pow: await pow('post') } })).status, 400);
+
+  const s = await call('POST', '/api/board/dict', {
+    body: { word: '最', alternatives: '蕞、zui', category: '广告法', reason: '广告法禁止极限词', example: '蕞好用', trivia: '', pow: await pow('word') },
+  });
+  assert.equal(s.status, 201, JSON.stringify(s.data));
+  const { wordId, receipt } = s.data;
+  // Not public before review
+  assert.equal((await call('GET', `/api/board/dict/${wordId}`)).status, 404);
+  assert.equal((await call('GET', '/api/board/dict')).data.items.some((w) => w.id === wordId), false);
+  const st = await call('POST', '/api/board/status', { body: { receipt } });
+  assert.equal(st.data.kind, 'word');
+  assert.equal(st.data.title, '最');
+  assert.equal(st.data.status, 'pending');
+
+  // Admin queue, edit + approve
+  assert.equal((await call('GET', '/api/board/admin/queue?type=words')).status, 401);
+  const q = await call('GET', '/api/board/admin/queue?type=words&status=pending', { headers: admin });
+  assert.ok(q.data.items.some((w) => w.id === wordId));
+  assert.ok(q.data.pending.words >= 1);
+  const r = await call('POST', `/api/board/admin/words/${wordId}`, { headers: admin, body: { action: 'approve', word: '最', alternatives: ['蕞', 'zui', '超'], category: '广告法', reason: '广告法禁止极限词', example: '蕞好用', trivia: '' } });
+  assert.equal(r.status, 200, JSON.stringify(r.data));
+  assert.equal(r.data.status, 'published');
+  assert.deepEqual(r.data.alternatives, ['蕞', 'zui', '超']);
+  const pub = await call('GET', `/api/board/dict/${wordId}`);
+  assert.equal(pub.data.word, '最');
+  assert.equal(pub.data.status, undefined);
+  assert.ok((await call('GET', '/api/board/dict')).data.items.some((w) => w.id === wordId));
+  const logged = await db.query('select action from mod_log where target = $1 order by id', [`word:${wordId}`]);
+  assert.deepEqual(logged.rows.map((x) => x.action), ['edit', 'approve']);
+
+  // Report, remove with a reason the author can read
+  assert.equal((await call('POST', '/api/board/report', { body: { target: 'word', id: wordId, pow: await pow('report') } })).status, 200);
+  const rm = await call('POST', `/api/board/admin/words/${wordId}`, { headers: admin, body: { action: 'remove', rejectReason: '重复' } });
+  assert.equal(rm.data.status, 'removed');
+  assert.equal((await call('POST', '/api/board/status', { body: { receipt } })).data.rejectReason, '重复');
+  assert.equal((await call('GET', `/api/board/dict/${wordId}`)).status, 404);
+
+  // The author withdraws: content is emptied, then purged
+  assert.equal((await call('POST', '/api/board/withdraw', { body: { receipt } })).status, 200);
+  const row = (await db.query('select * from dict_words where id = $1', [wordId])).rows[0];
+  assert.equal(row.status, 'withdrawn');
+  assert.equal(row.word, '');
+  assert.deepEqual(row.alternatives, []);
+  await db.query("update dict_words set updated_at = now() - interval '8 days' where id = $1", [wordId]);
+  await cleanup(db, config);
+  assert.equal((await db.query('select 1 from dict_words where id = $1', [wordId])).rowCount, 0);
+});
+
 test('review in Telegram', { skip }, async () => {
   const tgApi = fakeTelegram();
   const tgConfig = { ...config, telegram: { token: 'TEST-TOKEN', chatId: '-1001', admins: new Map([['42', 'bob']]) } };
@@ -448,6 +511,18 @@ test('review in Telegram', { skip }, async () => {
     assert.equal((await app.review.getPost(s3.data.postId)).status, 'published');
     const ok = await until(() => after(n, 'editMessageText')[0]);
     assert.match(ok.data.text, new RegExp(`已通过.*\\n第三条\\nhttps://example.test/board/e/${s3.data.postId}`));
+
+    // 和谐词典 words: sent with buttons, approved from Telegram
+    n = since();
+    const w = await call('POST', '/api/board/dict', { body: { word: '电报词', alternatives: ['dbc'], category: '平台限流', reason: '测试用的原因', pow: await pow('word') } });
+    const wm = await until(() => after(n, 'sendMessage').find((x) => x.data.text.includes(w.data.wordId)));
+    assert.match(wm.data.text, /电报词/);
+    assert.deepEqual(wm.data.reply_markup.inline_keyboard[0].map((b) => b.callback_data), [`w:${w.data.wordId}:a`, `w:${w.data.wordId}:x`]);
+    n = since();
+    await press(`w:${w.data.wordId}:a`, 1);
+    assert.equal((await app.review.getWord(w.data.wordId)).status, 'published');
+    const wd = await until(() => after(n, 'editMessageText')[0]);
+    assert.match(wd.data.text, new RegExp(`词条已通过.*\\n电报词\\nhttps://example.test/dict/words/${w.data.wordId}`));
 
     // Comments: sent with buttons, rejected from Telegram
     n = since();

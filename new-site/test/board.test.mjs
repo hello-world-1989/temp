@@ -91,3 +91,15 @@ test('/board/e/<id> serves the event page', async () => {
   const bad = new Request('https://site/board/e/..%2F');
   assert.equal(await handleBoard(bad, new URL(bad.url), { ...env, ASSETS: assets }), null);
 });
+
+test('/dict/words/<board id> serves the 和谐词典 word page for visitors\' words', async () => {
+  const assets = { fetch: async (r) => new Response(`page for ${new URL(r.url).pathname}`, { headers: { 'Content-Type': 'text/html' } }) };
+  const req = new Request('https://site/dict/words/aBcDeFgH23');
+  const res = await handleBoard(req, new URL(req.url), { ...env, ASSETS: assets });
+  assert.equal(await res.text(), 'page for /dict/word');
+  for (const path of ['/dict/words/si', '/dict/words/..%2F', '/dict/words/a/b']) {
+    const r = new Request(`https://site${path}`);
+    assert.equal(await handleBoard(r, new URL(r.url), { ...env, ASSETS: assets }), null, path);
+  }
+  assert.equal(await handleBoard(req, new URL(req.url), { ASSETS: assets }), null);
+});

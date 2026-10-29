@@ -42,3 +42,17 @@
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
   Referrer-Policy: no-referrer
+
+# 和谐词典: no ads, statistics or any third-party script (still indexed). The share image is
+# drawn from data: / blob: URLs in the page.
+/dict
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+/dict/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+/dict/submit
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex

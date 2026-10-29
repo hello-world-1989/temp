@@ -23,8 +23,10 @@ async function check(receipt) {
   const r = await call('POST', '/api/board/status', { body: { receipt } });
   const dl = $('#kv');
   dl.replaceChildren();
-  row(dl, '类型', r.kind === 'post' ? '投稿' : '留言');
-  if (r.title) row(dl, r.kind === 'post' ? '标题' : '所在事件', r.title, r.status === 'published' || r.kind === 'comment' ? `/board/e/${encodeURIComponent(r.postId)}` : null);
+  row(dl, '类型', { post: '投稿', comment: '留言', word: '和谐词典词条' }[r.kind] || r.kind);
+  if (r.kind === 'word') {
+    if (r.title) row(dl, '原词', r.title, r.status === 'published' ? `/dict/words/${encodeURIComponent(r.id)}` : null);
+  } else if (r.title) row(dl, r.kind === 'post' ? '标题' : '所在事件', r.title, r.status === 'published' || r.kind === 'comment' ? `/board/e/${encodeURIComponent(r.postId)}` : null);
   row(dl, '状态', STATUS[r.status] || r.status);
   row(dl, '提交日期', r.submittedOn);
   if (r.publishedAt) row(dl, '发布时间', fmtTime(r.publishedAt));

@@ -20,7 +20,7 @@ async function openVault() {
 
 async function addReceipt(v, entry) {
   if (!v.data.receipts.some((r) => r.receipt === entry.receipt)) {
-    v.data.receipts.unshift({ receipt: entry.receipt, kind: entry.kind === 'comment' ? 'comment' : 'post', title: String(entry.title || '').slice(0, 80), at: Date.now() });
+    v.data.receipts.unshift({ receipt: entry.receipt, kind: ['comment', 'word'].includes(entry.kind) ? entry.kind : 'post', title: String(entry.title || '').slice(0, 80), at: Date.now() });
   }
   await kvPut('vault', await lockBox(v.raw, v.data, v.box));
   if (v.data.recovery) await pushRecovery(v.data).catch(() => {}); // the local copy is saved either way

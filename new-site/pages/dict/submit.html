@@ -1,0 +1,60 @@
+<!--
+title: 补充词条 | 和谐词典
+description: 匿名补充和谐词典词条：不能直接写的词和网友的替代写法，管理员审核后发布。
+nav: dict
+dictnav: submit
+script: dict-submit.js
+style: board.css dict.css
+ads: off
+-->
+<section class="dict-head">
+  <div class="wrap board-narrow">
+    <span class="eyebrow">和谐词典</span>
+    <h1>补充词条</h1>
+    <p>知道一个不能直接写的词和它的替代写法？匿名告诉我们。不用注册，本站不记录访问者的 IP 地址；管理员审核、核实后发布，可能会修改措辞。</p>
+    {{> dict-nav}}
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap board-narrow">
+    <form id="form" class="card feature" novalidate>
+      <div class="grid grid-2">
+        <div class="field">
+          <label for="word">原词</label>
+          <input id="word" class="input" maxlength="20" autocomplete="off" required placeholder="例如：移民">
+        </div>
+        <div class="field">
+          <label for="category">分类</label>
+          <select id="category" class="input"></select>
+        </div>
+      </div>
+      <div class="field mt">
+        <label for="alts">替代写法（用逗号或顿号隔开，最多 10 个）</label>
+        <input id="alts" class="input" maxlength="250" autocomplete="off" required placeholder="例如：润、run、跑路">
+      </div>
+      <div class="field mt">
+        <label for="reason">为什么不能直接写</label>
+        <textarea id="reason" class="input" rows="3" maxlength="300" required placeholder="在哪个平台、会被怎样处理（删帖、限流、屏蔽……）"></textarea>
+      </div>
+      <div class="field mt">
+        <label for="example">例句（可不填）</label>
+        <input id="example" class="input" maxlength="200" autocomplete="off" placeholder="一句用了替代写法的话">
+      </div>
+      <div class="field mt">
+        <label for="trivia">小知识（可不填）</label>
+        <input id="trivia" class="input" maxlength="200" autocomplete="off" placeholder="这个说法的来历">
+      </div>
+      <button class="btn btn-primary mt" type="submit" id="submit">提交词条</button>
+      <p class="notice mt" id="msg" role="status"></p>
+    </form>
+
+    <div id="done" class="card feature hidden">
+      <h2>已提交</h2>
+      <p>审核通过后会出现在词库里。请保存下面的回执码，用它查询审核结果或撤回。<strong>回执码只显示这一次</strong>。</p>
+      <div class="board-receipt"><code id="receipt"></code><button class="btn btn-ghost btn-sm" type="button" id="copy-receipt">复制</button></div>
+      <div class="notice mt hidden" id="receipt-saved" role="status"></div>
+      <p class="mt"><a href="/board-status">查询审核状态</a> · <a href="/dict/words">返回词库</a> · <a href="/dict/submit">再补充一个</a></p>
+    </div>
+  </div>
+</section>

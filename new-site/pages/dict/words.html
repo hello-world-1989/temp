@@ -1,0 +1,30 @@
+<!--
+title: 词库 | 和谐词典
+description: 和谐词典全部词条：中国社交平台上不能直接写的词和替代写法，可以搜原词或替代写法（例如搜“zf”找到“政府”），按平台限流、广告法、政治审查等分类筛选。
+nav: dict
+dictnav: words
+script: dict-words.js
+style: dict.css
+ads: off
+index: on
+-->
+<section class="dict-head">
+  <div class="wrap">
+    <span class="eyebrow">和谐词典</span>
+    <h1>词库</h1>
+    <p>搜原词或替代写法都可以，比如搜“zf”能找到“政府”，搜“润”能找到“移民”。</p>
+    {{> dict-nav}}
+  </div>
+</section>
+
+<section class="section-tight" style="padding-top: 8px">
+  <div class="wrap">
+    <form class="dict-search" id="search" role="search">
+      <input id="q" class="input" type="search" placeholder="搜索原词或替代写法" autocomplete="off" enterkeyhint="search" aria-label="搜索原词或替代写法">
+      <div class="tabs" id="cats" role="tablist" aria-label="分类"></div>
+    </form>
+    <p class="dict-count" id="count" aria-live="polite"></p>
+    <div class="dict-grid" id="grid"></div>
+    <div class="dict-empty hidden" id="empty">没有找到。知道这个词的替代写法？<a href="/dict/submit">补充一个词条</a></div>
+  </div>
+</section>

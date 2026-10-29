@@ -19,6 +19,7 @@ const store = {
 };
 let token = store.get();
 let categories = [];
+let dictCategories = [];
 const blobs = [];
 
 const TABS = [
@@ -30,6 +31,10 @@ const TABS = [
   { id: 'posts-rejected', label: '未通过', type: 'posts', status: 'rejected' },
   { id: 'posts-removed', label: '已下架', type: 'posts', status: 'removed' },
   { id: 'comments-published', label: '已发布留言', type: 'comments', status: 'published' },
+  { id: 'words-pending', label: '待审词条', type: 'words', status: 'pending', count: 'words' },
+  { id: 'words-reported', label: '被举报词条', type: 'words', status: 'reported' },
+  { id: 'words-published', label: '已发布词条', type: 'words', status: 'published' },
+  { id: 'words-rejected', label: '未通过词条', type: 'words', status: 'rejected' },
   { id: 'chat-review', label: '公开群审核', chat: 1 },
   { id: 'chat-listed', label: '已公开群', chat: 2 },
   { id: 'log', label: '操作记录' },
@@ -208,6 +213,79 @@ function commentCard(c) {
   return card;
 }
 
+// 和谐词典 words: every field can be corrected before (or after) publishing
+function wordCard(w) {
+  const card = el('article', 'card feature board-admin-item');
+  const meta = el('div', 'item-meta');
+  meta.append(el('span', 'badge soft', STATUS[w.status] || w.status), el('span', '', `提交于 ${fmtTime(w.createdAt)}`));
+  if (w.status === 'published') {
+    const a = el('a', '', '查看页面');
+    a.href = `/dict/words/${encodeURIComponent(w.id)}`;
+    a.target = '_blank';
+    meta.append(a);
+  }
+  if (w.reports) meta.append(el('span', 'badge warn', `举报 ${w.reports}`));
+  card.append(meta);
+
+  const word = input(w.word, { max: 20 });
+  const cat = el('select', 'input');
+  for (const c of dictCategories) {
+    const o = el('option', '', c);
+    o.value = c;
+    cat.append(o);
+  }
+  cat.value = w.category;
+  const alts = input(w.alternatives.join('、'), { max: 250 });
+  const why = input(w.reason, { tag: 'textarea', max: 300 });
+  why.rows = 3;
+  const example = input(w.example, { max: 200 });
+  const trivia = input(w.trivia, { max: 200 });
+  const row = el('div', 'grid grid-2');
+  row.append(field('原词', word), field('分类', cat));
+  card.append(row, field('替代写法（逗号或顿号隔开）', alts), field('原因', why), field('例句', example), field('小知识', trivia));
+
+  const reason = input(w.rejectReason, { max: 200 });
+  reason.placeholder = '拒绝或下架时写给投稿人的说明（投稿人用回执码可以看到）';
+  card.append(field('说明', reason));
+
+  const out = el('p', 'notice mt');
+  const actions = el('div', 'row mt board-actions');
+  const act = (label, action, primary = false) => {
+    const b = el('button', `btn ${primary ? 'btn-primary' : 'btn-ghost'}`, label);
+    b.type = 'button';
+    b.addEventListener('click', async () => {
+      if ((action === 'reject' || action === 'remove') && !reason.value.trim() && !confirm('没有写说明，确定继续？')) return;
+      for (const x of actions.children) x.disabled = true;
+      try {
+        // reason: the entry's own 原因; rejectReason: the note the author sees
+        const payload = { action, word: word.value, alternatives: alts.value, category: cat.value, reason: why.value, example: example.value, trivia: trivia.value, rejectReason: reason.value };
+        const r = await acall('POST', `/api/board/admin/words/${encodeURIComponent(w.id)}`, { body: payload });
+        setMsg(out, `已${label}：${STATUS[r.status] || r.status}`, 'ok');
+        if (action !== 'edit' && action !== 'clear-reports') setTimeout(() => card.remove(), 800);
+        refreshCounts();
+      } catch (err) {
+        setMsg(out, err.message, 'error');
+      } finally {
+        for (const x of actions.children) x.disabled = false;
+      }
+    });
+    actions.append(b);
+  };
+  if (w.status === 'pending') {
+    act('通过并发布', 'approve', true);
+    act('拒绝', 'reject');
+    act('保存修改', 'edit');
+  } else if (w.status === 'published') {
+    act('保存修改', 'edit', true);
+    act('下架', 'remove');
+    if (w.reports) act('清除举报', 'clear-reports');
+  } else {
+    act('重新发布', 'restore', true);
+  }
+  card.append(actions, out);
+  return card;
+}
+
 // 加密聊天 rooms whose owners asked to be in the public list (the chat service checks the same
 // admin token). Only the public name and description exist on the server; messages are encrypted.
 function chatListingCard(item) {
@@ -245,7 +323,7 @@ function chatListingCard(item) {
   return card;
 }
 
-let counts = { posts: 0, comments: 0 };
+let counts = { posts: 0, comments: 0, words: 0 };
 function renderTabs() {
   const box = $('#tabs');
   box.replaceChildren();
@@ -299,7 +377,7 @@ async function load() {
     const r = await acall('GET', `/api/board/admin/queue?type=${tab.type}&status=${tab.status}`);
     counts = r.pending;
     renderTabs();
-    for (const item of r.items) list.append(tab.type === 'posts' ? postCard(item) : commentCard(item));
+    for (const item of r.items) list.append({ posts: postCard, comments: commentCard, words: wordCard }[tab.type](item));
     setMsg(msg, r.items.length ? '' : '没有内容');
   } catch (err) {
     if (err.status === 401) return logout('口令无效或已被停用');
@@ -319,7 +397,9 @@ function logout(reason = '') {
 async function start() {
   try {
     const { admin } = await acall('GET', '/api/board/admin/me');
-    categories = (await boardMeta()).categories;
+    const meta = await boardMeta();
+    categories = meta.categories;
+    dictCategories = meta.dictCategories || [];
     $('#login').classList.add('hidden');
     $('#panel').classList.remove('hidden');
     $('#who').replaceChildren(`已登录：${admin} · `);

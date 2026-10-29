@@ -82,7 +82,7 @@ export function cleanContents(data) {
   const receipts = [];
   for (const r of Array.isArray(data?.receipts) ? data.receipts : []) {
     if (!/^[A-Za-z0-9]{24}$/.test(r?.receipt || '') || receipts.some((x) => x.receipt === r.receipt)) continue;
-    receipts.push({ receipt: r.receipt, kind: r.kind === 'comment' ? 'comment' : 'post', title: String(r.title || '').slice(0, 80), at: Number(r.at) || 0 });
+    receipts.push({ receipt: r.receipt, kind: ['comment', 'word'].includes(r.kind) ? r.kind : 'post', title: String(r.title || '').slice(0, 80), at: Number(r.at) || 0 });
   }
   const id = data?.identity;
   const phrase = normalizePhrase(data?.recovery?.phrase);
