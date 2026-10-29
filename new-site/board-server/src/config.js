@@ -81,4 +81,4 @@ export function loadConfig(env = process.env) {
 export const CATEGORIES = ['维权', '抗议', '执法', '灾害事故', '审查删帖', '民生', '其他'];
 
 // 和谐词典: same list as public/assets/dict-render.js
-export const DICT_CATEGORIES = ['平台限流', '广告法', '政治审查', '引流/联系方式', '健康医疗', '金钱交易'];
+export const DICT_CATEGORIES = ['平台限流', '广告法', '政治审查', '引流/联系方式', '健康医疗', '金钱交易', '官方话术'];

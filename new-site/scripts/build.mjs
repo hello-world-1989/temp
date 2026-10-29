@@ -147,7 +147,10 @@ function checkWords(list) {
     ids.add(w.id);
     seen.add(w.word);
     if (!w.word || !w.reason) throw new Error(`${where}: word and reason are required`);
-    if (!Array.isArray(w.alternatives) || !w.alternatives.length) throw new Error(`${where}: alternatives must be a non-empty list`);
+    if (!Array.isArray(w.alternatives)) throw new Error(`${where}: alternatives must be a list`);
+    // 官方话术 entries have no 替代写法 but must say where they come from
+    if (!w.alternatives.length && !w.origin) throw new Error(`${where}: needs alternatives, or origin (出处) for 官方话术`);
+    for (const x of w.sources || []) if (!/^https?:\/\//.test(x.url || '')) throw new Error(`${where}: source url must start with http(s)://`);
     if (!dict.CATEGORIES.includes(w.category)) throw new Error(`${where}: category must be one of ${dict.CATEGORIES.join(' ')}`);
     if (w.featuredDate && !/^\d{4}-\d{2}-\d{2}$/.test(w.featuredDate)) throw new Error(`${where}: featuredDate must be YYYY-MM-DD`);
   }

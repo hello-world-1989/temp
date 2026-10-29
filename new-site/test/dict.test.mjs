@@ -18,7 +18,7 @@ test('word list is complete and valid', () => {
   assert.equal(new Set(words.map((w) => w.id)).size, words.length);
   for (const w of words) {
     assert.ok(CATEGORIES.includes(w.category), w.word);
-    assert.ok(w.alternatives.length > 0 && w.reason, w.word);
+    assert.ok(w.reason && (w.alternatives.length > 0 || w.origin), w.word);
   }
 });
 
@@ -55,4 +55,19 @@ test('HTML escapes visitors\' text', () => {
   assert.match(entryHtml(evil), /网友补充/);
   assert.ok(related(byWord('死'), words).every((e) => e.category === '平台限流' && e.word !== '死'));
   assert.ok(description(byWord('政府')).includes('zf'));
+});
+
+test('官方话术 entries show what they mean and where they come from', () => {
+  const q = byWord('临时工');
+  assert.equal(q.category, '官方话术');
+  const html = entryHtml(q);
+  assert.match(html, /是什么意思/);
+  assert.match(html, /出处/);
+  assert.match(html, /rel="nofollow noopener noreferrer"/);
+  assert.equal(html.includes('替代写法'), false);
+  assert.match(cardHtml(q), /替罪羊/);
+  assert.match(description(q), /出自哪里/);
+  const bad = { ...q, sources: [{ title: 'x', url: 'javascript:alert(1)' }] };
+  assert.equal(entryHtml(bad).includes('javascript:'), false);
+  assert.ok(words.filter((w) => w.category === '官方话术').every((w) => w.origin && w.sources.length));
 });

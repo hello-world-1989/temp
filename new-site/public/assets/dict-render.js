@@ -3,7 +3,10 @@
 // Everything that goes into HTML passes through esc(); user-submitted words are plain text.
 
 export const SITE_NAME = '和谐词典';
-export const CATEGORIES = ['平台限流', '广告法', '政治审查', '引流/联系方式', '健康医疗', '金钱交易'];
+export const CATEGORIES = ['平台限流', '广告法', '政治审查', '引流/联系方式', '健康医疗', '金钱交易', '官方话术'];
+// 官方话术: official phrases and notorious quotes the internet took up. They have no 替代写法;
+// `reason` says what the phrase really means and `origin` / `sources` say where it came from.
+const hasAlts = (entry) => Array.isArray(entry.alternatives) && entry.alternatives.length > 0;
 
 export function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -42,6 +45,7 @@ export function related(entry, all, n = 6) {
 }
 
 export function description(entry) {
+  if (!hasAlts(entry)) return `“${entry.word}”是什么意思、出自哪里：${entry.reason}`.slice(0, 160);
   return `“${entry.word}”在中国社交平台上常被写成${entry.alternatives.slice(0, 4).map((a) => `“${a}”`).join('、')}。${entry.reason}`.slice(0, 160);
 }
 
@@ -52,26 +56,44 @@ function altTags(entry, cls = 'dict-alt') {
 
 export function cardHtml(entry) {
   return `<a class="dict-card" href="${wordUrl(entry)}">
-  <span class="dict-card-head"><span class="dict-strike">${esc(entry.word)}</span><span class="dict-cat">${esc(entry.category)}</span></span>
-  <span class="dict-card-alts">${entry.alternatives.slice(0, 5).map((a) => `<span class="dict-alt dict-alt-sm">${esc(a)}</span>`).join('')}</span>
+  <span class="dict-card-head">${wordHtml(entry)}<span class="dict-cat">${esc(entry.category)}</span></span>
+  ${hasAlts(entry) ? `<span class="dict-card-alts">${entry.alternatives.slice(0, 5).map((a) => `<span class="dict-alt dict-alt-sm">${esc(a)}</span>`).join('')}</span>` : `<span class="dict-card-ex">${esc(entry.reason.slice(0, 60))}${entry.reason.length > 60 ? '…' : ''}</span>`}
   ${entry.example ? `<span class="dict-card-ex">${esc(entry.example)}</span>` : ''}
   ${entry.source === 'user' ? '<span class="dict-card-src">网友补充</span>' : ''}
 </a>`;
 }
 
-// The full entry: big word (struck through), alternatives, reason, example, trivia
+// The word itself: struck through when it "cannot be said"; long quotes get a smaller size
+function wordHtml(entry) {
+  const cls = [hasAlts(entry) ? 'dict-strike' : 'dict-quote', [...entry.word].length > 5 ? 'dict-long' : ''].filter(Boolean).join(' ');
+  return `<span class="${cls}">${esc(entry.word)}</span>`;
+}
+
+const safeLink = (url) => (/^https?:\/\//i.test(String(url || '')) ? String(url) : '');
+
+// 出处: the story, then the links (opened without a referrer)
+function originHtml(entry) {
+  const links = (entry.sources || []).filter((x) => safeLink(x.url));
+  if (!entry.origin && !links.length) return '';
+  const list = links.map((x) => `<a href="${esc(safeLink(x.url))}" rel="nofollow noopener noreferrer" target="_blank">${esc(x.title || x.url)}</a>`).join('、');
+  return `<div><dt>出处</dt><dd>${esc(entry.origin || '')}${list ? `<span class="dict-sources">来源：${list}</span>` : ''}</dd></div>`;
+}
+
+// The full entry: big word, alternatives (if any), reason, origin, example, trivia
 export function entryHtml(entry, { headingTag = 'h1', link = false } = {}) {
   const h = headingTag;
+  const alts = hasAlts(entry);
   return `<article class="dict-entry" data-id="${esc(entry.id)}">
   <div class="dict-entry-top">
     <a class="dict-cat" href="/dict/words?c=${encodeURIComponent(entry.category)}">${esc(entry.category)}</a>
     ${entry.source === 'user' ? '<span class="dict-cat dict-cat-user">网友补充</span>' : ''}
   </div>
-  <${h} class="dict-big"><span class="dict-strike">${esc(entry.word)}</span></${h}>
-  <p class="dict-label">替代写法 <span class="muted">（点击复制）</span></p>
-  <div class="dict-alts">${altTags(entry)}</div>
+  <${h} class="dict-big">${wordHtml(entry)}</${h}>
+  ${alts ? `<p class="dict-label">替代写法 <span class="muted">（点击复制）</span></p>
+  <div class="dict-alts">${altTags(entry)}</div>` : ''}
   <dl class="dict-notes">
-    <div><dt>为什么不能直接写</dt><dd>${esc(entry.reason)}</dd></div>
+    <div><dt>${alts ? '为什么不能直接写' : '是什么意思'}</dt><dd>${esc(entry.reason)}</dd></div>
+    ${originHtml(entry)}
     ${entry.example ? `<div><dt>例句</dt><dd class="dict-example">${esc(entry.example)}</dd></div>` : ''}
     ${entry.trivia ? `<div><dt>小知识</dt><dd>${esc(entry.trivia)}</dd></div>` : ''}
   </dl>
@@ -92,9 +114,9 @@ export function relatedHtml(entry, all) {
 export function shareCardHtml(entry, siteHost) {
   return `<div class="dict-share">
   <div class="dict-share-cat">${esc(entry.category)}</div>
-  <div class="dict-share-word"><span class="dict-strike">${esc(entry.word)}</span></div>
-  <div class="dict-share-label">网友这样写</div>
-  <div class="dict-share-alts">${entry.alternatives.slice(0, 6).map((a) => `<span>${esc(a)}</span>`).join('')}</div>
+  <div class="dict-share-word">${wordHtml(entry)}</div>
+  ${hasAlts(entry) ? `<div class="dict-share-label">网友这样写</div>
+  <div class="dict-share-alts">${entry.alternatives.slice(0, 6).map((a) => `<span>${esc(a)}</span>`).join('')}</div>` : `<div class="dict-share-meaning">${esc(entry.reason.slice(0, 90))}${entry.reason.length > 90 ? '…' : ''}</div>`}
   ${entry.example ? `<div class="dict-share-ex">“${esc(entry.example)}”</div>` : ''}
   <div class="dict-share-foot"><strong>${SITE_NAME}</strong><span>${esc(siteHost)}/dict</span></div>
 </div>`;

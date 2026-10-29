@@ -893,5 +893,205 @@
     "reason": "2021 年“躺平”成为年轻人拒绝内卷的口号，随后受到官方媒体批评，相关豆瓣小组被删，网友换着说法继续讨论。",
     "example": "卷不动了，平躺一会儿",
     "trivia": "这个词约在 2020 年前后出现在网上。"
+  },
+  {
+    "id": "eyifanxiang",
+    "word": "恶意返乡",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "防疫期间，把春节回老家的人说成“恶意”返乡，好像回家本身就是错。",
+    "origin": "2022 年 1 月，河南周口郸城县县长的一段视频引发热议，他回应说视频被剪掉了“不听劝阻，恶意返乡”等内容。央视网评论随即追问：何为恶意返乡？标准是什么？谁来判定？1 月 29 日，国家卫健委在发布会上要求个别仍不让低风险地区群众返乡的地方整改。",
+    "sources": [
+      {
+        "title": "21世纪经济报道",
+        "url": "https://www.sfccn.com/2022/1-24/xOMDE0MDVfMTY5MzIxOQ.html"
+      },
+      {
+        "title": "澎湃",
+        "url": "https://m.thepaper.cn/newsDetail_forward_16388981"
+      },
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/676263.html"
+      }
+    ],
+    "example": "过年回家前先问问村里：我这算不算恶意返乡？",
+    "trivia": ""
+  },
+  {
+    "id": "zhengnengliang",
+    "word": "正能量",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "本是物理学名词，后来成了官方宣传的万能词，泛指“积极、对政府有利”的内容；批评声音常被说成“负能量”，网上也拿它反讽。",
+    "origin": "《咬文嚼字》把“正能量”评为 2012 年十大流行语第一名，解释为来自霍金《时间简史》和英国心理学家理查德·怀斯曼的书《正能量》（英文原名 Rip It Up）。中国数字时代认为这个说法并不可靠：该词在网上走红与 2010 年的一起案件有关，书名也是中文版另起的。",
+    "sources": [
+      {
+        "title": "中新网",
+        "url": "https://www.chinanews.com/cul/2012/12-30/4448908.shtml"
+      },
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/?p=701948"
+      }
+    ],
+    "example": "评论区只许发正能量",
+    "trivia": ""
+  },
+  {
+    "id": "bumingzhenxiang",
+    "word": "不明真相的群众",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "群体事件的标准官方说法：少数人“煽动”，加上一群“不明真相的群众”，言下之意是民众被蒙蔽，而不是真有不满。网友后来常自嘲“不明真相的吃瓜群众”。",
+    "origin": "2008 年 6 月 29 日，新华网关于贵州瓮安事件的消息写道：“一些人煽动不明真相的群众冲击县公安局、县政府和县委大楼”。这一说法被各大网站转载，此后成为同类通报的固定句式。",
+    "sources": [
+      {
+        "title": "凤凰网瓮安事件专题",
+        "url": "https://news.ifeng.com/mainland/special/wengan628/news/200807/0704_3932_633995.shtml"
+      },
+      {
+        "title": "爱思想",
+        "url": "https://www.aisixiang.com/data/24999.html"
+      }
+    ],
+    "example": "",
+    "trivia": ""
+  },
+  {
+    "id": "linshigong",
+    "word": "临时工",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "政府部门出事后，责任人常被通报为“临时工”。这个词成了“替罪羊”的代名词。",
+    "origin": "2013 年 6 月，陕西延安城管围殴商户事件的处理结果称，跳起踩商户头部的城管是“临时工”，引发舆论批评。更早的 2011 年，“脊梁奖”赞助方撤资时也称相关文件是“临时工”伪造的。中国数字时代的草泥马语词典收录了这个词。",
+    "sources": [
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/space/Temporary_workers"
+      },
+      {
+        "title": "中原时评 2013-06-06",
+        "url": "https://zzwb.zynews.cn/page/2/2013-06/06/A02/20130606A02_pdf.PDF"
+      },
+      {
+        "title": "人民论坛",
+        "url": "https://www.rmlt.com.cn/2018/0103/507622.shtml"
+      }
+    ],
+    "example": "又是临时工干的",
+    "trivia": ""
+  },
+  {
+    "id": "eyitaoxin",
+    "word": "恶意讨薪",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "被拖欠工资的人用爬塔吊等方式讨薪，在官方表述里成了“恶意”讨薪。批评者说：没有欠薪，哪来的讨薪？",
+    "origin": "2021 年，甘肃合作市通报一名爬上塔吊讨要工程款的包工头“恶意索要工程款”，处以行政拘留 10 日，警方后来承认“用词不当、表述不准”。2013 年江苏常州武进区住建局也通报过“恶意讨薪”。2023 年初，河南汝阳县出现“严厉打击恶意讨薪，维护公司非法欠薪行为”的反讽横幅。",
+    "sources": [
+      {
+        "title": "搜狐评论",
+        "url": "https://www.sohu.com/a/449386741_260616"
+      },
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/662539.html"
+      },
+      {
+        "title": "自由亚洲电台",
+        "url": "https://www.rfa.org/mandarin/yataibaodao/renquanfazhi/kw-01052023132119.html"
+      }
+    ],
+    "example": "",
+    "trivia": ""
+  },
+  {
+    "id": "nixingfuma",
+    "word": "你幸福吗",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "央视街头采访的标准问题，后来成了调侃官方宣传的口头禅，最有名的回答是“我姓曾”。",
+    "origin": "2012 年秋，央视在十八大前推出《走基层·百姓心声：你幸福吗》假日调查。山西清徐县北营村一名外地务工人员被问“您幸福吗？”，回答“我姓曾”，在网上迅速走红，被网友评为当年电视采访中最神的回答之一。",
+    "sources": [
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/254306.html"
+      },
+      {
+        "title": "新浪·2012文化笔记",
+        "url": "https://news.sina.com.cn/o/2012-12-21/145925867261.shtml"
+      }
+    ],
+    "example": "——你幸福吗？——我姓曾。",
+    "trivia": ""
+  },
+  {
+    "id": "duomaomao",
+    "word": "躲猫猫",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "在押人员死亡后官方给出的荒唐解释；后来泛指看守所等场所出了人命时，负责人推卸责任的托词。",
+    "origin": "2009 年 2 月，24 岁的李荞明在云南晋宁县看守所死亡，警方称他是和狱友玩“躲猫猫”时撞墙受伤。后经调查，他是被牢头狱霸殴打致死，云南省公安厅向家属道歉。《咬文嚼字》把“躲猫猫”列入 2009 年十大流行语。",
+    "sources": [
+      {
+        "title": "人民日报·环球人物",
+        "url": "https://paper.people.com.cn/hqrw/html/2009-03/20/content_265754.htm"
+      },
+      {
+        "title": "中新网",
+        "url": "https://www.chinanews.com/yl/yl-ypkb/news/2010/01-20/2082334.shtml"
+      },
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/128326.html"
+      }
+    ],
+    "example": "",
+    "trivia": ""
+  },
+  {
+    "id": "xinbuxin",
+    "word": "至于你信不信，反正我信了",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "面对质疑时不讲证据、只表态度的官方回应，后来被网友拿来讽刺一切难以置信的说法。",
+    "origin": "2011 年 7 月 23 日温州动车事故后，铁道部发言人王勇平在 7 月 24 日晚的发布会上被问到为什么掩埋车头时说了这句话，还把一名小女孩获救说成“这是一个奇迹”。事后他被调离发言人岗位。",
+    "sources": [
+      {
+        "title": "爱思想",
+        "url": "https://www.aisixiang.com/data/43526.html"
+      },
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/169316.html"
+      },
+      {
+        "title": "新京报",
+        "url": "https://www.bjnews.com.cn/detail/155149900814442.html"
+      }
+    ],
+    "example": "官方说这是意外，至于你信不信，反正我信了",
+    "trivia": ""
+  },
+  {
+    "id": "tidangshuohua",
+    "word": "你是替党说话，还是替老百姓说话",
+    "alternatives": [],
+    "category": "官方话术",
+    "reason": "官员把“党”和“老百姓”对立起来的一句反问，成了官员雷人语录的代表。",
+    "origin": "2009 年 6 月 20 日，郑州市规划局副局长逯军在接受中央人民广播电台记者采访时说了这句话，当时记者在追问经济适用房用地上建起别墅的问题。两天后他被停职调查；当年《法制晚报》评选的十大官员“雷语”中，这句排名第一。",
+    "sources": [
+      {
+        "title": "爱思想",
+        "url": "https://www.aisixiang.com/data/28292.html"
+      },
+      {
+        "title": "中国数字时代",
+        "url": "https://chinadigitaltimes.net/chinese/66524.html"
+      }
+    ],
+    "example": "",
+    "trivia": ""
   }
 ]
