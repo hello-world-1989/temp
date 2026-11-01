@@ -21,11 +21,11 @@
     "updated": "2026-09-28T05:26:18.191Z"
   },
   "android-outline.zip": {
-    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"f094c0b60b27ed0a922462e59c63e637-6\"|Wed, 02 Sep 2026 18:06:28 GMT|45310306",
+    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"de6554bd52e738636cc5d6877ba93253-6\"|Tue, 13 Oct 2026 11:16:26 GMT|45310306",
     "files": [
       "Outline-Client.apk"
     ],
-    "updated": "2026-09-28T05:26:37.383Z"
+    "updated": "2026-11-01T23:35:36.161Z"
   },
   "windows-outline.zip": {
     "version": "windows-v1.9.1",
@@ -35,35 +35,35 @@
     "updated": "2026-09-28T05:26:44.017Z"
   },
   "android-v2ray.zip": {
-    "version": "2.2.6",
+    "version": "2.3.14",
     "files": [
-      "v2rayNG_2.2.6_arm64-v8a.apk",
-      "v2rayNG_2.2.6_armeabi-v7a.apk"
+      "v2rayNG_2.3.14_arm64-v8a.apk",
+      "v2rayNG_2.3.14_armeabi-v7a.apk"
     ],
-    "updated": "2026-09-28T05:27:02.938Z"
+    "updated": "2026-11-01T23:35:42.935Z"
   },
   "windows-v2ray.zip": {
-    "version": "7.25.4",
+    "version": "7.25.6",
     "files": [
       "v2rayN-windows-64-desktop.zip",
       "v2rayN-windows-arm64-desktop.zip"
     ],
-    "updated": "2026-10-07T20:12:43.002Z"
+    "updated": "2026-11-01T23:35:57.870Z"
   },
   "mac-v2ray.zip": {
-    "version": "7.25.4",
+    "version": "7.25.6",
     "files": [
       "v2rayN-macos-64.dmg",
       "v2rayN-macos-arm64.dmg"
     ],
-    "updated": "2026-10-07T20:13:06.820Z"
+    "updated": "2026-11-01T23:36:18.798Z"
   },
   "android-clash.zip": {
-    "version": "v2.11.35",
+    "version": "v2.11.36",
     "files": [
-      "cmfa-2.11.35-meta-universal-release.apk"
+      "cmfa-2.11.36-meta-universal-release.apk"
     ],
-    "updated": "2026-10-07T20:13:19.277Z"
+    "updated": "2026-11-01T23:36:28.243Z"
   },
   "android-nthlink.zip": {
     "version": "https://www.downloadnth.com/nthlink-android-current.apk|\"6abf2809-5443ee0\"|Fri, 02 Oct 2026 03:42:01 GMT|88358624",
@@ -80,18 +80,18 @@
     "updated": "2026-10-07T20:13:51.014Z"
   },
   "windows-chrome.zip": {
-    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"6e6406c-3c1aab87\"|Wed, 07 Oct 2026 17:24:11 GMT|167683000",
+    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"7092f07-3c1aab87\"|Fri, 30 Oct 2026 14:39:03 GMT|168473016",
     "files": [
       "ChromeStandaloneSetup64.exe"
     ],
-    "updated": "2026-10-07T20:14:09.490Z"
+    "updated": "2026-11-01T23:36:42.134Z"
   },
   "mac-chrome.zip": {
-    "version": "https://dl.google.com/tag/s/appguid%3DCOM.GOOGLE.CHROME%26brand%3DGGRO/chrome/mac/universal/stable/googlechrome.dmg|\"6e668c8-e441ac88\"|Tue, 06 Oct 2026 17:22:12 GMT|282304813",
+    "version": "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg|\"70934c0\"|Fri, 30 Oct 2026 14:37:14 GMT|279005590",
     "files": [
       "googlechrome.dmg"
     ],
-    "updated": "2026-10-07T20:14:34.081Z"
+    "updated": "2026-11-01T23:36:57.849Z"
   },
   "android-ooni.zip": {
     "version": "374",
@@ -122,47 +122,47 @@
     "updated": "2026-10-07T20:15:44.748Z"
   },
   "android-tor.zip": {
-    "version": "15.0.24",
+    "version": "16.0",
     "files": [
-      "tor-browser-android-armv7-15.0.24.apk",
-      "tor-browser-android-aarch64-15.0.24.apk"
+      "tor-browser-android-armv7-16.0.apk",
+      "tor-browser-android-aarch64-16.0.apk"
     ],
-    "updated": "2026-10-07T20:16:11.643Z"
+    "updated": "2026-11-01T23:37:24.432Z"
   },
   "windows-tor.zip": {
-    "version": "15.0.24",
+    "version": "16.0",
     "files": [
-      "tor-browser-windows-x86_64-portable-15.0.24.exe"
+      "tor-browser-windows-x86_64-portable-16.0.exe"
     ],
-    "updated": "2026-10-07T20:16:34.319Z"
+    "updated": "2026-11-01T23:37:37.489Z"
   },
   "mac-tor.zip": {
-    "version": "15.0.24",
+    "version": "16.0",
     "files": [
-      "tor-browser-macos-15.0.24.dmg"
+      "tor-browser-macos-16.0.dmg"
     ],
-    "updated": "2026-10-07T20:16:58.827Z"
+    "updated": "2026-11-01T23:37:55.557Z"
   },
   "windows-warpplus.zip": {
-    "version": "https://downloads.cloudflareclient.com/v1/download/windows/version/2026.8.2100.0|\"878e6a6fb5126ac251699f91657439e2-1\"||60207104",
+    "version": "https://downloads.cloudflareclient.com/v1/download/windows/version/2026.8.2115.0|\"4e827f3639a12da4a0eb9532080c2e10-1\"||60104704",
     "files": [
-      "2026.8.2100.0"
+      "2026.8.2115.0"
     ],
-    "updated": "2026-10-07T20:17:06.543Z"
+    "updated": "2026-11-01T23:38:02.421Z"
   },
   "mac-warpplus.zip": {
-    "version": "https://downloads.cloudflareclient.com/v1/download/macos/version/2026.8.2100.0|\"8817b605d23a935e4cdf053d9b98efbe-1\"||165866465",
+    "version": "https://downloads.cloudflareclient.com/v1/download/macos/version/2026.8.2115.0|\"d572539d5f9b89d377ff1be1f9a76dfe-1\"||165873080",
     "files": [
-      "2026.8.2100.0"
+      "2026.8.2115.0"
     ],
-    "updated": "2026-10-07T20:17:22.636Z"
+    "updated": "2026-11-01T23:38:14.909Z"
   },
   "android-psiphon.zip": {
-    "version": "https://psiphon.ca/PsiphonAndroid.apk|\"5ca5d606770c7d853cf9e320183cf3bc\"||25947778",
+    "version": "https://psiphon.ca/PsiphonAndroid.apk|\"32252ffc1635abe204db9ee6e577804c\"||41704953",
     "files": [
       "PsiphonAndroid.apk"
     ],
-    "updated": "2026-10-07T20:17:27.542Z"
+    "updated": "2026-11-01T23:38:19.403Z"
   },
   "windows-psiphon.zip": {
     "version": "https://psiphon.ca/psiphon3.exe|\"abc8b1e76718c806d5043bae7eae1d75\"||11310160",
@@ -187,85 +187,85 @@
     "updated": "2026-09-28T06:01:50.591Z"
   },
   "linux-v2ray.zip": {
-    "version": "7.25.4",
+    "version": "7.25.6",
     "files": [
       "v2rayN-linux-64.zip",
       "v2rayN-linux-arm64.zip"
     ],
-    "updated": "2026-10-07T20:17:50.717Z"
+    "updated": "2026-11-01T23:38:38.636Z"
   },
   "linux-clash.zip": {
-    "version": "v2.5.7",
+    "version": "v2.5.8",
     "files": [
-      "Clash.Verge_2.5.7_amd64.deb"
+      "Clash.Verge_2.5.8_amd64.deb"
     ],
-    "updated": "2026-10-07T20:18:01.281Z"
+    "updated": "2026-11-01T23:38:47.159Z"
   },
   "linux-chrome.zip": {
-    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"6e64631\"|Wed, 07 Oct 2026 15:17:52 GMT|143552428",
+    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"7093278\"|Sun, 01 Nov 2026 20:46:58 GMT|145633696",
     "files": [
       "google-chrome-stable_current_amd64.deb"
     ],
-    "updated": "2026-10-07T20:18:13.725Z"
+    "updated": "2026-11-01T23:38:56.433Z"
   },
   "linux-tor.zip": {
-    "version": "15.0.24",
+    "version": "16.0",
     "files": [
-      "tor-browser-linux-x86_64-15.0.24.tar.xz"
+      "tor-browser-linux-x86_64-16.0.tar.xz"
     ],
-    "updated": "2026-10-07T20:18:29.135Z"
+    "updated": "2026-11-01T23:39:09.615Z"
   },
   "android-ceno.zip": {
-    "version": "v2.11.7",
+    "version": "v2.12.2",
     "files": [
-      "ceno-arm64-v8a-release-2.11.7-2026-09-24_1601.apk",
-      "ceno-armeabi-v7a-release-2.11.7-2026-09-24_1601.apk"
+      "ceno-arm64-v8a-release-2.12.2-2026-10-22_1449.apk",
+      "ceno-armeabi-v7a-release-2.12.2-2026-10-22_1449.apk"
     ],
-    "updated": "2026-10-08T02:45:40.311Z"
+    "updated": "2026-11-01T23:39:45.661Z"
   },
   "android-session.zip": {
-    "version": "1.33.5",
+    "version": "1.33.7",
     "files": [
-      "session-1.33.5-universal-play-release.apk"
+      "session-1.33.7-universal-play-release.apk"
     ],
-    "updated": "2026-10-08T02:45:52.192Z"
+    "updated": "2026-11-01T23:39:56.886Z"
   },
   "windows-session.zip": {
-    "version": "v1.18.1",
+    "version": "v1.18.3",
     "files": [
-      "session-desktop-win-x64-1.18.1.exe"
+      "session-desktop-win-x64-1.18.3.exe"
     ],
-    "updated": "2026-10-08T02:46:02.095Z"
+    "updated": "2026-11-01T23:40:07.190Z"
   },
   "mac-session.zip": {
-    "version": "v1.18.1",
+    "version": "v1.18.3",
     "files": [
-      "session-desktop-mac-arm64-1.18.1.dmg",
-      "session-desktop-mac-x64-1.18.1.dmg"
+      "session-desktop-mac-arm64-1.18.3.dmg",
+      "session-desktop-mac-x64-1.18.3.dmg"
     ],
-    "updated": "2026-10-08T02:46:22.757Z"
+    "updated": "2026-11-01T23:40:32.846Z"
   },
   "linux-session.zip": {
-    "version": "v1.18.1",
+    "version": "v1.18.3",
     "files": [
-      "session-desktop-linux-x86_64-1.18.1.AppImage",
-      "session-desktop-linux-amd64-1.18.1.deb"
+      "session-desktop-linux-x86_64-1.18.3.AppImage",
+      "session-desktop-linux-amd64-1.18.3.deb"
     ],
-    "updated": "2026-10-08T02:46:45.493Z"
+    "updated": "2026-11-01T23:40:52.893Z"
   },
   "android-syncthing.zip": {
-    "version": "v2.1.6.0",
+    "version": "v2.1.7.0",
     "files": [
-      "com.github.catfriend1.syncthingfork_release_v2.1.6.0.apk"
+      "com.github.catfriend1.syncthingfork_release_v2.1.7.0.apk"
     ],
-    "updated": "2026-10-08T02:46:51.221Z"
+    "updated": "2026-11-01T23:40:58.630Z"
   },
   "windows-syncthing.zip": {
-    "version": "v2.1.6",
+    "version": "v2.1.7",
     "files": [
-      "syncthing-windows-amd64-v2.1.6.zip"
+      "syncthing-windows-amd64-v2.1.7.zip"
     ],
-    "updated": "2026-10-08T02:46:53.306Z"
+    "updated": "2026-11-01T23:41:01.250Z"
   },
   "mac-syncthing.zip": {
     "version": "v2.1.6-1",
@@ -275,46 +275,46 @@
     "updated": "2026-10-08T02:46:56.569Z"
   },
   "linux-syncthing.zip": {
-    "version": "v2.1.6",
+    "version": "v2.1.7",
     "files": [
-      "syncthing_2.1.6_amd64.deb"
+      "syncthing_2.1.7_amd64.deb"
     ],
-    "updated": "2026-10-08T02:46:58.718Z"
+    "updated": "2026-11-01T23:41:03.942Z"
   },
   "android-i2p.zip": {
-    "version": "i2p-2.13.0",
+    "version": "i2p-2.14.0",
     "files": [
-      "I2P-2.12.0.apk"
+      "I2P-2.13.0.apk"
     ],
-    "updated": "2026-10-12T03:55:42.557Z"
+    "updated": "2026-11-01T23:41:06.595Z"
   },
   "windows-i2p.zip": {
-    "version": "i2p-firefox-2.11.0",
+    "version": "i2p-firefox-2.14.0",
     "files": [
       "I2P-Easy-Install-Bundle-master.master.master.exe"
     ],
-    "updated": "2026-10-12T03:55:54.393Z"
+    "updated": "2026-11-01T23:41:14.042Z"
   },
   "mac-i2p.zip": {
-    "version": "i2p-2.13.0",
+    "version": "i2p-2.14.0",
     "files": [
-      "I2P-2.13.0.dmg"
+      "I2P-2.14.0.dmg"
     ],
-    "updated": "2026-10-12T03:56:01.094Z"
+    "updated": "2026-11-01T23:41:21.161Z"
   },
   "linux-i2p.zip": {
-    "version": "i2p-2.13.0",
+    "version": "i2p-2.14.0",
     "files": [
-      "i2pinstall_2.13.0.jar"
+      "i2pinstall_2.14.0.jar"
     ],
-    "updated": "2026-10-12T03:56:05.342Z"
+    "updated": "2026-11-01T23:41:25.591Z"
   },
   "windows-jami.zip": {
-    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"acb5000-65ccc41b3bb28\"|Thu, 01 Oct 2026 19:16:45 GMT|181096448",
+    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"b2d9000-65efdb4a4cc83\"|Thu, 29 Oct 2026 17:06:50 GMT|187535360",
     "files": [
       "jami.release.x64.msi"
     ],
-    "updated": "2026-10-12T03:59:25.540Z"
+    "updated": "2026-11-01T23:41:50.741Z"
   },
   "mac-jami.zip": {
     "version": "https://dl.jami.net/mac_osx/jami.dmg|\"16b0c317-65c3ee28ec8c0\"|Thu, 24 Sep 2026 18:36:59 GMT|380683031",
@@ -410,32 +410,32 @@
     "updated": "2026-10-12T04:02:13.930Z"
   },
   "windows-onionshare.zip": {
-    "version": "v2.6.5",
+    "version": "v2.7.1",
     "files": [
-      "OnionShare-win64-2.6.5.msi"
+      "OnionShare-win64-2.7.1.msi"
     ],
-    "updated": "2026-10-12T04:02:30.792Z"
+    "updated": "2026-11-01T23:42:05.003Z"
   },
   "mac-onionshare.zip": {
-    "version": "v2.6.5",
+    "version": "v2.7.1",
     "files": [
-      "OnionShare-2.6.5.dmg"
+      "OnionShare-2.7.1.dmg"
     ],
-    "updated": "2026-10-12T04:02:47.799Z"
+    "updated": "2026-11-01T23:42:20.457Z"
   },
   "linux-onionshare.zip": {
-    "version": "v2.6.5",
+    "version": "v2.7.1",
     "files": [
-      "OnionShare-2.6.5.flatpak"
+      "OnionShare-2.7.1.flatpak"
     ],
-    "updated": "2026-10-12T04:02:57.946Z"
+    "updated": "2026-11-01T23:42:27.508Z"
   },
   "android-briar.zip": {
-    "version": "https://briarproject.org/apk/briar.apk|\"6ab943c1-30455bb\"|Sun, 27 Sep 2026 16:26:41 GMT|50615739",
+    "version": "https://briarproject.org/apk/briar.apk|\"6ae4ad71-3056a22\"|Fri, 30 Oct 2026 14:45:05 GMT|50686498",
     "files": [
       "briar.apk"
     ],
-    "updated": "2026-10-12T04:09:15.345Z"
+    "updated": "2026-11-01T23:41:32.581Z"
   },
   "android-larix.zip": {
     "version": "1.5.13",
@@ -443,5 +443,33 @@
       "larixbroadcaster-1.5.13-web.apk"
     ],
     "updated": "2026-10-13T01:22:03.477Z"
+  },
+  "android-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_android_arm.apk"
+    ],
+    "updated": "2026-11-01T23:35:16.885Z"
+  },
+  "windows-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_windows_x64.zip"
+    ],
+    "updated": "2026-11-01T23:35:21.898Z"
+  },
+  "mac-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_macos_universal.dmg"
+    ],
+    "updated": "2026-11-01T23:35:31.067Z"
+  },
+  "linux-karing.zip": {
+    "version": "v1.2.25.2802",
+    "files": [
+      "karing_1.2.25.2802_linux_amd64.deb"
+    ],
+    "updated": "2026-11-01T23:38:25.041Z"
   }
 }

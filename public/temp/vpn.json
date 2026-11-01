@@ -68,7 +68,7 @@
     "image": "images/outline.webp",
     "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11,
-    "date": "26年9月28日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -124,7 +124,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayNG/releases",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -194,7 +194,7 @@
     "image": "images/clash.png",
     "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -208,7 +208,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayN/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -278,7 +278,7 @@
     "comment": "压缩包里有两个 dmg：Intel 芯片选 macos-64，M 系列芯片选 arm64；安装包没有签名，打开时会提示“已损坏”：先把应用拖进“应用程序”，再在终端运行 xattr -cr /Applications/v2rayN.app；使用方法：复制主页的 V2Ray 订阅链接 → 打开 v2rayN，菜单“订阅分组” → 订阅分组设置 → 添加，在“可选地址(url)”粘贴后确定 → “订阅分组” → 更新全部订阅（不通过代理）→ 选中一个节点按回车设为活动节点 → 底部“系统代理”选“自动配置系统代理”",
     "image": "images/v2ray.webp",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -292,7 +292,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -316,7 +316,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -330,7 +330,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -369,7 +369,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -381,7 +381,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -404,7 +404,7 @@
     "image": "images/warpplus.webp",
     "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -428,7 +428,7 @@
     "comment": "Cloudflare 出品（1.1.1.1），免费，不需要密钥；国内可能连不上，适合作为备用",
     "image": "images/warpplus.webp",
     "star": 8.1,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -451,7 +451,7 @@
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -536,7 +536,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -548,7 +548,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -572,7 +572,7 @@
     "comment": "Tor 官方浏览器；国内需要配合网桥使用，见常见问题；隐私优先，速度较慢",
     "image": "images/tor.webp",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -731,7 +731,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayN/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -745,7 +745,7 @@
     "image": "images/clash.png",
     "mainLink": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -757,7 +757,7 @@
     "image": "images/chrome.webp",
     "star": 9,
     "web": "https://www.google.com/chrome/",
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -771,7 +771,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -783,7 +783,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -795,7 +795,7 @@
     "image": "images/ceno.webp",
     "mainLink": "https://censorship.no/",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -827,7 +827,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -843,7 +843,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -875,7 +875,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -891,7 +891,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -907,7 +907,7 @@
     "image": "images/syncthing.webp",
     "mainLink": "https://github.com/researchxxl/syncthing-android/releases",
     "star": 8,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 3,
     "block": "low",
@@ -923,7 +923,7 @@
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
     "star": 8,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 3,
     "block": "low",
@@ -955,7 +955,7 @@
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
     "star": 8,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 3,
     "block": "low",
@@ -975,7 +975,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -991,7 +991,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -1007,7 +1007,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -1023,7 +1023,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -1039,7 +1039,7 @@
     "ease": 4,
     "block": "low",
     "blockNote": "蓝牙 / Wi-Fi 模式完全不受封锁；联网模式走 Tor，已内置网桥",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -1071,7 +1071,7 @@
     "ease": 4,
     "block": "mid",
     "blockNote": "引导服务器可能被封，连不上时先开翻墙工具",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -1310,7 +1310,7 @@
     "ease": 3,
     "block": "high",
     "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -1326,7 +1326,7 @@
     "ease": 3,
     "block": "high",
     "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -1342,7 +1342,7 @@
     "ease": 3,
     "block": "high",
     "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
