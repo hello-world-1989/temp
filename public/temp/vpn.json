@@ -315,7 +315,8 @@
     "comment": "基于 Chromium 的开源浏览器，针对速度优化，支持 H.265 视频和 Widevine；只支持 64 位（arm64）手机；不会自动更新，请定期回来下载新版，否则有安全风险",
     "image": "images/thorium.webp",
     "mainLink": "https://github.com/Alex313031/Thorium-Android",
-    "star": 8.4
+    "star": 8.4,
+    "date": "26年11月3日更新"
   },
   {
     "os": "windows",
