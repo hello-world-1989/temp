@@ -544,7 +544,7 @@
       "pattern": "https://softvelum\\.com/apk_downloads/larixbroadcaster-([\\d.]+)-web\\.apk"
     },
     {
-      "name": "android-thorium.zip",
+      "name": "android-chromium.zip",
       "type": "github",
       "repo": "gz83/thorium",
       "files": [

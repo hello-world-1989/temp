@@ -472,7 +472,7 @@
     ],
     "updated": "2026-11-01T23:38:25.041Z"
   },
-  "android-thorium.zip": {
+  "android-chromium.zip": {
     "version": "M156.0.8078.28",
     "files": [
       "Thorium_Public_arm64.apk"
