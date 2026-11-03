@@ -542,6 +542,14 @@
       "type": "page",
       "page": "https://softvelum.com/larix/larix-broadcaster-android-apk",
       "pattern": "https://softvelum\\.com/apk_downloads/larixbroadcaster-([\\d.]+)-web\\.apk"
+    },
+    {
+      "name": "android-thorium.zip",
+      "type": "github",
+      "repo": "gz83/thorium",
+      "files": [
+        "^Thorium_Public_arm64\\.apk$"
+      ]
     }
   ],
   "manual": [
