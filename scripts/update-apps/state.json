@@ -471,5 +471,12 @@
       "karing_1.2.25.2802_linux_amd64.deb"
     ],
     "updated": "2026-11-01T23:38:25.041Z"
+  },
+  "android-chrome.zip": {
+    "version": "Android_Arm64@1739611",
+    "files": [
+      "chrome-android.zip"
+    ],
+    "updated": "2026-11-09T22:33:31.413Z"
   }
 }
