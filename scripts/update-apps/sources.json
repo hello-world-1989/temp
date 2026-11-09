@@ -550,10 +550,18 @@
       "files": [
         "^Thorium_Public_arm64\\.apk$"
       ]
+    },
+    {
+      "name": "android-chrome.zip",
+      "type": "snapshot",
+      "prefix": "Android_Arm64",
+      "file": "chrome-android.zip",
+      "extract": [
+        "*/ChromePublic.apk"
+      ]
     }
   ],
   "manual": [
-    "android-chrome.zip：谷歌不提供官方 APK 直链",
     "windows-vpngate.zip、android/windows-freegate.zip、android/windows/mac-freebrowser.zip：没有稳定的下载地址",
     "mac-orbot.zip、android-warpplus.zip：待确认官方来源",
     "mac-outline.zip：Outline 的 Mac 客户端只在 App Store 上架（s3 上的 dmg 是 Outline Manager，不再自动更新）"

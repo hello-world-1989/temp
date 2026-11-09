@@ -9,7 +9,7 @@
 //   FORCE=1        不管版本是否变化都重新上传
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { closeSync, createReadStream, existsSync, mkdirSync, openSync, readFileSync, readSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { closeSync, createReadStream, existsSync, mkdirSync, openSync, readdirSync, readFileSync, readSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -134,6 +134,16 @@ async function resolve(src) {
     if (!m) throw new Error(`${src.page}: 找不到 /${src.pattern}/`);
     const url = new URL(m[0], src.page).href;
     return { version: m[1] ?? url, files: [{ url, name: decodeURIComponent(basename(new URL(url).pathname)), sha256: null }] };
+  }
+  // Chromium 官方快照（commondatastorage.googleapis.com/chromium-browser-snapshots）：
+  // <prefix>/LAST_CHANGE 是最新构建号，文件在 <prefix>/<构建号>/<file>
+  if (src.type === 'snapshot') {
+    const base = src.base || 'https://commondatastorage.googleapis.com/chromium-browser-snapshots';
+    const res = await fetch(`${base}/${src.prefix}/LAST_CHANGE`, { headers: { 'User-Agent': UA } });
+    if (!res.ok) throw new Error(`${src.prefix}/LAST_CHANGE -> ${res.status}`);
+    const rev = (await res.text()).trim();
+    if (!/^\d+$/.test(rev)) throw new Error(`${src.prefix}/LAST_CHANGE 内容不是数字：${rev.slice(0, 40)}`);
+    return { version: `${src.prefix}@${rev}`, files: [{ url: `${base}/${src.prefix}/${rev}/${src.file}`, name: src.file, sha256: null }] };
   }
   if (src.type === 'url') {
     const probes = await Promise.all(src.urls.map(probe));
@@ -263,8 +273,19 @@ for (const src of SOURCES) {
     const dir = join(WORK, src.name);
     rmSync(dir, { recursive: true, force: true });
     mkdirSync(dir, { recursive: true });
-    const paths = [];
+    let paths = [];
     for (const f of up.files) paths.push(await download(f, dir));
+    // extract：下载的是个 zip，只取里面这些文件（unzip 通配符，例如 "*/ChromePublic.apk"）再重新打包
+    if (src.extract) {
+      if (paths.length !== 1) throw new Error('extract 只能有一个文件');
+      const exDir = join(dir, 'extract');
+      mkdirSync(exDir);
+      execFileSync('unzip', ['-q', '-j', '-o', paths[0], ...src.extract, '-d', exDir], { stdio: ['ignore', 'inherit', 'inherit'] });
+      paths = readdirSync(exDir).sort().map((n) => join(exDir, n));
+      if (!paths.length) throw new Error(`${up.files[0].name} 里没有 ${src.extract.join(', ')}`);
+      for (const p of paths) if (statSync(p).size < MIN_SIZE) throw new Error(`${basename(p)} 只有 ${statSync(p).size} 字节`);
+      rmSync(join(dir, up.files[0].name), { force: true }); // 原始大 zip 不再需要
+    }
     const zipPath = join(WORK, src.name);
     let out = `${zipPath}.out.zip`;
     rmSync(out, { force: true });

@@ -312,9 +312,9 @@
     "name": "Google Chrome浏览器",
     "link1": "/download-app/android/android-chrome.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-chrome.zip",
-    "comment": "谷歌浏览器",
+    "comment": "谷歌浏览器（Chromium 官方每日构建，无需 Google 服务）；只支持 64 位（arm64）手机；不会自动更新，请定期回来下载新版",
     "image": "images/chrome.webp",
-    "web": "https://www.google.com/chrome/",
+    "web": "https://www.chromium.org/getting-involved/download-chromium/",
     "star": 9,
     "date": "26年1月10日更新"
   },
