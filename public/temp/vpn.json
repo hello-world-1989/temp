@@ -296,18 +296,6 @@
   },
   {
     "os": "android",
-    "id": "chromium",
-    "name": "Chromium浏览器",
-    "link1": "/download-app/android/android-chromium.zip",
-    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-chromium.zip",
-    "comment": "Chromium 开源浏览器（Thorium 构建），针对速度优化，支持 H.265 视频和 Widevine；只支持 64 位（arm64）手机；不会自动更新，请定期回来下载新版，否则有安全风险",
-    "image": "images/chromium.webp",
-    "mainLink": "https://github.com/Alex313031/Thorium-Android",
-    "star": 9,
-    "date": "26年11月3日更新"
-  },
-  {
-    "os": "android",
     "id": "chrome",
     "name": "Google Chrome浏览器",
     "link1": "/download-app/android/android-chrome.zip",
@@ -316,7 +304,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.chromium.org/getting-involved/download-chromium/",
     "star": 9,
-    "date": "26年1月10日更新"
+    "date": "26年11月10日更新"
   },
   {
     "os": "windows",
