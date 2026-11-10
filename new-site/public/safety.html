@@ -115,7 +115,7 @@
       <li><strong>翻墙时关掉国内 App 的后台。</strong>全局模式下，国内 App 的流量也会走节点，有的 App 会检测并上报"正在使用代理"。敏感操作最好在一台不装国内 App 的设备上做。</li>
       <li><strong>用无痕窗口。</strong>无痕窗口关掉后不留浏览记录和本地数据。但它不能隐藏你的网络地址，也防不住截图。</li>
       <li><strong>不用国内浏览器</strong>（UC、QQ 浏览器、360、夸克等）打开敏感网站，用 Chrome、Firefox、Safari 或 Tor 浏览器。</li>
-      <li><strong>小心输入法。</strong>国内输入法的"云输入"会把你打的字发到服务器。2024 年公民实验室（Citizen Lab）的研究发现，多家主流中文输入法的云输入加密存在漏洞，传输的内容可以被截获。输入敏感内容时关掉云输入，或者改用系统自带键盘。</li>
+      <li><strong>小心输入法。</strong>国内输入法的"云输入"会把你打的字发到服务器。2024 年公民实验室（Citizen Lab）的研究发现，多家主流中文输入法的云输入加密存在漏洞，传输的内容可以被截获。输入敏感内容时关掉云输入，或者换成不联网的输入法，见 <a href="#ime">安全的输入法</a>。</li>
       <li><strong>风险最高时用 Tor 浏览器</strong>（在国内要配合 Snowflake 网桥）。它比普通翻墙多一层保护：连节点运营者也不知道你是谁。可以在 <a href="/download">翻墙软件</a> 页下载。</li>
       <li><strong>只从可信渠道下载翻墙软件</strong>（官方网站、GitHub 官方发布页，或本站下载页）。来路不明的"免费翻墙"可能记录你的一切。</li>
     </ul>
@@ -163,6 +163,19 @@
       <li><strong>系统和软件及时更新</strong>，修补已知漏洞。不要随便点陌生人发来的链接和文件。</li>
       <li><strong>电脑也一样：</strong>设开机密码，打开磁盘加密（Windows 的 BitLocker / 设备加密，Mac 的 FileVault），不用时锁屏。</li>
     </ul>
+    <h3 id="ime">安全的输入法</h3>
+    <p>输入法能看到你打的每一个字：密码、聊天内容、搜索词，不管在哪个 App 里。搜狗、百度、讯飞、QQ 拼音占了国内第三方输入法九成以上的份额，默认都开着“云输入”，把按键实时发到服务器做联想；小米、OPPO、vivo、荣耀等手机预装的“系统输入法”其实就是这几家的贴牌。2023–2024 年公民实验室（Citizen Lab）检查了 9 家厂商的输入法，8 家的云输入传输都能被截获，估计波及近十亿用户。即使漏洞修好了，内容本身仍然在国内公司的服务器上。下面这些输入法打字全程不联网，代码公开可查：</p>
+    <ul>
+      <li><strong>安卓：</strong>
+        <a href="https://f-droid.org/packages/org.fcitx.fcitx5.android/" rel="noopener noreferrer" target="_blank">Fcitx5 Android（小企鹅输入法）</a>，自带拼音、双拼、五笔、仓颉，F-Droid 和 <a href="https://github.com/fcitx5-android/fcitx5-android/releases" rel="noopener noreferrer" target="_blank">GitHub</a> 都有；
+        <a href="https://f-droid.org/packages/com.osfans.trime/" rel="noopener noreferrer" target="_blank">同文输入法（Trime）</a>，基于 Rime，能用电脑上同一套方案。
+        装好后到“设置 → 系统 → 语言和输入法”里启用并设为默认，然后把预装的输入法停用。有 Google Play 的手机也可以用 Gboard：它的中文拼音完全离线，但不开源，设置里把“分享使用情况统计信息”关掉。</li>
+      <li><strong>iPhone：</strong>系统自带的拼音键盘就在本机完成，不上传，大多数人用它就够了。想要更多方案可以装 <a href="https://apps.apple.com/app/id6446617683" rel="noopener noreferrer" target="_blank">仓输入法（Hamster）</a>，基于 Rime、开源、不联网。装任何第三方键盘都<strong>不要</strong>打开“允许完全访问”：不打开，iOS 根本不让键盘联网。</li>
+      <li><strong>Windows：</strong><a href="https://rime.im/" rel="noopener noreferrer" target="_blank">小狼毫（Rime Weasel）</a>。系统自带的微软拼音也在本机运行，但要到“微软拼音 → 常规”里关掉“云候选”。</li>
+      <li><strong>Mac：</strong>自带的拼音输入法不联网，可以直接用；或者装 <a href="https://rime.im/" rel="noopener noreferrer" target="_blank">鼠须管（Rime Squirrel）</a>。</li>
+      <li><strong>Linux：</strong>fcitx5-chinese-addons 或 fcitx5-rime / ibus-rime，各发行版软件源里都有。</li>
+    </ul>
+    <p>Rime 系的输入法（同文、仓、小狼毫、鼠须管）词库和联想比搜狗差一些，要花十分钟适应；换不过来的话，至少把现有输入法的“云输入”“语音输入”“个性化词库同步”全部关掉，输密码和敏感内容时切到系统键盘。安卓上还可以用 <a href="https://f-droid.org/packages/eu.faircode.netguard/" rel="noopener noreferrer" target="_blank">NetGuard</a> 这类不用 root 的防火墙，直接禁止输入法联网。</p>
   </div>
 </section>
 
