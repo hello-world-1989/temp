@@ -59,14 +59,16 @@ const byResistance = (a, b) =>
 function show(os) {
   document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.os === os)));
   const mine = apps.filter((a) => a.os === os);
-  const vpn = mine.filter((a) => a.category !== 'p2p' && a.category !== 'live').sort(byStar);
+  const vpn = mine.filter((a) => !a.category).sort(byStar);
   const p2p = mine.filter((a) => a.category === 'p2p').sort(byResistance);
   const live = mine.filter((a) => a.category === 'live').sort(byStar);
+  const ime = mine.filter((a) => a.category === 'ime').sort(byStar);
   $('#apps').innerHTML = vpn.length ? vpn.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的软件。</p>';
   $('#apps-p2p').innerHTML = p2p.length ? p2p.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的抗封锁软件。</p>';
   $('#apps-live').innerHTML = live.length ? live.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的直播推流软件，请用手机。</p>';
+  $('#apps-ime').innerHTML = ime.length ? ime.map(card).join('') : '<p class="muted">这个系统暂时没有推荐的输入法。</p>';
   // Long instructions are cut to four lines; show 展开 only where something is hidden
-  document.querySelectorAll('#apps .app, #apps-p2p .app, #apps-live .app').forEach((el) => {
+  document.querySelectorAll('#apps .app, #apps-p2p .app, #apps-live .app, #apps-ime .app').forEach((el) => {
     const p = el.querySelector('p');
     const btn = el.querySelector('.more-toggle');
     if (p && btn && p.scrollHeight > p.clientHeight + 2) btn.hidden = false;
@@ -97,7 +99,7 @@ async function init() {
   }
   const hash = location.hash.slice(1);
   show(OS.includes(hash) ? hash : 'android');
-  if (hash === 'p2p' || hash === 'live') document.getElementById(hash)?.scrollIntoView();
+  if (hash === 'p2p' || hash === 'live' || hash === 'ime') document.getElementById(hash)?.scrollIntoView();
 }
 
 init();

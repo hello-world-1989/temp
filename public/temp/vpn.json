@@ -68,7 +68,7 @@
     "image": "images/outline.webp",
     "mainLink": "https://getoutline.org/zh-CN/get-started/#step-3",
     "star": 11,
-    "date": "26年9月28日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -124,7 +124,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayNG/releases",
     "star": 10,
-    "date": "26年9月28日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -194,7 +194,7 @@
     "image": "images/clash.png",
     "mainLink": "https://github.com/MetaCubeX/ClashMetaForAndroid/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -208,7 +208,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayN/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -278,7 +278,7 @@
     "comment": "压缩包里有两个 dmg：Intel 芯片选 macos-64，M 系列芯片选 arm64；安装包没有签名，打开时会提示“已损坏”：先把应用拖进“应用程序”，再在终端运行 xattr -cr /Applications/v2rayN.app；使用方法：复制主页的 V2Ray 订阅链接 → 打开 v2rayN，菜单“订阅分组” → 订阅分组设置 → 添加，在“可选地址(url)”粘贴后确定 → “订阅分组” → 更新全部订阅（不通过代理）→ 选中一个节点按回车设为活动节点 → 底部“系统代理”选“自动配置系统代理”",
     "image": "images/v2ray.webp",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -292,7 +292,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -300,11 +300,11 @@
     "name": "Google Chrome浏览器",
     "link1": "/download-app/android/android-chrome.zip",
     "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-chrome.zip",
-    "comment": "谷歌浏览器",
+    "comment": "谷歌浏览器（Chromium 官方每日构建，无需 Google 服务）；只支持 64 位（arm64）手机；不会自动更新，请定期回来下载新版",
     "image": "images/chrome.webp",
-    "web": "https://www.google.com/chrome/",
+    "web": "https://www.chromium.org/getting-involved/download-chromium/",
     "star": 9,
-    "date": "26年1月10日更新"
+    "date": "26年11月10日更新"
   },
   {
     "os": "windows",
@@ -316,7 +316,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -330,7 +330,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -369,7 +369,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -381,7 +381,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -404,7 +404,7 @@
     "image": "images/warpplus.webp",
     "mainLink": "https://1.1.1.1/zh-Hans/",
     "star": 8.1,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -428,7 +428,7 @@
     "comment": "Cloudflare 出品（1.1.1.1），免费，不需要密钥；国内可能连不上，适合作为备用",
     "image": "images/warpplus.webp",
     "star": 8.1,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -451,7 +451,7 @@
     "image": "images/psiphon.png",
     "mainLink": "https://psiphon.ca/zh/download.html",
     "star": 6,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -536,7 +536,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -548,7 +548,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "ios",
@@ -572,7 +572,7 @@
     "comment": "Tor 官方浏览器；国内需要配合网桥使用，见常见问题；隐私优先，速度较慢",
     "image": "images/tor.webp",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -731,7 +731,7 @@
     "image": "images/v2ray.webp",
     "mainLink": "https://github.com/2dust/v2rayN/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -745,7 +745,7 @@
     "image": "images/clash.png",
     "mainLink": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
     "star": 10,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -757,7 +757,7 @@
     "image": "images/chrome.webp",
     "star": 9,
     "web": "https://www.google.com/chrome/",
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -771,7 +771,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年10月26日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -783,7 +783,7 @@
     "image": "images/tor.webp",
     "mainLink": "https://www.torproject.org/download/",
     "star": 8.5,
-    "date": "26年10月8日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -795,7 +795,7 @@
     "image": "images/ceno.webp",
     "mainLink": "https://censorship.no/",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -827,7 +827,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -843,7 +843,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -875,7 +875,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -891,7 +891,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -907,7 +907,7 @@
     "image": "images/syncthing.webp",
     "mainLink": "https://github.com/researchxxl/syncthing-android/releases",
     "star": 8,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 3,
     "block": "low",
@@ -923,7 +923,7 @@
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
     "star": 8,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 3,
     "block": "low",
@@ -955,7 +955,7 @@
     "image": "images/syncthing.webp",
     "mainLink": "https://syncthing.net/downloads/",
     "star": 8,
-    "date": "26年10月8日更新",
+    "date": "26年11月2日更新",
     "category": "p2p",
     "ease": 3,
     "block": "low",
@@ -975,7 +975,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -991,7 +991,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -1007,7 +1007,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -1023,7 +1023,7 @@
     "ease": 2,
     "block": "mid",
     "blockNote": "第一次“补种”的服务器多数被封，需要先翻墙；连上网络后较难封锁",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -1039,7 +1039,7 @@
     "ease": 4,
     "block": "low",
     "blockNote": "蓝牙 / Wi-Fi 模式完全不受封锁；联网模式走 Tor，已内置网桥",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "android",
@@ -1071,7 +1071,7 @@
     "ease": 4,
     "block": "mid",
     "blockNote": "引导服务器可能被封，连不上时先开翻墙工具",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -1310,7 +1310,7 @@
     "ease": 3,
     "block": "high",
     "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "mac",
@@ -1326,7 +1326,7 @@
     "ease": 3,
     "block": "high",
     "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "linux",
@@ -1342,7 +1342,7 @@
     "ease": 3,
     "block": "high",
     "blockNote": "依赖 Tor，国内必须在设置里开启网桥（推荐 Snowflake）",
-    "date": "26年10月12日更新"
+    "date": "26年11月2日更新"
   },
   {
     "os": "windows",
@@ -1481,5 +1481,92 @@
     "comment": "手机直播推流；免费，没有水印；用 SRT 加密推流（不支持 RTMPS）；在中转页面点“在 Haivision 里打开”可以一键填好 SRT 地址、streamid 和密码；需要用海外苹果账户从 App Store 下载，获取方法见主页或常见问题",
     "mainLink": "/index.html#apple-account",
     "mainText": "获取苹果账户"
+  },
+  {
+    "os": "android",
+    "id": "fcitx5",
+    "name": "Fcitx5 小企鹅输入法",
+    "link1": "/download-app/android/android-fcitx5.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-fcitx5.zip",
+    "comment": "压缩包里有两个 apk：arm64-v8a 适合 2019 年以后的手机，armeabi-v7a 适合老手机；开源离线中文输入法，自带拼音、双拼、五笔、仓颉，打字全程不联网，代码公开可查；国内主流输入法默认把你打的每个字发到服务器做“云输入”，见数字安全指南；安装后到“设置 → 系统 → 语言和输入法 → 屏幕键盘”启用并设为默认，然后把手机预装的输入法停用",
+    "image": "images/fcitx5.webp",
+    "mainLink": "https://f-droid.org/packages/org.fcitx.fcitx5.android/",
+    "mainText": "F-Droid",
+    "helpLink": "/safety#ime",
+    "helpText": "为什么要换",
+    "star": 8.8,
+    "category": "ime"
+  },
+  {
+    "os": "android",
+    "id": "trime",
+    "name": "同文输入法 Trime",
+    "link1": "/download-app/android/android-trime.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/android/android-trime.zip",
+    "comment": "基于 Rime 中州韵引擎的开源离线输入法，和电脑上的小狼毫、鼠须管用同一套方案文件，可以互相拷贝词库；打字全程不联网，代码公开可查；国内主流输入法默认把你打的每个字发到服务器做“云输入”，见数字安全指南；上手比小企鹅略难，适合愿意折腾的人",
+    "image": "images/trime.webp",
+    "mainLink": "https://f-droid.org/packages/com.osfans.trime/",
+    "mainText": "F-Droid",
+    "helpLink": "/safety#ime",
+    "helpText": "为什么要换",
+    "star": 8.2,
+    "category": "ime"
+  },
+  {
+    "os": "ios",
+    "id": "hamster",
+    "name": "仓输入法 Hamster",
+    "link1": "#",
+    "link2": "#",
+    "comment": "基于 Rime 的开源输入法，打字不联网，国区 App Store 就能下载；添加键盘时不要打开“允许完全访问”，不打开 iOS 就不允许键盘联网；iPhone 自带的拼音键盘本来就在本机运行、不上传，大多数人直接用自带的就够，装搜狗、百度输入法反而是降级",
+    "image": "images/hamster.webp",
+    "mainLink": "https://apps.apple.com/app/id6446617683",
+    "mainText": "App Store",
+    "helpLink": "/safety#ime",
+    "helpText": "为什么要换",
+    "star": 8.5,
+    "category": "ime"
+  },
+  {
+    "os": "windows",
+    "id": "rime",
+    "name": "小狼毫 Rime",
+    "link1": "/download-app/windows/windows-rime.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/windows/windows-rime.zip",
+    "comment": "Rime 中州韵官方 Windows 版，开源离线；安装后在任务栏输入法里切到小狼毫，按 Ctrl+` 选择方案（朙月拼音、双拼、五笔等）；打字全程不联网，代码公开可查；国内主流输入法默认把你打的每个字发到服务器做“云输入”，见数字安全指南；不想换的话至少到“微软拼音 → 常规”里关掉“云候选”",
+    "image": "images/rime.webp",
+    "mainLink": "https://rime.im/download/",
+    "helpLink": "/safety#ime",
+    "helpText": "为什么要换",
+    "star": 8.6,
+    "category": "ime"
+  },
+  {
+    "os": "mac",
+    "id": "rime",
+    "name": "鼠须管 Rime",
+    "link1": "/download-app/mac/mac-rime.zip",
+    "link2": "https://github.com/hello-world-1989/temp/releases/download/mac/mac-rime.zip",
+    "comment": "Rime 中州韵官方 Mac 版，开源离线；安装 pkg 后注销再登录，在“系统设置 → 键盘 → 输入法”里添加鼠须管，按 Ctrl+` 选择方案；打字全程不联网，代码公开可查；国内主流输入法默认把你打的每个字发到服务器做“云输入”，见数字安全指南；Mac 自带的拼音输入法也在本机运行，可以直接用",
+    "image": "images/rime.webp",
+    "mainLink": "https://rime.im/download/",
+    "helpLink": "/safety#ime",
+    "helpText": "为什么要换",
+    "star": 8.6,
+    "category": "ime"
+  },
+  {
+    "os": "linux",
+    "id": "fcitx5",
+    "name": "Fcitx5 + Rime",
+    "link1": "#",
+    "link2": "#",
+    "comment": "各发行版软件源里都有，不用下载：Debian / Ubuntu：sudo apt install fcitx5 fcitx5-chinese-addons fcitx5-rime；Fedora：sudo dnf install fcitx5 fcitx5-chinese-addons fcitx5-rime；Arch：sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-rime；装好后在系统设置里把输入法框架切到 Fcitx 5，重新登录；打字全程不联网，代码公开可查；国内主流输入法默认把你打的每个字发到服务器做“云输入”，见数字安全指南",
+    "image": "images/fcitx5.webp",
+    "mainLink": "https://fcitx-im.org/wiki/Fcitx_5/zh-cn",
+    "helpLink": "/safety#ime",
+    "helpText": "为什么要换",
+    "star": 8.6,
+    "category": "ime"
   }
 ]
