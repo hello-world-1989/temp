@@ -1495,7 +1495,8 @@
     "helpLink": "/safety#ime",
     "helpText": "为什么要换",
     "star": 8.8,
-    "category": "ime"
+    "category": "ime",
+    "date": "26年11月10日更新"
   },
   {
     "os": "android",
@@ -1510,7 +1511,8 @@
     "helpLink": "/safety#ime",
     "helpText": "为什么要换",
     "star": 8.2,
-    "category": "ime"
+    "category": "ime",
+    "date": "26年11月10日更新"
   },
   {
     "os": "ios",
@@ -1539,7 +1541,8 @@
     "helpLink": "/safety#ime",
     "helpText": "为什么要换",
     "star": 8.6,
-    "category": "ime"
+    "category": "ime",
+    "date": "26年11月10日更新"
   },
   {
     "os": "mac",
@@ -1553,7 +1556,8 @@
     "helpLink": "/safety#ime",
     "helpText": "为什么要换",
     "star": 8.6,
-    "category": "ime"
+    "category": "ime",
+    "date": "26年11月10日更新"
   },
   {
     "os": "linux",
