@@ -551,6 +551,39 @@
       "extract": [
         "*/ChromePublic.apk"
       ]
+    },
+    {
+      "name": "android-fcitx5.zip",
+      "type": "github",
+      "repo": "fcitx5-android/fcitx5-android",
+      "files": [
+        "^org\\.fcitx\\.fcitx5\\.android-[^/]*-arm64-v8a-release\\.apk$",
+        "^org\\.fcitx\\.fcitx5\\.android-[^/]*-armeabi-v7a-release\\.apk$"
+      ]
+    },
+    {
+      "name": "android-trime.zip",
+      "type": "github",
+      "repo": "osfans/trime",
+      "files": [
+        "^com\\.osfans\\.trime-[^/]*arm64-v8a[^/]*\\.apk$"
+      ]
+    },
+    {
+      "name": "windows-rime.zip",
+      "type": "github",
+      "repo": "rime/weasel",
+      "files": [
+        "^weasel-[\\d.]+-installer\\.exe$"
+      ]
+    },
+    {
+      "name": "mac-rime.zip",
+      "type": "github",
+      "repo": "rime/squirrel",
+      "files": [
+        "^Squirrel-[\\d.]+\\.pkg$"
+      ]
     }
   ],
   "manual": [
