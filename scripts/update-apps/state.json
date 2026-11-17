@@ -1,31 +1,31 @@
 {
   "android-hiddify.zip": {
-    "version": "v4.1.1",
+    "version": "v5.5.5",
     "files": [
       "Hiddify-Android-universal.apk"
     ],
-    "updated": "2026-09-28T05:26:07.826Z"
+    "updated": "2026-11-17T03:11:14.913Z"
   },
   "windows-hiddify.zip": {
-    "version": "v4.1.1",
+    "version": "v5.5.5",
     "files": [
       "Hiddify-Windows-Setup-x64.exe"
     ],
-    "updated": "2026-09-28T05:26:11.906Z"
+    "updated": "2026-11-17T03:11:20.165Z"
   },
   "mac-hiddify.zip": {
-    "version": "v4.1.1",
+    "version": "v5.5.5",
     "files": [
       "Hiddify-MacOS.dmg"
     ],
-    "updated": "2026-09-28T05:26:18.191Z"
+    "updated": "2026-11-17T03:11:30.073Z"
   },
   "android-outline.zip": {
-    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"de6554bd52e738636cc5d6877ba93253-6\"|Tue, 13 Oct 2026 11:16:26 GMT|45310306",
+    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"885ae993a07cfaa6b26a0700b5e34d35-6\"|Mon, 02 Nov 2026 16:41:48 GMT|41988644",
     "files": [
       "Outline-Client.apk"
     ],
-    "updated": "2026-11-01T23:35:36.161Z"
+    "updated": "2026-11-17T03:12:02.158Z"
   },
   "windows-outline.zip": {
     "version": "windows-v1.9.1",
@@ -35,12 +35,12 @@
     "updated": "2026-09-28T05:26:44.017Z"
   },
   "android-v2ray.zip": {
-    "version": "2.3.14",
+    "version": "2.3.15",
     "files": [
-      "v2rayNG_2.3.14_arm64-v8a.apk",
-      "v2rayNG_2.3.14_armeabi-v7a.apk"
+      "v2rayNG_2.3.15_arm64-v8a.apk",
+      "v2rayNG_2.3.15_armeabi-v7a.apk"
     ],
-    "updated": "2026-11-01T23:35:42.935Z"
+    "updated": "2026-11-17T03:12:09.334Z"
   },
   "windows-v2ray.zip": {
     "version": "7.25.6",
@@ -59,11 +59,11 @@
     "updated": "2026-11-01T23:36:18.798Z"
   },
   "android-clash.zip": {
-    "version": "v2.11.36",
+    "version": "v2.11.37",
     "files": [
-      "cmfa-2.11.36-meta-universal-release.apk"
+      "cmfa-2.11.37-meta-universal-release.apk"
     ],
-    "updated": "2026-11-01T23:36:28.243Z"
+    "updated": "2026-11-17T03:12:20.418Z"
   },
   "android-nthlink.zip": {
     "version": "https://www.downloadnth.com/nthlink-android-current.apk|\"6abf2809-5443ee0\"|Fri, 02 Oct 2026 03:42:01 GMT|88358624",
@@ -80,39 +80,39 @@
     "updated": "2026-10-07T20:13:51.014Z"
   },
   "windows-chrome.zip": {
-    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"7092f07-3c1aab87\"|Fri, 30 Oct 2026 14:39:03 GMT|168473016",
+    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"71bc4f2-3c1aab87\"|Mon, 16 Nov 2026 21:55:24 GMT|169681336",
     "files": [
       "ChromeStandaloneSetup64.exe"
     ],
-    "updated": "2026-11-01T23:36:42.134Z"
+    "updated": "2026-11-17T03:12:34.295Z"
   },
   "mac-chrome.zip": {
-    "version": "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg|\"70934c0\"|Fri, 30 Oct 2026 14:37:14 GMT|279005590",
+    "version": "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg|\"71bd351\"|Mon, 16 Nov 2026 21:19:48 GMT|283004776",
     "files": [
       "googlechrome.dmg"
     ],
-    "updated": "2026-11-01T23:36:57.849Z"
+    "updated": "2026-11-17T03:12:54.210Z"
   },
   "android-ooni.zip": {
-    "version": "374",
+    "version": "394",
     "files": [
-      "org.openobservatory.ooniprobe_374.apk"
+      "org.openobservatory.ooniprobe_394.apk"
     ],
-    "updated": "2026-09-28T05:32:54.366Z"
+    "updated": "2026-11-17T03:13:03.792Z"
   },
   "windows-ooni.zip": {
-    "version": "v6.2.1",
+    "version": "v6.3.1",
     "files": [
-      "OONI-Probe-6.2.1.exe"
+      "OONI-Probe-6.3.1.exe"
     ],
-    "updated": "2026-10-07T20:14:58.321Z"
+    "updated": "2026-11-17T03:13:21.486Z"
   },
   "mac-ooni.zip": {
-    "version": "v6.2.1",
+    "version": "v6.3.1",
     "files": [
-      "OONI-Probe-6.2.1.dmg"
+      "OONI-Probe-6.3.1.dmg"
     ],
-    "updated": "2026-10-07T20:15:36.112Z"
+    "updated": "2026-11-17T03:13:45.398Z"
   },
   "android-orbot.zip": {
     "version": "17.9.7-BETA-1-tor-0.4.9.13.2",
@@ -122,26 +122,26 @@
     "updated": "2026-10-07T20:15:44.748Z"
   },
   "android-tor.zip": {
-    "version": "16.0",
+    "version": "16.0.1",
     "files": [
-      "tor-browser-android-armv7-16.0.apk",
-      "tor-browser-android-aarch64-16.0.apk"
+      "tor-browser-android-armv7-16.0.1.apk",
+      "tor-browser-android-aarch64-16.0.1.apk"
     ],
-    "updated": "2026-11-01T23:37:24.432Z"
+    "updated": "2026-11-17T03:14:14.785Z"
   },
   "windows-tor.zip": {
-    "version": "16.0",
+    "version": "16.0.1",
     "files": [
-      "tor-browser-windows-x86_64-portable-16.0.exe"
+      "tor-browser-windows-x86_64-portable-16.0.1.exe"
     ],
-    "updated": "2026-11-01T23:37:37.489Z"
+    "updated": "2026-11-17T03:14:26.913Z"
   },
   "mac-tor.zip": {
-    "version": "16.0",
+    "version": "16.0.1",
     "files": [
-      "tor-browser-macos-16.0.dmg"
+      "tor-browser-macos-16.0.1.dmg"
     ],
-    "updated": "2026-11-01T23:37:55.557Z"
+    "updated": "2026-11-17T03:14:48.597Z"
   },
   "windows-warpplus.zip": {
     "version": "https://downloads.cloudflareclient.com/v1/download/windows/version/2026.8.2115.0|\"4e827f3639a12da4a0eb9532080c2e10-1\"||60104704",
@@ -172,12 +172,12 @@
     "updated": "2026-10-07T20:17:31.478Z"
   },
   "linux-hiddify.zip": {
-    "version": "v4.1.1",
+    "version": "v5.5.5",
     "files": [
       "Hiddify-Linux-x64-AppImage.AppImage",
       "Hiddify-Debian-x64.deb"
     ],
-    "updated": "2026-09-28T06:01:35.306Z"
+    "updated": "2026-11-17T03:15:01.014Z"
   },
   "linux-outline.zip": {
     "version": "https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage|\"c77790cd9b0c80be701ab586fc25edd4-7\"|Tue, 09 Dec 2025 13:59:57 GMT|114447794",
@@ -195,63 +195,63 @@
     "updated": "2026-11-01T23:38:38.636Z"
   },
   "linux-clash.zip": {
-    "version": "v2.5.8",
+    "version": "v2.5.10",
     "files": [
-      "Clash.Verge_2.5.8_amd64.deb"
+      "Clash.Verge_2.5.10_amd64.deb"
     ],
-    "updated": "2026-11-01T23:38:47.159Z"
+    "updated": "2026-11-17T03:15:15.680Z"
   },
   "linux-chrome.zip": {
-    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"7093278\"|Sun, 01 Nov 2026 20:46:58 GMT|145633696",
+    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"71bc1e3\"|Mon, 16 Nov 2026 19:47:30 GMT|147497676",
     "files": [
       "google-chrome-stable_current_amd64.deb"
     ],
-    "updated": "2026-11-01T23:38:56.433Z"
+    "updated": "2026-11-17T03:15:26.508Z"
   },
   "linux-tor.zip": {
-    "version": "16.0",
+    "version": "16.0.1",
     "files": [
-      "tor-browser-linux-x86_64-16.0.tar.xz"
+      "tor-browser-linux-x86_64-16.0.1.tar.xz"
     ],
-    "updated": "2026-11-01T23:39:09.615Z"
+    "updated": "2026-11-17T03:15:44.957Z"
   },
   "android-ceno.zip": {
-    "version": "v2.12.2",
+    "version": "v2.12.3",
     "files": [
-      "ceno-arm64-v8a-release-2.12.2-2026-10-22_1449.apk",
-      "ceno-armeabi-v7a-release-2.12.2-2026-10-22_1449.apk"
+      "ceno-arm64-v8a-release-2.12.3-2026-11-06_1144.apk",
+      "ceno-armeabi-v7a-release-2.12.3-2026-11-06_1144.apk"
     ],
-    "updated": "2026-11-01T23:39:45.661Z"
+    "updated": "2026-11-17T03:16:19.925Z"
   },
   "android-session.zip": {
-    "version": "1.33.7",
+    "version": "1.33.8",
     "files": [
-      "session-1.33.7-universal-play-release.apk"
+      "session-1.33.8-universal-play-release.apk"
     ],
-    "updated": "2026-11-01T23:39:56.886Z"
+    "updated": "2026-11-17T03:16:30.142Z"
   },
   "windows-session.zip": {
-    "version": "v1.18.3",
+    "version": "v1.18.4",
     "files": [
-      "session-desktop-win-x64-1.18.3.exe"
+      "session-desktop-win-x64-1.18.4.exe"
     ],
-    "updated": "2026-11-01T23:40:07.190Z"
+    "updated": "2026-11-17T03:16:39.797Z"
   },
   "mac-session.zip": {
-    "version": "v1.18.3",
+    "version": "v1.18.4",
     "files": [
-      "session-desktop-mac-arm64-1.18.3.dmg",
-      "session-desktop-mac-x64-1.18.3.dmg"
+      "session-desktop-mac-arm64-1.18.4.dmg",
+      "session-desktop-mac-x64-1.18.4.dmg"
     ],
-    "updated": "2026-11-01T23:40:32.846Z"
+    "updated": "2026-11-17T03:17:04.120Z"
   },
   "linux-session.zip": {
-    "version": "v1.18.3",
+    "version": "v1.18.4",
     "files": [
-      "session-desktop-linux-x86_64-1.18.3.AppImage",
-      "session-desktop-linux-amd64-1.18.3.deb"
+      "session-desktop-linux-x86_64-1.18.4.AppImage",
+      "session-desktop-linux-amd64-1.18.4.deb"
     ],
-    "updated": "2026-11-01T23:40:52.893Z"
+    "updated": "2026-11-17T03:17:26.429Z"
   },
   "android-syncthing.zip": {
     "version": "v2.1.7.0",
@@ -303,46 +303,46 @@
     "updated": "2026-11-01T23:41:21.161Z"
   },
   "linux-i2p.zip": {
-    "version": "i2p-2.14.0",
+    "version": "i2p-2.14.1",
     "files": [
-      "i2pinstall_2.14.0.jar"
+      "i2pinstall_2.14.1.jar"
     ],
-    "updated": "2026-11-01T23:41:25.591Z"
+    "updated": "2026-11-17T03:17:32.853Z"
   },
   "windows-jami.zip": {
-    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"b2d9000-65efdb4a4cc83\"|Thu, 29 Oct 2026 17:06:50 GMT|187535360",
+    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"b2de000-65fefba083136\"|Tue, 10 Nov 2026 17:51:23 GMT|187555840",
     "files": [
       "jami.release.x64.msi"
     ],
-    "updated": "2026-11-01T23:41:50.741Z"
+    "updated": "2026-11-17T03:17:50.861Z"
   },
   "mac-jami.zip": {
-    "version": "https://dl.jami.net/mac_osx/jami.dmg|\"16b0c317-65c3ee28ec8c0\"|Thu, 24 Sep 2026 18:36:59 GMT|380683031",
+    "version": "https://dl.jami.net/mac_osx/jami.dmg|\"1728550c-65ff70c593e40\"|Wed, 11 Nov 2026 02:35:29 GMT|388519180",
     "files": [
       "jami.dmg"
     ],
-    "updated": "2026-10-12T03:59:59.688Z"
+    "updated": "2026-11-17T03:18:27.503Z"
   },
   "windows-resilio.zip": {
-    "version": "https://download-cdn.resilio.com/stable/windows/x64/0/Resilio-Sync_x64.exe|\"8b43fcda56f740925c23248ba2a38942-5\"|Fri, 31 Oct 2025 11:46:52 GMT|41820320",
+    "version": "https://download-cdn.resilio.com/stable/windows/x64/0/Resilio-Sync_x64.exe|\"a7ebbdd6213931ef4b4c0063ec507f70-5\"|Mon, 09 Nov 2026 15:04:40 GMT|41820536",
     "files": [
       "Resilio-Sync_x64.exe"
     ],
-    "updated": "2026-10-12T04:00:05.710Z"
+    "updated": "2026-11-17T03:18:32.349Z"
   },
   "mac-resilio.zip": {
-    "version": "https://download-cdn.resilio.com/stable/mac/osx/0/Resilio-Sync.dmg|\"64900d8827d2f0641250d69af7ce385b-4\"|Fri, 31 Oct 2025 11:46:46 GMT|30784929",
+    "version": "https://download-cdn.resilio.com/stable/mac/osx/0/Resilio-Sync.dmg|\"8d829bb5344a9635790ecdbf08f0dd01-4\"|Mon, 09 Nov 2026 15:04:39 GMT|30787737",
     "files": [
       "Resilio-Sync.dmg"
     ],
-    "updated": "2026-10-12T04:00:09.331Z"
+    "updated": "2026-11-17T03:18:36.318Z"
   },
   "linux-resilio.zip": {
-    "version": "https://download-cdn.resilio.com/stable/linux/x64/0/resilio-sync_x64.tar.gz|\"3acffef0fb702b8e82f6ef75468bf202-2\"|Fri, 31 Oct 2025 11:46:45 GMT|15535020",
+    "version": "https://download-cdn.resilio.com/stable/linux/x64/0/resilio-sync_x64.tar.gz|\"3a600a7f7a95927fd4f3f8b14508022c-2\"|Mon, 09 Nov 2026 15:04:39 GMT|15535355",
     "files": [
       "resilio-sync_x64.tar.gz"
     ],
-    "updated": "2026-10-12T04:00:11.667Z"
+    "updated": "2026-11-17T03:18:39.222Z"
   },
   "windows-retroshare.zip": {
     "version": "v0.6.7.2",
@@ -410,25 +410,25 @@
     "updated": "2026-10-12T04:02:13.930Z"
   },
   "windows-onionshare.zip": {
-    "version": "v2.7.1",
+    "version": "v2.7.2",
     "files": [
-      "OnionShare-win64-2.7.1.msi"
+      "OnionShare-win64-2.7.2.msi"
     ],
-    "updated": "2026-11-01T23:42:05.003Z"
+    "updated": "2026-11-17T03:18:54.002Z"
   },
   "mac-onionshare.zip": {
-    "version": "v2.7.1",
+    "version": "v2.7.2",
     "files": [
-      "OnionShare-2.7.1.dmg"
+      "OnionShare-2.7.2.dmg"
     ],
-    "updated": "2026-11-01T23:42:20.457Z"
+    "updated": "2026-11-17T03:19:11.336Z"
   },
   "linux-onionshare.zip": {
-    "version": "v2.7.1",
+    "version": "v2.7.2",
     "files": [
-      "OnionShare-2.7.1.flatpak"
+      "OnionShare-2.7.2.flatpak"
     ],
-    "updated": "2026-11-01T23:42:27.508Z"
+    "updated": "2026-11-17T03:19:19.246Z"
   },
   "android-briar.zip": {
     "version": "https://briarproject.org/apk/briar.apk|\"6ae4ad71-3056a22\"|Fri, 30 Oct 2026 14:45:05 GMT|50686498",
@@ -438,46 +438,46 @@
     "updated": "2026-11-01T23:41:32.581Z"
   },
   "android-larix.zip": {
-    "version": "1.5.13",
+    "version": "1.5.14",
     "files": [
-      "larixbroadcaster-1.5.13-web.apk"
+      "larixbroadcaster-1.5.14-web.apk"
     ],
-    "updated": "2026-10-13T01:22:03.477Z"
+    "updated": "2026-11-17T03:19:29.228Z"
   },
   "android-karing.zip": {
-    "version": "v1.2.25.2802",
+    "version": "v1.2.26.2932",
     "files": [
-      "karing_1.2.25.2802_android_arm.apk"
+      "karing_1.2.26.2932_android_arm.apk"
     ],
-    "updated": "2026-11-01T23:35:16.885Z"
+    "updated": "2026-11-17T03:11:39.273Z"
   },
   "windows-karing.zip": {
-    "version": "v1.2.25.2802",
+    "version": "v1.2.26.2932",
     "files": [
-      "karing_1.2.25.2802_windows_x64.zip"
+      "karing_1.2.26.2932_windows_x64.zip"
     ],
-    "updated": "2026-11-01T23:35:21.898Z"
+    "updated": "2026-11-17T03:11:44.511Z"
   },
   "mac-karing.zip": {
-    "version": "v1.2.25.2802",
+    "version": "v1.2.26.2932",
     "files": [
-      "karing_1.2.25.2802_macos_universal.dmg"
+      "karing_1.2.26.2932_macos_universal.dmg"
     ],
-    "updated": "2026-11-01T23:35:31.067Z"
+    "updated": "2026-11-17T03:11:54.990Z"
   },
   "linux-karing.zip": {
-    "version": "v1.2.25.2802",
+    "version": "v1.2.26.2932",
     "files": [
-      "karing_1.2.25.2802_linux_amd64.deb"
+      "karing_1.2.26.2932_linux_amd64.deb"
     ],
-    "updated": "2026-11-01T23:38:25.041Z"
+    "updated": "2026-11-17T03:15:06.749Z"
   },
   "android-chrome.zip": {
-    "version": "Android_Arm64@1739611",
+    "version": "Android_Arm64@1746339",
     "files": [
       "chrome-android.zip"
     ],
-    "updated": "2026-11-09T22:33:31.413Z"
+    "updated": "2026-11-17T03:19:55.294Z"
   },
   "android-fcitx5.zip": {
     "version": "0.1.3",
