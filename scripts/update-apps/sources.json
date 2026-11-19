@@ -59,11 +59,9 @@
     },
     {
       "name": "windows-outline.zip",
-      "type": "github",
-      "repo": "Jigsaw-Code/outline-apps",
-      "tagPattern": "^windows-",
-      "files": [
-        "^Outline-Client\\.exe$"
+      "type": "url",
+      "urls": [
+        "https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe"
       ]
     },
     {
