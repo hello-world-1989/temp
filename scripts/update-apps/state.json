@@ -66,18 +66,18 @@
     "updated": "2026-11-17T03:12:20.418Z"
   },
   "android-nthlink.zip": {
-    "version": "https://www.downloadnth.com/nthlink-android-current.apk|\"6abf2809-5443ee0\"|Fri, 02 Oct 2026 03:42:01 GMT|88358624",
+    "version": "7.3.2",
     "files": [
-      "nthlink-android-current.apk"
+      "nthlink-7.3.2-release.apk"
     ],
-    "updated": "2026-10-07T20:13:27.942Z"
+    "updated": "2026-11-19T00:52:06.127Z"
   },
   "windows-nthlink.zip": {
-    "version": "https://www.downloadnth.com/nthlink-win64-current.exe|\"6abf24ae-11a376b8\"|Fri, 02 Oct 2026 03:27:42 GMT|295925432",
+    "version": "7.5.0.0",
     "files": [
-      "nthlink-win64-current.exe"
+      "nthLink_Installer_x64_7.5.0.0.exe"
     ],
-    "updated": "2026-10-07T20:13:51.014Z"
+    "updated": "2026-11-19T00:52:36.718Z"
   },
   "windows-chrome.zip": {
     "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"71bc4f2-3c1aab87\"|Mon, 16 Nov 2026 21:55:24 GMT|169681336",
@@ -115,11 +115,12 @@
     "updated": "2026-11-17T03:13:45.398Z"
   },
   "android-orbot.zip": {
-    "version": "17.9.7-BETA-1-tor-0.4.9.13.2",
+    "version": "17.9.8-RC-1-tor-0.4.9.17",
     "files": [
-      "Orbot-17.9.7-BETA-1-tor-0.4.9.13.2-1-g1bf1722f4-fullperm-universal-release.apk"
+      "Orbot-17.9.8-RC-1-tor-0.4.9.17-1-g75a2abad5-fullperm-arm64-v8a-release.apk",
+      "Orbot-17.9.8-RC-1-tor-0.4.9.17-1-g75a2abad5-fullperm-armeabi-v7a-release.apk"
     ],
-    "updated": "2026-10-07T20:15:44.748Z"
+    "updated": "2026-11-19T00:52:45.364Z"
   },
   "android-tor.zip": {
     "version": "16.0.1",
