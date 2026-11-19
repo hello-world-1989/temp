@@ -80,18 +80,18 @@
     "updated": "2026-11-19T00:52:36.718Z"
   },
   "windows-chrome.zip": {
-    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"71bc4f2-3c1aab87\"|Mon, 16 Nov 2026 21:55:24 GMT|169681336",
+    "version": "https://dl.google.com/tag/s/installdataindex/update2/installers/ChromeStandaloneSetup64.exe|\"71d5102-3c1aab87\"|Wed, 18 Nov 2026 19:03:03 GMT|173946808",
     "files": [
       "ChromeStandaloneSetup64.exe"
     ],
-    "updated": "2026-11-17T03:12:34.295Z"
+    "updated": "2026-11-19T01:13:44.644Z"
   },
   "mac-chrome.zip": {
-    "version": "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg|\"71bd351\"|Mon, 16 Nov 2026 21:19:48 GMT|283004776",
+    "version": "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg|\"71d5a52\"|Wed, 18 Nov 2026 19:03:36 GMT|289267733",
     "files": [
       "googlechrome.dmg"
     ],
-    "updated": "2026-11-17T03:12:54.210Z"
+    "updated": "2026-11-19T01:14:03.103Z"
   },
   "android-ooni.zip": {
     "version": "394",
@@ -203,11 +203,11 @@
     "updated": "2026-11-17T03:15:15.680Z"
   },
   "linux-chrome.zip": {
-    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"71bc1e3\"|Mon, 16 Nov 2026 19:47:30 GMT|147497676",
+    "version": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb|\"71d4ad4\"|Wed, 18 Nov 2026 18:19:03 GMT|152702276",
     "files": [
       "google-chrome-stable_current_amd64.deb"
     ],
-    "updated": "2026-11-17T03:15:26.508Z"
+    "updated": "2026-11-19T01:14:14.836Z"
   },
   "linux-tor.zip": {
     "version": "16.0.1",
@@ -474,11 +474,11 @@
     "updated": "2026-11-19T01:11:35.549Z"
   },
   "android-chrome.zip": {
-    "version": "Android_Arm64@1746339",
+    "version": "Android_Arm64@1748642",
     "files": [
       "chrome-android.zip"
     ],
-    "updated": "2026-11-17T03:19:55.294Z"
+    "updated": "2026-11-19T01:14:44.328Z"
   },
   "android-fcitx5.zip": {
     "version": "0.1.3",
