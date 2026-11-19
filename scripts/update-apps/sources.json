@@ -103,17 +103,15 @@
     },
     {
       "name": "android-nthlink.zip",
-      "type": "url",
-      "urls": [
-        "https://www.downloadnth.com/nthlink-android-current.apk"
-      ]
+      "type": "page",
+      "page": "https://downloads.downloadnth.com/android",
+      "pattern": "<h2>Version (?<version>[\\d.]+)</h2>[\\s\\S]*?release-meta\">(?<name>nthlink-[\\d.]+-release\\.apk)[\\s\\S]*?href=\"(?<url>/download/[0-9a-f-]+)\""
     },
     {
       "name": "windows-nthlink.zip",
-      "type": "url",
-      "urls": [
-        "https://www.downloadnth.com/nthlink-win64-current.exe"
-      ]
+      "type": "page",
+      "page": "https://downloads.downloadnth.com/windows-64",
+      "pattern": "<h2>Version (?<version>[\\d.]+)</h2>[\\s\\S]*?release-meta\">(?<name>nthLink_Installer_x64_[\\d.]+\\.exe)[\\s\\S]*?href=\"(?<url>/download/[0-9a-f-]+)\""
     },
     {
       "name": "windows-chrome.zip",
@@ -161,7 +159,8 @@
       "type": "github",
       "repo": "guardianproject/orbot-android",
       "files": [
-        "fullperm-universal-release\\.apk$"
+        "-fullperm-arm64-v8a-release\\.apk$",
+        "-fullperm-armeabi-v7a-release\\.apk$"
       ]
     },
     {
@@ -369,6 +368,7 @@
       "name": "android-i2p.zip",
       "type": "github",
       "repo": "i2p/i2p.i2p",
+      "scanReleases": true,
       "files": [
         "^I2P-[\\d.]+\\.apk$"
       ]
@@ -385,6 +385,7 @@
       "name": "mac-i2p.zip",
       "type": "github",
       "repo": "i2p/i2p.i2p",
+      "scanReleases": true,
       "files": [
         "^I2P-[\\d.]+\\.dmg$"
       ]

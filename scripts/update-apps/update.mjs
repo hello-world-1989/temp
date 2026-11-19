@@ -89,6 +89,13 @@ async function latestGithub(src) {
     const list = await gh(`/repos/${src.repo}/releases?per_page=100`);
     rel = (list || []).find((r) => !r.draft && !r.prerelease && re.test(r.tag_name));
     if (!rel) throw new Error(`${src.repo}: 没有匹配 /${src.tagPattern}/ 的正式版，最近的 tag：${(list || []).slice(0, 10).map((r) => r.tag_name).join(', ')}`);
+  } else if (src.scanReleases) {
+    // 上游有时先发只含部分平台文件的新版（例如 i2p.i2p 的 apk/dmg 晚于 jar 发布）：
+    // 依次往前找，取最新一个所有文件都能匹配上的正式版
+    const list = (await gh(`/repos/${src.repo}/releases?per_page=30`)) || [];
+    const ok = (r) => src.files.every((p) => r.assets.filter((a) => new RegExp(p).test(a.name)).length === 1);
+    rel = list.find((r) => !r.draft && !r.prerelease && ok(r));
+    if (!rel) throw new Error(`${src.repo}: 最近 30 个 release 都没有同时匹配 ${src.files.map((p) => `/${p}/`).join(' ')} 的文件；最近的 tag：${list.slice(0, 10).map((r) => r.tag_name).join(', ')}`);
   } else {
     rel = await gh(`/repos/${src.repo}/releases/latest`);
     if (!rel) throw new Error(`${src.repo}: 没有正式版 release`);
@@ -132,8 +139,11 @@ async function resolve(src) {
     const html = await res.text();
     const m = html.match(new RegExp(src.pattern));
     if (!m) throw new Error(`${src.page}: 找不到 /${src.pattern}/`);
-    const url = new URL(m[0], src.page).href;
-    return { version: m[1] ?? url, files: [{ url, name: decodeURIComponent(basename(new URL(url).pathname)), sha256: null }] };
+    // 可用命名分组：(?<url>…) 下载地址、(?<version>…) 版本、(?<name>…) 文件名（地址里不带文件名时用，例如 nthLink 的 /download/<uuid>）
+    const g = m.groups || {};
+    const url = new URL(g.url ?? m[0], src.page).href;
+    const name = g.name ?? decodeURIComponent(basename(new URL(url).pathname));
+    return { version: g.version ?? m[1] ?? url, files: [{ url, name, sha256: null }] };
   }
   // Chromium 官方快照（commondatastorage.googleapis.com/chromium-browser-snapshots）：
   // <prefix>/LAST_CHANGE 是最新构建号，文件在 <prefix>/<构建号>/<file>
