@@ -21,18 +21,18 @@
     "updated": "2026-11-17T03:11:30.073Z"
   },
   "android-outline.zip": {
-    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"885ae993a07cfaa6b26a0700b5e34d35-6\"|Mon, 02 Nov 2026 16:41:48 GMT|41988644",
+    "version": "https://s3.amazonaws.com/outline-releases/client/android/stable/Outline-Client.apk|\"99080eff780d97edf87b982210a6e097-5\"|Wed, 18 Nov 2026 11:57:44 GMT|41887233",
     "files": [
       "Outline-Client.apk"
     ],
-    "updated": "2026-11-17T03:12:02.158Z"
+    "updated": "2026-11-19T01:11:10.393Z"
   },
   "windows-outline.zip": {
-    "version": "windows-v1.9.1",
+    "version": "https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe|\"b08f2c14ff0b9d96db6fd916c4b112e1-11\"|Wed, 18 Nov 2026 11:59:34 GMT|90893944",
     "files": [
       "Outline-Client.exe"
     ],
-    "updated": "2026-09-28T05:26:44.017Z"
+    "updated": "2026-11-19T01:11:24.090Z"
   },
   "android-v2ray.zip": {
     "version": "2.3.15",
@@ -217,19 +217,19 @@
     "updated": "2026-11-17T03:15:44.957Z"
   },
   "android-ceno.zip": {
-    "version": "v2.12.3",
+    "version": "v2.12.4",
     "files": [
-      "ceno-arm64-v8a-release-2.12.3-2026-11-06_1144.apk",
-      "ceno-armeabi-v7a-release-2.12.3-2026-11-06_1144.apk"
+      "ceno-arm64-v8a-release-2.12.4-2026-11-17_1723.apk",
+      "ceno-armeabi-v7a-release-2.12.4-2026-11-17_1723.apk"
     ],
-    "updated": "2026-11-17T03:16:19.925Z"
+    "updated": "2026-11-19T01:12:30.991Z"
   },
   "android-session.zip": {
-    "version": "1.33.8",
+    "version": "1.33.9",
     "files": [
-      "session-1.33.8-universal-play-release.apk"
+      "session-1.33.9-universal-play-release.apk"
     ],
-    "updated": "2026-11-17T03:16:30.142Z"
+    "updated": "2026-11-19T01:12:45.196Z"
   },
   "windows-session.zip": {
     "version": "v1.18.4",
@@ -311,11 +311,11 @@
     "updated": "2026-11-17T03:17:32.853Z"
   },
   "windows-jami.zip": {
-    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"b2de000-65fefba083136\"|Tue, 10 Nov 2026 17:51:23 GMT|187555840",
+    "version": "https://dl.jami.net/windows/jami.release.x64.msi|\"b2e6000-6607cf5f584e2\"|Tue, 17 Nov 2026 18:21:18 GMT|187588608",
     "files": [
       "jami.release.x64.msi"
     ],
-    "updated": "2026-11-17T03:17:50.861Z"
+    "updated": "2026-11-19T01:13:10.352Z"
   },
   "mac-jami.zip": {
     "version": "https://dl.jami.net/mac_osx/jami.dmg|\"1728550c-65ff70c593e40\"|Wed, 11 Nov 2026 02:35:29 GMT|388519180",
@@ -446,32 +446,32 @@
     "updated": "2026-11-17T03:19:29.228Z"
   },
   "android-karing.zip": {
-    "version": "v1.2.26.2932",
+    "version": "v1.2.26.2933",
     "files": [
-      "karing_1.2.26.2932_android_arm.apk"
+      "karing_1.2.26.2933_android_arm.apk"
     ],
-    "updated": "2026-11-17T03:11:39.273Z"
+    "updated": "2026-11-19T01:10:38.726Z"
   },
   "windows-karing.zip": {
-    "version": "v1.2.26.2932",
+    "version": "v1.2.26.2933",
     "files": [
-      "karing_1.2.26.2932_windows_x64.zip"
+      "karing_1.2.26.2933_windows_x64.zip"
     ],
-    "updated": "2026-11-17T03:11:44.511Z"
+    "updated": "2026-11-19T01:10:47.011Z"
   },
   "mac-karing.zip": {
-    "version": "v1.2.26.2932",
+    "version": "v1.2.26.2933",
     "files": [
-      "karing_1.2.26.2932_macos_universal.dmg"
+      "karing_1.2.26.2933_macos_universal.dmg"
     ],
-    "updated": "2026-11-17T03:11:54.990Z"
+    "updated": "2026-11-19T01:11:02.681Z"
   },
   "linux-karing.zip": {
-    "version": "v1.2.26.2932",
+    "version": "v1.2.26.2933",
     "files": [
-      "karing_1.2.26.2932_linux_amd64.deb"
+      "karing_1.2.26.2933_linux_amd64.deb"
     ],
-    "updated": "2026-11-17T03:15:06.749Z"
+    "updated": "2026-11-19T01:11:35.549Z"
   },
   "android-chrome.zip": {
     "version": "Android_Arm64@1746339",
