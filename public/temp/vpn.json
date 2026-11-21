@@ -292,7 +292,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "android",
@@ -304,7 +304,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.chromium.org/getting-involved/download-chromium/",
     "star": 9,
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "windows",
@@ -316,7 +316,7 @@
     "image": "images/chrome.webp",
     "web": "https://www.google.com/chrome/",
     "star": 9,
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "windows",
@@ -330,7 +330,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "ios",
@@ -369,7 +369,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "mac",
@@ -757,7 +757,7 @@
     "image": "images/chrome.webp",
     "star": 9,
     "web": "https://www.google.com/chrome/",
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "linux",
@@ -771,7 +771,7 @@
     "image": "https://karing.app/img/logo.png",
     "mainLink": "https://karing.app/",
     "star": 9,
-    "date": "26年11月19日更新"
+    "date": "26年11月21日更新"
   },
   {
     "os": "linux",
@@ -843,7 +843,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年11月17日更新",
+    "date": "26年11月21日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -875,7 +875,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年11月17日更新",
+    "date": "26年11月21日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
@@ -891,7 +891,7 @@
     "image": "images/session.webp",
     "mainLink": "https://getsession.org/download",
     "star": 8.6,
-    "date": "26年11月17日更新",
+    "date": "26年11月21日更新",
     "category": "p2p",
     "ease": 4,
     "block": "mid",
